@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/dd-harp/MicroMoB/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/MicroMoB/actions)
+[![codecov.io](https://app.codecov.io/gh/dd-harp/MicroMoB/coverage.svg)](https://app.codecov.io/gh/dd-harp/MicroMoB)
 <!-- badges: end -->
 
 Work plan
