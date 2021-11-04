@@ -17,5 +17,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
+URL: https://github.com/dd-harp/MicroMoB https://dd-harp.github.io/MicroMoB/index.html
+BugReports: https://github.com/dd-harp/MicroMoB/issues
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
