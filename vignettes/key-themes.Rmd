@@ -1,0 +1,51 @@
+---
+title: "key-themes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{key-themes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+```
+
+Here we are going to talk about some key themes to follow while building this software library.
+
+## Data provenance
+
+It should be clear how external input data gets turned into the parameters used
+by Micro-MoB during simulation. Specifically, if we define some tree 
+structure of data such that the leaves are mutually exclusive (e.g.; entomology,
+vector control, human movement, drug treatment, etc), we know for each
+data structure and function what leaves they use.
+
+This is important because it lets us figure out what changes when data changes.
+
+## Model structure
+
+We need to get a list of model state objects, and updating functions. Then we need
+to describe how the process executes a time step. This helps us uncover hidden
+constraints in the model.
+
+This is also a step closer to being able to construct multiple representations of
+the model (e.g. as machines or resource sharers).
+
+## Extensions
+
+It needs to be clear how to link to this package from another package if you want
+to extend the methods here. We need to think about what kind of a simulation
+engine we are making and how other people will extend it.
+
+One thing we can do here is make the basic state objects (see above topic) and 
+define how to queue updates and access them, and a simulation loop that updates
+them, then users can write their own processes. Like what we do with individual
+but with more enforced constraints.
