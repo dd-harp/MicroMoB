@@ -49,3 +49,22 @@ One thing we can do here is make the basic state objects (see above topic) and
 define how to queue updates and access them, and a simulation loop that updates
 them, then users can write their own processes. Like what we do with individual
 but with more enforced constraints.
+
+## Software design
+
+Once we establish what are the data structures that store persistent state in the
+model, we need to decide how to enforce some kind of type consistency for them.
+This assumes that those data structures will be used by *all* models that can
+be built using Micro-MoB.
+
+One way is to use assertions prior to calling `UseMethod` to make sure that the 
+required inputs are provided.
+
+```r
+BloodFeeding = function(t, Mod){
+  UseMethod("BloodFeeding", Mod$bloodfeedingPars)
+}
+```
+
+Another way would be more complex. We could enforce that users interact with the model
+object through an interface which ensures consistency.
