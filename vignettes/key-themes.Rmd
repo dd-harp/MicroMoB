@@ -66,5 +66,138 @@ BloodFeeding = function(t, Mod){
 }
 ```
 
+This is probably the right way to do things. The outer generic function can just
+check that some bare minimum of input exists. The implemented specific function
+can do further checking based on its internal state representation.
+
 Another way would be more complex. We could enforce that users interact with the model
 object through an interface which ensures consistency.
+
+## Model object
+
+We should store the model object as an environment. [This gist](https://gist.github.com/slwu89/a294203e6d6679b923276030516684d7)
+shows why. Luckily conversion to-from is as easy as `list2env` and `as.list`.
+
+# Simulation
+
+## Simulation loop
+
+Here it is:
+
+```r
+MicroSimulation = function(Model){with(Model$runtime,{
+  # Defined in Micro-MoB
+  for(t in T0:Tmax){
+    if (t %% 100 == 0) print(paste("t =", t)) 
+    Model = dMicroSim(t, Model)
+    Model = IO(t, Model)
+    Model = Update(t, Model)
+  } 
+  return(Model)
+})}
+```
+
+## Update
+
+There's a couple of ways to do a discrete time simulation, regardless of if
+it is seen as a discretization of an underlying continuous time process or the
+model is developed "from scratch" as a discrete time model (this amounts to
+asking if a rate or a probability is the fundamental quantity specified by a modeler).
+
+Anyway for discrete time, we basically can either do:
+
+  1. Synchronous update - this is like how cellular automata work (usually), all
+  units which may undergo a state change draw their state changes simultaneously
+  based on the same (yet unchanged) state. All updates are then applied instantaneously.
+  This is what individual does, even though it doesn't initially appear to be the
+  case, because updated are merely queued by processes, they aren't applied until
+  the time step ends.
+  2. Asynchronous update - this is what Micro-MoB does. State is updated by processes
+  which are executed during each time step. This requires more caution, although
+  it can result in processes functions which are shorter and more specialized.
+  Basically, state that is used to compute probabilities or proportions _cannot_
+  be modified until it is no longer being used to compute those dynamic values.
+
+The former means you need to spend more time working on the model's engine ... its
+software architecture. That's why individual has such a large amount of code dedicated
+to queuing and executing state updates. So you spend some upfront cost, but you
+get to have more leeway with your model processes.
+
+The latter is easier to get running with right away and is a bit more freewheeling.
+But you need to be very careful about the execution order of processes. The upshot
+is that it may be easier to compartmentalize functions that work on smaller parts
+of state.
+
+The terms synchronous and asynchronous are wrong, because these mean quite different
+things [when used rigorously](https://en.wikipedia.org/wiki/Asynchronous_cellular_automaton).
+We're just talking about queuing updates that execute all at once versus
+executing updates sequentially in such a way that it mimics queuing those updates.
+
+The update loop is fundamental. Let's see what it says:
+
+```r
+dMicroSim = function(t, Mod){
+  # Defined in Micro-MoB
+  ##########################################
+  # + IRS Spraying
+  # + ITN Mass Distribution
+  # ... and other modes of vector control
+  # + Mass Treatment
+  # + Reactive Case Detection
+  # ... and other health-based interventions
+  ##########################################
+  Mod = Intervene(t, Mod)
+  
+  ##########################################
+  #  Called by: 
+  #    + some models of aquatic mosquito
+  #      populations with dynamic resources 
+  #      & resource-based competition. 
+  #########################################
+  #Mod = Update(t, Mod)  
+
+  ###########################
+  # Micro-Human.Rmd 
+  # + TimeSpent
+  # + MyITN, UseITN
+  ###########################
+  Mod = HumanBehavior(t, Mod)
+
+  ###########################
+  # VectorControl.Rmd 
+  # + ITNs, IRS, LSM
+  ###########################
+  Mod = VectorControlEffects(t, Mod)
+
+  #######################
+  # Micro-BloodFeeding.Rmd
+  # + FeedingSuccess modifies MPars$psi
+  # + kappa, eir, Q
+  #######################
+  Mod = BloodFeeding(t, Mod)
+  
+  ##############################
+  # Micro-Mosquito.Rmd
+  # Micro-Mosquito-Adult.Rmd
+  # Micro-Mosquito-Aquatic.Rmd
+  # + dMdt
+  # + dLdt
+  ##############################
+  Mod = MosquitoDynamics(t, Mod) 
+
+  ###############################
+  # HumanMicro.Rmd
+  # + P.falciparum
+  ###############################
+  Mod = InfectionDynamics(t, Mod)
+  
+  return(Mod) 
+}
+```
+
+So here's the order in which things happen:
+
+  1. `Intervene` - this instantaneously changes model state before anything happens. In this
+  sense it happens "between" the ticks of the clock, so that all updates see the newly intervened-upon
+  state when they execute their updates on this day.
+  2. 
