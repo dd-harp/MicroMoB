@@ -113,6 +113,196 @@
 <p>It needs to be clear how to link to this package from another package if you want to extend the methods here. We need to think about what kind of a simulation engine we are making and how other people will extend it.</p>
 <p>One thing we can do here is make the basic state objects (see above topic) and define how to queue updates and access them, and a simulation loop that updates them, then users can write their own processes. Like what we do with individual but with more enforced constraints.</p>
 </div>
+<div id="software-design" class="section level2">
+<h2 class="hasAnchor">
+<a href="#software-design" class="anchor"></a>Software design</h2>
+<p>Once we establish what are the data structures that store persistent state in the model, we need to decide how to enforce some kind of type consistency for them. This assumes that those data structures will be used by <em>all</em> models that can be built using Micro-MoB.</p>
+<p>One way is to use assertions prior to calling <code>UseMethod</code> to make sure that the required inputs are provided.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">BloodFeeding</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span><span class="op">{</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/UseMethod.html">UseMethod</a></span><span class="op">(</span><span class="st">"BloodFeeding"</span>, <span class="va">Mod</span><span class="op">$</span><span class="va">bloodfeedingPars</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>This is probably the right way to do things. The outer generic function can just check that some bare minimum of input exists. The implemented specific function can do further checking based on its internal state representation.</p>
+<p>Another way would be more complex. We could enforce that users interact with the model object through an interface which ensures consistency.</p>
+</div>
+<div id="model-object" class="section level2">
+<h2 class="hasAnchor">
+<a href="#model-object" class="anchor"></a>Model object</h2>
+<p>We should store the model object as an environment. <a href="https://gist.github.com/slwu89/a294203e6d6679b923276030516684d7">This gist</a> shows why. Luckily conversion to-from is as easy as <code>list2env</code> and <code>as.list</code>.</p>
+</div>
+<div id="simulation" class="section level1">
+<h1 class="hasAnchor">
+<a href="#simulation" class="anchor"></a>Simulation</h1>
+<div id="simulation-loop" class="section level2">
+<h2 class="hasAnchor">
+<a href="#simulation-loop" class="anchor"></a>Simulation loop</h2>
+<p>Here it is:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">MicroSimulation</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">Model</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="va">Model</span><span class="op">$</span><span class="va">runtime</span>,<span class="op">{</span>
+  <span class="co"># Defined in Micro-MoB</span>
+  <span class="kw">for</span><span class="op">(</span><span class="va">t</span> <span class="kw">in</span> <span class="va">T0</span><span class="op">:</span><span class="va">Tmax</span><span class="op">)</span><span class="op">{</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="va">t</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">100</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"t ="</span>, <span class="va">t</span><span class="op">)</span><span class="op">)</span> 
+    <span class="va">Model</span> <span class="op">=</span> <span class="fu">dMicroSim</span><span class="op">(</span><span class="va">t</span>, <span class="va">Model</span><span class="op">)</span>
+    <span class="va">Model</span> <span class="op">=</span> <span class="fu">IO</span><span class="op">(</span><span class="va">t</span>, <span class="va">Model</span><span class="op">)</span>
+    <span class="va">Model</span> <span class="op">=</span> <span class="fu">Update</span><span class="op">(</span><span class="va">t</span>, <span class="va">Model</span><span class="op">)</span>
+  <span class="op">}</span> 
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">Model</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span><span class="op">}</span></code></pre></div>
+</div>
+<div id="update" class="section level2">
+<h2 class="hasAnchor">
+<a href="#update" class="anchor"></a>Update</h2>
+<p>There’s a couple of ways to do a discrete time simulation, regardless of if it is seen as a discretization of an underlying continuous time process or the model is developed “from scratch” as a discrete time model (this amounts to asking if a rate or a probability is the fundamental quantity specified by a modeler).</p>
+<p>Anyway for discrete time, we basically can either do:</p>
+<ol style="list-style-type: decimal">
+<li>Synchronous update - this is like how cellular automata work (usually), all units which may undergo a state change draw their state changes simultaneously based on the same (yet unchanged) state. All updates are then applied instantaneously. This is what individual does, even though it doesn’t initially appear to be the case, because updated are merely queued by processes, they aren’t applied until the time step ends.</li>
+<li>Asynchronous update - this is what Micro-MoB does. State is updated by processes which are executed during each time step. This requires more caution, although it can result in processes functions which are shorter and more specialized. Basically, state that is used to compute probabilities or proportions <em>cannot</em> be modified until it is no longer being used to compute those dynamic values.</li>
+</ol>
+<p>The former means you need to spend more time working on the model’s engine … its software architecture. That’s why individual has such a large amount of code dedicated to queuing and executing state updates. So you spend some upfront cost, but you get to have more leeway with your model processes.</p>
+<p>The latter is easier to get running with right away and is a bit more freewheeling. But you need to be very careful about the execution order of processes. The upshot is that it may be easier to compartmentalize functions that work on smaller parts of state.</p>
+<p>The terms synchronous and asynchronous are wrong, because these mean quite different things <a href="https://en.wikipedia.org/wiki/Asynchronous_cellular_automaton">when used rigorously</a>. We’re just talking about queuing updates that execute all at once versus executing updates sequentially in such a way that it mimics queuing those updates.</p>
+<p>The update loop is fundamental. Let’s see what it says:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dMicroSim</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span><span class="op">{</span>
+  <span class="co"># Defined in Micro-MoB</span>
+  <span class="co">##########################################</span>
+  <span class="co"># + IRS Spraying</span>
+  <span class="co"># + ITN Mass Distribution</span>
+  <span class="co"># ... and other modes of vector control</span>
+  <span class="co"># + Mass Treatment</span>
+  <span class="co"># + Reactive Case Detection</span>
+  <span class="co"># ... and other health-based interventions</span>
+  <span class="co">##########################################</span>
+  <span class="va">Mod</span> <span class="op">=</span> <span class="fu">Intervene</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span>
+  
+  <span class="co">##########################################</span>
+  <span class="co">#  Called by: </span>
+  <span class="co">#    + some models of aquatic mosquito</span>
+  <span class="co">#      populations with dynamic resources </span>
+  <span class="co">#      &amp; resource-based competition. </span>
+  <span class="co">#########################################</span>
+  <span class="co">#Mod = Update(t, Mod)  </span>
+
+  <span class="co">###########################</span>
+  <span class="co"># Micro-Human.Rmd </span>
+  <span class="co"># + TimeSpent</span>
+  <span class="co"># + MyITN, UseITN</span>
+  <span class="co">###########################</span>
+  <span class="va">Mod</span> <span class="op">=</span> <span class="fu">HumanBehavior</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span>
+
+  <span class="co">###########################</span>
+  <span class="co"># VectorControl.Rmd </span>
+  <span class="co"># + ITNs, IRS, LSM</span>
+  <span class="co">###########################</span>
+  <span class="va">Mod</span> <span class="op">=</span> <span class="fu">VectorControlEffects</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span>
+
+  <span class="co">#######################</span>
+  <span class="co"># Micro-BloodFeeding.Rmd</span>
+  <span class="co"># + FeedingSuccess modifies MPars$psi</span>
+  <span class="co"># + kappa, eir, Q</span>
+  <span class="co">#######################</span>
+  <span class="va">Mod</span> <span class="op">=</span> <span class="fu">BloodFeeding</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span>
+  
+  <span class="co">##############################</span>
+  <span class="co"># Micro-Mosquito.Rmd</span>
+  <span class="co"># Micro-Mosquito-Adult.Rmd</span>
+  <span class="co"># Micro-Mosquito-Aquatic.Rmd</span>
+  <span class="co"># + dMdt</span>
+  <span class="co"># + dLdt</span>
+  <span class="co">##############################</span>
+  <span class="va">Mod</span> <span class="op">=</span> <span class="fu">MosquitoDynamics</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span> 
+
+  <span class="co">###############################</span>
+  <span class="co"># HumanMicro.Rmd</span>
+  <span class="co"># + P.falciparum</span>
+  <span class="co">###############################</span>
+  <span class="va">Mod</span> <span class="op">=</span> <span class="fu">InfectionDynamics</span><span class="op">(</span><span class="va">t</span>, <span class="va">Mod</span><span class="op">)</span>
+  
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">Mod</span><span class="op">)</span> 
+<span class="op">}</span></code></pre></div>
+<p>So here’s the order in which things happen:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>Intervene</code> - this instantaneously changes model state before anything happens. In this sense it happens “between” the ticks of the clock, so that all updates see the newly intervened-upon state when they execute their updates on this day.</li>
+<li>
+<code>Update</code> - currently unused. I guess it updates the aquatic populations? That should be ok, as long as adults are not modified until <code>MosquitoDynamics</code>.</li>
+<li>
+<code>HumanBehavior</code> -</li>
+</ol>
+<p>Okay, so we need to specify what parts of state are “out of bounds” for updating prior to a certain point in the loop. What we mean is that it’s easier to shoot yourself in the foot this way, for example if someone (for some reason …) made a <code>Update</code> function that killed adult mosquitoes, that would break the contract that process has with other updating processes, because downstream processes need the unmodified adult mosquito state to calculate probabilities. If we did this, we’d be updating adult mosquitoes more than once, which isn’t okay.</p>
+<p>Another way to see this is by thinking of a SIR model with birth and death. In discrete time it might look like this.</p>
+<p><span class="math display">\[\begin{equation}
+\begin{array}{rl}
+S(t+1) &amp;= S(t) + b N(t) - \beta S(t) I(t) - \mu S(t) \\
+I(t+1) &amp;= I(t) + \beta S(t) I(t) - \gamma I(t) - \mu I(t) \\
+R(t+1) &amp;= R(t) + \gamma I(t) - \mu R(t)
+\end{array}
+\end{equation}\]</span></p>
+<p>Now let’s say we do things wrong. Let’s execute a demographics function and update state before infection.</p>
+<p><span class="math display">\[\begin{equation}
+\begin{array}{rl}
+S^{\prime}(t) &amp;= S(t) + b N(t) - \mu S(t) \\
+I^{\prime}(t) &amp;= I(t) - \mu I(t) \\
+R^{\prime}(t) &amp;= R(t) - \mu R(t)
+\end{array}
+\end{equation}\]</span></p>
+<p>Ok, now let’s apply the infection function.</p>
+<p><span class="math display">\[\begin{equation}
+\begin{array}{rl}
+S^{\prime}(t+1) &amp;= S^{\prime}(t) - \beta S^{\prime}(t)I^{\prime}(t) \\
+I^{\prime}(t+1) &amp;= I^{\prime}(t) + \beta S^{\prime}(t)I^{\prime}(t) - \gamma I^{\prime}(t) \\
+R^{\prime}(t+1) &amp;= R^{\prime}(t)  + \gamma I^{\prime}(t)
+\end{array}
+\end{equation}\]</span></p>
+<p>Which aren’t equivalent.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">0.01</span>
+<span class="va">beta</span> <span class="op">&lt;-</span> <span class="fl">0.0025</span>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">70</span>
+<span class="va">gamma</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">7</span>
+<span class="va">SIR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">50</span>, <span class="fl">10</span><span class="op">)</span>
+
+<span class="va">synchronous_sir</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sir</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>; <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>; <span class="va">r</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
+  <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">+</span> <span class="va">i</span> <span class="op">+</span> <span class="va">r</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="va">s</span> <span class="op">+</span> <span class="op">(</span><span class="va">b</span><span class="op">*</span><span class="va">n</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">beta</span><span class="op">*</span><span class="va">s</span><span class="op">*</span><span class="va">i</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">mu</span><span class="op">*</span><span class="va">s</span><span class="op">)</span>,
+    <span class="va">i</span> <span class="op">+</span> <span class="op">(</span><span class="va">beta</span><span class="op">*</span><span class="va">s</span><span class="op">*</span><span class="va">i</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">gamma</span><span class="op">*</span><span class="va">i</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">mu</span><span class="op">*</span><span class="va">i</span><span class="op">)</span>,
+    <span class="va">r</span> <span class="op">+</span> <span class="op">(</span><span class="va">gamma</span><span class="op">*</span><span class="va">i</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">mu</span><span class="op">*</span><span class="va">r</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">asynchronous_sir_demographics</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sir</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>; <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>; <span class="va">r</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
+  <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">+</span> <span class="va">i</span> <span class="op">+</span> <span class="va">r</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="va">s</span> <span class="op">+</span> <span class="op">(</span><span class="va">b</span><span class="op">*</span><span class="va">n</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">mu</span><span class="op">*</span><span class="va">s</span><span class="op">)</span>,
+    <span class="va">i</span> <span class="op">-</span> <span class="op">(</span><span class="va">mu</span><span class="op">*</span><span class="va">i</span><span class="op">)</span>,
+    <span class="va">r</span> <span class="op">-</span> <span class="op">(</span><span class="va">mu</span><span class="op">*</span><span class="va">r</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">asynchronous_sir_infection</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">sir</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">s</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>; <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>; <span class="va">r</span> <span class="op">&lt;-</span> <span class="va">sir</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
+  <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">s</span> <span class="op">+</span> <span class="va">i</span> <span class="op">+</span> <span class="va">r</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="va">s</span> <span class="op">-</span> <span class="op">(</span><span class="va">beta</span><span class="op">*</span><span class="va">s</span><span class="op">*</span><span class="va">i</span><span class="op">)</span>,
+    <span class="va">i</span> <span class="op">+</span> <span class="op">(</span><span class="va">beta</span><span class="op">*</span><span class="va">s</span><span class="op">*</span><span class="va">i</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="va">gamma</span><span class="op">*</span><span class="va">i</span><span class="op">)</span>,
+    <span class="va">r</span> <span class="op">+</span> <span class="op">(</span><span class="va">gamma</span><span class="op">*</span><span class="va">i</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">sync_sir</span> <span class="op">&lt;-</span> <span class="fu">synchronous_sir</span><span class="op">(</span><span class="va">SIR</span><span class="op">)</span>
+
+<span class="va">sync_sir_d</span> <span class="op">&lt;-</span> <span class="fu">asynchronous_sir_demographics</span><span class="op">(</span><span class="va">SIR</span><span class="op">)</span>
+<span class="va">sync_sir_i</span> <span class="op">&lt;-</span> <span class="fu">asynchronous_sir_infection</span><span class="op">(</span><span class="va">sync_sir_d</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">sync_sir</span>, <span class="va">sync_sir_i</span><span class="op">)</span>,row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Synchronous"</span>, <span class="st">"Asynchronous"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt;                    X1       X2       X3</span>
+<span class="co">#&gt; Synchronous  435.9571 104.6429 17.00000</span>
+<span class="co">#&gt; Asynchronous 437.0401 103.6619 16.89796</span></code></pre></div>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
