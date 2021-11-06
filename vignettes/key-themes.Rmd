@@ -49,3 +49,245 @@ One thing we can do here is make the basic state objects (see above topic) and
 define how to queue updates and access them, and a simulation loop that updates
 them, then users can write their own processes. Like what we do with individual
 but with more enforced constraints.
+
+## Software design
+
+Once we establish what are the data structures that store persistent state in the
+model, we need to decide how to enforce some kind of type consistency for them.
+This assumes that those data structures will be used by *all* models that can
+be built using Micro-MoB.
+
+One way is to use assertions prior to calling `UseMethod` to make sure that the 
+required inputs are provided.
+
+```r
+BloodFeeding = function(t, Mod){
+  UseMethod("BloodFeeding", Mod$bloodfeedingPars)
+}
+```
+
+This is probably the right way to do things. The outer generic function can just
+check that some bare minimum of input exists. The implemented specific function
+can do further checking based on its internal state representation.
+
+Another way would be more complex. We could enforce that users interact with the model
+object through an interface which ensures consistency.
+
+## Model object
+
+We should store the model object as an environment. [This gist](https://gist.github.com/slwu89/a294203e6d6679b923276030516684d7)
+shows why. Luckily conversion to-from is as easy as `list2env` and `as.list`.
+
+# Simulation
+
+## Simulation loop
+
+Here it is:
+
+```r
+MicroSimulation = function(Model){with(Model$runtime,{
+  # Defined in Micro-MoB
+  for(t in T0:Tmax){
+    if (t %% 100 == 0) print(paste("t =", t)) 
+    Model = dMicroSim(t, Model)
+    Model = IO(t, Model)
+    Model = Update(t, Model)
+  } 
+  return(Model)
+})}
+```
+
+## Update
+
+There's a couple of ways to do a discrete time simulation, regardless of if
+it is seen as a discretization of an underlying continuous time process or the
+model is developed "from scratch" as a discrete time model (this amounts to
+asking if a rate or a probability is the fundamental quantity specified by a modeler).
+
+Anyway for discrete time, we basically can either do:
+
+  1. Synchronous update - this is like how cellular automata work (usually), all
+  units which may undergo a state change draw their state changes simultaneously
+  based on the same (yet unchanged) state. All updates are then applied instantaneously.
+  This is what individual does, even though it doesn't initially appear to be the
+  case, because updated are merely queued by processes, they aren't applied until
+  the time step ends.
+  2. Asynchronous update - this is what Micro-MoB does. State is updated by processes
+  which are executed during each time step. This requires more caution, although
+  it can result in processes functions which are shorter and more specialized.
+  Basically, state that is used to compute probabilities or proportions _cannot_
+  be modified until it is no longer being used to compute those dynamic values.
+
+The former means you need to spend more time working on the model's engine ... its
+software architecture. That's why individual has such a large amount of code dedicated
+to queuing and executing state updates. So you spend some upfront cost, but you
+get to have more leeway with your model processes.
+
+The latter is easier to get running with right away and is a bit more freewheeling.
+But you need to be very careful about the execution order of processes. The upshot
+is that it may be easier to compartmentalize functions that work on smaller parts
+of state.
+
+The terms synchronous and asynchronous are wrong, because these mean quite different
+things [when used rigorously](https://en.wikipedia.org/wiki/Asynchronous_cellular_automaton).
+We're just talking about queuing updates that execute all at once versus
+executing updates sequentially in such a way that it mimics queuing those updates.
+
+The update loop is fundamental. Let's see what it says:
+
+```r
+dMicroSim = function(t, Mod){
+  # Defined in Micro-MoB
+  ##########################################
+  # + IRS Spraying
+  # + ITN Mass Distribution
+  # ... and other modes of vector control
+  # + Mass Treatment
+  # + Reactive Case Detection
+  # ... and other health-based interventions
+  ##########################################
+  Mod = Intervene(t, Mod)
+  
+  ##########################################
+  #  Called by: 
+  #    + some models of aquatic mosquito
+  #      populations with dynamic resources 
+  #      & resource-based competition. 
+  #########################################
+  #Mod = Update(t, Mod)  
+
+  ###########################
+  # Micro-Human.Rmd 
+  # + TimeSpent
+  # + MyITN, UseITN
+  ###########################
+  Mod = HumanBehavior(t, Mod)
+
+  ###########################
+  # VectorControl.Rmd 
+  # + ITNs, IRS, LSM
+  ###########################
+  Mod = VectorControlEffects(t, Mod)
+
+  #######################
+  # Micro-BloodFeeding.Rmd
+  # + FeedingSuccess modifies MPars$psi
+  # + kappa, eir, Q
+  #######################
+  Mod = BloodFeeding(t, Mod)
+  
+  ##############################
+  # Micro-Mosquito.Rmd
+  # Micro-Mosquito-Adult.Rmd
+  # Micro-Mosquito-Aquatic.Rmd
+  # + dMdt
+  # + dLdt
+  ##############################
+  Mod = MosquitoDynamics(t, Mod) 
+
+  ###############################
+  # HumanMicro.Rmd
+  # + P.falciparum
+  ###############################
+  Mod = InfectionDynamics(t, Mod)
+  
+  return(Mod) 
+}
+```
+
+So here's the order in which things happen:
+
+  1. `Intervene` - this instantaneously changes model state before anything happens. In this
+  sense it happens "between" the ticks of the clock, so that all updates see the newly intervened-upon
+  state when they execute their updates on this day.
+  2. `Update` - currently unused. I guess it updates the aquatic populations? That should be ok,
+  as long as adults are not modified until `MosquitoDynamics`.
+  3. `HumanBehavior` - 
+  
+Okay, so we need to specify what parts of state are "out of bounds" for updating prior 
+to a certain point in the loop. What we mean is that it's easier to shoot yourself in the
+foot this way, for example if someone (for some reason ...) made a `Update` function
+that killed adult mosquitoes, that would break the contract that process has 
+with other updating processes, because downstream processes need the unmodified adult
+mosquito state to calculate probabilities. If we did this, we'd be updating adult mosquitoes
+more than once, which isn't okay.
+
+Another way to see this is by thinking of a SIR model with birth and death. In discrete
+time it might look like this.
+
+\begin{equation}
+\begin{array}{rl}
+S(t+1) &= S(t) + b N(t) - \beta S(t) I(t) - \mu S(t) \\
+I(t+1) &= I(t) + \beta S(t) I(t) - \gamma I(t) - \mu I(t) \\
+R(t+1) &= R(t) + \gamma I(t) - \mu R(t)
+\end{array}
+\end{equation}
+
+Now let's say we do things wrong. Let's execute a demographics function and update
+state before infection.
+
+\begin{equation}
+\begin{array}{rl}
+S^{\prime}(t) &= S(t) + b N(t) - \mu S(t) \\
+I^{\prime}(t) &= I(t) - \mu I(t) \\
+R^{\prime}(t) &= R(t) - \mu R(t)
+\end{array}
+\end{equation}
+
+Ok, now let's apply the infection function.
+
+\begin{equation}
+\begin{array}{rl}
+S^{\prime}(t+1) &= S^{\prime}(t) - \beta S^{\prime}(t)I^{\prime}(t) \\
+I^{\prime}(t+1) &= I^{\prime}(t) + \beta S^{\prime}(t)I^{\prime}(t) - \gamma I^{\prime}(t) \\
+R^{\prime}(t+1) &= R^{\prime}(t)  + \gamma I^{\prime}(t)
+\end{array}
+\end{equation}
+
+Which aren't equivalent.
+
+
+```{r}
+b <- 0.01
+beta <- 0.0025
+mu <- 1/70
+gamma <- 1/7
+SIR <- c(500, 50, 10)
+
+synchronous_sir <- function(sir) {
+  s <- sir[1]; i <- sir[2]; r <- sir[3]
+  n <- s + i + r
+  c(
+    s + (b*n) - (beta*s*i) - (mu*s),
+    i + (beta*s*i) - (gamma*i) - (mu*i),
+    r + (gamma*i) - (mu*r)
+  )
+}
+
+asynchronous_sir_demographics <- function(sir) {
+  s <- sir[1]; i <- sir[2]; r <- sir[3]
+  n <- s + i + r
+  c(
+    s + (b*n) - (mu*s),
+    i - (mu*i),
+    r - (mu*r)
+  )
+}
+
+asynchronous_sir_infection <- function(sir) {
+  s <- sir[1]; i <- sir[2]; r <- sir[3]
+  n <- s + i + r
+  c(
+    s - (beta*s*i),
+    i + (beta*s*i) - (gamma*i),
+    r + (gamma*i)
+  )
+}
+
+sync_sir <- synchronous_sir(SIR)
+
+sync_sir_d <- asynchronous_sir_demographics(SIR)
+sync_sir_i <- asynchronous_sir_infection(sync_sir_d)
+
+data.frame(rbind(sync_sir, sync_sir_i),row.names = c("Synchronous", "Asynchronous"))
+```
