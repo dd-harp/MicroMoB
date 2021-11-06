@@ -200,4 +200,94 @@ So here's the order in which things happen:
   1. `Intervene` - this instantaneously changes model state before anything happens. In this
   sense it happens "between" the ticks of the clock, so that all updates see the newly intervened-upon
   state when they execute their updates on this day.
-  2. 
+  2. `Update` - currently unused. I guess it updates the aquatic populations? That should be ok,
+  as long as adults are not modified until `MosquitoDynamics`.
+  3. `HumanBehavior` - 
+  
+Okay, so we need to specify what parts of state are "out of bounds" for updating prior 
+to a certain point in the loop. What we mean is that it's easier to shoot yourself in the
+foot this way, for example if someone (for some reason ...) made a `Update` function
+that killed adult mosquitoes, that would break the contract that process has 
+with other updating processes, because downstream processes need the unmodified adult
+mosquito state to calculate probabilities. If we did this, we'd be updating adult mosquitoes
+more than once, which isn't okay.
+
+Another way to see this is by thinking of a SIR model with birth and death. In discrete
+time it might look like this.
+
+\begin{equation}
+\begin{array}{rl}
+S(t+1) &= S(t) + b N(t) - \beta S(t) I(t) - \mu S(t) \\
+I(t+1) &= I(t) + \beta S(t) I(t) - \gamma I(t) - \mu I(t) \\
+R(t+1) &= R(t) + \gamma I(t) - \mu R(t)
+\end{array}
+\end{equation}
+
+Now let's say we do things wrong. Let's execute a demographics function and update
+state before infection.
+
+\begin{equation}
+\begin{array}{rl}
+S^{\prime}(t) &= S(t) + b N(t) - \mu S(t) \\
+I^{\prime}(t) &= I(t) - \mu I(t) \\
+R^{\prime}(t) &= R(t) - \mu R(t)
+\end{array}
+\end{equation}
+
+Ok, now let's apply the infection function.
+
+\begin{equation}
+\begin{array}{rl}
+S^{\prime}(t+1) &= S^{\prime}(t) - \beta S^{\prime}(t)I^{\prime}(t) \\
+I^{\prime}(t+1) &= I^{\prime}(t) + \beta S^{\prime}(t)I^{\prime}(t) - \gamma I^{\prime}(t) \\
+R^{\prime}(t+1) &= R^{\prime}(t)  + \gamma I^{\prime}(t)
+\end{array}
+\end{equation}
+
+Which aren't equivalent.
+
+
+```{r}
+b <- 0.01
+beta <- 0.0025
+mu <- 1/70
+gamma <- 1/7
+SIR <- c(500, 50, 10)
+
+synchronous_sir <- function(sir) {
+  s <- sir[1]; i <- sir[2]; r <- sir[3]
+  n <- s + i + r
+  c(
+    s + (b*n) - (beta*s*i) - (mu*s),
+    i + (beta*s*i) - (gamma*i) - (mu*i),
+    r + (gamma*i) - (mu*r)
+  )
+}
+
+asynchronous_sir_demographics <- function(sir) {
+  s <- sir[1]; i <- sir[2]; r <- sir[3]
+  n <- s + i + r
+  c(
+    s + (b*n) - (mu*s),
+    i - (mu*i),
+    r - (mu*r)
+  )
+}
+
+asynchronous_sir_infection <- function(sir) {
+  s <- sir[1]; i <- sir[2]; r <- sir[3]
+  n <- s + i + r
+  c(
+    s - (beta*s*i),
+    i + (beta*s*i) - (gamma*i),
+    r + (gamma*i)
+  )
+}
+
+sync_sir <- synchronous_sir(SIR)
+
+sync_sir_d <- asynchronous_sir_demographics(SIR)
+sync_sir_i <- asynchronous_sir_infection(sync_sir_d)
+
+data.frame(rbind(sync_sir, sync_sir_i),row.names = c("Synchronous", "Asynchronous"))
+```
