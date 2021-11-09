@@ -1,0 +1,105 @@
+---
+title: "math"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{math}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+```
+
+## Human population strata
+
+\begin{equation} 
+P = J \cdot H
+\end{equation} 
+
+I don't see why $J$ is binary. I'd expect what it would say is what proportion of
+people in each strata live in each patch. If it were binary, in our example we'd
+get something like a matrix that says all men live in patch $1$ and all women
+live in patch $2$, which seems wrong.
+
+```{r}
+J <- matrix(
+    c(0.3, 0.5, 0.2,
+      0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = F
+)
+H <- c(M=50,F=60)
+J %*% H # gives P
+J %*% diag(H) # gives the total way people are apportioned across space and strata
+```
+
+## Human Mobility Time Spent
+
+This matrix has columns which sum to $\leq 1$, giving how a person in strata $i$ (col)
+apportions their time across sites $j$. If it sums to $< 1$, then the leftover
+$1 - \sum_{j} \Theta_{i,j}$ is the proportion (probability) of people in strata $i$'s
+time that is spent not at risk.
+
+Another way to think of it is that the probability for a person to come into
+effective contact with a vector on a day cannot exceed $\sum_{j} \Theta_{i,j}$,
+because the proportion of time $1 - \sum_{j} \Theta_{i,j}$ they spend at sites not
+at risk has probability of effective contact of $0$.
+
+## Ambient Populations
+
+Also $\Theta$ seems to be missing a dimension. We want to know how people in strata
+$i$ whose residence is in patch $j$ spend time in other patches $k \in 1,...,p$.
+So it would seem it needs another dimension. It would seem we want to do something
+like:
+
+```{r}
+p <- nrow(J)
+n <- ncol(J)
+tisp <- array(data = 0, dim = c(p, n, p))
+for (i in 1:p) {
+  for (j in 1:n) {
+    div <- sort(runif(p - 1))
+    if (p > 2) {
+      prop_spent <- c(div[1], diff(div), 1 - div[length(div)])
+    } else {
+      prop_spent <- c(div, 1 - div)
+    }
+    tisp[i, j, ] <- prop_spent
+  }
+}
+
+pop <- J %*% diag(H)
+
+A <- rep(0, p)
+for (i in 1:p) {
+    A <- A + rowSums(pop * tisp[, , i])
+}
+A
+```
+
+## Human availability
+
+This returns something akin to the expectation number of persons available to be
+bitten at place $i$ and time $t$. It's an expectation because we weight the population
+by $w_f$ (so still in units of people) and then multiply by a matrix of probabilities.
+
+\begin{equation}
+W(t) = \Psi(t)^T \cdot w_f H
+\end{equation}
+
+```{r}
+# baseline is women, with rr = 1, say men have rr = 1.4
+w_f <- c(M = 1.4, W = 1)
+w_f * H
+
+p_f <- 0.5
+p_m <- p_f * w_f[["M"]]
+
+c(p_m, p_f) * H
+```
