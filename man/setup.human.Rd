@@ -2,15 +2,12 @@
 % Please edit documentation in R/Human.R
 \name{setup.human}
 \alias{setup.human}
-\alias{setup.human.simple}
 \alias{setup.human.strata}
 \title{Setup a human object}
 \usage{
 setup.human(type, model, ...)
 
-\method{setup.human}{simple}(type, model, H)
-
-\method{setup.human}{strata}(type, model, H, J = NULL)
+\method{setup.human}{strata}(type, model, H, J = NULL, ...)
 }
 \arguments{
 \item{type}{a character in \code{c("simple", "strata")}}

@@ -11,33 +11,18 @@
 #' @export
 setup.human <- function(type, model, ...) {
   stopifnot(inherits(model, "environment"))
-  stopifnot(type %in% c("simple", "strata"))
+  stopifnot(type %in% c("strata"))
   pop <- structure(list(), class = type)
   UseMethod("setup.human", pop)
 }
 
 #' @rdname setup.human
-#' @method setup.human simple
-#' @param H a vector of human population sizes
-#' @export
-setup.human.simple <- function(type, model, H) {
-
-  stopifnot(length(H) > 0)
-  stopifnot(is.finite(H))
-  stopifnot(H >= 0)
-
-  pop$H <- H
-  pop$J <- diag(length(H))
-
-  model$human <- pop
-}
-
-#' @rdname setup.human
 #' @method setup.human strata
+#' @param H a vector of human population sizes
 #' @param J a matrix whose columns assign human strata to patches (rows); the
 #' columns must all sum to one.
 #' @export
-setup.human.strata <- function(type, model, H, J = NULL) {
+setup.human.strata <- function(type, model, H, J = NULL, ...) {
 
   stopifnot(length(H) > 0)
   stopifnot(is.finite(H))
