@@ -2,9 +2,12 @@
 % Please edit documentation in R/Human.R
 \name{setup.biteweight}
 \alias{setup.biteweight}
+\alias{setup.biteweight.null}
 \title{Setup a time spent model}
 \usage{
 setup.biteweight(type, model, ...)
+
+\method{setup.biteweight}{null}(type, model, wt = NULL, ...)
 }
 \arguments{
 \item{type}{a character in \code{c("null")}}
@@ -12,6 +15,8 @@ setup.biteweight(type, model, ...)
 \item{model}{a model object (an \link{environment})}
 
 \item{...}{other arguments to be passed to type methods}
+
+\item{wt}{optional vector of biting weights, if \code{NULL} use 1 for all strata}
 }
 \description{
 Setup a time spent model. The model object must have already

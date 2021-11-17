@@ -43,7 +43,7 @@ It's a little confusing when that's hidden by $\Psi$.
 An example with 2 patches and 3 strata (so vector $H$ is length 6).
 
 ```{r}
-H <- c(s1p1 = 50, s1p2 = 20, s1p3 = 10, s2p1 = 30, s2p2 = 20, s3p2 = 10)
+H <- c(s1p1 = 50, s1p2 = 20, s2p1 = 10, s2p2 = 30, s3p1 = 20, s3p2 = 10)
 wt <- rep(1, length(H))
 wt <- setNames(wt, names(H))
 
