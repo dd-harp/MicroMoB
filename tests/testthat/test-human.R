@@ -105,12 +105,19 @@ test_that("setting up human objects (strata) works when specifying J", {
 
 test_that("setting up time spent (day) works", {
 
+  # no strata, just patches
   model <- new.env()
   setup.human("strata", model = model, H = rep(10, 3))
   setup.timespent("day", model = model)
+  setup.biteweight("simple", model = model)
 
   expect_true(inherits(model$tisp, "day"))
   expect_equal(model$tisp$Theta_t, diag(3))
+
+  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = 1, t = 1)
+  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
+
+  expect_equal(as.vector(W), model$human$H)
 
   # 2 patch, 3 strata
   H <- c(50, 20, 10, 30, 20, 10)

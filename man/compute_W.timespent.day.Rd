@@ -16,5 +16,5 @@
 \item{t}{time}
 }
 \description{
-Compute human availability for daily time spent (W)
+The human availability is \eqn{\eqn{W = \Psi^{T} \cdot w_f H},}
 }

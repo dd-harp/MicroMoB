@@ -19,3 +19,6 @@ library(MicroMoB)
 ```
 
 Let's talk about the human model object. 
+
+In old MicroMoB $\Psi$ was TaR.
+In old MicroMoB $W$ was SiG (but it seems to be a matrix in the old one).

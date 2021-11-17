@@ -16,5 +16,6 @@
 \item{t}{time}
 }
 \description{
-Compute human availability for fractional daily time spent (W)
+For each time period the human availability is \eqn{W\[t\] = \Psi\[t\]^{T} \cdot w_f H},
+and the sum of them over the day is the overall human availability.
 }

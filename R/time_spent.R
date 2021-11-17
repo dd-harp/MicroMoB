@@ -131,6 +131,8 @@ compute_W.timespent <- function(tisp, biteweight, human, t) {
 }
 
 #' @title Compute human availability for fractional daily time spent (W)
+#' @description For each time period the human availability is \eqn{W\[t\] = \Psi\[t\]^{T} \cdot w_f H},
+#' and the sum of them over the day is the overall human availability.
 #' @inheritParams compute_W.timespent
 #' @export
 compute_W.timespent.dt <- function(tisp, biteweight, human, t) {
@@ -143,10 +145,11 @@ compute_W.timespent.dt <- function(tisp, biteweight, human, t) {
 }
 
 #' @title Compute human availability for daily time spent (W)
+#' @description The human availability is \eqn{\eqn{W = \Psi^{T} \cdot w_f H},}
 #' @inheritParams compute_W.timespent
 #' @export
 compute_W.timespent.day<- function(tisp, biteweight, human, t) {
   wf <- compute.biteweight(biteweight = biteweight, t = t)
-  W <- tisp$Psi_t %*% (wf)
+  W <- tisp$Psi_t %*% (wf * human$H)
   return(W)
 }
