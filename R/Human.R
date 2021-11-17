@@ -62,7 +62,8 @@ setup.human <- function(type, model, ...) {
 }
 
 #' @title Setup a human model with strata
-#' @description This sets up a human model object.
+#' @description This sets up a human model object. If you need help getting
+#' lumped data into the correct format, see [MicroMoB::strata_to_residency].
 #' @inheritParams setup.human
 #' @param H a vector of human population sizes
 #' @param J a matrix whose columns assign human strata to patches (rows); the
@@ -192,13 +193,16 @@ setup.timespent.dt <- function(type, model, theta, ...) {
 
 
 
-#' #' @title Compute human availability (W)
+#' @title Compute human availability (W)
 #' @description do thing
-#' @section dispatching on a type of `timespent`
+#' @section daily time spent: see [MicroMoB::compute.timespent.day]
+#' @section fractional time spent: see [MicroMoB::compute.timespent.dt]
 #' @param tisp an object from [MicroMoB::setup.timespent]
 #' @param biteweight an object from [MicroMoB::setup.biteweight]
 #' @param human an object from [MicroMoB::setup.human]
-#' @param xi a vector of probabilities of mosquito feeding initiation
+#' @param xi a vector of probabilities for each fraction of day (may be length 1)
+#' giving the conditional probability of initiating a feeding search attempt at
+#' that time given a feeding search occurs on that day.
 #' @param t time
 #' @export
 compute.timespent <- function(tisp, biteweight, human, xi, t) {
@@ -207,8 +211,8 @@ compute.timespent <- function(tisp, biteweight, human, xi, t) {
   UseMethod("compute.timespent", tisp)
 }
 
-#' @rdname compute.timespent
-#' @method compute.timespent dt
+#' @title Compute human availability for fractional daily time spent
+#' @inheritParams compute.timespent
 #' @export
 compute.timespent.dt <- function(tisp, biteweight, human, xi, t) {
   stopifnot(length(xi) == tisp$d)
@@ -220,7 +224,15 @@ compute.timespent.dt <- function(tisp, biteweight, human, xi, t) {
   return(do.call("+", W))
 }
 
-
+#' @title Compute human availability for daily time spent
+#' @inheritParams compute.timespent
+#' @export
+compute.timespent.day<- function(tisp, biteweight, human, xi, t) {
+  stopifnot(length(xi) == 1)
+  wt <- compute.biteweight(biteweight = biteweight, t = t)
+  W <- tisp$theta_t %*% (wt * human$H) * xi
+  return(W)
+}
 
 
 #' @title Setup a time spent model

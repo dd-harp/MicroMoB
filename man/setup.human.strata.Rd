@@ -21,5 +21,6 @@ patch of residence.}
 \item{...}{other arguments to be passed to type methods}
 }
 \description{
-This sets up a human model object.
+This sets up a human model object. If you need help getting
+lumped data into the correct format, see \link{strata_to_residency}.
 }
