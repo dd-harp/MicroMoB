@@ -172,6 +172,16 @@ columns must all sum to one.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="strata"><a class="anchor" href="#strata"></a>strata</h2>
+
+    
+
+<p>There are a few ways to provide <code>J</code> and <code>H</code>. If <code>H</code> is the "unrolled" vector
+of humans, then we assume that the indexing is as above (patch index changes
+fastest, strata index changes slowest). In this base <code>J</code> is assumed to be
+binary. If instead <code>H</code> gives the overall number of people in each strata
+then the columns of <code>J</code> must sum to 1 and indicate how each strata is
+distributed amongst patches.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
