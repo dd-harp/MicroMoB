@@ -73,14 +73,24 @@ can do further checking based on its internal state representation.
 Another way would be more complex. We could enforce that users interact with the model
 object through an interface which ensures consistency.
 
+An easy performance thing is to make everything a `Matrix` object so that matrix mult
+is faster.
+
 ## Model object
 
 We should store the model object as an environment. [This gist](https://gist.github.com/slwu89/a294203e6d6679b923276030516684d7)
 shows why. Luckily conversion to-from is as easy as `list2env` and `as.list`.
 
-# Simulation
+## Analysis
 
-## Simulation loop
+One thing that would be nice is for each model, no matter how complex, we'd like
+to compute quantities that are "standard parameters", such as feeding rate, human
+blood index, etc. The fundamental RM parameters should be computable from model
+parameters without simulation.
+
+## Simulation update
+
+### Simulation loop
 
 Here it is:
 
@@ -97,7 +107,7 @@ MicroSimulation = function(Model){with(Model$runtime,{
 })}
 ```
 
-## Update
+### Update
 
 There's a couple of ways to do a discrete time simulation, regardless of if
 it is seen as a discretization of an underlying continuous time process or the
@@ -289,5 +299,282 @@ sync_sir <- synchronous_sir(SIR)
 sync_sir_d <- asynchronous_sir_demographics(SIR)
 sync_sir_i <- asynchronous_sir_infection(sync_sir_d)
 
-data.frame(rbind(sync_sir, sync_sir_i),row.names = c("Synchronous", "Asynchronous"))
+dt <- data.frame(rbind(sync_sir, sync_sir_i),row.names = c("Synchronous", "Asynchronous"))
+colnames(dt) <- c("S", "I", "R")
+dt
+```
+## Data structures & processes
+
+Data structures are how the model stores state. Not all parts of state are the minimum state (the state required to specify the model and sample/compute the next update). Let's call anything thats part of the minimum model state to be _persistent state_ and anything else _transient state_ (e.g., predictable functions of the history of the process).
+
+The best way to go about this by looking at all the update functions which are executed each time step and see what they input and what they output (or, what they compute or update).
+
+What we want to do is this (I think). For each of these update/component functions we want to dispatch on an object
+class that contains everything that function will update ("output") and also contains all relevant parameters (`Update` might
+be an exception). We want to make clear what other model objects it uses to compute those ("input").
+
+### Intervene
+
+This is described in `Micro-Intervene.Rmd`. It looks like this and is currently not implemented.
+
+```r
+Intervene = function(t, Mod){
+  # Defined in Micro-Intervene.Rmd
+  if(length(Mod$intervene)>0){
+    for(i in 1:length(Mod$intervene)){
+      Mod = intervene(i,t,Mod)
+    }
+  }
+  return(Mod)
+}
+```
+
+#### Input
+
+  * `Mod$intervene`: a list of interventions I suppose. I guess `intervene` then dispatches based on the class of each intervention in the list.
+  
+#### Output
+
+None yet.
+
+### Update
+
+This is described in `Micro-ModelObject.Rmd`. It looks like this and is currently not implemented.
+
+```r
+Update = function(t, Mod){
+  # Defined in Micro-ModelObject.Rmd
+  if(length(Mod$update)>0){
+    for(i in 1:length(Mod$update)){
+      Mod = update(i,t,Mod) 
+    } 
+  }
+  return(Mod)
+}
+```
+
+An update is a generic function in a list that can change parameters or other features of a model.
+
++ `update$F` is a function of the form `F(t, Mod, pars)` 
+
++ `update$pars` holds the parameters passed to the function `F` 
+
+The `update` object is an arbitrarily long list of updates. 
+
+#### Input
+
+  * `Mod$update`: a list of updates I suppose. I guess `update` then dispatches based on the class of each intervention in the list.
+  
+#### Output
+
+None yet.
+
+### HumanBehavior
+
+This is described in `Micro-Human.Rmd`.
+
+```r
+HumanBehavior = function(t, mod){
+  mod = SpendTime(t, mod)
+  mod = Travel(t, mod) 
+  mod = Fever(t, mod)
+  mod = CareSeeking(t, mod)
+  mod = OwnITN(t, mod)
+  mod = UseITN(t, mod)
+  return(mod)
+}
+```
+
+We have to break down things in terms of each component function.
+
+#### SpendTime
+
+Dispatches on this class:
+
+```r
+SpendTime = function(t, mod){
+  UseMethod("SpendTime", mod$host$spendtimePars)
+}
+```
+
+##### Input
+
+Things in that class?
+
+##### Output
+
+  * `Mod$TimeSpent`: modifies the time spent matrix
+
+#### Travel
+
+Dispatches on this class:
+
+```r
+Travel = function(t, mod){
+  UseMethod("Travel", mod$host$travelPars)
+}
+```
+
+##### Input
+
+Things in that class?
+
+##### Output
+
+  * `Mod$TravelAR`: modifies this object
+  
+#### Fever
+
+Dispatches on this class:
+
+```r
+Fever = function(t, mod){
+  UseMethod("Fever", mod$host$feverPars)
+}
+```
+
+##### Input
+
+Things in that class?
+
+##### Output
+
+Things in `mod$host$feverPars`?
+
+#### CareSeeking
+
+Dispatches on this class:
+
+```r
+CareSeeking = function(t, mod){
+  UseMethod("CareSeeking", mod$host$careseekingPars)
+}
+```
+
+##### Input
+
+Things in that class?
+
+##### Output
+
+Things in `Mod$host$careseekingPars`?
+
+#### OwnITN
+
+In `Micro-VectorControl-ITN.Rmd`
+
+```r
+OwnITN = function(t, mod){
+  UseMethod("OwnITN", mod$vectorcontrol$itnPars)
+}
+```
+
+##### Input
+
+##### Output
+
+#### UseITN
+
+In `Micro-VectorControl-ITN.Rmd`
+
+```r
+UseITN = function(t, mod){
+  UseMethod("UseITN", mod$vectorcontrol$itnPars)
+}
+```
+
+##### Input
+
+##### Output
+
+### VectorControlEffects
+
+This is described in `Micro-VectorControl.Rmd`.
+
+```r
+VectorControlEffects = function(t, Mod){
+  Mod = resetBaseline(Mod) 
+  Mod = ITNEffects(t, Mod)
+  Mod = IRSEffects(t, Mod)
+  Mod = LSMEffects(t, Mod)
+  #Mod = ATSB(t, Mod)
+  return(Mod)
+}
+```
+
+Again, we have to break things down and look at each component function.
+
+#### resetBaseline
+
+This just resets mosquito parameters to baseline prior to computing the effect
+from today's vector control.
+
+Found in `Micro-VectorControl.Rmd`
+
+```r
+resetBaseline = function(Mod){
+  # Defined in Micro-VectorControl.Rmd
+  for(i in 1:Mod$nMosquito){
+    Mod$mosquito[[i]]$adultPars = Mod$mosquito[[i]]$adultBase
+    Mod$mosquito[[i]]$aquaPars = Mod$mosquito[[i]]$aquaBase
+  }
+  return(Mod)
+}
+```
+
+#### ITNEffects
+
+In `Micro-VectorControl-ITM.Rmd`. Note the multiple dispatch.
+
+```r
+ITNEffects = function(t, mod){
+  UseMethod("ITNEffects", mod$vectorcontrol$itnPars)
+}
+```
+
+#### IRSEffects
+
+In `Micro-VectorControl-IRS.Rmd`. There's no dispatch function yet, but there should
+be. There seems to be one class method, for class `step`:
+
+```r
+IRSEffects.step = function(t, Mod, i=1){ 
+  #############################################
+  # efficacy is modeled as a step function 
+  # daily survival at the haunts is reduced by 1-IRScoverage
+  # for a number of days specified by 'duration'  
+  #############################################
+  fac = rep(1, Mod$landscape$nHaunts)
+  ix = which(t-Mod$landscape$haunts$daySprayed) < Mod$vectorcontrol$irsPars$duration 
+  fac[ix] = 1-Mod$landscape$haunts$IRScoverage[ix]
+  Mod = adjust(fac, Mod)
+}
+```
+
+#### LSMEffects
+
+LSM means Larval Source Management. This is in `Micro-VectorControl.Rmd`.
+
+```r
+LSMEffects = function(t, Mod){
+   UseMethod("LSMEffects", Mod$vectorcontrol$lsmPars)
+}
+```
+
+#### ATSB
+
+Not implemented yet.
+
+### BloodFeeding
+
+This is a supremely important function. After this function executes, we are free
+to update the state of adult mosquitoes and human infections. It's all stored in
+`Micro-BloodFeeding.Rmd`.
+
+The basic dispatch is here:
+
+```r
+BloodFeeding = function(t, Mod){
+  UseMethod("BloodFeeding", Mod$bloodfeedingPars)
+}
 ```

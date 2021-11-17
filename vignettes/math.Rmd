@@ -1,0 +1,81 @@
+---
+title: "math"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{math}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+```
+
+## Human availability
+
+This returns something akin to the expectation number of persons available to be
+bitten at place $i$ and time $t$. It's an expectation because we weight the population
+by $w_f$ (so still in units of people) and then multiply by a matrix of probabilities.
+
+\begin{equation}
+W(t) = \Psi(t)^T \cdot w_f H
+\end{equation}
+
+I contend that it is more intuitive to write it this way:
+
+\begin{equation}
+W(t) = (\Theta(t)^T \cdot w_f H) \xi(t)
+\end{equation}
+
+It gives the same answer either way. The second way we clearly see that what is going
+on is $(\Theta(t)^T \cdot w_f H)$ is the expected number of people at each patch,
+and then we multiply by the probability of the mosquito to take a bite at that time.
+
+It's a little confusing when that's hidden by $\Psi$.
+
+An example with 2 patches and 3 strata (so vector $H$ is length 6).
+
+```{r}
+H <- c(s1p1 = 50, s1p2 = 20, s1p3 = 10, s2p1 = 30, s2p2 = 20, s3p2 = 10)
+wt <- rep(1, length(H))
+wt <- setNames(wt, names(H))
+
+theta_day <- matrix(
+  c(0.4, 0.6,
+    0.5, 0.5,
+    0.2, 0.8,
+    0.5, 0.5,
+    0.6, 0.4,
+    0.2, 0.8), nrow = length(H), ncol = 2, byrow = TRUE
+)
+
+# same thing
+t(theta_day) %*% (wt * H)
+c(sum(H * theta_day[, 1]), sum(H * theta_day[, 2]))
+
+theta_night <- matrix(
+  c(0.9, 0.1,
+    0.6, 0.4,
+    0.5, 0.5,
+    0.6, 0.4,
+    0.8, 0.2,
+    0.4, 0.6), nrow = length(H), ncol = 2, byrow = TRUE
+)
+
+# xi_day <- 0.3
+# xi_night <- 0.7
+
+xi_day <- 0.15
+xi_night <- 0.85
+
+((t(theta_day) %*% (wt * H)) * (xi_day)) + ((t(theta_night) %*% (wt * H)) * (xi_night))
+
+# (((t(theta_day) * xi_day) %*% (wt * H))) + (((t(theta_night) * xi_night) %*% (wt * H)))
+```
