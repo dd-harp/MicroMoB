@@ -22,5 +22,8 @@ setup.human(type, model, ...)
 columns must all sum to one.}
 }
 \description{
-Setup a human object
+Setup a human object. The \code{model} object will have a list named \code{human}
+added to it. Within \code{human} the \code{H} vector is a vector of populations, in each strata,
+in each patch. This means that if there are 2 strata and 3 patches, the first 3
+elements give the distribution of people in strata 1 across the 3 patches.
 }

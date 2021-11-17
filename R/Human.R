@@ -4,7 +4,10 @@
 
 
 #' @title Setup a human object
-#' @description Setup a human object
+#' @description Setup a human object. The `model` object will have a list named `human`
+#' added to it. Within `human` the `H` vector is a vector of populations, in each strata,
+#' in each patch. This means that if there are 2 strata and 3 patches, the first 3
+#' elements give the distribution of people in strata 1 across the 3 patches.
 #' @param type a character in `c("simple", "strata")`
 #' @param model a model object (an [environment])
 #' @param ... other arguments to be passed to type methods
