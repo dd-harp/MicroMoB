@@ -1,4 +1,4 @@
-test_that("constructing human objects (strata) works when J is not specified", {
+test_that("setting up human objects (strata) works when J is not specified", {
 
   expect_error(setup.human("strata", model = new.env(), H = NULL))
   expect_error(setup.human("strata", model = new.env(), H = rep(Inf, 5)))
@@ -14,14 +14,14 @@ test_that("constructing human objects (strata) works when J is not specified", {
   expect_error(setup.human("strata", model = new.env(), H = c(1, 5), J = diag(5)))
 
   model <- new.env()
-  human <- setup.human("strata", model = model, H = c(1, 5))
+  setup.human("strata", model = model, H = c(1, 5))
   expect_equal(model$human$J, diag(2))
   expect_equal(model$human$H, c(1, 5))
   expect_true(inherits(model$human, "strata"))
 })
 
 
-test_that("constructing human objects (strata) works when specifying J", {
+test_that("setting up human objects (strata) works when specifying J", {
 
   J <- matrix(
     c(0.3, 0.5, 0.2,
@@ -54,7 +54,7 @@ test_that("constructing human objects (strata) works when specifying J", {
   expect_error(setup.human("strata", model = new.env(), H = c(NA, 5), J = J))
 
   model <- new.env()
-  human <- setup.human("strata", model = model, H = H, J = J)
+  setup.human("strata", model = model, H = H, J = J)
   expect_true(sum(model$human$J %*% model$human$H) == sum(H))
 
   human_pop <- matrix(
@@ -63,4 +63,20 @@ test_that("constructing human objects (strata) works when specifying J", {
       10, 18), nrow = 3, ncol = 2, byrow = TRUE
   )
   expect_equal(as.vector(model$human$J %*% model$human$H), rowSums(human_pop))
+
+  # test it works when we give J already formulated as binary
+  model1 <- new.env()
+  setup.human("strata", model = model1, H = model$human$H, J = model$human$J)
+  expect_true(all.equal(as.list(model), as.list(model1)))
+})
+
+
+test_that("setting up time spent (matrix_day) works", {
+
+  model <- new.env()
+  setup.human("strata", model = model, H = rep(10, 3))
+  setup.timespent("matrix_day", model = model)
+
+  expect_true(inherits(model$tisp, "matrix_day"))
+  expect_equal(model$tisp$theta, diag(3))
 })

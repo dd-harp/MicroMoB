@@ -40,8 +40,8 @@ setup.human.strata <- function(type, model, H, J = NULL, ...) {
 
   if (is_binary(J)) {
 
-    pop$H <- H
     pop$J <- J
+    pop$H <- H
 
   } else {
 
@@ -68,38 +68,80 @@ setup.human.strata <- function(type, model, H, J = NULL, ...) {
 
 #' @title Setup a time spent model
 #' @description Setup a time spent model. The model object must have already
-#' been initialized with a human object (see [MicroMoB::setup.human]).
-#' @section Null time spent model:
-#' The null model will simply assign each person to spend all time at their
-#' home residence patch.
-#' @param type a character in `c("null", "matrix")`
+#' been initialized with a human object (see [MicroMoB::setup.human]). This adds
+#' a [list] to `model` named "tisp" (Time spent).
+#' @section Matrix time spent model:
+#' When using `type = "matrix_day"` the model will assume that `theta` is a
+#' matrix whose rows sum to \eqn{\le 1} giving the daily time spent distribution.
+#' @param type a character in `c("matrix_day")`
 #' @param model a model object (an [environment])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup.timespent <- function(type, model, ...) {
   stopifnot(inherits(model, "environment"))
   stopifnot(!is.null(model$human))
-  stopifnot(type %in% c("null", "matrix"))
+  stopifnot(type %in% c("matrix_day"))
   tisp <- structure(list(), class = type)
-  UseMethod("setup.human", tisp)
+  UseMethod("setup.timespent", tisp)
 }
 
-
 #' @rdname setup.timespent
-#' @method setup.timespent null
+#' @method setup.timespent matrix_day
+#' @param theta a time spent matrix, if `NULL` the identity matrix is used
+#' (everyone stays at their home patch)
 #' @export
-setup.timespent.null <- function(type, model) {
+setup.timespent.matrix_day <- function(type, model, theta = NULL, ...) {
 
-  tisp$theta <- diag(length(model$human$H))
+  if (is.null(theta)) {
+    theta <- diag(length(model$human$H))
+  } else {
+    stopifnot(is.finite(theta))
+    stopifnot(rowSums(theta) <= 1)
+    stopifnot(rowSums(theta) > 1)
+  }
+
+  tisp$theta <- theta
   model$tisp <- tisp
 }
 
-#' #' @rdname setup.timespent
-#' #' @method setup.timespent matrix
-#' #' @export
-#' setup.timespent.matrix <- function(type, model) {
-#'
-#'   tisp$theta <- diag(length(model$human$H))
-#'   model$tisp <- tisp
-#' }
 
+
+
+#' @title Setup a time spent model
+#' @description Setup a time spent model. The model object must have already
+#' been initialized with a human object (see [MicroMoB::setup.human]). This adds
+#' a [list] to `model` named "tisp" (Time spent).
+#' @section Matrix time spent model:
+#' When using `type = "matrix_day"` the model will assume that `theta` is a
+#' matrix whose rows sum to \eqn{\le 1} giving the daily time spent distribution
+#' @param type a character in `c("null")`
+#' @param model a model object (an [environment])
+#' @param ... other arguments to be passed to type methods
+#' @export
+setup.biteweight <- function(type, model, ...) {
+  stopifnot(inherits(model, "environment"))
+  stopifnot(!is.null(model$human))
+  stopifnot(type %in% c("null"))
+  biteweight <- structure(list(), class = type)
+  UseMethod("setup.biteweight", biteweight)
+}
+
+setup.biteweight.null <- function(type, model, wt = NULL, ...) {
+  if (is.null(wt)) {
+    wt <- rep(1, length(model$human$H))
+  }
+  stopifnot(is.finite(wt))
+  stopifnot(wt > 0)
+
+  biteweight$wt <- wt
+  model$biteweight <- biteweight
+}
+
+compute.biteweight <- function(biteweight, t) {
+  stopifnot(is.finite(t))
+  UseMethod("compute.biteweight", biteweight)
+}
+
+compute.biteweight.null <- function(biteweight, t) {
+  return(biteweight$wt)
+}
