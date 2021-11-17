@@ -18,9 +18,3 @@ Setup a time spent model. The model object must have already
 been initialized with a human object (see \link{setup.human}). This adds
 a \link{list} to \code{model} named "tisp" (Time spent).
 }
-\section{Matrix time spent model}{
-
-When using \code{type = "matrix_day"} the model will assume that \code{theta} is a
-matrix whose rows sum to \eqn{\le 1} giving the daily time spent distribution
-}
-

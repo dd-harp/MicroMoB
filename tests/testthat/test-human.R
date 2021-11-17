@@ -71,12 +71,12 @@ test_that("setting up human objects (strata) works when specifying J", {
 })
 
 
-test_that("setting up time spent (matrix_day) works", {
+test_that("setting up time spent (day) works", {
 
   model <- new.env()
   setup.human("strata", model = model, H = rep(10, 3))
-  setup.timespent("matrix_day", model = model)
+  setup.timespent("day", model = model)
 
-  expect_true(inherits(model$tisp, "matrix_day"))
+  expect_true(inherits(model$tisp, "day"))
   expect_equal(model$tisp$theta, diag(3))
 })
