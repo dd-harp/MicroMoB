@@ -110,7 +110,7 @@ test_that("setting up time spent (day) works", {
   setup.timespent("day", model = model)
 
   expect_true(inherits(model$tisp, "day"))
-  expect_equal(model$tisp$theta, diag(3))
+  expect_equal(model$tisp$Theta_t, diag(3))
 
   # 2 patch, 3 strata
   H <- c(50, 20, 10, 30, 20, 10)
@@ -120,10 +120,13 @@ test_that("setting up time spent (day) works", {
     nrow = 2, ncol = 6, byrow = TRUE
   )
 
-  # this will error out because theta is not in general a diagonal matrix
+  # theta keeps everyone in one place
   model <- new.env()
   setup.human("strata", model = model, H = H, J = J)
   setup.timespent("day", model = model)
+
+  expect_equal(model$tisp$Theta_t %*% H, model$human$J %*% model$human$H)
+  expect_equal(sum(model$tisp$Theta_t %*% H), sum(H))
 })
 
 test_that("setting up time spent (dt) works", {
@@ -161,10 +164,11 @@ test_that("setting up time spent (dt) works", {
   model <- new.env()
   setup.human("strata", model = model, H = H, J = J)
   setup.timespent("dt", model = model, theta = theta)
-  setup.biteweight("null", model = model)
+  setup.biteweight("simple", model = model)
 
   xi <- c(0.15, 0.85)
-  W <- compute.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, xi = xi, t = 1)
+  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = xi, t = 1)
+  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
 
   wt <- rep(1, length(H))
   W_expected <- ((t(theta_day) %*% (wt * H)) * (xi[1])) + ((t(theta_night) %*% (wt * H)) * (xi[2]))
@@ -187,10 +191,11 @@ test_that("setting up time spent (dt) works", {
   model <- new.env()
   setup.human("strata", model = model, H = H, J = J)
   setup.timespent("dt", model = model, theta = theta)
-  setup.biteweight("null", model = model)
+  setup.biteweight("simple", model = model)
 
   xi <- c(0.15, 0.85)
-  W <- compute.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, xi = xi, t = 1)
+  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = xi, t = 1)
+  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
 
   expect_equal(W, W_expected)
 })
