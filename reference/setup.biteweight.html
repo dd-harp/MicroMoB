@@ -139,7 +139,10 @@ been initialized with a human object (see <a href='setup.human.html'>setup.human
 a <a href='https://rdrr.io/r/base/list.html'>list</a> to <code>model</code> named "tisp" (Time spent).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup.biteweight</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>setup.biteweight</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for null</span>
+<span class='fu'>setup.biteweight</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, wt <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,14 +159,12 @@ a <a href='https://rdrr.io/r/base/list.html'>list</a> to <code>model</code> name
       <th>...</th>
       <td><p>other arguments to be passed to type methods</p></td>
     </tr>
+    <tr>
+      <th>wt</th>
+      <td><p>optional vector of biting weights, if <code>NULL</code> use 1 for all strata</p></td>
+    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="matrix-time-spent-model"><a class="anchor" href="#matrix-time-spent-model"></a>Matrix time spent model</h2>
-
-    
-
-<p>When using <code>type = "matrix_day"</code> the model will assume that <code>theta</code> is a
-matrix whose rows sum to \(\le 1\) giving the daily time spent distribution</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
