@@ -2,12 +2,9 @@
 % Please edit documentation in R/Human.R
 \name{setup.human}
 \alias{setup.human}
-\alias{setup.human.strata}
 \title{Setup a human object}
 \usage{
 setup.human(type, model, ...)
-
-\method{setup.human}{strata}(type, model, H, J = NULL, ...)
 }
 \arguments{
 \item{type}{a character in \code{c("simple", "strata")}}
@@ -15,25 +12,12 @@ setup.human(type, model, ...)
 \item{model}{a model object (an \link{environment})}
 
 \item{...}{other arguments to be passed to type methods}
-
-\item{H}{a vector of human population sizes}
-
-\item{J}{a matrix whose columns assign human strata to patches (rows); the
-columns must all sum to one.}
 }
 \description{
 Setup a human object. The \code{model} object will have a list named \code{human}
-added to it. Within \code{human} the \code{H} vector is a vector of populations, in each strata,
-in each patch. This means that if there are 2 strata and 3 patches, the first 3
-elements give the distribution of people in strata 1 across the 3 patches.
+added to it.
 }
 \section{strata}{
-
-There are a few ways to provide \code{J} and \code{H}. If \code{H} is the "unrolled" vector
-of humans, then we assume that the indexing is as above (patch index changes
-fastest, strata index changes slowest). In this base \code{J} is assumed to be
-binary. If instead \code{H} gives the overall number of people in each strata
-then the columns of \code{J} must sum to 1 and indicate how each strata is
-distributed amongst patches.
+ see \link{setup.human.strata}
 }
 

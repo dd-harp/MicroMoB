@@ -1,20 +1,55 @@
 
 
+#' @title Helper function for lumped population strata
+#' @description If input is given as a vector of population sizes per-strata, lumped
+#' over patches, and a separate matrix whose columns describe how each strata is
+#' distributed over patches, this function calculates the residency matrix and
+#' population size for the overall stratification of both residency and strata.
+#' @param H_strata a vector of population size by strata
+#' @param J_strata a matrix chose columns sum to one giving the distribution of
+#' strata populations over patches
+#' @return a [list] with three elements:
+#'  * `assignment_indices`: provides a mapping from patch (rows) and strata (columns)
+#'     into the "unrolled" vector `H`
+#'  * `J`: the residency matrix mapping elements in `H` to patches
+#'  * `H`: the overall population distribution over strata and patches
+#' @examples
+#' # taken from package tests
+#' J <- matrix(
+#'    c(0.3, 0.5, 0.2,
+#'    0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = FALSE
+#' )
+#' H <- c(50, 60)
+#' H_overall <- J %*% diag(H)
+#' residency <- strata_to_residency(H_strata = H, J_strata = J)
+#' @export
+strata_to_residency <- function(H_strata, J_strata) {
 
+  stopifnot(length(H_strata) == ncol(J_strata))
+  stopifnot(colSums(J_strata) == 1)
 
+  p <- nrow(J_strata)
+  s <- ncol(J_strata)
+  n <- p*s
+
+  # we need to determine the actual residency matrix
+  pop <- list()
+
+  pop$assignment_indices <- matrix(data = 1:n, nrow = p, ncol = s, byrow = FALSE)
+
+  pop$J <- matrix(0, nrow = p, ncol = n)
+  for (j in 1:p) {
+    pop$J[j, pop$assignment_indices[j, ]] <- 1
+  }
+  pop$H <- as.vector(J_strata %*% diag(H_strata))
+
+  return(pop)
+}
 
 #' @title Setup a human object
 #' @description Setup a human object. The `model` object will have a list named `human`
-#' added to it. Within `human` the `H` vector is a vector of populations, in each strata,
-#' in each patch. This means that if there are 2 strata and 3 patches, the first 3
-#' elements give the distribution of people in strata 1 across the 3 patches.
-#' @section strata:
-#' There are a few ways to provide `J` and `H`. If `H` is the "unrolled" vector
-#' of humans, then we assume that the indexing is as above (patch index changes
-#' fastest, strata index changes slowest). In this base `J` is assumed to be
-#' binary. If instead `H` gives the overall number of people in each strata
-#' then the columns of `J` must sum to 1 and indicate how each strata is
-#' distributed amongst patches.
+#' added to it.
+#' @section strata: see [MicroMoB::setup.human.strata]
 #' @param type a character in `c("simple", "strata")`
 #' @param model a model object (an [environment])
 #' @param ... other arguments to be passed to type methods
@@ -26,11 +61,14 @@ setup.human <- function(type, model, ...) {
   UseMethod("setup.human", pop)
 }
 
-#' @rdname setup.human
-#' @method setup.human strata
+#' @title Setup a human model with strata
+#' @description This sets up a human model object.
+#' @inheritParams setup.human
 #' @param H a vector of human population sizes
 #' @param J a matrix whose columns assign human strata to patches (rows); the
-#' columns must all sum to one.
+#' columns must all sum to one. If `J` is `NULL` then a diagonal matrix of ones
+#' is used; this assumes that the only level of population stratification is
+#' patch of residence.
 #' @export
 setup.human.strata <- function(type, model, H, J = NULL, ...) {
 
@@ -38,37 +76,31 @@ setup.human.strata <- function(type, model, H, J = NULL, ...) {
   stopifnot(is.finite(H))
   stopifnot(H >= 0)
 
+  # if J is not provided, we have to assume that H one to one maps to patches
   if (is.null(J)) {
-    J <- diag(length(H))
-  }
 
-  p <- nrow(J)
-  n <- length(H)
+    p <- length(H)
+    n <- p
 
-  stopifnot(n == ncol(J))
-  stopifnot(p > 0)
-
-  if (is_binary(J)) {
-
-    pop$J <- J
-    pop$H <- H
+    J <- diag(n)
 
   } else {
 
+    p <- nrow(J)
+    n <- length(H)
+
+    stopifnot(is_binary(J))
+    stopifnot(ncol(J) == n)
     stopifnot(colSums(J) == 1)
-
-    np <- n * p
-
-    # J does not directly assign H
-    assignment_indices <- matrix(data = 1:np, nrow = p, ncol = n, byrow = FALSE)
-
-    pop$J <- matrix(0, nrow = p, ncol = np)
-    for (j in 1:p) {
-      pop$J[j, assignment_indices[j, ]] <- 1
-    }
-    pop$H <- as.vector(J %*% diag(H))
+    stopifnot(n >= p)
 
   }
+
+  pop$J <- J
+  pop$H <- H
+
+  pop$n <- n
+  pop$p <- p
 
   model$human <- pop
 }
@@ -80,9 +112,8 @@ setup.human.strata <- function(type, model, H, J = NULL, ...) {
 #' @description Setup a time spent model. The model object must have already
 #' been initialized with a human object (see [MicroMoB::setup.human]). This adds
 #' a [list] to `model` named "tisp" (Time spent).
-#' @section Matrix time spent model:
-#' When using `type = "day"` the model will assume that `theta` is a
-#' matrix whose rows sum to \eqn{\le 1} giving the daily time spent distribution.
+#' @section Daily time spent model: see [MicroMoB::setup.timespent.day]
+#' @section Fractional day time spent model: see [MicroMoB::setup.timespent.dt]
 #' @param type a character in `c("day")`
 #' @param model a model object (an [environment])
 #' @param ... other arguments to be passed to type methods
@@ -95,15 +126,22 @@ setup.timespent <- function(type, model, ...) {
   UseMethod("setup.timespent", tisp)
 }
 
-#' @rdname setup.timespent
-#' @method setup.timespent day
+
+#' @title Setup daily time spent model
+#' @description A model of where people spend their time over the day.
+#' @inheritParams setup.timespent
 #' @param theta a time spent matrix, if `NULL` the identity matrix is used
-#' (everyone stays at their home patch)
+#' (everyone stays at their home patch), otherwise `theta` should be a
+#' matrix whose rows sum to \eqn{\le 1} giving the daily time spent distribution.
 #' @export
 setup.timespent.day <- function(type, model, theta = NULL, ...) {
 
   if (is.null(theta)) {
-    theta <- diag(length(model$human$H))
+    if (model$human$n == model$human$p) {
+      theta <- diag(model$human$n)
+    } else {
+      theta <- t(model$human$J)
+    }
   } else {
     stopifnot(is.finite(theta))
     stopifnot(rowSums(theta) <= 1)
@@ -120,8 +158,9 @@ setup.timespent.day <- function(type, model, theta = NULL, ...) {
   model$tisp <- tisp
 }
 
-#' @rdname setup.timespent
-#' @method setup.timespent dt
+
+#' @title Setup fractional day time spent model
+#' @inheritParams setup.timespent
 #' @param theta a time spent matrix, if `NULL` the identity matrix is used
 #' (everyone stays at their home patch)
 #' @export
