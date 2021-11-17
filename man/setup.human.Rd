@@ -27,3 +27,13 @@ added to it. Within \code{human} the \code{H} vector is a vector of populations,
 in each patch. This means that if there are 2 strata and 3 patches, the first 3
 elements give the distribution of people in strata 1 across the 3 patches.
 }
+\section{strata}{
+
+There are a few ways to provide \code{J} and \code{H}. If \code{H} is the "unrolled" vector
+of humans, then we assume that the indexing is as above (patch index changes
+fastest, strata index changes slowest). In this base \code{J} is assumed to be
+binary. If instead \code{H} gives the overall number of people in each strata
+then the columns of \code{J} must sum to 1 and indicate how each strata is
+distributed amongst patches.
+}
+
