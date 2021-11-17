@@ -23,6 +23,7 @@ test_that("setting up human objects (strata) works when J is not specified", {
 
 test_that("setting up human objects (strata) works when specifying J", {
 
+  # 2 strata, 3 patch
   J <- matrix(
     c(0.3, 0.5, 0.2,
       0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = F
@@ -124,6 +125,25 @@ test_that("setting up time spent (dt) works", {
 
   wt <- rep(1, length(H))
   W_expected <- ((t(theta_day) %*% (wt * H)) * (xi[1])) + ((t(theta_night) %*% (wt * H)) * (xi[2]))
+
+  expect_equal(W, W_expected)
+
+  # 3 strata, 2 patch
+  H <- c(70, 40, 30)
+  J <- matrix(
+    c(50/70,  10/40, 20/30,
+      1-50/70, 1-10/40, 1-20/30),
+    nrow = 2,
+    ncol = 3, byrow = TRUE
+  )
+
+  model <- new.env()
+  setup.human("strata", model = model, H = H, J = J)
+  setup.timespent("dt", model = model, theta = theta)
+  setup.biteweight("null", model = model)
+
+  xi <- c(0.15, 0.85)
+  W <- compute.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, xi = xi, t = 1)
 
   expect_equal(W, W_expected)
 })
