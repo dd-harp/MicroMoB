@@ -71,12 +71,59 @@ test_that("setting up human objects (strata) works when specifying J", {
 })
 
 
-test_that("setting up time spent (matrix_day) works", {
+test_that("setting up time spent (day) works", {
 
   model <- new.env()
   setup.human("strata", model = model, H = rep(10, 3))
-  setup.timespent("matrix_day", model = model)
+  setup.timespent("day", model = model)
 
-  expect_true(inherits(model$tisp, "matrix_day"))
+  expect_true(inherits(model$tisp, "day"))
   expect_equal(model$tisp$theta, diag(3))
+})
+
+test_that("setting up time spent (dt) works", {
+
+  # 2 patch, 3 strata
+  #   s1p1  s1p2 s2p1 s2p2
+  H <- c(50, 20, 10, 30, 20, 10)
+  J <- matrix(
+    c(1, 0, 1, 0, 1, 0,
+      0, 1, 0, 1, 0, 1),
+    nrow = 2, ncol = 6, byrow = TRUE
+  )
+
+  expect_equal(as.vector(J %*% H), c(sum(H[1], H[3], H[5]), sum(H[2], H[4], H[6])))
+
+  theta_day <- matrix(
+    c(0.4, 0.6,
+      0.5, 0.5,
+      0.2, 0.8,
+      0.5, 0.5,
+      0.6, 0.4,
+      0.2, 0.8), nrow = length(H), ncol = 2, byrow = TRUE
+  )
+
+  theta_night <- matrix(
+    c(0.9, 0.1,
+      0.6, 0.4,
+      0.5, 0.5,
+      0.6, 0.4,
+      0.8, 0.2,
+      0.4, 0.6), nrow = length(H), ncol = 2, byrow = TRUE
+  )
+
+  theta <- list(theta_day, theta_night)
+
+  model <- new.env()
+  setup.human("strata", model = model, H = H, J = J)
+  setup.timespent("dt", model = model, theta = theta)
+  setup.biteweight("null", model = model)
+
+  xi <- c(0.15, 0.85)
+  W <- compute.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, xi = xi, t = 1)
+
+  wt <- rep(1, length(H))
+  W_expected <- ((t(theta_day) %*% (wt * H)) * (xi[1])) + ((t(theta_night) %*% (wt * H)) * (xi[2]))
+
+  expect_equal(W, W_expected)
 })

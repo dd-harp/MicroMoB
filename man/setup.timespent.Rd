@@ -2,15 +2,18 @@
 % Please edit documentation in R/Human.R
 \name{setup.timespent}
 \alias{setup.timespent}
-\alias{setup.timespent.matrix_day}
+\alias{setup.timespent.day}
+\alias{setup.timespent.dt}
 \title{Setup a time spent model}
 \usage{
 setup.timespent(type, model, ...)
 
-\method{setup.timespent}{matrix_day}(type, model, theta = NULL, ...)
+\method{setup.timespent}{day}(type, model, theta = NULL, ...)
+
+\method{setup.timespent}{dt}(type, model, theta, ...)
 }
 \arguments{
-\item{type}{a character in \code{c("matrix_day")}}
+\item{type}{a character in \code{c("day")}}
 
 \item{model}{a model object (an \link{environment})}
 
@@ -26,7 +29,7 @@ a \link{list} to \code{model} named "tisp" (Time spent).
 }
 \section{Matrix time spent model}{
 
-When using \code{type = "matrix_day"} the model will assume that \code{theta} is a
+When using \code{type = "day"} the model will assume that \code{theta} is a
 matrix whose rows sum to \eqn{\le 1} giving the daily time spent distribution.
 }
 
