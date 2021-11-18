@@ -7,7 +7,15 @@ is_binary <- function(x) {
   }
 }
 
-
+#' @title Functional form type 0
+#' @description An equation of the form
+#' \deqn{f(x) = \frac{f_{x} s_{f} x}{1 + s_{f} x}}
+#' which has an asymptote at \eqn{f_{x}} and \eqn{s_{f}} controls the rate at which
+#' the asymptote is reached.
+#' @param x the value
+#' @param fx the asymptote
+#' @param sf controls slope
 Ff_0 <- function(x, fx = 1, sf = 1){
+  stopifnot(is.finite(x))
   fx * (sf * x / (1 + sf * x))
 }

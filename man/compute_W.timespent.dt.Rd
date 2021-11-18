@@ -4,16 +4,15 @@
 \alias{compute_W.timespent.dt}
 \title{Compute human availability for fractional daily time spent (W)}
 \usage{
-\method{compute_W.timespent}{dt}(tisp, biteweight, human, t)
+\method{compute_W.timespent}{dt}(human, t)
 }
 \arguments{
-\item{tisp}{an object from \link{setup.timespent}}
-
-\item{biteweight}{an object from \link{setup.biteweight}}
-
 \item{human}{an object from \link{setup.human}}
 
 \item{t}{time}
+}
+\value{
+a matrix of dimension \eqn{p \times d}
 }
 \description{
 For each time period the human availability is \eqn{W\[t\] = \Psi\[t\]^{T} \cdot w_f H},

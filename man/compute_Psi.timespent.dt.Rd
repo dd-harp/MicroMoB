@@ -4,15 +4,18 @@
 \alias{compute_Psi.timespent.dt}
 \title{Compute time at risk for fractional daily time spent (\eqn{\Psi^{T}})}
 \usage{
-\method{compute_Psi.timespent}{dt}(tisp, xi, t)
+\method{compute_Psi.timespent}{dt}(human, xi, t)
 }
 \arguments{
-\item{tisp}{a time spent object (see \link{setup.timespent})}
+\item{human}{an object from \link{setup.human}}
 
 \item{xi}{probabilities to initiate a feeding search during each fraction
 of the day (must sum to 1)}
 
 \item{t}{time (day)}
+}
+\value{
+an array of dimension \eqn{p \times n \time d}
 }
 \description{
 Compute time at risk for fractional daily time spent (\eqn{\Psi^{T}})

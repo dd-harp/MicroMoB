@@ -4,10 +4,10 @@
 \alias{compute_Psi.timespent}
 \title{Compute time at risk (\eqn{\Psi})}
 \usage{
-compute_Psi.timespent(tisp, xi, t)
+compute_Psi.timespent(human, xi, t)
 }
 \arguments{
-\item{tisp}{a time spent object (see \link{setup.timespent})}
+\item{human}{an object from \link{setup.human}}
 
 \item{xi}{probabilities to initiate a feeding search during each fraction
 of the day (must sum to 1)}

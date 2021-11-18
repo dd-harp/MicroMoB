@@ -4,16 +4,15 @@
 \alias{compute_W.timespent.day}
 \title{Compute human availability for daily time spent (W)}
 \usage{
-\method{compute_W.timespent}{day}(tisp, biteweight, human, t)
+\method{compute_W.timespent}{day}(human, t)
 }
 \arguments{
-\item{tisp}{an object from \link{setup.timespent}}
-
-\item{biteweight}{an object from \link{setup.biteweight}}
-
 \item{human}{an object from \link{setup.human}}
 
 \item{t}{time}
+}
+\value{
+a vector of length \eqn{p}
 }
 \description{
 The human availability is \eqn{\eqn{W = \Psi^{T} \cdot w_f H},}

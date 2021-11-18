@@ -115,7 +115,7 @@ setup.human.strata <- function(type, model, H, J = NULL, ...) {
 #' @title Setup a biting weight model
 #' @description Setup a biting weight model. The model object must have already
 #' been initialized with a human object (see [MicroMoB::setup.human]). This adds
-#' a [list] to `model` named `biteweight` (Time spent).
+#' a [list] to `model$human` named `biteweight` (Time spent).
 #' @param type a character in `c("simple")`
 #' @param model a model object (an [environment])
 #' @param ... other arguments to be passed to type methods
@@ -135,13 +135,13 @@ setup.biteweight <- function(type, model, ...) {
 #' @export
 setup.biteweight.simple <- function(type, model, wt = NULL, ...) {
   if (is.null(wt)) {
-    wt <- rep(1, length(model$human$H))
+    wt <- rep(1, length(model$human$n))
   }
   stopifnot(is.finite(wt))
   stopifnot(wt > 0)
 
   biteweight$wt <- wt
-  model$biteweight <- biteweight
+  model$human$biteweight <- biteweight
 }
 
 #' @title Compute biting weight

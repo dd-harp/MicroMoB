@@ -4,13 +4,9 @@
 \alias{compute_W.timespent}
 \title{Compute human availability (W)}
 \usage{
-compute_W.timespent(tisp, biteweight, human, t)
+compute_W.timespent(human, t)
 }
 \arguments{
-\item{tisp}{an object from \link{setup.timespent}}
-
-\item{biteweight}{an object from \link{setup.biteweight}}
-
 \item{human}{an object from \link{setup.human}}
 
 \item{t}{time}

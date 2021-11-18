@@ -16,7 +16,7 @@ setup.timespent(type, model, ...)
 \description{
 Setup a time spent model. The model object must have already
 been initialized with a human object (see \link{setup.human}). This adds
-a \link{list} to \code{model} named "tisp" (Time spent).
+a \link{list} to \code{model$human} named "tisp" (Time spent).
 }
 \section{Daily time spent model}{
  see \link{setup.timespent.day}
