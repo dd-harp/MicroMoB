@@ -1,0 +1,24 @@
+---
+title: "human"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{human}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+```
+
+Let's talk about the human model object. 
+
+In old MicroMoB $\Psi$ was TaR.
+In old MicroMoB $W$ was SiG (but it seems to be a matrix in the old one).

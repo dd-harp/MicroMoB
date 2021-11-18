@@ -1,3 +1,43 @@
+test_that("strata to residency helper function", {
+
+  J <- matrix(
+    c(0.3, 0.5, 0.2,
+      0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = F
+  )
+  H <- c(50, 60)
+
+  H_overall <- J %*% diag(H)
+
+  residency <- strata_to_residency(H_strata = H, J_strata = J)
+
+  expect_true(all(residency$H[residency$assignment_indices[1, ]] == H_overall[1, ]))
+  expect_true(all(residency$H[residency$assignment_indices[2, ]] == H_overall[2, ]))
+  expect_true(all(residency$H[residency$assignment_indices[3, ]] == H_overall[3, ]))
+
+  expect_true(all(residency$H[residency$assignment_indices[, 1]] == H_overall[, 1]))
+  expect_true(all(residency$H[residency$assignment_indices[, 2]] == H_overall[, 2]))
+
+  expect_equal(residency$J %*% residency$H, J %*% H)
+
+  # 2 strata, 3 patch
+  J <- matrix(
+    c(0.3, 0.5, 0.2,
+      0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = F
+  )
+  H <- c(s1 = 50, s2 = 60)
+
+  bad_values <- c(Inf, NaN, NA, -5)
+  for (v in bad_values) {
+    J[1,2] <- v
+    expect_error(strata_to_residency(H = H, J = J))
+    expect_error(strata_to_residency(H = H, J = J))
+    expect_error(strata_to_residency(H = H, J = J))
+    expect_error(strata_to_residency(H = H, J = J))
+  }
+
+})
+
+
 test_that("setting up human objects (strata) works when J is not specified", {
 
   expect_error(setup.human("strata", model = new.env(), H = NULL))
@@ -24,39 +64,30 @@ test_that("setting up human objects (strata) works when J is not specified", {
 test_that("setting up human objects (strata) works when specifying J", {
 
   # 2 strata, 3 patch
-  J <- matrix(
+  J_strata <- matrix(
     c(0.3, 0.5, 0.2,
       0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = F
   )
-  H <- c(s1 = 50, s2 = 60)
+  H_strata <- c(50, 60)
 
-  bad_values <- c(Inf, NaN, NA, -5)
-  for (v in bad_values) {
-    J[1,2] <- v
-    expect_error(setup.human("strata", model = new.env(), H = H, J = J))
-    expect_error(setup.human("strata", model = new.env(), H = H, J = J))
-    expect_error(setup.human("strata", model = new.env(), H = H, J = J))
-    expect_error(setup.human("strata", model = new.env(), H = H, J = J))
-  }
+  residency <- strata_to_residency(H_strata = H_strata, J_strata = J_strata)
 
-  J[1,2] <- 0.1
-
-  expect_error(setup.human("simple", model = new.env(), H = H, J = J))
+  J <- residency$J
+  H <- residency$H
+  n <- ncol(J)
 
   expect_error(setup.human("strata", model = new.env(), H = NULL, J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(Inf, 5), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(-5, 5), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(NaN, 5), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(NA, 5), J = J))
-
-  expect_error(setup.human("strata", model = new.env(), H = c(Inf, 5), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = c(-5, 5), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = c(NaN, 5), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = c(NA, 5), J = J))
+  expect_error(setup.human("strata", model = new.env(), H = rep(Inf, n), J = J))
+  expect_error(setup.human("strata", model = new.env(), H = rep(-5, n), J = J))
+  expect_error(setup.human("strata", model = new.env(), H = rep(NaN, n), J = J))
+  expect_error(setup.human("strata", model = new.env(), H = rep(NA, n), J = J))
+  expect_error(setup.human("strata", model = new.env(), H = c(1, 2, 3), J = J))
 
   model <- new.env()
   setup.human("strata", model = model, H = H, J = J)
-  expect_true(sum(model$human$J %*% model$human$H) == sum(H))
+
+  expect_true(sum(model$human$J %*% model$human$H) == sum(H_strata))
+  expect_equal(as.vector(J_strata %*% diag(H_strata)), model$human$H)
 
   human_pop <- matrix(
     c(15, 6,
@@ -74,18 +105,40 @@ test_that("setting up human objects (strata) works when specifying J", {
 
 test_that("setting up time spent (day) works", {
 
+  # no strata, just patches
   model <- new.env()
   setup.human("strata", model = model, H = rep(10, 3))
   setup.timespent("day", model = model)
+  setup.biteweight("simple", model = model)
 
   expect_true(inherits(model$tisp, "day"))
-  expect_equal(model$tisp$theta, diag(3))
+  expect_equal(model$tisp$Theta_t, diag(3))
+
+  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = 1, t = 1)
+  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
+
+  expect_equal(as.vector(W), model$human$H)
+
+  # 2 patch, 3 strata
+  H <- c(50, 20, 10, 30, 20, 10)
+  J <- matrix(
+    c(1, 0, 1, 0, 1, 0,
+      0, 1, 0, 1, 0, 1),
+    nrow = 2, ncol = 6, byrow = TRUE
+  )
+
+  # theta keeps everyone in one place
+  model <- new.env()
+  setup.human("strata", model = model, H = H, J = J)
+  setup.timespent("day", model = model)
+
+  expect_equal(model$tisp$Theta_t %*% H, model$human$J %*% model$human$H)
+  expect_equal(sum(model$tisp$Theta_t %*% H), sum(H))
 })
 
 test_that("setting up time spent (dt) works", {
 
   # 2 patch, 3 strata
-  #   s1p1  s1p2 s2p1 s2p2
   H <- c(50, 20, 10, 30, 20, 10)
   J <- matrix(
     c(1, 0, 1, 0, 1, 0,
@@ -118,10 +171,11 @@ test_that("setting up time spent (dt) works", {
   model <- new.env()
   setup.human("strata", model = model, H = H, J = J)
   setup.timespent("dt", model = model, theta = theta)
-  setup.biteweight("null", model = model)
+  setup.biteweight("simple", model = model)
 
   xi <- c(0.15, 0.85)
-  W <- compute.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, xi = xi, t = 1)
+  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = xi, t = 1)
+  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
 
   wt <- rep(1, length(H))
   W_expected <- ((t(theta_day) %*% (wt * H)) * (xi[1])) + ((t(theta_night) %*% (wt * H)) * (xi[2]))
@@ -129,21 +183,26 @@ test_that("setting up time spent (dt) works", {
   expect_equal(W, W_expected)
 
   # 3 strata, 2 patch
-  H <- c(70, 40, 30)
-  J <- matrix(
+  H_strata <- c(70, 40, 30)
+  J_strata <- matrix(
     c(50/70,  10/40, 20/30,
       1-50/70, 1-10/40, 1-20/30),
     nrow = 2,
     ncol = 3, byrow = TRUE
   )
 
+  residency <- strata_to_residency(H_strata = H_strata, J_strata = J_strata)
+  J <- residency$J
+  H <- residency$H
+
   model <- new.env()
   setup.human("strata", model = model, H = H, J = J)
   setup.timespent("dt", model = model, theta = theta)
-  setup.biteweight("null", model = model)
+  setup.biteweight("simple", model = model)
 
   xi <- c(0.15, 0.85)
-  W <- compute.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, xi = xi, t = 1)
+  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = xi, t = 1)
+  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
 
   expect_equal(W, W_expected)
 })
