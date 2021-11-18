@@ -3,7 +3,8 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   Micro-MoB: Micro-MoB.html
+  human: human.html
   key-themes: key-themes.html
   math: math.html
-last_built: 2021-11-17T04:13Z
+last_built: 2021-11-18T00:23Z
 

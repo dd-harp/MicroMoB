@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup a time spent model — setup.timespent • MicroMoB</title>
+<title>Helper function for lumped population strata — strata_to_residency • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,11 @@
 
 
 
-<meta property="og:title" content="Setup a time spent model — setup.timespent" />
-<meta property="og:description" content="Setup a time spent model. The model object must have already
-been initialized with a human object (see setup.human). This adds
-a list to model named &quot;tisp&quot; (Time spent)." />
+<meta property="og:title" content="Helper function for lumped population strata — strata_to_residency" />
+<meta property="og:description" content="If input is given as a vector of population sizes per-strata, lumped
+over patches, and a separate matrix whose columns describe how each strata is
+distributed over patches, this function calculates the residency matrix and
+population size for the overall stratification of both residency and strata." />
 
 
 
@@ -131,43 +132,54 @@ a list to model named &quot;tisp&quot; (Time spent)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup a time spent model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/time_spent.R'><code>R/time_spent.R</code></a></small>
-    <div class="hidden name"><code>setup.timespent.Rd</code></div>
+    <h1>Helper function for lumped population strata</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
+    <div class="hidden name"><code>strata_to_residency.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Setup a time spent model. The model object must have already
-been initialized with a human object (see <a href='setup.human.html'>setup.human</a>). This adds
-a <a href='https://rdrr.io/r/base/list.html'>list</a> to <code>model</code> named "tisp" (Time spent).</p>
+    <p>If input is given as a vector of population sizes per-strata, lumped
+over patches, and a separate matrix whose columns describe how each strata is
+distributed over patches, this function calculates the residency matrix and
+population size for the overall stratification of both residency and strata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup.timespent</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>strata_to_residency</span><span class='op'>(</span><span class='va'>H_strata</span>, <span class='va'>J_strata</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>a character in <code>c("day")</code></p></td>
+      <th>H_strata</th>
+      <td><p>a vector of population size by strata</p></td>
     </tr>
     <tr>
-      <th>model</th>
-      <td><p>a model object (an <a href='https://rdrr.io/r/base/environment.html'>environment</a>)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments to be passed to type methods</p></td>
+      <th>J_strata</th>
+      <td><p>a matrix chose columns sum to one giving the distribution of
+strata populations over patches</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="daily-time-spent-model"><a class="anchor" href="#daily-time-spent-model"></a>Daily time spent model</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>see <a href='setup.timespent.day.html'>setup.timespent.day</a></p>
-    <h2 class="hasAnchor" id="fractional-day-time-spent-model"><a class="anchor" href="#fractional-day-time-spent-model"></a>Fractional day time spent model</h2>
+    <p>a <a href='https://rdrr.io/r/base/list.html'>list</a> with three elements:</p><ul>
+<li><p><code>assignment_indices</code>: provides a mapping from patch (rows) and strata (columns)
+into the "unrolled" vector <code>H</code></p></li>
+<li><p><code>J</code>: the residency matrix mapping elements in <code>H</code> to patches</p></li>
+<li><p><code>H</code>: the overall population distribution over strata and patches</p></li>
+</ul>
 
-    <p>see <a href='setup.timespent.dt.html'>setup.timespent.dt</a></p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='co'># taken from package tests</span></span>
+<span class='r-in'><span class='va'>J</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span></span>
+<span class='r-in'>   <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.3</span>, <span class='fl'>0.5</span>, <span class='fl'>0.2</span>,</span>
+<span class='r-in'>   <span class='fl'>0.1</span>, <span class='fl'>0.6</span>, <span class='fl'>0.3</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span>, ncol <span class='op'>=</span> <span class='fl'>2</span>, byrow <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>H</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>60</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>H_overall</span> <span class='op'>&lt;-</span> <span class='va'>J</span> <span class='op'><a href='https://rdrr.io/r/base/matmult.html'>%*%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='va'>H</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>residency</span> <span class='op'>&lt;-</span> <span class='fu'>strata_to_residency</span><span class='op'>(</span>H_strata <span class='op'>=</span> <span class='va'>H</span>, J_strata <span class='op'>=</span> <span class='va'>J</span><span class='op'>)</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

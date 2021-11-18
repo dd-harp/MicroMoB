@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup a time spent model — setup.biteweight • MicroMoB</title>
+<title>Setup a biting weight model — setup.biteweight • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,10 @@
 
 
 
-<meta property="og:title" content="Setup a time spent model — setup.biteweight" />
-<meta property="og:description" content="Setup a time spent model. The model object must have already
+<meta property="og:title" content="Setup a biting weight model — setup.biteweight" />
+<meta property="og:description" content="Setup a biting weight model. The model object must have already
 been initialized with a human object (see setup.human). This adds
-a list to model named &quot;tisp&quot; (Time spent)." />
+a list to model named biteweight (Time spent)." />
 
 
 
@@ -100,6 +100,9 @@ a list to model named &quot;tisp&quot; (Time spent)." />
       <a href="../articles/Micro-MoB.html">Micro-MoB</a>
     </li>
     <li>
+      <a href="../articles/human.html">human</a>
+    </li>
+    <li>
       <a href="../articles/key-themes.html">key-themes</a>
     </li>
     <li>
@@ -128,28 +131,25 @@ a list to model named &quot;tisp&quot; (Time spent)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup a time spent model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/Human.R'><code>R/Human.R</code></a></small>
+    <h1>Setup a biting weight model</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
     <div class="hidden name"><code>setup.biteweight.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Setup a time spent model. The model object must have already
+    <p>Setup a biting weight model. The model object must have already
 been initialized with a human object (see <a href='setup.human.html'>setup.human</a>). This adds
-a <a href='https://rdrr.io/r/base/list.html'>list</a> to <code>model</code> named "tisp" (Time spent).</p>
+a <a href='https://rdrr.io/r/base/list.html'>list</a> to <code>model</code> named <code>biteweight</code> (Time spent).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup.biteweight</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for null</span>
-<span class='fu'>setup.biteweight</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, wt <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>setup.biteweight</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>type</th>
-      <td><p>a character in <code>c("null")</code></p></td>
+      <td><p>a character in <code>c("simple")</code></p></td>
     </tr>
     <tr>
       <th>model</th>
@@ -158,10 +158,6 @@ a <a href='https://rdrr.io/r/base/list.html'>list</a> to <code>model</code> name
     <tr>
       <th>...</th>
       <td><p>other arguments to be passed to type methods</p></td>
-    </tr>
-    <tr>
-      <th>wt</th>
-      <td><p>optional vector of biting weights, if <code>NULL</code> use 1 for all strata</p></td>
     </tr>
     </table>
 

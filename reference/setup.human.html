@@ -41,9 +41,7 @@
 
 <meta property="og:title" content="Setup a human object — setup.human" />
 <meta property="og:description" content="Setup a human object. The model object will have a list named human
-added to it. Within human the H vector is a vector of populations, in each strata,
-in each patch. This means that if there are 2 strata and 3 patches, the first 3
-elements give the distribution of people in strata 1 across the 3 patches." />
+added to it." />
 
 
 
@@ -101,6 +99,9 @@ elements give the distribution of people in strata 1 across the 3 patches." />
       <a href="../articles/Micro-MoB.html">Micro-MoB</a>
     </li>
     <li>
+      <a href="../articles/human.html">human</a>
+    </li>
+    <li>
       <a href="../articles/key-themes.html">key-themes</a>
     </li>
     <li>
@@ -130,28 +131,23 @@ elements give the distribution of people in strata 1 across the 3 patches." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Setup a human object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/Human.R'><code>R/Human.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
     <div class="hidden name"><code>setup.human.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Setup a human object. The <code>model</code> object will have a list named <code>human</code>
-added to it. Within <code>human</code> the <code>H</code> vector is a vector of populations, in each strata,
-in each patch. This means that if there are 2 strata and 3 patches, the first 3
-elements give the distribution of people in strata 1 across the 3 patches.</p>
+added to it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup.human</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for strata</span>
-<span class='fu'>setup.human</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>H</span>, J <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>setup.human</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>type</th>
-      <td><p>a character in <code>c("simple", "strata")</code></p></td>
+      <td><p>a character in <code>c("strata")</code></p></td>
     </tr>
     <tr>
       <th>model</th>
@@ -161,27 +157,11 @@ elements give the distribution of people in strata 1 across the 3 patches.</p>
       <th>...</th>
       <td><p>other arguments to be passed to type methods</p></td>
     </tr>
-    <tr>
-      <th>H</th>
-      <td><p>a vector of human population sizes</p></td>
-    </tr>
-    <tr>
-      <th>J</th>
-      <td><p>a matrix whose columns assign human strata to patches (rows); the
-columns must all sum to one.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="strata"><a class="anchor" href="#strata"></a>strata</h2>
 
-    
-
-<p>There are a few ways to provide <code>J</code> and <code>H</code>. If <code>H</code> is the "unrolled" vector
-of humans, then we assume that the indexing is as above (patch index changes
-fastest, strata index changes slowest). In this base <code>J</code> is assumed to be
-binary. If instead <code>H</code> gives the overall number of people in each strata
-then the columns of <code>J</code> must sum to 1 and indicate how each strata is
-distributed amongst patches.</p>
+    <p>see <a href='setup.human.strata.html'>setup.human.strata</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
