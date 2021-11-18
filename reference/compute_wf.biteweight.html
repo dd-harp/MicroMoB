@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute human availability (W) — compute_W.timespent • MicroMoB</title>
+<title>Compute biting weight — compute_wf.biteweight • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Compute human availability (W) — compute_W.timespent" />
-<meta property="og:description" content="Compute human availability (W)" />
+<meta property="og:title" content="Compute biting weight — compute_wf.biteweight" />
+<meta property="og:description" content="Return the biting weights for humans at a given time" />
 
 
 
@@ -126,31 +126,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute human availability (W)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/time_spent.R'><code>R/time_spent.R</code></a></small>
-    <div class="hidden name"><code>compute_W.timespent.Rd</code></div>
+    <h1>Compute biting weight</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
+    <div class="hidden name"><code>compute_wf.biteweight.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute human availability (W)</p>
+    <p>Return the biting weights for humans at a given time</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compute_W.timespent</span><span class='op'>(</span><span class='va'>tisp</span>, <span class='va'>biteweight</span>, <span class='va'>human</span>, <span class='va'>t</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compute_wf.biteweight</span><span class='op'>(</span><span class='va'>biteweight</span>, <span class='va'>t</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>tisp</th>
-      <td><p>an object from <a href='setup.timespent.html'>setup.timespent</a></p></td>
-    </tr>
-    <tr>
       <th>biteweight</th>
       <td><p>an object from <a href='setup.biteweight.html'>setup.biteweight</a></p></td>
-    </tr>
-    <tr>
-      <th>human</th>
-      <td><p>an object from <a href='setup.human.html'>setup.human</a></p></td>
     </tr>
     <tr>
       <th>t</th>
@@ -158,9 +150,6 @@
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='compute_W.timespent.day.html'>compute_W.timespent.day</a> <a href='compute_W.timespent.dt.html'>compute_W.timespent.dt</a></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
