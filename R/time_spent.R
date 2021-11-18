@@ -136,7 +136,7 @@ compute_W.timespent <- function(tisp, biteweight, human, t) {
 #' @inheritParams compute_W.timespent
 #' @export
 compute_W.timespent.dt <- function(tisp, biteweight, human, t) {
-  wf <- compute.biteweight(biteweight = biteweight, t = t)
+  wf <- compute_wf.biteweight(biteweight = biteweight, t = t)
   W <- lapply(X = 1:tisp$d, FUN = function(k){
     tisp$Psi_t[, , k] %*% (wf * human$H)
   })
@@ -149,7 +149,7 @@ compute_W.timespent.dt <- function(tisp, biteweight, human, t) {
 #' @inheritParams compute_W.timespent
 #' @export
 compute_W.timespent.day<- function(tisp, biteweight, human, t) {
-  wf <- compute.biteweight(biteweight = biteweight, t = t)
+  wf <- compute_wf.biteweight(biteweight = biteweight, t = t)
   W <- tisp$Psi_t %*% (wf * human$H)
   return(W)
 }

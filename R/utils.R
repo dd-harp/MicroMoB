@@ -6,3 +6,8 @@ is_binary <- function(x) {
     return(FALSE)
   }
 }
+
+
+Ff_0 <- function(x, fx = 1, sf = 1){
+  fx * (sf * x / (1 + sf * x))
+}

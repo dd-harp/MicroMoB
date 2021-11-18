@@ -1,4 +1,4 @@
-
+# utility functions
 
 #' @title Helper function for lumped population strata
 #' @description If input is given as a vector of population sizes per-strata, lumped
@@ -45,6 +45,9 @@ strata_to_residency <- function(H_strata, J_strata) {
 
   return(pop)
 }
+
+
+# setup human model object
 
 #' @title Setup a human object
 #' @description Setup a human object. The `model` object will have a list named `human`
@@ -107,12 +110,7 @@ setup.human.strata <- function(type, model, H, J = NULL, ...) {
 }
 
 
-
-
-
-
-
-
+# setup biting weights
 
 #' @title Setup a biting weight model
 #' @description Setup a biting weight model. The model object must have already
@@ -151,14 +149,14 @@ setup.biteweight.simple <- function(type, model, wt = NULL, ...) {
 #' @param biteweight an object from [MicroMoB::setup.biteweight]
 #' @param t time
 #' @export
-compute.biteweight <- function(biteweight, t) {
+compute_wf.biteweight <- function(biteweight, t) {
   stopifnot(is.finite(t))
-  UseMethod("compute.biteweight", biteweight)
+  UseMethod("compute_wf.biteweight", biteweight)
 }
 
 #' @title Compute biting weight for simple model
-#' @inheritParams compute.biteweight
+#' @inheritParams compute_wf.biteweight
 #' @export
-compute.biteweight.simple <- function(biteweight, t) {
+compute_wf.biteweight.simple <- function(biteweight, t) {
   return(biteweight$wt)
 }
