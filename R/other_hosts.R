@@ -31,10 +31,10 @@ setup.otherhosts.simple <- function(type, model, B = NULL, ...) {
 }
 
 
-getB.otherhosts <- function(otherhosts, t) {
-  UseMethod("setup.otherhosts", otherhosts)
+compute_B.otherhosts <- function(otherhosts, t) {
+  UseMethod("compute_B.otherhosts", otherhosts)
 }
 
-getB.otherhosts.simple <- function(otherhosts, t) {
+compute_B.otherhosts.simple <- function(otherhosts, t) {
   return(otherhosts$B)
 }
