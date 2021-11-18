@@ -47,59 +47,38 @@ We periodically merge `dev` into `master` for small release updates. These relea
 ## Continuous integration
 
 We use GitHub Actions as our continuous integration platform to run workflows.
+The workflows we use are from [r-lib/actions](https://github.com/r-lib/actions)
+for R packages.
+
+We run three types of workflows.
+
+[R CMD check](https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml)
+runs during any push to `[main, feat/*, hotfix/*, bug/*, dev]` branches.
+
+[Test coverage](https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml)
+runs during pull requests to `[main, dev]` and uses our [codecov.io integration](https://app.codecov.io/gh/dd-harp/MicroMoB)
+for checking test coverage.
+
+Finally, [pkgdown](https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml)
+only runs on pushes to `main`, which will occur when `dev` is merged with `main`
+periodically.
+
+Please note that sometimes hard to diagnose bugs can be due to out of date
+workflows. If you find a strange or unusual bug when pushing to a branch, this
+is one thing to consider checking.
 
 ## Code organisation
 
-*R/simulation.R* - Contains the main entry point and configuration for models
+*R/blood_feeding.R* - stuff
 
-*R/variables.R* - Defines classes for the available variables
+*R/human.R* - stuff
 
-*R/events.R* - Defines classes for the available events
+*R/other_hosts.R* - stuff
 
-*src/* - The C++ side of the R interface and tests
+*R/time_spent.R* - stuff
 
-*inst/include/Variable.h* - The implementations of Variables
-
-*inst/include/Event.h* - The implementations of Events
-
-*tests/* - are divided into unit, integration and performance tests. Integration tests are
-strongly recommended for large functions and unit tests for everything else
+*tests/* - tests for Micro-MoB
 
 ## Pull Requests
 
-Here's a checklist for a successful PR:
-
- - Read your own diff
- - Describe your PR
- - Write any particular notes of interest for the reviewer
- - Check that your code passes all CI checks
- - Check that your code is mergeable
- 
- These are the things we check for:
- 
- - Do I understand the code?
- - Does the code look like it would work?
- - Does it work when run locally?
- - Is it tested enough?
- - Is it documented enough?
-
-Our review process is based off of [RESIDE's PR review process](https://reside-ic.github.io/articles/pull-requests/)
-
-## Microbenchmarks
-
-We use [google benchmark](https://github.com/google/benchmark) for our
-microbenchmarks. You can compile and run the benchmarks like this:
-
-```
-cd tests/performance
-g++ *_benchmark.cpp -std=c++14 -lbenchmark -lpthread -o benchmark.out
-./benchmark.out
-```
-
-## Wishlist
-
- * 90% test coverage
- * More Variables
- * Speed optimisations (tests TBC)
- * CRAN
- * Anything on the github issue board
+Write me
