@@ -167,6 +167,6 @@ compute_W.day<- function(human, Psi_t, t) {
 }
 
 #' @export
-compute_W.default <- function(human, t) {
+compute_W.default <- function(human, Psi_t, t) {
   stop("compute_W has no method for dispatch type ", class(human$timespent))
 }

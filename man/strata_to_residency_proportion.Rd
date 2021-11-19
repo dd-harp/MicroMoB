@@ -35,5 +35,5 @@ J <- matrix(
 )
 H <- c(50, 60)
 H_overall <- J \%*\% diag(H)
-residency <- strata_to_residency(H_strata = H, J_strata = J)
+residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 }

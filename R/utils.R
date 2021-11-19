@@ -41,10 +41,13 @@ Ff_0 <- function(x, fx = 1, sf = 1){
 #' )
 #' H <- c(50, 60)
 #' H_overall <- J %*% diag(H)
-#' residency <- strata_to_residency(H_strata = H, J_strata = J)
+#' residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 #' @export
 strata_to_residency_proportion <- function(H_strata, J_strata) {
 
+  stopifnot(inherits(J_strata, "matrix"))
+  stopifnot(is.finite(H_strata))
+  stopifnot(H_strata >= 0)
   stopifnot(length(H_strata) == ncol(J_strata))
   stopifnot(colSums(J_strata) == 1)
 
@@ -55,19 +58,43 @@ strata_to_residency_proportion <- function(H_strata, J_strata) {
   # we need to determine the actual residency matrix
   pop <- list()
 
-  pop$assignment_indices <- matrix(data = 1:n, nrow = p, ncol = s, byrow = FALSE)
-
-  pop$J <- matrix(0, nrow = p, ncol = n)
-  for (j in 1:p) {
-    pop$J[j, pop$assignment_indices[j, ]] <- 1
-  }
+  pop$J <- do.call(what = cbind, args = replicate(n = s, expr = diag(p), simplify = FALSE))
   pop$H <- as.vector(J_strata %*% diag(H_strata))
 
   return(pop)
 }
 
+#' @title Helper function for lumped population strata (counts)
+#' @description If input is given as a matrix of population counts per strata (columns)
+#' and patch (rows), this function calculates the residency matrix and
+#' population size for the overall stratification of both residency and strata.
+#' @param H_counts a matrix of population counts
+#' @return a [list] with three elements:
+#'  * `J`: the residency matrix mapping elements in `H` to patches
+#'  * `H`: the overall population distribution over strata and patches
+#' @examples
+#' # taken from package tests
+#' J <- matrix(
+#'    c(0.3, 0.5, 0.2,
+#'    0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = FALSE
+#' )
+#' H <- c(50, 60)
+#' H_overall <- J %*% diag(H)
+#' residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
+#' @export
+strata_to_residency_counts <- function(H_counts) {
 
-strata_to_residency_counts <- function(H_matrix) {
-  p <- nrow(H_matrix)
-  s <- ncol(H_matrix)
+  stopifnot(inherits(H_counts, "matrix"))
+  stopifnot(is.finite(H_counts))
+  stopifnot(H_counts >= 0)
+
+  p <- nrow(H_counts)
+  s <- ncol(H_counts)
+
+  pop <- list()
+
+  pop$H <- as.vector(H_counts)
+  pop$J <- do.call(what = cbind, args = replicate(n = s, expr = diag(p), simplify = FALSE))
+
+  return(pop)
 }

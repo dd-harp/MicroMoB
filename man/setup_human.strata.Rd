@@ -22,5 +22,5 @@ patch of residence.}
 }
 \description{
 This sets up a human model object. If you need help getting
-lumped data into the correct format, see \link{strata_to_residency}.
+lumped data into the correct format, see \link{strata_to_residency_proportion}.
 }

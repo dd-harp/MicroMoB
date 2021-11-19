@@ -16,7 +16,7 @@ setup_human <- function(type, model, ...) {
 
 #' @title Setup a human model with strata
 #' @description This sets up a human model object. If you need help getting
-#' lumped data into the correct format, see [MicroMoB::strata_to_residency].
+#' lumped data into the correct format, see [MicroMoB::strata_to_residency_proportion].
 #' @inheritParams setup_human
 #' @param H a vector of human population sizes
 #' @param J a matrix whose columns assign human strata to patches (rows); the
