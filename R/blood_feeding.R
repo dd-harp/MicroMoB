@@ -2,4 +2,6 @@
 
 # bf.bloodfeeding.Ff0
 
-# compute_bloodmeal
+compute_beta <- function(human) {
+  UseMethod("compute_beta", human$tisp)
+}
