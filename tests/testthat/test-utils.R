@@ -84,6 +84,7 @@ test_that("counts strata to residency functions working", {
   expect_equal(ncol(J_out$J), n)
   expect_equal(J_out$J, J_expect)
   expect_equal(J_out$H, H_expect)
+  expect_equal(as.vector(J_out$J %*% J_out$H), rowSums(H_counts))
 
   # s > p case
   s <- 3
@@ -106,6 +107,7 @@ test_that("counts strata to residency functions working", {
   expect_equal(ncol(J_out$J), n)
   expect_equal(J_out$J, J_expect)
   expect_equal(J_out$H, H_expect)
+  expect_equal(as.vector(J_out$J %*% J_out$H), rowSums(H_counts))
 
 })
 

@@ -86,16 +86,16 @@ setup_biteweight <- function(type, model, ...) {
 #' @title Setup simple biting weight model
 #' @description A simple vector of biting weights that do not change over time.
 #' @inheritParams setup_biteweight
-#' @param wt optional vector of biting weights, if `NULL` use 1 for all strata
+#' @param wf optional vector of biting weights, if `NULL` use 1 for all strata
 #' @export
-setup_biteweight.simple <- function(type, model, wt = NULL, ...) {
-  if (is.null(wt)) {
-    wt <- rep(1, length(model$human$n))
+setup_biteweight.simple <- function(type, model, wf = NULL, ...) {
+  if (is.null(wf)) {
+    wf <- rep(1, length(model$human$n))
   }
-  stopifnot(is.finite(wt))
-  stopifnot(wt > 0)
+  stopifnot(is.finite(wf))
+  stopifnot(wf > 0)
 
-  biteweight$wt <- wt
+  biteweight$wf <- wf
   model$human$biteweight <- biteweight
 }
 
@@ -120,7 +120,7 @@ compute_wf <- function(biteweight, t) {
 #' @inheritParams compute_wf
 #' @export
 compute_wf.simple <- function(biteweight, t) {
-  return(biteweight$wt)
+  return(biteweight$wf)
 }
 
 #' @export

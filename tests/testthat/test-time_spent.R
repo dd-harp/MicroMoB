@@ -16,7 +16,7 @@ test_that("setting up time spent (day) works", {
   Psi_t <- compute_Psi(human = model$human, xi = 1, t = 1)
   W <- compute_W(human = model$human, Psi_t = Psi_t, t = 1)
 
-  expect_equal(as.vector(W), model$human$H)
+  expect_equal(W, model$human$H)
 
   # 2 patch, 3 strata
   H <- c(50, 20, 10, 30, 20, 10)
@@ -77,8 +77,8 @@ test_that("setting up time spent (dt) works", {
   Psi_t <- compute_Psi(human = model$human, xi = xi, t = 1)
   W <- compute_W(human = model$human, Psi_t = Psi_t, t = 1)
 
-  wt <- rep(1, length(H))
-  W_expected <- ((t(theta_day) %*% (wt * H)) * (xi[1])) + ((t(theta_night) %*% (wt * H)) * (xi[2]))
+  wf <- rep(1, length(H))
+  W_expected <- ((t(theta_day) %*% (wf * H)) * (xi[1])) + ((t(theta_night) %*% (wf * H)) * (xi[2]))
 
   expect_equal(rowSums(W), as.vector(W_expected))
 
