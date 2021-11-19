@@ -1,6 +1,3 @@
-
-
-
 #' @title Setup other blood hosts
 #' @description Setup a other blood hosts (vertebrate mammals) object.
 #' The `model` object will have a list named `otherhosts` added to it.

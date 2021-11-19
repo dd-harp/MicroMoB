@@ -1,52 +1,3 @@
-# utility functions
-
-#' @title Helper function for lumped population strata
-#' @description If input is given as a vector of population sizes per-strata, lumped
-#' over patches, and a separate matrix whose columns describe how each strata is
-#' distributed over patches, this function calculates the residency matrix and
-#' population size for the overall stratification of both residency and strata.
-#' @param H_strata a vector of population size by strata
-#' @param J_strata a matrix chose columns sum to one giving the distribution of
-#' strata populations over patches
-#' @return a [list] with three elements:
-#'  * `assignment_indices`: provides a mapping from patch (rows) and strata (columns)
-#'     into the "unrolled" vector `H`
-#'  * `J`: the residency matrix mapping elements in `H` to patches
-#'  * `H`: the overall population distribution over strata and patches
-#' @examples
-#' # taken from package tests
-#' J <- matrix(
-#'    c(0.3, 0.5, 0.2,
-#'    0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = FALSE
-#' )
-#' H <- c(50, 60)
-#' H_overall <- J %*% diag(H)
-#' residency <- strata_to_residency(H_strata = H, J_strata = J)
-#' @export
-strata_to_residency <- function(H_strata, J_strata) {
-
-  stopifnot(length(H_strata) == ncol(J_strata))
-  stopifnot(colSums(J_strata) == 1)
-
-  p <- nrow(J_strata)
-  s <- ncol(J_strata)
-  n <- p*s
-
-  # we need to determine the actual residency matrix
-  pop <- list()
-
-  pop$assignment_indices <- matrix(data = 1:n, nrow = p, ncol = s, byrow = FALSE)
-
-  pop$J <- matrix(0, nrow = p, ncol = n)
-  for (j in 1:p) {
-    pop$J[j, pop$assignment_indices[j, ]] <- 1
-  }
-  pop$H <- as.vector(J_strata %*% diag(H_strata))
-
-  return(pop)
-}
-
-
 # setup human model object
 
 #' @title Setup a human object
@@ -119,7 +70,7 @@ setup_human.default <- function(type, model, ...) {
 #' @title Setup a biting weight model
 #' @description Setup a biting weight model. The model object must have already
 #' been initialized with a human object (see [MicroMoB::setup_human]). This adds
-#' a [list] to `model$human` named `biteweight` (Time spent).
+#' a [list] to `model$human` named `biteweight`.
 #' @seealso [MicroMoB::setup_biteweight.simple]
 #' @param type a character in `c("simple")`
 #' @param model a model object (an [environment])
@@ -155,7 +106,7 @@ setup_biteweight.default <- function(type, model, ...) {
 
 
 #' @title Compute biting weight
-#' @description Return the biting weights for humans at a given time
+#' @description Return the biting weights for humans at a given time.
 #' @seealso [MicroMoB::compute_wf.simple]
 #' @param biteweight an object from [MicroMoB::setup_biteweight]
 #' @param t time

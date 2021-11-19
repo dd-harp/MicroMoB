@@ -4,3 +4,7 @@ test_that("test is_binary", {
   expect_false(is_binary(matrix(c(0, 12.5, 1, 0), 2, 2)))
   expect_false(is_binary(c(0, 1.25, 1, 0)))
 })
+
+test_that("strata to residency functions working", {
+  strata_to_residency_proportion
+})

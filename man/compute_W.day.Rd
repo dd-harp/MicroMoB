@@ -4,10 +4,13 @@
 \alias{compute_W.day}
 \title{Compute human availability for daily time spent (W)}
 \usage{
-\method{compute_W}{day}(human, t)
+\method{compute_W}{day}(human, Psi_t, t)
 }
 \arguments{
 \item{human}{an object from \link{setup_human}}
+
+\item{Psi_t}{either a matrix from \link{compute_Psi.day} or an array
+from \link{compute_Psi.dt}}
 
 \item{t}{time}
 }

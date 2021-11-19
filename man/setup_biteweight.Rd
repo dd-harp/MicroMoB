@@ -16,7 +16,7 @@ setup_biteweight(type, model, ...)
 \description{
 Setup a biting weight model. The model object must have already
 been initialized with a human object (see \link{setup_human}). This adds
-a \link{list} to \code{model$human} named \code{biteweight} (Time spent).
+a \link{list} to \code{model$human} named \code{biteweight}.
 }
 \seealso{
 \link{setup_biteweight.simple}

@@ -12,7 +12,7 @@ compute_wf(biteweight, t)
 \item{t}{time}
 }
 \description{
-Return the biting weights for humans at a given time
+Return the biting weights for humans at a given time.
 }
 \seealso{
 \link{compute_wf.simple}

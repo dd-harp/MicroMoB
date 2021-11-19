@@ -131,10 +131,12 @@ compute_Psi.default <- function(human, xi, t) {
 
 #' @title Compute human availability (W)
 #' @param human an object from [MicroMoB::setup_human]
+#' @param Psi_t either a matrix from [MicroMoB::compute_Psi.day] or an array
+#' from [MicroMoB::compute_Psi.dt]
 #' @param t time
 #' @seealso [MicroMoB::compute_W.day] [MicroMoB::compute_W.dt]
 #' @export
-compute_W <- function(human, t) {
+compute_W <- function(human, Psi_t, t) {
   stopifnot(is.finite(t))
   UseMethod("compute_W", human$timespent)
 }
@@ -145,10 +147,10 @@ compute_W <- function(human, t) {
 #' @inheritParams compute_W
 #' @return a matrix of dimension \eqn{p \times d}
 #' @export
-compute_W.dt <- function(human, t) {
+compute_W.dt <- function(human, Psi_t, t) {
   wf <- compute_wf(biteweight = human$biteweight, t = t)
   W <- vapply(X = 1:human$timespent$d, FUN = function(k){
-    human$timespent$Psi_t[, , k] %*% (wf * human$H)
+    Psi_t[, , k] %*% (wf * human$H)
   }, FUN.VALUE = numeric(human$p))
   return(W)
 }
@@ -158,9 +160,9 @@ compute_W.dt <- function(human, t) {
 #' @inheritParams compute_W
 #' @return a vector of length \eqn{p}
 #' @export
-compute_W.day<- function(human, t) {
+compute_W.day<- function(human, Psi_t, t) {
   wf <- compute_wf(biteweight = human$biteweight, t = t)
-  W <- human$timespent$Psi_t %*% (wf * human$H)
+  W <- Psi_t %*% (wf * human$H)
   return(W)
 }
 

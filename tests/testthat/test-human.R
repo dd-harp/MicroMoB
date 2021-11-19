@@ -8,7 +8,7 @@ test_that("strata to residency helper function", {
 
   H_overall <- J %*% diag(H)
 
-  residency <- strata_to_residency(H_strata = H, J_strata = J)
+  residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 
   expect_true(all(residency$H[residency$assignment_indices[1, ]] == H_overall[1, ]))
   expect_true(all(residency$H[residency$assignment_indices[2, ]] == H_overall[2, ]))
@@ -29,10 +29,10 @@ test_that("strata to residency helper function", {
   bad_values <- c(Inf, NaN, NA, -5)
   for (v in bad_values) {
     J[1,2] <- v
-    expect_error(strata_to_residency(H = H, J = J))
-    expect_error(strata_to_residency(H = H, J = J))
-    expect_error(strata_to_residency(H = H, J = J))
-    expect_error(strata_to_residency(H = H, J = J))
+    expect_error(strata_to_residency_proportion(H = H, J = J))
+    expect_error(strata_to_residency_proportion(H = H, J = J))
+    expect_error(strata_to_residency_proportion(H = H, J = J))
+    expect_error(strata_to_residency_proportion(H = H, J = J))
   }
 
 })
@@ -73,7 +73,7 @@ test_that("setting up human objects (strata) works when specifying J", {
   )
   H_strata <- c(50, 60)
 
-  residency <- strata_to_residency(H_strata = H_strata, J_strata = J_strata)
+  residency <- strata_to_residency_proportion(H_strata = H_strata, J_strata = J_strata)
 
   J <- residency$J
   H <- residency$H
