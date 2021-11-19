@@ -7,7 +7,7 @@
 \method{compute_Psi}{dt}(human, xi, t)
 }
 \arguments{
-\item{human}{an object from \link{setup.human}}
+\item{human}{an object from \link{setup_human}}
 
 \item{xi}{probabilities to initiate a feeding search during each fraction
 of the day (must sum to 1)}

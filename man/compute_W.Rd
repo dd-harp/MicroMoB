@@ -7,7 +7,7 @@
 compute_W(human, t)
 }
 \arguments{
-\item{human}{an object from \link{setup.human}}
+\item{human}{an object from \link{setup_human}}
 
 \item{t}{time}
 }

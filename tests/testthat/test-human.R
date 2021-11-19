@@ -40,24 +40,27 @@ test_that("strata to residency helper function", {
 
 test_that("setting up human objects (strata) works when J is not specified", {
 
-  expect_error(setup.human("strata", model = new.env(), H = NULL))
-  expect_error(setup.human("strata", model = new.env(), H = rep(Inf, 5)))
-  expect_error(setup.human("strata", model = new.env(), H = rep(-5, 5)))
-  expect_error(setup.human("strata", model = new.env(), H = rep(NaN, 5)))
-  expect_error(setup.human("strata", model = new.env(), H = rep(NA, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = NULL))
+  expect_error(setup_human("strata", model = new.env(), H = rep(Inf, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = rep(-5, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = rep(NaN, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = rep(NA, 5)))
 
-  expect_error(setup.human("strata", model = new.env(), H = c(Inf, 5)))
-  expect_error(setup.human("strata", model = new.env(), H = c(-5, 5)))
-  expect_error(setup.human("strata", model = new.env(), H = c(NaN, 5)))
-  expect_error(setup.human("strata", model = new.env(), H = c(NA, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = c(Inf, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = c(-5, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = c(NaN, 5)))
+  expect_error(setup_human("strata", model = new.env(), H = c(NA, 5)))
 
-  expect_error(setup.human("strata", model = new.env(), H = c(1, 5), J = diag(5)))
+  expect_error(setup_human("strata", model = new.env(), H = c(1, 5), J = diag(5)))
 
   model <- new.env()
-  setup.human("strata", model = model, H = c(1, 5))
+  setup_human("strata", model = model, H = c(1, 5))
   expect_equal(model$human$J, diag(2))
   expect_equal(model$human$H, c(1, 5))
   expect_true(inherits(model$human, "strata"))
+
+  model <- new.env()
+  expect_error(setup_human("blargh", model = model, H = c(1, 5)))
 })
 
 
@@ -76,15 +79,15 @@ test_that("setting up human objects (strata) works when specifying J", {
   H <- residency$H
   n <- ncol(J)
 
-  expect_error(setup.human("strata", model = new.env(), H = NULL, J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(Inf, n), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(-5, n), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(NaN, n), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = rep(NA, n), J = J))
-  expect_error(setup.human("strata", model = new.env(), H = c(1, 2, 3), J = J))
+  expect_error(setup_human("strata", model = new.env(), H = NULL, J = J))
+  expect_error(setup_human("strata", model = new.env(), H = rep(Inf, n), J = J))
+  expect_error(setup_human("strata", model = new.env(), H = rep(-5, n), J = J))
+  expect_error(setup_human("strata", model = new.env(), H = rep(NaN, n), J = J))
+  expect_error(setup_human("strata", model = new.env(), H = rep(NA, n), J = J))
+  expect_error(setup_human("strata", model = new.env(), H = c(1, 2, 3), J = J))
 
   model <- new.env()
-  setup.human("strata", model = model, H = H, J = J)
+  setup_human("strata", model = model, H = H, J = J)
 
   expect_true(sum(model$human$J %*% model$human$H) == sum(H_strata))
   expect_equal(as.vector(J_strata %*% diag(H_strata)), model$human$H)
@@ -98,6 +101,6 @@ test_that("setting up human objects (strata) works when specifying J", {
 
   # test it works when we give J already formulated as binary
   model1 <- new.env()
-  setup.human("strata", model = model1, H = model$human$H, J = model$human$J)
+  setup_human("strata", model = model1, H = model$human$H, J = model$human$J)
   expect_true(all.equal(as.list(model), as.list(model1)))
 })

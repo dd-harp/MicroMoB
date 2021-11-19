@@ -35,7 +35,7 @@ P = J \cdot H
 \end{equation}
 
 In this software we assume a user provides `J`, `H` when making the human object
-in `setup.human`. If working with complex strata, the helper function `strata_to_residency`
+in `setup_human`. If working with complex strata, the helper function `strata_to_residency`
 can generate a suitable `J` matrix.
 
 There are $p$ patches and $n$ strata. In general, $n \geq p$ because there may be

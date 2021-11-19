@@ -11,10 +11,10 @@
 
 \item{model}{a model object (an \link{environment})}
 
-\item{...}{other arguments to be passed to type methods}
+\item{B}{an optional vector of search weights by patch, otherwise will
+be set to all 0.}
 
-\item{theta}{a time spent matrix, if \code{NULL} the identity matrix is used
-(everyone stays at their home patch)}
+\item{...}{other arguments to be passed to type methods}
 }
 \description{
 Setup simple other blood hosts

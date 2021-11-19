@@ -18,8 +18,8 @@ setup_otherhosts <- function(type, model, ...) {
 
 #' @title Setup simple other blood hosts
 #' @inheritParams setup_otherhosts
-#' @param theta a time spent matrix, if `NULL` the identity matrix is used
-#' (everyone stays at their home patch)
+#' @param B an optional vector of search weights by patch, otherwise will
+#' be set to all 0.
 #' @export
 setup_otherhosts.simple <- function(type, model, B = NULL, ...) {
   p <- model$human$p
@@ -34,6 +34,7 @@ setup_otherhosts.simple <- function(type, model, B = NULL, ...) {
   model$otherhosts <- x
 }
 
+#' @export
 setup_otherhosts.default <- function(type, model, ...) {
   stop("setup_otherhosts has no method for dispatch type ", type)
 }
@@ -58,6 +59,7 @@ compute_B.simple <- function(otherhosts, t) {
   return(otherhosts$B)
 }
 
+#' @export
 compute_B.default <- function(otherhosts, t) {
   stop("compute_B has no method for dispatch type ", class(otherhosts))
 }

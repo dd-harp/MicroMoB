@@ -2,7 +2,7 @@
 
 #' @title Setup a time spent model
 #' @description Setup a time spent model. The model object must have already
-#' been initialized with a human object (see [MicroMoB::setup.human]). This adds
+#' been initialized with a human object (see [MicroMoB::setup_human]). This adds
 #' a [list] to `model$human` named "timespent" (Time spent).
 #' @seealso [MicroMoB::setup_timespent.day] [MicroMoB::setup_timespent.dt]
 #' @param type a character in `c("day")`
@@ -75,6 +75,7 @@ setup_timespent.dt <- function(type, model, theta, ...) {
   model$human$timespent <- timespent
 }
 
+#' @export
 setup_timespent.default <- function(type, model, theta, ...) {
   stop("setup_timespent has no method for dispatch type ", type)
 }
@@ -84,7 +85,7 @@ setup_timespent.default <- function(type, model, theta, ...) {
 
 #' @title Compute time at risk (\eqn{\Psi^{T}})
 #' @description Dispatch is done on the class of `human$timespent`
-#' @param human an object from [MicroMoB::setup.human]
+#' @param human an object from [MicroMoB::setup_human]
 #' @param xi probabilities to initiate a feeding search during each fraction
 #' of the day (must sum to 1)
 #' @param t time (day)
@@ -120,6 +121,7 @@ compute_Psi.dt <- function(human, xi, t) {
   return(Psi_t)
 }
 
+#' @export
 compute_Psi.default <- function(human, xi, t) {
   stop("compute_Psi has no method for dispatch type ", class(human$timespent))
 }
@@ -128,7 +130,7 @@ compute_Psi.default <- function(human, xi, t) {
 # compute human availability (W)
 
 #' @title Compute human availability (W)
-#' @param human an object from [MicroMoB::setup.human]
+#' @param human an object from [MicroMoB::setup_human]
 #' @param t time
 #' @seealso [MicroMoB::compute_W.day] [MicroMoB::compute_W.dt]
 #' @export
@@ -144,7 +146,7 @@ compute_W <- function(human, t) {
 #' @return a matrix of dimension \eqn{p \times d}
 #' @export
 compute_W.dt <- function(human, t) {
-  wf <- compute_wf.biteweight(biteweight = human$biteweight, t = t)
+  wf <- compute_wf(biteweight = human$biteweight, t = t)
   W <- vapply(X = 1:human$timespent$d, FUN = function(k){
     human$timespent$Psi_t[, , k] %*% (wf * human$H)
   }, FUN.VALUE = numeric(human$p))
@@ -157,11 +159,12 @@ compute_W.dt <- function(human, t) {
 #' @return a vector of length \eqn{p}
 #' @export
 compute_W.day<- function(human, t) {
-  wf <- compute_wf.biteweight(biteweight = human$biteweight, t = t)
+  wf <- compute_wf(biteweight = human$biteweight, t = t)
   W <- human$timespent$Psi_t %*% (wf * human$H)
   return(W)
 }
 
+#' @export
 compute_W.default <- function(human, t) {
   stop("compute_W has no method for dispatch type ", class(human$timespent))
 }

@@ -1,6 +1,6 @@
 test_that("simple other hosts works correctly", {
   model <- new.env()
-  setup.human("strata", model = model, H = rep(10, 3))
+  setup_human("strata", model = model, H = rep(10, 3))
   expect_error(setup_otherhosts("blargh", model))
 
   setup_otherhosts("simple", model)
