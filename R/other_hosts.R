@@ -1,3 +1,5 @@
+# other vertebrate blood hosts
+
 #' @title Setup other blood hosts
 #' @description Setup a other blood hosts (vertebrate mammals) object.
 #' The `model` object will have a list named `otherhosts` added to it.
@@ -60,3 +62,6 @@ compute_B.simple <- function(otherhosts, t) {
 compute_B.default <- function(otherhosts, t) {
   stop("compute_B has no method for dispatch type ", class(otherhosts))
 }
+
+
+# human visitors

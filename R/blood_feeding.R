@@ -1,3 +1,5 @@
+# beta: biting distribution matrix
+
 #' @title Compute biting distribution matrix (\eqn{\beta})
 #' @param human an object from [MicroMoB::setup_human]
 #' @param xi probabilities to initiate a feeding search during each fraction
@@ -44,3 +46,6 @@ compute_beta.dt <- function(human, xi, t) {
 compute_beta.default <- function(human, xi, t) {
   stop("compute_beta has no method for dispatch type ", class(human$timespent))
 }
+
+
+# parasite transmission
