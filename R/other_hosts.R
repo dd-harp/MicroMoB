@@ -89,7 +89,7 @@ setup_visitors <- function(type, model, ...) {
 #' @param W_delta a vector of blood feeding attempt weights by patch
 #' @param x_delta a vector of prevalence in visitors by patch
 #' @export
-setup_visitors.simple <- function(type, model, W_delta, x_delta, ...) {
+setup_visitors.simple <- function(type, model, W_delta = NULL, x_delta = NULL, ...) {
   p <- model$human$p
 
   if (is.null(W_delta)) {
@@ -124,7 +124,7 @@ setup_otherhosts.default <- function(type, model, ...) {
 #' @seealso [MicroMoB::compute_W_delta.simple]
 #' @export
 compute_W_delta <- function(visitors, t) {
-  UseMethod("compute_B", visitors)
+  UseMethod("compute_W_delta", visitors)
 }
 
 #' @title Compute simple visitor availability (\eqn{W_{\delta}})
@@ -138,4 +138,27 @@ compute_W_delta.simple <- function(visitors, t) {
 #' @export
 compute_W_delta.default <- function(visitors, t) {
   stop("compute_W_delta has no method for dispatch type ", class(visitors))
+}
+
+
+#' @title Compute visitor prevalence (\eqn{x_{\delta}})
+#' @param visitors an object from [MicroMoB::setup_visitors]
+#' @param t time
+#' @seealso [MicroMoB::compute_x_delta.simple]
+#' @export
+compute_x_delta <- function(visitors, t) {
+  UseMethod("compute_x_delta", visitors)
+}
+
+#' @title Compute simple visitor prevalence (\eqn{x_{\delta}})
+#' @inheritParams compute_x_delta
+#' @return a vector of dimension \eqn{p \times 1}
+#' @export
+compute_x_delta.simple <- function(visitors, t) {
+  return(visitors$x_delta)
+}
+
+#' @export
+compute_x_delta.default <- function(visitors, t) {
+  stop("compute_x_delta has no method for dispatch type ", class(visitors))
 }

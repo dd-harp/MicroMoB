@@ -4,7 +4,7 @@
 \alias{setup_visitors.simple}
 \title{Setup simple visitors}
 \usage{
-\method{setup_visitors}{simple}(type, model, W_delta, x_delta, ...)
+\method{setup_visitors}{simple}(type, model, W_delta = NULL, x_delta = NULL, ...)
 }
 \arguments{
 \item{type}{a character in \code{c("simple")}}
