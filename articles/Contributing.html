@@ -134,58 +134,26 @@
 <div id="continuous-integration" class="section level2">
 <h2 class="hasAnchor">
 <a href="#continuous-integration" class="anchor"></a>Continuous integration</h2>
-<p>We use GitHub Actions as our continuous integration platform to run workflows.</p>
+<p>We use GitHub Actions as our continuous integration platform to run workflows. The workflows we use are from <a href="https://github.com/r-lib/actions">r-lib/actions</a> for R packages.</p>
+<p>We run three types of workflows.</p>
+<p><a href="https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml">R CMD check</a> runs during any push to <code>[main, feat/*, hotfix/*, bug/*, dev]</code> branches.</p>
+<p><a href="https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml">Test coverage</a> runs during pull requests to <code>[main, dev]</code> and uses our <a href="https://app.codecov.io/gh/dd-harp/MicroMoB">codecov.io integration</a> for checking test coverage.</p>
+<p>Finally, <a href="https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml">pkgdown</a> only runs on pushes to <code>main</code>, which will occur when <code>dev</code> is merged with <code>main</code> periodically.</p>
+<p>Please note that sometimes hard to diagnose bugs can be due to out of date workflows. If you find a strange or unusual bug when pushing to a branch, this is one thing to consider checking.</p>
 </div>
 <div id="code-organisation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#code-organisation" class="anchor"></a>Code organisation</h2>
-<p><em>R/simulation.R</em> - Contains the main entry point and configuration for models</p>
-<p><em>R/variables.R</em> - Defines classes for the available variables</p>
-<p><em>R/events.R</em> - Defines classes for the available events</p>
-<p><em>src/</em> - The C++ side of the R interface and tests</p>
-<p><em>inst/include/Variable.h</em> - The implementations of Variables</p>
-<p><em>inst/include/Event.h</em> - The implementations of Events</p>
-<p><em>tests/</em> - are divided into unit, integration and performance tests. Integration tests are strongly recommended for large functions and unit tests for everything else</p>
+<p><em>R/blood_feeding.R</em> - stuff</p>
+<p><em>R/human.R</em> - stuff</p>
+<p><em>R/other_hosts.R</em> - stuff</p>
+<p><em>R/time_spent.R</em> - stuff</p>
+<p><em>tests/</em> - tests for Micro-MoB</p>
 </div>
 <div id="pull-requests" class="section level2">
 <h2 class="hasAnchor">
 <a href="#pull-requests" class="anchor"></a>Pull Requests</h2>
-<p>Here’s a checklist for a successful PR:</p>
-<ul>
-<li>Read your own diff</li>
-<li>Describe your PR</li>
-<li>Write any particular notes of interest for the reviewer</li>
-<li>Check that your code passes all CI checks</li>
-<li>Check that your code is mergeable</li>
-</ul>
-<p>These are the things we check for:</p>
-<ul>
-<li>Do I understand the code?</li>
-<li>Does the code look like it would work?</li>
-<li>Does it work when run locally?</li>
-<li>Is it tested enough?</li>
-<li>Is it documented enough?</li>
-</ul>
-<p>Our review process is based off of <a href="https://reside-ic.github.io/articles/pull-requests/">RESIDE’s PR review process</a></p>
-</div>
-<div id="microbenchmarks" class="section level2">
-<h2 class="hasAnchor">
-<a href="#microbenchmarks" class="anchor"></a>Microbenchmarks</h2>
-<p>We use <a href="https://github.com/google/benchmark">google benchmark</a> for our microbenchmarks. You can compile and run the benchmarks like this:</p>
-<pre><code>cd tests/performance
-g++ *_benchmark.cpp -std=c++14 -lbenchmark -lpthread -o benchmark.out
-./benchmark.out</code></pre>
-</div>
-<div id="wishlist" class="section level2">
-<h2 class="hasAnchor">
-<a href="#wishlist" class="anchor"></a>Wishlist</h2>
-<ul>
-<li>90% test coverage</li>
-<li>More Variables</li>
-<li>Speed optimisations (tests TBC)</li>
-<li>CRAN</li>
-<li>Anything on the github issue board</li>
-</ul>
+<p>Write me</p>
 </div>
   </div>
 

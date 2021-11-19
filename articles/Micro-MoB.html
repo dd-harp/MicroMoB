@@ -104,14 +104,15 @@
 <div id="spatial-dynamics-and-micro-mob-papers-comparison-and-walkthrough" class="section level2">
 <h2 class="hasAnchor">
 <a href="#spatial-dynamics-and-micro-mob-papers-comparison-and-walkthrough" class="anchor"></a>Spatial Dynamics and Micro-MoB papers comparison and walkthrough</h2>
-<div id="human-population-strata" class="section level3">
+<div id="human-population-strata-rhuman-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#human-population-strata" class="anchor"></a>Human population strata</h3>
+<a href="#human-population-strata-rhuman-r" class="anchor"></a>Human population strata <code>R/human.R</code>
+</h3>
 <p>In Spatial Dynamics we have:</p>
 <p><span class="math display">\[\begin{equation}
 P = J \cdot H
 \end{equation}\]</span></p>
-<p>In this software we assume a user provides <code>J</code>, <code>H</code> when making the human object in <code>setup.human</code>. If working with complex strata, the helper function <code>strata_to_residency</code> can generate a suitable <code>J</code> matrix.</p>
+<p>In this software we assume a user provides <code>J</code>, <code>H</code> when making the human object in <code>setup_human</code>. If working with complex strata, the helper function <code>strata_to_residency</code> can generate a suitable <code>J</code> matrix.</p>
 <p>There are <span class="math inline">\(p\)</span> patches and <span class="math inline">\(n\)</span> strata. In general, <span class="math inline">\(n \geq p\)</span> because there may be multiple strata with the same patch residency (e.g. young, middle-aged, old). If <span class="math inline">\(n &gt; p\)</span> then the number of demographic strata summing over patches is <span class="math inline">\(s = n/p\)</span>.</p>
 <p>We will call <span class="math inline">\(s\)</span> demographic strata, and <span class="math inline">\(n\)</span> strata. If there are 2 demographic strata and 3 patches, n = 6.</p>
 <p>The dimensions are as follows:</p>
@@ -138,13 +139,14 @@ P = J \cdot H
 <h3 class="hasAnchor">
 <a href="#ambient-populations" class="anchor"></a>Ambient populations</h3>
 </div>
-<div id="time-at-risk" class="section level3">
+<div id="time-at-risk-rtime_spent-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#time-at-risk" class="anchor"></a>Time at risk</h3>
+<a href="#time-at-risk-rtime_spent-r" class="anchor"></a>Time at risk <code>R/time_spent.R</code>
+</h3>
 <p>In Spatial dynamics we have:</p>
 <p><span class="math display">\[
 \int_{0}^1 \xi(s) ds=1
-\]</span> <span class="math inline">\(\Xi\)</span> is normalized to 1, so it is a probability density. It gives the probability of the time of day a mosquito initiates a blood feeding attempt (including search), <em>conditional</em> on the mosquito attempting to blood feed that day.</p>
+\]</span> <span class="math inline">\(\xi\)</span> is normalized to 1, so it is a probability density. It gives the probability of the time of day a mosquito initiates a blood feeding attempt (including search), <em>conditional</em> on the mosquito attempting to blood feed that day.</p>
 <p>In the software, if the smallest fraction of time modeled is a day, it is vaculously equal to 1, because it says, if a mosquito attempts to blood feed today, then with probability 1, they start the attempt today. Otherwise, <code>Xi</code> will be a vector that sums to 1, giving the probability of each block.</p>
 <p>The time at risk (TaR) matrix, <span class="math inline">\(\Psi\)</span> is then:</p>
 <p><span class="math display">\[
@@ -152,13 +154,34 @@ P = J \cdot H
 \]</span></p>
 <p>In the software, <code>compute_Psi.timespent</code> computes <span class="math inline">\(\Psi^{T}\)</span> and dispatches based on a daily or sub-daily model of time spent. Because it is a scalar times <code>Theta</code>, it has dimensions <span class="math inline">\(\Psi_{n\times p}\)</span>.</p>
 </div>
-<div id="human-availability" class="section level3">
+<div id="human-availability-rtime_spent-r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#human-availability" class="anchor"></a>Human availability</h3>
-<p>Human availability is a vector-centric concept. It is something akin to giving the expectation number of persons available to be bitten at each patch, but the additional multiplication by <span class="math inline">\(\Xi\)</span> means it is weighted by the probability of a mosquito to initiate the search at that time <span class="math inline">\(t\)</span>.</p>
+<a href="#human-availability-rtime_spent-r" class="anchor"></a>Human availability <code>R/time_spent.R</code>
+</h3>
+<p>Human availability is a vector-centric concept. It is something akin to giving the expectation number of persons available to be bitten at each patch, but the additional multiplication by <span class="math inline">\(\xi\)</span> means it is weighted by the probability of a mosquito to initiate the search at that time <span class="math inline">\(t\)</span>. Also <span class="math inline">\(w_{f,n\times 1}\)</span> is a vector of search weights.</p>
 <p><span class="math display">\[
 W(t) = \Psi(t)^T \cdot w_f H
 \]</span> The vector has dimension <span class="math inline">\(W_{p\times 1}\)</span>.</p>
+<p>The function <code>compute_wf.biteweight</code> computes <code>w_f</code>, the vector of biting weights, used by <code>compute_W.timespent</code> computes <code>W</code>.</p>
+</div>
+</div>
+<div id="other-blood-hosts-rother_hosts-r" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-blood-hosts-rother_hosts-r" class="anchor"></a>Other blood hosts <code>R/other_hosts.R</code>
+</h2>
+<p>Other vertebrate mammals may provide bloodmeals for mosquitoes. There is a vector, <span class="math inline">\(B(t)_{p\times 1}\)</span> giving the biting weight (expected number of other hosts weighted by their search weight).</p>
+<p><code>compute_B.otherhosts</code> computes this vector.</p>
+<div id="blood-feeding-rates" class="section level3">
+<h3 class="hasAnchor">
+<a href="#blood-feeding-rates" class="anchor"></a>Blood feeding rates</h3>
+</div>
+<div id="the-human-fraction" class="section level3">
+<h3 class="hasAnchor">
+<a href="#the-human-fraction" class="anchor"></a>The human fraction</h3>
+</div>
+<div id="the-biting-distribution-matrix" class="section level3">
+<h3 class="hasAnchor">
+<a href="#the-biting-distribution-matrix" class="anchor"></a>The biting distribution matrix</h3>
 </div>
 </div>
   </div>
