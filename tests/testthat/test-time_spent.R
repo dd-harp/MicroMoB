@@ -1,16 +1,20 @@
 test_that("setting up time spent (day) works", {
 
+  model <- new.env()
+  setup_human("strata", model = model, H = rep(10, 3))
+  expect_error(setup_timespent("blargh", model = model))
+
   # no strata, just patches
   model <- new.env()
-  setup.human("strata", model = model, H = rep(10, 3))
-  setup.timespent("day", model = model)
-  setup.biteweight("simple", model = model)
+  setup_human("strata", model = model, H = rep(10, 3))
+  setup_timespent("day", model = model)
+  setup_biteweight("simple", model = model)
 
-  expect_true(inherits(model$tisp, "day"))
-  expect_equal(model$tisp$Theta_t, diag(3))
+  expect_true(inherits(model$human$timespent, "day"))
+  expect_equal(model$human$timespent$Theta_t, diag(3))
 
-  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = 1, t = 1)
-  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = 1, t = 1)
+  W <- compute_W(human = model$human, Psi_t = Psi_t, t = 1)
 
   expect_equal(as.vector(W), model$human$H)
 
@@ -24,11 +28,11 @@ test_that("setting up time spent (day) works", {
 
   # theta keeps everyone in one place
   model <- new.env()
-  setup.human("strata", model = model, H = H, J = J)
-  setup.timespent("day", model = model)
+  setup_human("strata", model = model, H = H, J = J)
+  setup_timespent("day", model = model)
 
-  expect_equal(model$tisp$Theta_t %*% H, model$human$J %*% model$human$H)
-  expect_equal(sum(model$tisp$Theta_t %*% H), sum(H))
+  expect_equal(model$human$timespent$Theta_t %*% H, model$human$J %*% model$human$H)
+  expect_equal(sum(model$human$timespent$Theta_t %*% H), sum(H))
 })
 
 
@@ -65,18 +69,18 @@ test_that("setting up time spent (dt) works", {
   theta <- list(theta_day, theta_night)
 
   model <- new.env()
-  setup.human("strata", model = model, H = H, J = J)
-  setup.timespent("dt", model = model, theta = theta)
-  setup.biteweight("simple", model = model)
+  setup_human("strata", model = model, H = H, J = J)
+  setup_timespent("dt", model = model, theta = theta)
+  setup_biteweight("simple", model = model)
 
   xi <- c(0.15, 0.85)
-  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = xi, t = 1)
-  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = xi, t = 1)
+  W <- compute_W(human = model$human, Psi_t = Psi_t, t = 1)
 
   wt <- rep(1, length(H))
   W_expected <- ((t(theta_day) %*% (wt * H)) * (xi[1])) + ((t(theta_night) %*% (wt * H)) * (xi[2]))
 
-  expect_equal(W, W_expected)
+  expect_equal(rowSums(W), as.vector(W_expected))
 
   # 3 strata, 2 patch
   H_strata <- c(70, 40, 30)
@@ -87,18 +91,18 @@ test_that("setting up time spent (dt) works", {
     ncol = 3, byrow = TRUE
   )
 
-  residency <- strata_to_residency(H_strata = H_strata, J_strata = J_strata)
+  residency <- strata_to_residency_proportion(H_strata = H_strata, J_strata = J_strata)
   J <- residency$J
   H <- residency$H
 
   model <- new.env()
-  setup.human("strata", model = model, H = H, J = J)
-  setup.timespent("dt", model = model, theta = theta)
-  setup.biteweight("simple", model = model)
+  setup_human("strata", model = model, H = H, J = J)
+  setup_timespent("dt", model = model, theta = theta)
+  setup_biteweight("simple", model = model)
 
   xi <- c(0.15, 0.85)
-  model$tisp$Psi_t <- compute_Psi.timespent(tisp = model$tisp, xi = xi, t = 1)
-  W <- compute_W.timespent(tisp = model$tisp, biteweight = model$biteweight, human = model$human, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = xi, t = 1)
+  W <- compute_W(human = model$human, Psi_t = Psi_t, t = 1)
 
-  expect_equal(W, W_expected)
+  expect_equal(rowSums(W), as.vector(W_expected))
 })

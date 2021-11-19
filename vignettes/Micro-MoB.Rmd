@@ -26,7 +26,7 @@ In old MicroMoB $\beta$ was DiB.
 
 ## Spatial Dynamics and Micro-MoB papers comparison and walkthrough
 
-### Human population strata
+### Human population strata `R/human.R`
 
 In Spatial Dynamics we have:
 
@@ -35,7 +35,7 @@ P = J \cdot H
 \end{equation}
 
 In this software we assume a user provides `J`, `H` when making the human object
-in `setup.human`. If working with complex strata, the helper function `strata_to_residency`
+in `setup_human`. If working with complex strata, the helper function `strata_to_residency`
 can generate a suitable `J` matrix.
 
 There are $p$ patches and $n$ strata. In general, $n \geq p$ because there may be
@@ -66,14 +66,14 @@ can either be a single matrix or a list of matrices if modeling fractions of a d
 
 ### Ambient populations
 
-### Time at risk
+### Time at risk `R/time_spent.R`
 
 In Spatial dynamics we have:
 
 $$
 \int_{0}^1 \xi(s) ds=1
 $$
-$\Xi$ is normalized to 1, so it is a probability density. It gives the probability
+$\xi$ is normalized to 1, so it is a probability density. It gives the probability
 of the time of day a mosquito initiates a blood feeding attempt (including search),
 _conditional_ on the mosquito attempting to blood feed that day.
 
@@ -92,14 +92,32 @@ In the software, `compute_Psi.timespent` computes $\Psi^{T}$ and dispatches base
 on a daily or sub-daily model of time spent. Because it is a scalar times `Theta`,
 it has dimensions $\Psi_{n\times p}$.
 
-### Human availability
+### Human availability `R/time_spent.R`
 
 Human availability is a vector-centric concept. It is something akin to giving
 the expectation number of persons available to be bitten at each patch, but
-the additional multiplication by $\Xi$ means it is weighted by the probability 
-of a mosquito to initiate the search at that time $t$.
+the additional multiplication by $\xi$ means it is weighted by the probability 
+of a mosquito to initiate the search at that time $t$. Also $w_{f,n\times 1}$
+is a vector of search weights.
 
 $$
 W(t) = \Psi(t)^T \cdot w_f H
 $$
 The vector has dimension $W_{p\times 1}$.
+
+The function `compute_wf.biteweight` computes `w_f`, the vector of
+biting weights, used by `compute_W.timespent` computes `W`.
+
+## Other blood hosts `R/other_hosts.R`
+
+Other vertebrate mammals may provide bloodmeals for mosquitoes. There is a vector,
+$B(t)_{p\times 1}$ giving the biting weight (expected number of other hosts weighted
+by their search weight).
+
+`compute_B.otherhosts` computes this vector.
+
+### Blood feeding rates
+
+### The human fraction
+
+### The biting distribution matrix
