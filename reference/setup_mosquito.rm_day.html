@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup simple biting weight model — setup_biteweight.simple • MicroMoB</title>
+<title>Setup a Ross-Macdonald mosquito object — setup_mosquito.rm_day • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Setup simple biting weight model — setup_biteweight.simple" />
-<meta property="og:description" content="A simple vector of biting weights that do not change over time." />
+<meta property="og:title" content="Setup a Ross-Macdonald mosquito object — setup_mosquito.rm_day" />
+<meta property="og:description" content="a model" />
 
 
 
@@ -129,32 +129,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup simple biting weight model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
-    <div class="hidden name"><code>setup_biteweight.simple.Rd</code></div>
+    <h1>Setup a Ross-Macdonald mosquito object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/mosquito.R'><code>R/mosquito.R</code></a></small>
+    <div class="hidden name"><code>setup_mosquito.rm_day.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A simple vector of biting weights that do not change over time.</p>
+    <p>a model</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for simple</span>
-<span class='fu'><a href='setup_biteweight.html'>setup_biteweight</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, wf <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='co'># S3 method for rm_day</span>
+<span class='fu'><a href='setup_mosquito.html'>setup_mosquito</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, <span class='va'>mosquito_rm_pars</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>type</th>
-      <td><p>a character in <code>c("simple")</code></p></td>
+      <td><p>a character in <code>c("rm_day")</code></p></td>
     </tr>
     <tr>
       <th>model</th>
       <td><p>a model object (an <a href='https://rdrr.io/r/base/environment.html'>environment</a>)</p></td>
     </tr>
     <tr>
-      <th>wf</th>
-      <td><p>optional vector of biting weights, if <code>NULL</code> use 1 for all strata</p></td>
+      <th>mosquito_rm_pars</th>
+      <td><p>parameters for Ross-Macdonald mosquito model</p></td>
     </tr>
     <tr>
       <th>...</th>

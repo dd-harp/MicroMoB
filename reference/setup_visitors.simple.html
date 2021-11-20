@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup simple biting weight model — setup_biteweight.simple • MicroMoB</title>
+<title>Setup simple visitors — setup_visitors.simple • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Setup simple biting weight model — setup_biteweight.simple" />
-<meta property="og:description" content="A simple vector of biting weights that do not change over time." />
+<meta property="og:title" content="Setup simple visitors — setup_visitors.simple" />
+<meta property="og:description" content="If both parameters are NULL then" />
 
 
 
@@ -129,17 +129,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup simple biting weight model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
-    <div class="hidden name"><code>setup_biteweight.simple.Rd</code></div>
+    <h1>Setup simple visitors</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/other_hosts.R'><code>R/other_hosts.R</code></a></small>
+    <div class="hidden name"><code>setup_visitors.simple.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A simple vector of biting weights that do not change over time.</p>
+    <p>If both parameters are <code>NULL</code> then</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simple</span>
-<span class='fu'><a href='setup_biteweight.html'>setup_biteweight</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, wf <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='setup_visitors.html'>setup_visitors</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, W_delta <span class='op'>=</span> <span class='cn'>NULL</span>, x_delta <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,8 +153,12 @@
       <td><p>a model object (an <a href='https://rdrr.io/r/base/environment.html'>environment</a>)</p></td>
     </tr>
     <tr>
-      <th>wf</th>
-      <td><p>optional vector of biting weights, if <code>NULL</code> use 1 for all strata</p></td>
+      <th>W_delta</th>
+      <td><p>a vector of blood feeding attempt weights by patch</p></td>
+    </tr>
+    <tr>
+      <th>x_delta</th>
+      <td><p>a vector of prevalence in visitors by patch</p></td>
     </tr>
     <tr>
       <th>...</th>

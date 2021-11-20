@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Setup simple biting weight model — setup_biteweight.simple • MicroMoB</title>
+<title>Compute visitor availability (\(W_{\delta}\)) — compute_W_delta • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Setup simple biting weight model — setup_biteweight.simple" />
-<meta property="og:description" content="A simple vector of biting weights that do not change over time." />
+<meta property="og:title" content="Compute visitor availability (\(W_{\delta}\)) — compute_W_delta" />
+<meta property="og:description" content="Compute visitor availability (\(W_{\delta}\))" />
 
 
 
@@ -129,39 +129,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Setup simple biting weight model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/human.R'><code>R/human.R</code></a></small>
-    <div class="hidden name"><code>setup_biteweight.simple.Rd</code></div>
+    <h1>Compute visitor availability (\(W_{\delta}\))</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/other_hosts.R'><code>R/other_hosts.R</code></a></small>
+    <div class="hidden name"><code>compute_W_delta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A simple vector of biting weights that do not change over time.</p>
+    <p>Compute visitor availability (\(W_{\delta}\))</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for simple</span>
-<span class='fu'><a href='setup_biteweight.html'>setup_biteweight</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, wf <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compute_W_delta</span><span class='op'>(</span><span class='va'>visitors</span>, <span class='va'>t</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>type</th>
-      <td><p>a character in <code>c("simple")</code></p></td>
+      <th>visitors</th>
+      <td><p>an object from <a href='setup_visitors.html'>setup_visitors</a></p></td>
     </tr>
     <tr>
-      <th>model</th>
-      <td><p>a model object (an <a href='https://rdrr.io/r/base/environment.html'>environment</a>)</p></td>
-    </tr>
-    <tr>
-      <th>wf</th>
-      <td><p>optional vector of biting weights, if <code>NULL</code> use 1 for all strata</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other arguments to be passed to type methods</p></td>
+      <th>t</th>
+      <td><p>time</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='compute_W_delta.simple.html'>compute_W_delta.simple</a></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
