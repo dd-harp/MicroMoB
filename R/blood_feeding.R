@@ -48,4 +48,19 @@ compute_beta.default <- function(human, xi, t) {
 }
 
 
-# parasite transmission
+# EIR
+
+#' #' @export
+#' compute_EIR <- function(human) {
+#'   UseMethod("compute_EIR", human$timespent)
+#' }
+
+# kappa
+
+
+# # parasite transmission
+# compute_bloodmeal <- function(model) {
+#
+#   # compute_EIR(blah) # can dispatch on ... idk.
+#   # compute_kappa(blah)
+# }

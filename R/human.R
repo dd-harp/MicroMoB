@@ -56,6 +56,20 @@ setup_human.strata <- function(type, model, H, J = NULL, ...) {
   pop$n <- n
   pop$p <- p
 
+  # attach n, p to model object
+  if (!is.null(model$gloabl)) {
+
+    if (!is.null(model$global$p)) {
+      stopifnot(model$gloabl$p == p)
+    } else {
+      model$global$p <- p
+    }
+    pop$n <- n
+
+  } else {
+    model$gloabl <- list(n = n, p = p)
+  }
+
   model$human <- pop
 }
 
