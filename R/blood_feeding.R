@@ -1,3 +1,5 @@
+# beta: biting distribution matrix
+
 #' @title Compute biting distribution matrix (\eqn{\beta})
 #' @param human an object from [MicroMoB::setup_human]
 #' @param xi probabilities to initiate a feeding search during each fraction
@@ -14,10 +16,10 @@ compute_beta <- function(human, xi, t) {
 #' @return a matrix of dimension \eqn{n \times p}
 #' @export
 compute_beta.day <- function(human, xi = 1, t) {
-  Psi <- t(compute_Psi(human = human, xi = xi, t = t))
+  Psi_t <- compute_Psi(human = human, xi = xi, t = t)
   wf <- compute_wf(biteweight = human$biteweight, t = t)
   W <- compute_W(human = human, Psi_t = Psi_t, t = t)
-  return(diag(wf) %*% Psi %*% diag(1/W))
+  return(diag(wf) %*% t(Psi_t) %*% diag(1/W))
 }
 
 #' @title Compute fractional biting distribution array (\eqn{\beta})
@@ -34,7 +36,7 @@ compute_beta.dt <- function(human, xi, t) {
   W <- compute_W(human = human, Psi_t = Psi_t, t = t)
 
   for (k in 1:human$timespent$d) {
-    beta[, , k] <- wf %*% t(Psi_t[, , k]) %*% diag(W[, k])
+    beta[, , k] <- wf %*% t(Psi_t[, , k]) %*% diag(1/W[, k])
   }
 
   return(beta)
@@ -44,3 +46,21 @@ compute_beta.dt <- function(human, xi, t) {
 compute_beta.default <- function(human, xi, t) {
   stop("compute_beta has no method for dispatch type ", class(human$timespent))
 }
+
+
+# EIR
+
+#' #' @export
+#' compute_EIR <- function(human) {
+#'   UseMethod("compute_EIR", human$timespent)
+#' }
+
+# kappa
+
+
+# # parasite transmission
+# compute_bloodmeal <- function(model) {
+#
+#   # compute_EIR(blah) # can dispatch on ... idk.
+#   # compute_kappa(blah)
+# }

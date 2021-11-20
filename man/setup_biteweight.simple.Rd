@@ -4,14 +4,14 @@
 \alias{setup_biteweight.simple}
 \title{Setup simple biting weight model}
 \usage{
-\method{setup_biteweight}{simple}(type, model, wt = NULL, ...)
+\method{setup_biteweight}{simple}(type, model, wf = NULL, ...)
 }
 \arguments{
 \item{type}{a character in \code{c("simple")}}
 
 \item{model}{a model object (an \link{environment})}
 
-\item{wt}{optional vector of biting weights, if \code{NULL} use 1 for all strata}
+\item{wf}{optional vector of biting weights, if \code{NULL} use 1 for all strata}
 
 \item{...}{other arguments to be passed to type methods}
 }

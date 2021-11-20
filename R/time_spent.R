@@ -163,7 +163,7 @@ compute_W.dt <- function(human, Psi_t, t) {
 compute_W.day<- function(human, Psi_t, t) {
   wf <- compute_wf(biteweight = human$biteweight, t = t)
   W <- Psi_t %*% (wf * human$H)
-  return(W)
+  return(as.vector(W))
 }
 
 #' @export

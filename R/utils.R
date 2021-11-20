@@ -44,7 +44,6 @@ Ff_0 <- function(x, fx = 1, sf = 1){
 #' residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 #' @export
 strata_to_residency_proportion <- function(H_strata, J_strata) {
-
   stopifnot(inherits(J_strata, "matrix"))
   stopifnot(is.finite(H_strata))
   stopifnot(H_strata >= 0)
@@ -83,7 +82,6 @@ strata_to_residency_proportion <- function(H_strata, J_strata) {
 #' residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 #' @export
 strata_to_residency_counts <- function(H_counts) {
-
   stopifnot(inherits(H_counts, "matrix"))
   stopifnot(is.finite(H_counts))
   stopifnot(H_counts >= 0)
