@@ -19,7 +19,9 @@ compute_beta.day <- function(human, xi = 1, t) {
   Psi_t <- compute_Psi(human = human, xi = xi, t = t)
   wf <- compute_wf(biteweight = human$biteweight, t = t)
   W <- compute_W(human = human, Psi_t = Psi_t, t = t)
-  return(diag(wf) %*% t(Psi_t) %*% diag(1/W))
+  beta <- diag(wf) %*% t(Psi_t) %*% diag(1/W)
+  beta <- beta %*% diag(1/colSums(beta)) # normalize cols to sum to 1
+  return(beta)
 }
 
 #' @title Compute fractional biting distribution array (\eqn{\beta})
@@ -37,6 +39,7 @@ compute_beta.dt <- function(human, xi, t) {
 
   for (k in 1:human$timespent$d) {
     beta[, , k] <- wf %*% t(Psi_t[, , k]) %*% diag(1/W[, k])
+    beta[, , k] <- beta[, , k] %*% diag(1/colSums(beta[, , k])) # normalize cols to sum to 1
   }
 
   return(beta)
