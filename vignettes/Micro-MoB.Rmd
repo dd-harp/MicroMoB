@@ -121,3 +121,7 @@ by their search weight).
 ### The human fraction
 
 ### The biting distribution matrix
+
+The biting distribution matrix must obey the following constraint `colSums(diag(par$H) %*% par$beta) = 1`.
+
+
