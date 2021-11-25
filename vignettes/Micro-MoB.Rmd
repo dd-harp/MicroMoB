@@ -24,7 +24,10 @@ In old MicroMoB $W$ was SiG (but it seems to be a matrix in the old one).
 In old MicroMoB $\kappa$ was NI.
 In old MicroMoB $\beta$ was DiB.
 
-## Spatial Dynamics and Micro-MoB papers comparison and walkthrough
+## Design considerations
+
+The way **Micro-MoB** should work means that single dispatch should be sufficient
+to update the model.
 
 ### Human population strata `R/human.R`
 
@@ -121,3 +124,7 @@ by their search weight).
 ### The human fraction
 
 ### The biting distribution matrix
+
+The biting distribution matrix must obey the following constraint `colSums(diag(par$H) %*% par$beta) = 1`.
+
+

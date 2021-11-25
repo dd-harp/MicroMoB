@@ -4,13 +4,12 @@
 \alias{compute_beta.dt}
 \title{Compute fractional biting distribution array (\eqn{\beta})}
 \usage{
-\method{compute_beta}{dt}(human, xi, t)
+\method{compute_beta}{dt}(human, Psi_t, t)
 }
 \arguments{
 \item{human}{an object from \link{setup_human}}
 
-\item{xi}{probabilities to initiate a feeding search during each fraction
-of the day (must sum to 1)}
+\item{Psi_t}{a time at risk matrix from \link{compute_Psi}}
 
 \item{t}{time}
 }

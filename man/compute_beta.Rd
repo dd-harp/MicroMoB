@@ -4,13 +4,12 @@
 \alias{compute_beta}
 \title{Compute biting distribution matrix (\eqn{\beta})}
 \usage{
-compute_beta(human, xi, t)
+compute_beta(human, Psi_t, t)
 }
 \arguments{
 \item{human}{an object from \link{setup_human}}
 
-\item{xi}{probabilities to initiate a feeding search during each fraction
-of the day (must sum to 1)}
+\item{Psi_t}{a time at risk matrix from \link{compute_Psi}}
 
 \item{t}{time}
 }

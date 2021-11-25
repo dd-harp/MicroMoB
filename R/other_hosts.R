@@ -19,8 +19,9 @@ setup_otherhosts <- function(type, model, ...) {
 #' @inheritParams setup_otherhosts
 #' @param B an optional vector of search weights by patch, otherwise will
 #' be set to all 0.
+#' @param zeta search weights will be weighted as \eqn{B^{\Zeta}}
 #' @export
-setup_otherhosts.simple <- function(type, model, B = NULL, ...) {
+setup_otherhosts.simple <- function(type, model, B = NULL, zeta = 1, ...) {
   p <- model$human$p
   if (is.null(B)) {
     x$B <- rep(0, p)
@@ -30,6 +31,11 @@ setup_otherhosts.simple <- function(type, model, B = NULL, ...) {
     stopifnot(B >= 0)
     x$B <- B
   }
+
+  stopifnot(zeta >= 0)
+  stopifnot(length(zeta) == 1 | length(zeta) == p)
+  x$zeta <- zeta
+
   model$otherhosts <- x
 }
 
@@ -55,7 +61,7 @@ compute_B <- function(otherhosts, t) {
 #' @return a vector of dimension \eqn{p \times 1}
 #' @export
 compute_B.simple <- function(otherhosts, t) {
-  return(otherhosts$B)
+  return(otherhosts$B^otherhosts$zeta)
 }
 
 #' @export
@@ -114,8 +120,8 @@ setup_visitors.simple <- function(type, model, W_delta = NULL, x_delta = NULL, .
 }
 
 #' @export
-setup_otherhosts.default <- function(type, model, ...) {
-  stop("setup_otherhosts has no method for dispatch type ", type)
+setup_visitors.default <- function(type, model, ...) {
+  stop("setup_visitors has no method for dispatch type ", type)
 }
 
 #' @title Compute visitor availability (\eqn{W_{\delta}})
@@ -141,16 +147,19 @@ compute_W_delta.default <- function(visitors, t) {
 }
 
 
-#' @title Compute visitor prevalence (\eqn{x_{\delta}})
+#' @title Compute visitor net infectiousness (\eqn{x_{\delta}})
+#' @description \eqn{x_{\delta}}, the net infectiousness of visitors, is the probability
+#' that a mosquito would become infected after biting a visitor. It is the prevalence
+#' multiplied by the transmission efficiency.
 #' @param visitors an object from [MicroMoB::setup_visitors]
-#' @param t time
+#' @param t time.
 #' @seealso [MicroMoB::compute_x_delta.simple]
 #' @export
 compute_x_delta <- function(visitors, t) {
   UseMethod("compute_x_delta", visitors)
 }
 
-#' @title Compute simple visitor prevalence (\eqn{x_{\delta}})
+#' @title Compute simple visitor net infectiousness (\eqn{x_{\delta}})
 #' @inheritParams compute_x_delta
 #' @return a vector of dimension \eqn{p \times 1}
 #' @export

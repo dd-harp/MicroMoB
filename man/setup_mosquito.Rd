@@ -7,7 +7,7 @@
 setup_mosquito(type, model, ...)
 }
 \arguments{
-\item{type}{a character in \code{c("rm_day")}}
+\item{type}{a character in \verb{c("rm", "null)}}
 
 \item{model}{a model object (an \link{environment})}
 
@@ -18,5 +18,5 @@ Setup a mosquito object. The \code{model} object will have a list named \code{mo
 added to it.
 }
 \seealso{
-\link{setup_mosquito.rm_day}
+\link{setup_mosquito.trace}
 }

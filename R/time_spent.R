@@ -3,7 +3,7 @@
 #' @title Setup a time spent model
 #' @description Setup a time spent model. The model object must have already
 #' been initialized with a human object (see [MicroMoB::setup_human]). This adds
-#' a [list] to `model$human` named "timespent" (Time spent).
+#' a [list] to `model$human` named `pathogen` (Time spent).
 #' @seealso [MicroMoB::setup_timespent.day] [MicroMoB::setup_timespent.dt]
 #' @param type a character in `c("day")`
 #' @param model a model object (an [environment])
