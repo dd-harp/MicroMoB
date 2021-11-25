@@ -2,17 +2,19 @@
 % Please edit documentation in R/other_hosts.R
 \name{compute_x_delta}
 \alias{compute_x_delta}
-\title{Compute visitor prevalence (\eqn{x_{\delta}})}
+\title{Compute visitor net infectiousness (\eqn{x_{\delta}})}
 \usage{
 compute_x_delta(visitors, t)
 }
 \arguments{
 \item{visitors}{an object from \link{setup_visitors}}
 
-\item{t}{time}
+\item{t}{time.}
 }
 \description{
-Compute visitor prevalence (\eqn{x_{\delta}})
+\eqn{x_{\delta}}, the net infectiousness of visitors, is the probability
+that a mosquito would become infected after biting a visitor. It is the prevalence
+multiplied by the transmission efficiency.
 }
 \seealso{
 \link{compute_x_delta.simple}

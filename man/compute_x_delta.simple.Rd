@@ -2,18 +2,18 @@
 % Please edit documentation in R/other_hosts.R
 \name{compute_x_delta.simple}
 \alias{compute_x_delta.simple}
-\title{Compute simple visitor prevalence (\eqn{x_{\delta}})}
+\title{Compute simple visitor net infectiousness (\eqn{x_{\delta}})}
 \usage{
 \method{compute_x_delta}{simple}(visitors, t)
 }
 \arguments{
 \item{visitors}{an object from \link{setup_visitors}}
 
-\item{t}{time}
+\item{t}{time.}
 }
 \value{
 a vector of dimension \eqn{p \times 1}
 }
 \description{
-Compute simple visitor prevalence (\eqn{x_{\delta}})
+Compute simple visitor net infectiousness (\eqn{x_{\delta}})
 }

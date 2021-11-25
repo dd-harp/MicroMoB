@@ -4,7 +4,7 @@
 \alias{setup_otherhosts.simple}
 \title{Setup simple other blood hosts}
 \usage{
-\method{setup_otherhosts}{simple}(type, model, B = NULL, ...)
+\method{setup_otherhosts}{simple}(type, model, B = NULL, zeta = 1, ...)
 }
 \arguments{
 \item{type}{a character in \code{c("simple")}}
@@ -13,6 +13,8 @@
 
 \item{B}{an optional vector of search weights by patch, otherwise will
 be set to all 0.}
+
+\item{zeta}{search weights will be weighted as \eqn{B^{\Zeta}}}
 
 \item{...}{other arguments to be passed to type methods}
 }

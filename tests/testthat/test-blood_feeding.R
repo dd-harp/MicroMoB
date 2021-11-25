@@ -39,7 +39,8 @@ test_that("daily beta, biting distribution matrix test", {
   setup_timespent("day", model = model, theta = theta)
   setup_biteweight("simple", model = model, wf = wf)
 
-  beta_compare <- compute_beta(human = model$human, xi = 1, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = 1, t = 1)
+  beta_compare <- compute_beta(human = model$human, Psi_t = Psi_t, t = 1)
 
   # columns of beta_strata will sum to one
   beta_strata <- diag(H) %*% beta
@@ -55,69 +56,6 @@ test_that("daily beta, biting distribution matrix test", {
   expect_equal(bites_strata / H, HBR)
 
 })
-
-
-# test_that("fractional beta, biting distribution matrix test", {
-#
-#   p <- 3
-#   s <- 2
-#   n <- s*p
-#
-#   H_count <- matrix(
-#     data = c(
-#       10, 15,
-#       25, 30,
-#       20, 18
-#     ), nrow = p, ncol = s, byrow = TRUE
-#   )
-#
-#   H <- as.vector(H_count)
-#
-#   theta_day <- matrix(
-#     data = c(
-#       0.6, 0.3, 0.1,
-#       0.2, 0.6, 0.2,
-#       0.5, 0.3, 0.2,
-#       0.1, 0.6, 0.3,
-#       0.6, 0.2, 0.2,
-#       0.1, 0.7, 0.2
-#     ), nrow = n, ncol = p, byrow = TRUE
-#   )
-#
-#   theta_night <- theta_day
-#   theta_night[, 1] <- theta_night[, 1] * 0.8
-#   theta_night[, 2] <- theta_night[, 2] * 0.5
-#   theta_night[, 3] <- theta_night[, 3] * 1.5
-#   theta_night <- theta_night / rowSums(theta_night)
-#
-#   theta <- list(theta_day, theta_night)
-#
-#   wf <- c(rep(0.9, p), rep(1.1, p))
-#   xi <- c(0.25, 0.75)
-#
-#   # calculate beta manually
-#   W_day <- (t(theta_day) * xi[1]) %*% (wf * H)
-#   W_night <- (t(theta_night) * xi[2]) %*% (wf * H)
-#
-#   beta_day <- diag(wf) %*% (theta_day * xi[1]) %*% diag(1/as.vector(W_day))
-#   beta_day <- beta_day %*% diag(1/colSums(beta_day))
-#   beta_night <- diag(wf) %*% (theta_night * xi[2]) %*% diag(1/as.vector(W_night))
-#   beta_night <- beta_night %*% diag(1/colSums(beta_night))
-#
-#   # calculate beta in Micro-MoB
-#   residency <- strata_to_residency_counts(H_counts = H_count)
-#
-#   model <- new.env()
-#   setup_human("strata", model = model, H = residency$H, J = residency$J)
-#   setup_timespent("dt", model = model, theta = theta)
-#   setup_biteweight("simple", model = model, wf = wf)
-#
-#   beta_compare <- compute_beta(human = model$human, xi = xi, t = 1)
-#
-#   expect_equal(beta_day, beta_compare[, , 1])
-#   expect_equal(beta_night, beta_compare[, , 2])
-#
-# })
 
 
 test_that("daily v. fractional (2 chunks) beta, expect exact match with same theta", {
@@ -169,7 +107,8 @@ test_that("daily v. fractional (2 chunks) beta, expect exact match with same the
   setup_timespent("dt", model = model, theta = theta)
   setup_biteweight("simple", model = model, wf = wf)
 
-  beta_dt <- compute_beta(human = model$human, xi = xi, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = xi, t = 1)
+  beta_dt <- compute_beta(human = model$human, Psi_t = Psi_t, t = 1)
 
   expect_equal(beta_dt[, , 1], beta_dt_day)
   expect_equal(beta_dt[, , 2], beta_dt_night)
@@ -180,7 +119,8 @@ test_that("daily v. fractional (2 chunks) beta, expect exact match with same the
   setup_timespent("day", model = model, theta = theta[[1]])
   setup_biteweight("simple", model = model, wf = wf)
 
-  beta_daily <- compute_beta(human = model$human, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = 1, t = 1)
+  beta_daily <- compute_beta(human = model$human, Psi_t = Psi_t, t = 1)
 
   # calculate fractional  beta manually
   theta_daily <- theta_day + theta_night
@@ -280,7 +220,8 @@ test_that("daily v. fractional (2 chunks) beta, thetas differ", {
   setup_timespent("dt", model = model, theta = theta)
   setup_biteweight("simple", model = model, wf = wf)
 
-  beta_dt <- compute_beta(human = model$human, xi = xi, t = 1)
+  Psi_t <- compute_Psi(human = model$human, xi = xi, t = 1)
+  beta_dt <- compute_beta(human = model$human, Psi_t = Psi_t, t = 1)
 
   expect_equal(beta_dt[, , 1], beta_dt_day)
   expect_equal(beta_dt[, , 2], beta_dt_night)
@@ -311,6 +252,30 @@ test_that("daily v. fractional (2 chunks) beta, thetas differ", {
   expect_equal(bites_strata_night / H, HBR_night)
   expect_equal((diag(H) %*% beta_dt[, , 2] %*% bites) / H, HBR_night)
 
+  # daily computation is not expected to match when theta differs
+  theta_average <- theta_day * xi[1] + theta_night * xi[2]
+
+  model <- new.env()
+  setup_human("strata", model = model, H = residency$H, J = residency$J)
+  setup_timespent("day", model = model, theta = theta_average)
+  setup_biteweight("simple", model = model, wf = wf)
+
+  Psi_t <- compute_Psi(human = model$human, xi = 1, t = 1)
+  beta_day <- compute_beta(human = model$human, Psi_t = Psi_t, t = 1)
+
+  expect_true(any(beta_dt_manual != beta_day))
+
+  theta_average <- theta_day * 0.5 + theta_night * 0.5
+
+  model <- new.env()
+  setup_human("strata", model = model, H = residency$H, J = residency$J)
+  setup_timespent("day", model = model, theta = theta_average)
+  setup_biteweight("simple", model = model, wf = wf)
+
+  Psi_t <- compute_Psi(human = model$human, xi = 1, t = 1)
+  beta_day <- compute_beta(human = model$human, Psi_t = Psi_t, t = 1)
+
+  expect_true(any(beta_dt_manual != beta_day))
 })
 
 
