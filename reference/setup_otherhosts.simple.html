@@ -139,7 +139,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simple</span>
-<span class='fu'><a href='setup_otherhosts.html'>setup_otherhosts</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, B <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='setup_otherhosts.html'>setup_otherhosts</a></span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>model</span>, B <span class='op'>=</span> <span class='cn'>NULL</span>, zeta <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,6 +156,10 @@
       <th>B</th>
       <td><p>an optional vector of search weights by patch, otherwise will
 be set to all 0.</p></td>
+    </tr>
+    <tr>
+      <th>zeta</th>
+      <td><p>search weights will be weighted as \(B^{\Zeta}\)</p></td>
     </tr>
     <tr>
       <th>...</th>

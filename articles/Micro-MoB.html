@@ -101,9 +101,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dd-harp/MicroMoB">MicroMoB</a></span><span class="op">)</span></code></pre></div>
 <p>In old MicroMoB <span class="math inline">\(\Psi\)</span> was TaR. In old MicroMoB <span class="math inline">\(W\)</span> was SiG (but it seems to be a matrix in the old one). In old MicroMoB <span class="math inline">\(\kappa\)</span> was NI. In old MicroMoB <span class="math inline">\(\beta\)</span> was DiB.</p>
-<div id="spatial-dynamics-and-micro-mob-papers-comparison-and-walkthrough" class="section level2">
+<div id="design-considerations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#spatial-dynamics-and-micro-mob-papers-comparison-and-walkthrough" class="anchor"></a>Spatial Dynamics and Micro-MoB papers comparison and walkthrough</h2>
+<a href="#design-considerations" class="anchor"></a>Design considerations</h2>
+<p>The way <strong>Micro-MoB</strong> should work means that single dispatch should be sufficient to update the model.</p>
 <div id="human-population-strata-rhuman-r" class="section level3">
 <h3 class="hasAnchor">
 <a href="#human-population-strata-rhuman-r" class="anchor"></a>Human population strata <code>R/human.R</code>
@@ -182,6 +183,7 @@ W(t) = \Psi(t)^T \cdot w_f H
 <div id="the-biting-distribution-matrix" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-biting-distribution-matrix" class="anchor"></a>The biting distribution matrix</h3>
+<p>The biting distribution matrix must obey the following constraint <code>colSums(diag(par$H) %*% par$beta) = 1</code>.</p>
 </div>
 </div>
   </div>

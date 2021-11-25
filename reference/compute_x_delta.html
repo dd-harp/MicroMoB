@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute visitor prevalence (\(x_{\delta}\)) — compute_x_delta • MicroMoB</title>
+<title>Compute visitor net infectiousness (\(x_{\delta}\)) — compute_x_delta • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Compute visitor prevalence (\(x_{\delta}\)) — compute_x_delta" />
-<meta property="og:description" content="Compute visitor prevalence (\(x_{\delta}\))" />
+<meta property="og:title" content="Compute visitor net infectiousness (\(x_{\delta}\)) — compute_x_delta" />
+<meta property="og:description" content="\(x_{\delta}\), the net infectiousness of visitors, is the probability
+that a mosquito would become infected after biting a visitor. It is the prevalence
+multiplied by the transmission efficiency." />
 
 
 
@@ -129,13 +131,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute visitor prevalence (\(x_{\delta}\))</h1>
+    <h1>Compute visitor net infectiousness (\(x_{\delta}\))</h1>
     <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/other_hosts.R'><code>R/other_hosts.R</code></a></small>
     <div class="hidden name"><code>compute_x_delta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute visitor prevalence (\(x_{\delta}\))</p>
+    <p>\(x_{\delta}\), the net infectiousness of visitors, is the probability
+that a mosquito would become infected after biting a visitor. It is the prevalence
+multiplied by the transmission efficiency.</p>
     </div>
 
     <pre class="usage"><span class='fu'>compute_x_delta</span><span class='op'>(</span><span class='va'>visitors</span>, <span class='va'>t</span><span class='op'>)</span></pre>
@@ -149,7 +153,7 @@
     </tr>
     <tr>
       <th>t</th>
-      <td><p>time</p></td>
+      <td><p>time.</p></td>
     </tr>
     </table>
 

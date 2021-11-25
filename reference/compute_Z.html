@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute biting distribution matrix (\(\beta\)) — compute_beta • MicroMoB</title>
+<title>Compute infectious mosquitoes (\(Z\)) — compute_Z • MicroMoB</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Compute biting distribution matrix (\(\beta\)) — compute_beta" />
-<meta property="og:description" content="Compute biting distribution matrix (\(\beta\))" />
+<meta property="og:title" content="Compute infectious mosquitoes (\(Z\)) — compute_Z" />
+<meta property="og:description" content="Compute infectious mosquitoes (\(Z\))" />
 
 
 
@@ -129,27 +129,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute biting distribution matrix (\(\beta\))</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/blood_feeding.R'><code>R/blood_feeding.R</code></a></small>
-    <div class="hidden name"><code>compute_beta.Rd</code></div>
+    <h1>Compute infectious mosquitoes (\(Z\))</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dd-harp/MicroMoB/blob/master/R/mosquito.R'><code>R/mosquito.R</code></a></small>
+    <div class="hidden name"><code>compute_Z.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Compute biting distribution matrix (\(\beta\))</p>
+    <p>Compute infectious mosquitoes (\(Z\))</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compute_beta</span><span class='op'>(</span><span class='va'>human</span>, <span class='va'>Psi_t</span>, <span class='va'>t</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>compute_Z</span><span class='op'>(</span><span class='va'>mosquito</span>, <span class='va'>t</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>human</th>
-      <td><p>an object from <a href='setup_human.html'>setup_human</a></p></td>
-    </tr>
-    <tr>
-      <th>Psi_t</th>
-      <td><p>a time at risk matrix from <a href='compute_Psi.html'>compute_Psi</a></p></td>
+      <th>mosquito</th>
+      <td><p>an object from <a href='setup_mosquito.html'>setup_mosquito</a></p></td>
     </tr>
     <tr>
       <th>t</th>
@@ -159,7 +155,7 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='compute_beta.day.html'>compute_beta.day</a> <a href='compute_beta.dt.html'>compute_beta.dt</a></p></div>
+    <div class='dont-index'><p><a href='compute_Z.trace.html'>compute_Z.trace</a></p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
