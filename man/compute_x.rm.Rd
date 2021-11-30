@@ -2,12 +2,12 @@
 % Please edit documentation in R/pathogen.R
 \name{compute_x.rm}
 \alias{compute_x.rm}
-\title{Compute simple visitor availability (\eqn{x})}
+\title{Compute resident net infectiousness for Ross-Macdonland pathogen model (\eqn{x})}
 \usage{
-\method{compute_x}{rm}(pathogen, t)
+\method{compute_x}{rm}(model, t)
 }
 \arguments{
-\item{pathogen}{an object from \link{setup_pathogen}}
+\item{model}{an object from \link{setup_model_object}}
 
 \item{t}{time}
 }
@@ -15,5 +15,5 @@
 a vector of dimension \eqn{p \times 1}
 }
 \description{
-Compute simple visitor availability (\eqn{x})
+Compute resident net infectiousness for Ross-Macdonland pathogen model (\eqn{x})
 }

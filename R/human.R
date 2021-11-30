@@ -5,11 +5,11 @@
 #' added to it.
 #' @seealso [MicroMoB::setup_human.strata]
 #' @param type a character in `c("strata")`
-#' @param model a model object (an [environment])
+#' @param model a model object (from [MicroMoB::setup_model_object])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup_human <- function(type, model, ...) {
-  stopifnot(inherits(model, "environment"))
+  stopifnot(inherits(model, "micro_mob"))
   pop <- structure(list(), class = type)
   UseMethod("setup_human", pop)
 }
@@ -57,19 +57,11 @@ setup_human.strata <- function(type, model, H, J = NULL, ...) {
   pop$p <- p
 
   # attach n, p to model object
-  if (!is.null(model$gloabl)) {
+  stopifnot(inherits(model$global, "global"))
+  model$gloabl$p <- p
+  model$gloabl$n <- n
 
-    if (!is.null(model$global$p)) {
-      stopifnot(model$gloabl$p == p)
-    } else {
-      model$global$p <- p
-    }
-    pop$n <- n
-
-  } else {
-    model$gloabl <- list(n = n, p = p)
-  }
-
+  # attach human object
   model$human <- pop
 }
 
@@ -87,11 +79,11 @@ setup_human.default <- function(type, model, ...) {
 #' a [list] to `model$human` named `biteweight`.
 #' @seealso [MicroMoB::setup_biteweight.simple]
 #' @param type a character in `c("simple")`
-#' @param model a model object (an [environment])
+#' @param model a model object (from [MicroMoB::setup_model_object])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup_biteweight <- function(type, model, ...) {
-  stopifnot(inherits(model, "environment"))
+  stopifnot(inherits(model, "micro_mob"))
   stopifnot(!is.null(model$human))
   biteweight <- structure(list(), class = type)
   UseMethod("setup_biteweight", biteweight)

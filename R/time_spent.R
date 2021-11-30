@@ -6,11 +6,11 @@
 #' a [list] to `model$human` named `pathogen` (Time spent).
 #' @seealso [MicroMoB::setup_timespent.day] [MicroMoB::setup_timespent.dt]
 #' @param type a character in `c("day")`
-#' @param model a model object (an [environment])
+#' @param model a model object (from [MicroMoB::setup_model_object])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup_timespent <- function(type, model, ...) {
-  stopifnot(inherits(model, "environment"))
+  stopifnot(inherits(model, "micro_mob"))
   stopifnot(!is.null(model$human))
   timespent <- structure(list(), class = type)
   UseMethod("setup_timespent", timespent)
@@ -60,6 +60,8 @@ setup_timespent.dt <- function(type, model, theta, ...) {
   p <- nrow(model$human$J)
   n <- length(model$human$H)
   d <- length(theta)
+
+  stopifnot(d > 1)
 
   for (k in 1:d) {
     stopifnot(nrow(theta[[k]]) == n)

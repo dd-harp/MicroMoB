@@ -4,10 +4,10 @@
 \alias{compute_x}
 \title{Compute resident net infectiousness (\eqn{x})}
 \usage{
-compute_x(pathogen, t)
+compute_x(model, t)
 }
 \arguments{
-\item{pathogen}{an object from \link{setup_pathogen}}
+\item{model}{an object from \link{setup_model_object}}
 
 \item{t}{time}
 }

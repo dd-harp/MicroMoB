@@ -9,7 +9,7 @@
 \arguments{
 \item{type}{a character in \code{c("day")}}
 
-\item{model}{a model object (an \link{environment})}
+\item{model}{a model object (from \link{setup_model_object})}
 
 \item{theta}{a time spent matrix, if \code{NULL} the identity matrix is used
 (everyone stays at their home patch)}

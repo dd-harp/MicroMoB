@@ -9,7 +9,7 @@ setup_mosquito(type, model, ...)
 \arguments{
 \item{type}{a character in \verb{c("rm", "null)}}
 
-\item{model}{a model object (an \link{environment})}
+\item{model}{a model object (from \link{setup_model_object})}
 
 \item{...}{other arguments to be passed to type methods}
 }

@@ -9,7 +9,7 @@
 \arguments{
 \item{type}{a character in \code{c("simple")}}
 
-\item{model}{a model object (an \link{environment})}
+\item{model}{a model object (from \link{setup_model_object})}
 
 \item{W_delta}{a vector of blood feeding attempt weights by patch}
 

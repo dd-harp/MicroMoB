@@ -3,11 +3,11 @@
 #' added to it.
 #' @seealso [MicroMoB::setup_mosquito.trace]
 #' @param type a character in `c("rm", "null)`
-#' @param model a model object (an [environment])
+#' @param model a model object (from [MicroMoB::setup_model_object])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup_mosquito <- function(type, model, ...) {
-  stopifnot(inherits(model, "environment"))
+  stopifnot(inherits(model, "micro_mob"))
   pop <- structure(list(), class = type)
   UseMethod("setup_mosquito", pop)
 }

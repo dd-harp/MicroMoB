@@ -1,5 +1,5 @@
 test_that("simple other hosts works correctly", {
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = rep(10, 3))
   expect_error(setup_otherhosts("blargh", model))
 
@@ -14,7 +14,7 @@ test_that("simple other hosts works correctly", {
 
 
 test_that("simple visitors works correctly", {
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = rep(10, 3))
   expect_error(setup_visitors("blargh", model))
 

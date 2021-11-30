@@ -1,11 +1,11 @@
 test_that("setting up time spent (day) works", {
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = rep(10, 3))
   expect_error(setup_timespent("blargh", model = model))
 
   # no strata, just patches
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = rep(10, 3))
   setup_timespent("day", model = model)
   setup_biteweight("simple", model = model)
@@ -27,7 +27,7 @@ test_that("setting up time spent (day) works", {
   )
 
   # theta keeps everyone in one place
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = H, J = J)
   setup_timespent("day", model = model)
 
@@ -68,7 +68,7 @@ test_that("setting up time spent (dt) works", {
 
   theta <- list(theta_day, theta_night)
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = H, J = J)
   setup_timespent("dt", model = model, theta = theta)
   setup_biteweight("simple", model = model)
@@ -95,7 +95,7 @@ test_that("setting up time spent (dt) works", {
   J <- residency$J
   H <- residency$H
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = H, J = J)
   setup_timespent("dt", model = model, theta = theta)
   setup_biteweight("simple", model = model)

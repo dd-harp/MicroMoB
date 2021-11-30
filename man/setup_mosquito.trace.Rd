@@ -9,7 +9,7 @@
 \arguments{
 \item{type}{a character in \verb{c("rm", "null)}}
 
-\item{model}{a model object (an \link{environment})}
+\item{model}{a model object (from \link{setup_model_object})}
 
 \item{Z}{a matrix whose columns are days and rows are patches}
 

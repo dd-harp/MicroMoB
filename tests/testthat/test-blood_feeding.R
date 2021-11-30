@@ -34,7 +34,7 @@ test_that("daily beta, biting distribution matrix test", {
   # calculate beta in Micro-MoB
   residency <- strata_to_residency_counts(H_counts = H_count)
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = residency$H, J = residency$J)
   setup_timespent("day", model = model, theta = theta)
   setup_biteweight("simple", model = model, wf = wf)
@@ -102,7 +102,7 @@ test_that("daily v. fractional (2 chunks) beta, expect exact match with same the
   # calculate fractional beta in Micro-MoB
   residency <- strata_to_residency_counts(H_counts = H_count)
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = residency$H, J = residency$J)
   setup_timespent("dt", model = model, theta = theta)
   setup_biteweight("simple", model = model, wf = wf)
@@ -114,7 +114,7 @@ test_that("daily v. fractional (2 chunks) beta, expect exact match with same the
   expect_equal(beta_dt[, , 2], beta_dt_night)
 
   # calculate daily beta
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = residency$H, J = residency$J)
   setup_timespent("day", model = model, theta = theta[[1]])
   setup_biteweight("simple", model = model, wf = wf)
@@ -129,6 +129,7 @@ test_that("daily v. fractional (2 chunks) beta, expect exact match with same the
   W <- t(theta_daily) %*% (wf * H)
   beta_daily_manual <- diag(wf) %*% theta_daily %*% diag(1/as.vector(W))
 
+  # expect daily and fractional to be equal with same theta
   expect_equal(beta_dt_manual, beta_daily)
   expect_equal(beta_daily_manual, beta_daily)
 
@@ -215,7 +216,7 @@ test_that("daily v. fractional (2 chunks) beta, thetas differ", {
   # calculate fractional beta in Micro-MoB
   residency <- strata_to_residency_counts(H_counts = H_count)
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = residency$H, J = residency$J)
   setup_timespent("dt", model = model, theta = theta)
   setup_biteweight("simple", model = model, wf = wf)
@@ -255,7 +256,7 @@ test_that("daily v. fractional (2 chunks) beta, thetas differ", {
   # daily computation is not expected to match when theta differs
   theta_average <- theta_day * xi[1] + theta_night * xi[2]
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = residency$H, J = residency$J)
   setup_timespent("day", model = model, theta = theta_average)
   setup_biteweight("simple", model = model, wf = wf)
@@ -267,7 +268,7 @@ test_that("daily v. fractional (2 chunks) beta, thetas differ", {
 
   theta_average <- theta_day * 0.5 + theta_night * 0.5
 
-  model <- new.env()
+  model <- setup_model_object()
   setup_human("strata", model = model, H = residency$H, J = residency$J)
   setup_timespent("day", model = model, theta = theta_average)
   setup_biteweight("simple", model = model, wf = wf)

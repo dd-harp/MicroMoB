@@ -5,11 +5,11 @@
 #' The `model` object will have a list named `otherhosts` added to it.
 #' @seealso [setup_otherhosts.simple]
 #' @param type a character in `c("simple")`
-#' @param model a model object (an [environment])
+#' @param model a model object (from [MicroMoB::setup_model_object])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup_otherhosts <- function(type, model, ...) {
-  stopifnot(inherits(model, "environment"))
+  stopifnot(inherits(model, "micro_mob"))
   stopifnot(!is.null(model$human))
   x <- structure(list(), class = type)
   UseMethod("setup_otherhosts", x)
@@ -79,11 +79,11 @@ compute_B.default <- function(otherhosts, t) {
 #' The `model` object will have a list named `visitors` added to it.
 #' @seealso [setup_visitors.simple]
 #' @param type a character in `c("simple")`
-#' @param model a model object (an [environment])
+#' @param model a model object (from [MicroMoB::setup_model_object])
 #' @param ... other arguments to be passed to type methods
 #' @export
 setup_visitors <- function(type, model, ...) {
-  stopifnot(inherits(model, "environment"))
+  stopifnot(inherits(model, "micro_mob"))
   stopifnot(!is.null(model$human))
   x <- structure(list(), class = type)
   UseMethod("setup_visitors", x)

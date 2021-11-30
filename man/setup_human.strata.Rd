@@ -9,7 +9,7 @@
 \arguments{
 \item{type}{a character in \code{c("strata")}}
 
-\item{model}{a model object (an \link{environment})}
+\item{model}{a model object (from \link{setup_model_object})}
 
 \item{H}{a vector of human population sizes}
 
