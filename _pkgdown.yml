@@ -24,7 +24,6 @@ reference:
   contents:
   - step_mosquitoes
   - compute_f
-  - compute_q
   - compute_Z
 
 - subtitle: Ross-Macdonald (RM) mosquito model
@@ -35,7 +34,6 @@ reference:
   - step_mosquitoes.RM_deterministic
   - step_mosquitoes.RM_stochastic
   - compute_f.RM
-  - compute_q.RM
   - compute_Z.RM
 
 - title: Aquatic (immature) mosquito component
@@ -76,6 +74,8 @@ reference:
   - compute_W
   - compute_wf
   - compute_x
+  - compute_H
+  - compute_Psi
 
 - subtitle: SIS human model
   desc: >
@@ -89,6 +89,8 @@ reference:
   - compute_W.SIS
   - compute_wf.SIS
   - compute_x.SIS
+  - compute_H.SIS
+  - compute_Psi.SIS
 
 - title: Visitor component
 

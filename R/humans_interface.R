@@ -25,7 +25,7 @@ compute_W <- function(model) {
 #' @title Compute human biting weights (\eqn{w_{f}})
 #' @description This method dispatches on the type of `model$human`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
-#' @return a vector of length `p`
+#' @return a vector of length `n`
 #' @export
 compute_wf <- function(model) {
   UseMethod("compute_wf", model$human)
@@ -40,4 +40,24 @@ compute_wf <- function(model) {
 #' @export
 compute_x <- function(model) {
   UseMethod("compute_x", model$human)
+}
+
+
+#' @title Compute human population strata sizes (\eqn{H})
+#' @description This method dispatches on the type of `model$human`.
+#' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return a vector of length `n`
+#' @export
+compute_H <- function(model) {
+  UseMethod("compute_H", model$human)
+}
+
+
+#' @title Compute time at risk matrix (\eqn{\Psi})
+#' @description The time at risk matrix is \eqn{\Psi = \Theta \xi} This method dispatches on the type of `model$human`.
+#' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return a matrix with `n` rows and `p` columns
+#' @export
+compute_Psi <- function(model) {
+  UseMethod("compute_Psi", model$human)
 }

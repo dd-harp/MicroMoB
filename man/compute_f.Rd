@@ -4,10 +4,12 @@
 \alias{compute_f}
 \title{Compute mosquito feeding rate (\eqn{f})}
 \usage{
-compute_f(model)
+compute_f(model, B)
 }
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
+
+\item{B}{a vector of length \code{p} giving total blood host availability by patch}
 }
 \value{
 a vector of length \code{p}

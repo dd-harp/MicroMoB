@@ -4,10 +4,12 @@
 \alias{compute_f.RM}
 \title{Compute mosquito feeding rate for RM model (\eqn{f})}
 \usage{
-\method{compute_f}{RM}(model)
+\method{compute_f}{RM}(model, B)
 }
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
+
+\item{B}{a vector of length \code{p} giving total blood host availability by patch}
 }
 \description{
 Compute mosquito feeding rate for RM model (\eqn{f})

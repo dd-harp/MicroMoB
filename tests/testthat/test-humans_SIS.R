@@ -17,6 +17,8 @@ test_that("human object setup is working", {
   expect_equal(compute_W(mod), t(theta) %*% (wf * H))
   expect_equal(compute_x(mod), (X / H) * c)
   expect_equal(compute_wf(mod), wf)
+  expect_equal(compute_Psi(mod), theta)
+  expect_equal(compute_H(mod), H)
 })
 
 

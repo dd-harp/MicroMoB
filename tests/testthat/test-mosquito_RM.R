@@ -59,8 +59,7 @@ test_that("RM model setup is working", {
 
   # compute results
   expect_equal(compute_Z(mod), Z)
-  expect_equal(compute_f(mod), rep(f, 3))
-  expect_equal(compute_q(mod), rep(q, 3))
+  expect_equal(compute_f(mod, rep(1 ,3)), rep(f, 3))
 })
 
 

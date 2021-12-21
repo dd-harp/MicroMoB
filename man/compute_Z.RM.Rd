@@ -10,5 +10,10 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \description{
-Compute density of infective mosquitoes for RM model (\eqn{Z})
+#' @title Compute human blood feeding fraction for RM model (\eqn{q})
+#' @inheritParams compute_f
+#' @export
+compute_q.RM <- function(model) {
+model$mosquito$q
+}
 }

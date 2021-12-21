@@ -116,11 +116,27 @@ compute_wf.SIS <- function(model) {
 }
 
 
-#' @title Compute net infectiousness for SIR model (\eqn{x})
+#' @title Compute net infectiousness for SIS model (\eqn{x})
 #' @inheritParams compute_x
 #' @export
 compute_x.SIS <- function(model) {
   x <- (model$human$X / model$human$H) * model$human$c
   return(x)
+}
+
+
+#' @title Compute human population strata sizes for SIS model (\eqn{H})
+#' @inheritParams compute_H
+#' @export
+compute_H.SIS <- function(model) {
+  model$human$H
+}
+
+
+#' @title Compute time at risk matrix for SIS model (\eqn{\Psi})
+#' @inheritParams compute_Psi
+#' @export
+compute_Psi.SIS <- function(model) {
+  model$human$theta
 }
 
