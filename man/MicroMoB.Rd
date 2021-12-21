@@ -3,12 +3,25 @@
 \docType{package}
 \name{MicroMoB}
 \alias{MicroMoB}
-\title{MicroMoB: Discrete time simulation of mosquito-borne pathogen transmission}
+\alias{MicroMoB-package}
+\title{MicroMoB: Microsimulation for mosquito-borne pathogens}
 \description{
-This package does things.
+Discrete time simulation of mosquito-borne pathogen transmission
 }
-\section{MicroMoB functions}{
-
-The MicroMoB functions ...
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/dd-harp/MicroMoB https://dd-harp.github.io/MicroMoB/index.html}
+  \item Report bugs at \url{https://github.com/dd-harp/MicroMoB/issues}
 }
 
+}
+\author{
+\strong{Maintainer}: Sean L. Wu \email{slwood89@gmail.com} (\href{https://orcid.org/0000-0002-5781-9493}{ORCID})
+
+Authors:
+\itemize{
+  \item David L. Smith \email{smitdave@uw.edu} (\href{https://orcid.org/0000-0003-4367-3849}{ORCID})
+}
+
+}
