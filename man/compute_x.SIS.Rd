@@ -2,7 +2,7 @@
 % Please edit documentation in R/humans_SIS.R
 \name{compute_x.SIS}
 \alias{compute_x.SIS}
-\title{Compute net infectiousness for SIR model}
+\title{Compute net infectiousness for SIR model (\eqn{x})}
 \usage{
 \method{compute_x}{SIS}(model)
 }
@@ -10,5 +10,5 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \description{
-Compute net infectiousness for SIR model
+Compute net infectiousness for SIR model (\eqn{x})
 }

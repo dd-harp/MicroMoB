@@ -2,7 +2,7 @@
 % Please edit documentation in R/humans_interface.R
 \name{compute_W}
 \alias{compute_W}
-\title{Compute available humans}
+\title{Compute available humans (\eqn{W})}
 \usage{
 compute_W(model)
 }

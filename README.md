@@ -13,7 +13,7 @@ model object, and will dispatch on classes of objects within the model object.
 
 ## Components
 
-The model is broken into components, for humans, mosquitoes, and birds (and some others).
+The model is broken into components, for humans, immature and adult mosquitoes (and some others).
 Each component has an _interface_, which are methods which must be defined for that
 component. A component's interface is stored in file, for example, R/humans_interface.R
 shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal)

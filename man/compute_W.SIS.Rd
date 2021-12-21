@@ -2,7 +2,7 @@
 % Please edit documentation in R/humans_SIS.R
 \name{compute_W.SIS}
 \alias{compute_W.SIS}
-\title{Compute available humans for SIS model}
+\title{Compute available humans for SIS model (\eqn{W})}
 \usage{
 \method{compute_W}{SIS}(model)
 }
@@ -10,5 +10,5 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \description{
-Compute available humans for SIS model
+Compute available humans for SIS model (\eqn{W})
 }

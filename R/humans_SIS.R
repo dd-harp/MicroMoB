@@ -98,7 +98,7 @@ step_humans.SIS_stochastic <- function(model) {
 }
 
 
-#' @title Compute available humans for SIS model
+#' @title Compute available humans for SIS model (\eqn{W})
 #' @inheritParams compute_W
 #' @export
 compute_W.SIS <- function(model) {
@@ -107,11 +107,11 @@ compute_W.SIS <- function(model) {
   return(W)
 }
 
-#' @title Compute net infectiousness for SIR model
+#' @title Compute net infectiousness for SIR model (\eqn{x})
 #' @inheritParams compute_x
 #' @export
 compute_x.SIS <- function(model) {
-  X <- model$human$X / model$human$H
-  return(X * model$human$c)
+  x <- (model$human$X / model$human$H) * model$human$c
+  return(x)
 }
 

@@ -11,7 +11,7 @@ step_humans <- function(model) {
 }
 
 
-#' @title Compute available humans
+#' @title Compute available humans (\eqn{W})
 #' @description This is normally computed as \deqn{W = \Psi^{\intercal} \cdot w_{f} H}.
 #' This method dispatches on the type of `model$human`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
@@ -22,7 +22,7 @@ compute_W <- function(model) {
 }
 
 
-#' @title Compute net infectiousness of humans
+#' @title Compute net infectiousness of humans (\eqn{x})
 #' @description In a Ross-Macdonald style transmission model, this is computed as
 #' \deqn{x = c X} This method dispatches on the type of `model$human`.
 #' @param model an object from [MicroMoB::make_MicroMoB]

@@ -2,7 +2,7 @@
 % Please edit documentation in R/humans_interface.R
 \name{compute_x}
 \alias{compute_x}
-\title{Compute net infectiousness of humans}
+\title{Compute net infectiousness of humans (\eqn{x})}
 \usage{
 compute_x(model)
 }
