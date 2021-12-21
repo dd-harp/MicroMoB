@@ -43,6 +43,16 @@ stage) mosquito populations. The interface is defined in R/aquatic_interface.R.
 
 The human component updates human populations. The interface is defined in R/humans_interface.R.
 
+### Visitor
+
+The human component updates human populations outside of the resident population of the geographic area being simulated. 
+The interface is defined in R/visitor_interface.R.
+
+### Alternative blood hosts
+
+The alternative blood host component is responsible for other blood hosts for 
+mosquitoes (livestock, dogs, etc). The interface is defined in R/althost_interface.R.
+
 ## Update
 
 To update the model, a function is called which gathers information from the various

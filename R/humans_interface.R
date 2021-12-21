@@ -22,6 +22,16 @@ compute_W <- function(model) {
 }
 
 
+#' @title Compute human biting weights (\eqn{w_{f}})
+#' @description This method dispatches on the type of `model$human`.
+#' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return a vector of length `p`
+#' @export
+compute_wf <- function(model) {
+  UseMethod("compute_wf", model$human)
+}
+
+
 #' @title Compute net infectiousness of humans (\eqn{x})
 #' @description In a Ross-Macdonald style transmission model, this is computed as
 #' \deqn{x = c X} This method dispatches on the type of `model$human`.

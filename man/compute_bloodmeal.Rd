@@ -13,7 +13,6 @@ compute_bloodmeal(model)
 This should be run prior to any \code{step} functions to update
 components over a time step. It computes various quantities related to
 disease transmission between species using the generic interfaces (methods)
-provided by each component. It updates \code{h}, vectors giving per-capita force
-of infection for the bird and human components, and \code{kappa}, the net infectiousness
+provided by each component. It updates the \code{EIR} vector for the human component, and \code{kappa}, the net infectiousness
 of hosts for the mosquito component.
 }

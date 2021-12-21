@@ -16,6 +16,7 @@ test_that("human object setup is working", {
   setup_humans_SIS(model = mod, stochastic = FALSE, theta = theta, H = H, X = X)
   expect_equal(compute_W(mod), t(theta) %*% (wf * H))
   expect_equal(compute_x(mod), (X / H) * c)
+  expect_equal(compute_wf(mod), wf)
 })
 
 

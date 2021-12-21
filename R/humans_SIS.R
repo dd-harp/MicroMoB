@@ -107,6 +107,15 @@ compute_W.SIS <- function(model) {
   return(W)
 }
 
+
+#' @title Compute human biting weights for SIS model (\eqn{w_{f}})
+#' @inheritParams compute_wf
+#' @export
+compute_wf.SIS <- function(model) {
+  model$human$wf
+}
+
+
 #' @title Compute net infectiousness for SIR model (\eqn{x})
 #' @inheritParams compute_x
 #' @export

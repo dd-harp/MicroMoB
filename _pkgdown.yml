@@ -19,7 +19,7 @@ reference:
   desc: >
     The adult mosquito component is responsible for updating mosquito populations
     of the adult (flying) life stage, and handling pathogen dynamics in adult
-    populations. Any model of adult mosquitoes in MicroWNV is required to
+    populations. Any model of adult mosquitoes in MicroMoB is required to
     implement the following interface methods.
   contents:
   - step_mosquitoes
@@ -44,7 +44,7 @@ reference:
     The aquatic mosquito component is responsible for updating aquatic mosquito
     populations which live in aquatic habitats. It must calculate how many eggs
     are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate
-    the number of emerging adults. Any model of immature mosquitoes in MicroWNV is required to
+    the number of emerging adults. Any model of immature mosquitoes in MicroMoB is required to
     implement the following interface methods.
   contents:
     - step_aqua
@@ -69,11 +69,12 @@ reference:
 
   desc: >
     The human component is responsible for updating human populations
-    and their pathogen dynamics. Any model of humans in MicroWNV is required to
+    and their pathogen dynamics. Any model of humans in MicroMoB is required to
     implement the following interface methods.
   contents:
   - step_humans
   - compute_W
+  - compute_wf
   - compute_x
 
 - subtitle: SIS human model
@@ -86,7 +87,40 @@ reference:
   - step_humans.SIS_deterministic
   - step_humans.SIS_stochastic
   - compute_W.SIS
+  - compute_wf.SIS
   - compute_x.SIS
+
+- title: Visitor component
+
+  desc: >
+    The visitor component is responsible for modeling human populations that are
+    not part of the resident population of the geographic area being simulated.
+  contents:
+  - compute_Wd
+  - compute_xd
+
+- subtitle: Trace visitor model
+  desc: >
+    This is a simple trace driven visitor model.
+  contents:
+  - setup_visitor_trace
+  - compute_Wd.trace
+  - compute_xd.trace
+
+- title: Alternative blood hosts component
+
+  desc: >
+    The alternative blood hosts component is responsible for modeling other blood
+    host populations (livestock, dogs, etc.).
+  contents:
+  - compute_O
+
+- subtitle: Trace alternative blood hosts model
+  desc: >
+    This is a simple trace driven alternative blood hosts model.
+  contents:
+  - setup_alternative_trace
+  - compute_O.trace
 
 - title: Utility and global methods
   contents:
