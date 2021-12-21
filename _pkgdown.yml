@@ -3,3 +3,132 @@ template:
   bslib:
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
+
+reference:
+
+- title: Bloodmeal
+  desc: >
+    The bloodmeal function computes bites taken by mosquitoes on hosts relevant
+    for pathogen transmission between species over a time step. After it is computed, the various
+    components can be updated independently.
+  contents:
+  - compute_bloodmeal
+
+- title: Adult mosquito component
+
+  desc: >
+    The adult mosquito component is responsible for updating mosquito populations
+    of the adult (flying) life stage, and handling pathogen dynamics in adult
+    populations. Any model of adult mosquitoes in MicroMoB is required to
+    implement the following interface methods.
+  contents:
+  - step_mosquitoes
+  - compute_f
+  - compute_Z
+
+- subtitle: Ross-Macdonald (RM) mosquito model
+  desc: This model implements the generalized RM mosquito model.
+  contents:
+  - setup_mosquito_RM
+  - step_mosquitoes.RM
+  - step_mosquitoes.RM_deterministic
+  - step_mosquitoes.RM_stochastic
+  - compute_f.RM
+  - compute_Z.RM
+
+- title: Aquatic (immature) mosquito component
+
+  desc: >
+    The aquatic mosquito component is responsible for updating aquatic mosquito
+    populations which live in aquatic habitats. It must calculate how many eggs
+    are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate
+    the number of emerging adults. Any model of immature mosquitoes in MicroMoB is required to
+    implement the following interface methods.
+  contents:
+    - step_aqua
+    - compute_emergents
+    - add_oviposit
+    - compute_oviposit
+
+- subtitle: Trace (forced) aquatic model
+  desc: >
+    This is a model of aquatic mosquitoes where emergence is passed as a trace (forcing)
+    term and it is not affected by endogenous dynamics.
+  contents:
+  - setup_aqua_trace
+  - step_aqua.trace
+  - compute_emergents.trace
+  - compute_emergents.trace_deterministic
+  - compute_emergents.trace_stochastic
+  - add_oviposit.trace
+  - compute_oviposit.trace
+
+- title: Human component
+
+  desc: >
+    The human component is responsible for updating human populations
+    and their pathogen dynamics. Any model of humans in MicroMoB is required to
+    implement the following interface methods.
+  contents:
+  - step_humans
+  - compute_W
+  - compute_wf
+  - compute_x
+  - compute_H
+  - compute_Psi
+
+- subtitle: SIS human model
+  desc: >
+    This model implements a simple SIS model of humans with risk distributed
+    according to time at risk matrices.
+  contents:
+  - setup_humans_SIS
+  - step_humans.SIS
+  - step_humans.SIS_deterministic
+  - step_humans.SIS_stochastic
+  - compute_W.SIS
+  - compute_wf.SIS
+  - compute_x.SIS
+  - compute_H.SIS
+  - compute_Psi.SIS
+
+- title: Visitor component
+
+  desc: >
+    The visitor component is responsible for modeling human populations that are
+    not part of the resident population of the geographic area being simulated.
+  contents:
+  - compute_Wd
+  - compute_xd
+
+- subtitle: Trace visitor model
+  desc: >
+    This is a simple trace driven visitor model.
+  contents:
+  - setup_visitor_trace
+  - compute_Wd.trace
+  - compute_xd.trace
+
+- title: Alternative blood hosts component
+
+  desc: >
+    The alternative blood hosts component is responsible for modeling other blood
+    host populations (livestock, dogs, etc.).
+  contents:
+  - compute_O
+
+- subtitle: Trace alternative blood hosts model
+  desc: >
+    This is a simple trace driven alternative blood hosts model.
+  contents:
+  - setup_alternative_trace
+  - compute_O.trace
+
+- title: Utility and global methods
+  contents:
+  - MicroMoB
+  - make_MicroMoB
+  - sample_stochastic_vector
+  - sample_stochastic_matrix
+  - strata_to_residency_proportion
+  - strata_to_residency_counts
