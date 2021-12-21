@@ -53,6 +53,7 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
   model$human$X <- X
 
   model$human$h <- rep(0, n)
+  model$human$EIR <- rep(0, n)
 
   model$human$b <- b
   model$human$c <- c

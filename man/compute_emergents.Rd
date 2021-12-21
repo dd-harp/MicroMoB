@@ -2,7 +2,7 @@
 % Please edit documentation in R/aquatic_interface.R
 \name{compute_emergents}
 \alias{compute_emergents}
-\title{Compute number of newly emerging adults}
+\title{Compute number of newly emerging adults (\eqn{\lambda})}
 \usage{
 compute_emergents(model)
 }

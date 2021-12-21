@@ -1,7 +1,9 @@
 test_that("RM model setup is working", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- matrix(
     c(0.9, 0.025, 0.075,
       0.15, 0.6, 0.25,
@@ -14,38 +16,38 @@ test_that("RM model setup is working", {
   mod <- make_MicroMoB(tmax = tmax, p = 3)
 
   # basic errors with scalar values for p, eip
-  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 5, p = -2, psi = psi, M = M, Y = Y, Z = Z))
-  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 5, p = 2, psi = psi, M = M, Y = Y, Z = Z))
-  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 5, p = numeric(0), psi = psi, M = M, Y = Y, Z = Z))
-  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = -5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z))
-  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = numeric(0), p = 0.9, psi = psi, M = M, Y = Y, Z = Z))
+  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = -2, psi = psi, M = M, Y = Y, Z = Z))
+  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = 2, psi = psi, M = M, Y = Y, Z = Z))
+  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = numeric(0), psi = psi, M = M, Y = Y, Z = Z))
+  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = -5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z))
+  expect_error(setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = numeric(0), p = 0.9, psi = psi, M = M, Y = Y, Z = Z))
 
   # eip tests
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$eip, rep(5, tmax))
   expect_equal(mod$mosquito$p, rep(0.9, tmax))
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   eip <- 1:365
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = eip, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$eip, 1:tmax)
   expect_equal(mod$mosquito$p, rep(0.9, tmax))
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   eip <- 1:tmax
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = eip, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$eip, 1:tmax)
   expect_equal(mod$mosquito$p, rep(0.9, tmax))
 
   # p tests
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   p <- seq(from = 0.01, to = 0.99, length.out = 365)
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$p, p[1:tmax])
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   p <- seq(from = 0.01, to = 0.99, length.out = tmax)
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$p, p)
 
   # other objs
@@ -54,20 +56,27 @@ test_that("RM model setup is working", {
   expect_equal(length(mod$mosquito$Y), 3)
   expect_equal(length(mod$mosquito$Z), 3)
   expect_equal(dim(mod$mosquito$ZZ), c(5, 3))
+
+  # compute results
+  expect_equal(compute_Z(mod), Z)
+  expect_equal(compute_f(mod), rep(f, 3))
+  expect_equal(compute_q(mod), rep(q, 3))
 })
 
 
 test_that("deterministic RM step is working with pulse of infection, no dispersal", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- diag(3)
   M <- c(100, 150, 120)
   Y <- c(0, 0, 0)
   Z <- c(0, 0, 0)
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 3, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 3, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = c(1e1, 1e2, 1e3), stochastic = FALSE)
 
   expect_equal(mod$mosquito$Y, Y)
@@ -119,14 +128,16 @@ test_that("deterministic RM step is working with pulse of infection, no dispersa
 test_that("deterministic RM step is working with pulse of infection, no dispersal, 2 EIP vals", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- diag(3)
   M <- c(100, 150, 120)
   Y <- c(0, 0, 0)
   Z <- c(0, 0, 0)
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = rep(c(4, 1), times = c(1, 19)), p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = rep(c(4, 1), times = c(1, 19)), p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = c(1e1, 1e2, 1e3), stochastic = FALSE)
 
   expect_equal(mod$mosquito$Y, Y)
@@ -184,7 +195,9 @@ test_that("deterministic RM step is working with pulse of infection, no dispersa
 test_that("deterministic RM step is working with pulse of infection, with dispersal", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- matrix(
     c(0.9, 0.025, 0.075,
       0.1, 0.7, 0.2,
@@ -196,7 +209,7 @@ test_that("deterministic RM step is working with pulse of infection, with disper
   Z <- c(0, 0, 0)
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = 2, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 2, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = c(1e1, 1e2, 1e3), stochastic = FALSE)
 
   expect_equal(mod$mosquito$Y, Y)
@@ -241,14 +254,16 @@ test_that("deterministic RM step is working with pulse of infection, with disper
 test_that("stochastic RM step is working with pulse of infection, no dispersal", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- diag(3)
   M <- c(1e5, 5e5, 2e5)
   Y <- c(0, 0, 0)
   Z <- c(0, 0, 0)
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = TRUE, a = a, eip = 3, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = 3, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = c(1e1, 1e2, 1e3), stochastic = FALSE)
 
   expect_equal(mod$mosquito$Y, Y)
@@ -299,14 +314,16 @@ test_that("stochastic RM step is working with pulse of infection, no dispersal",
 test_that("stochastic RM step is working with pulse of infection, no dispersal, 2 EIP vals", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- diag(3)
   M <- c(100, 150, 120)
   Y <- c(0, 0, 0)
   Z <- c(0, 0, 0)
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = TRUE, a = a, eip = rep(c(4, 1), times = c(1, 19)), p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = rep(c(4, 1), times = c(1, 19)), p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = c(1e1, 1e2, 1e3), stochastic = FALSE)
 
   expect_equal(mod$mosquito$Y, Y)
@@ -365,7 +382,9 @@ test_that("stochastic RM step is working with pulse of infection, no dispersal, 
 test_that("stochastic RM step is working with pulse of infection, with dispersal", {
   tmax <- 20
 
-  a <- 0.3
+  f <- 0.3
+  q <- 1
+  a <- f * q
   psi <- matrix(
     c(0.9, 0.025, 0.075,
       0.1, 0.7, 0.2,
@@ -377,7 +396,7 @@ test_that("stochastic RM step is working with pulse of infection, with dispersal
   Z <- c(0, 0, 0)
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = TRUE, a = a, eip = 2, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = 2, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = c(1e1, 1e2, 1e3), stochastic = FALSE)
 
   expect_equal(mod$mosquito$Y, Y)

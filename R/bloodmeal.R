@@ -8,5 +8,5 @@
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @export
 compute_bloodmeal <- function(model) {
-  stopifnot(inherits(model, "microWNV"))
+  stopifnot(inherits(model, "MicroMoB"))
 }

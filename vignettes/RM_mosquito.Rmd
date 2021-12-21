@@ -99,7 +99,8 @@ psurv <- (sin((1:365)/365*2*pi) + 1.01)/2 * 0.9
 
 EIP <- 5
 
-a <- 0.3
+f <- 0.3
+q <- 1
 psi <- matrix(
   c(
     0.9, 0.05, 0.05,
@@ -131,7 +132,7 @@ Y <- c(0, 0, 0)
 Z <- c(0, 0, 0)
 
 mod <- make_MicroMoB(tmax = tmax, p = 3)
-setup_mosquito_RM(mod, stochastic = FALSE, a = a, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
+setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
 setup_aqua_trace(model = mod, lambda = lambda, stochastic = FALSE)
 
 M_det <- matrix(data = 0, nrow = tmax, ncol = 3)
@@ -169,7 +170,7 @@ Now we run 10 stochastic simulations, using the same parameters.
 sto_out <- mclapply(X = 1:10, FUN = function(runid) {
   
   mod <- make_MicroMoB(tmax = tmax, p = 3)
-  setup_mosquito_RM(mod, stochastic = TRUE, a = a, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
+  setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = TRUE)
   
   M_out <- as.data.frame(matrix(data = 0, nrow = tmax, ncol = 3))

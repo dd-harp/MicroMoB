@@ -6,8 +6,8 @@
 #' be simulated deterministically or stochastically.
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param stochastic should the model update deterministically or stochastically?
-#' @param a the feeding rate on humans and birds (normally calculated as \eqn{a = fq} using
-#' Ross-Macdonald parameters)
+#' @param f the blood feeding rate
+#' @param q the human blood feeding fraction
 #' @param eip the Extrinsic Incubation Period, may either be a scalar, a vector of
 #' length 365, or a vector of length equal to `tmax` in the `model` object from [MicroMoB::make_MicroMoB]
 #' @param p daily survival probability, may either be a scalar, a vector of
@@ -17,7 +17,7 @@
 #' @param Y density of incubating mosquitoes per patch
 #' @param Z density of infectious mosquitoes per patch
 #' @export
-setup_mosquito_RM <- function(model, stochastic, a, eip, p, psi, M, Y, Z) {
+setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
   stopifnot(inherits(model, "MicroMoB"))
   stopifnot(is.logical(stochastic))
 
@@ -64,7 +64,7 @@ setup_mosquito_RM <- function(model, stochastic, a, eip, p, psi, M, Y, Z) {
   stopifnot(!is.null(p_vec))
 
   stopifnot(dim(psi) == model$global$p)
-  stopifnot(approx_equal(a = rowSums(psi), b = 1))
+  stopifnot(approx_equal(rowSums(psi), 1))
 
   mosy_class <- c("RM")
   if (stochastic) {
@@ -73,8 +73,21 @@ setup_mosquito_RM <- function(model, stochastic, a, eip, p, psi, M, Y, Z) {
     mosy_class <- c(mosy_class, "RM_deterministic")
   }
 
+  if (length(f) == 1L) {
+    f <- rep(f, model$global$p)
+  } else {
+    stopifnot(length(f) == model$global$p)
+  }
+
+  if (length(q) == 1L) {
+    q <- rep(q, model$global$p)
+  } else {
+    stopifnot(length(q) == model$global$p)
+  }
+
   model$mosquito <- structure(list(), class = mosy_class)
-  model$mosquito$a <- a
+  model$mosquito$f <- f
+  model$mosquito$q <- q
   model$mosquito$eip <- eip_vec
   model$mosquito$maxEIP <- maxEIP
   model$mosquito$p <- p_vec
@@ -128,7 +141,8 @@ step_mosquitoes.RM_deterministic <- function(model) {
   psi <- model$mosquito$psi
 
   # newly infected mosquitoes
-  Y0 <- model$mosquito$a * model$mosquito$kappa * (model$mosquito$M - model$mosquito$Y)
+  a <- model$mosquito$f * model$mosquito$q
+  Y0 <- a * model$mosquito$kappa * (model$mosquito$M - model$mosquito$Y)
   Y0 <- pmax(Y0, 0)
 
   # newly emerging adults
@@ -177,8 +191,9 @@ step_mosquitoes.RM_stochastic <- function(model) {
   lambda <- sample_stochastic_vector(x = lambda, prob = psi)
 
   # newly infected mosquitoes
+  a <- model$mosquito$f * model$mosquito$q
   model$mosquito$Y <- model$mosquito$Z + colSums(model$mosquito$ZZ)
-  h <- model$mosquito$a * model$mosquito$kappa
+  h <- a * model$mosquito$kappa
   Y0 <- rbinom(n = n_patch, size = model$mosquito$M - model$mosquito$Y, prob = h)
 
   # survival
@@ -222,3 +237,28 @@ step_mosquitoes.RM_stochastic <- function(model) {
   model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + Y0
 
 }
+
+
+# compute values for blood feeding
+
+#' @title Compute mosquito feeding rate for RM model (\eqn{f})
+#' @inheritParams compute_f
+#' @export
+compute_f.RM <- function(model) {
+  model$mosquito$f
+}
+
+#' @title Compute human blood feeding fraction for RM model (\eqn{q})
+#' @inheritParams compute_f
+#' @export
+compute_q.RM <- function(model) {
+  model$mosquito$q
+}
+
+#' @title Compute density of infective mosquitoes for RM model (\eqn{Z})
+#' @inheritParams compute_Z
+#' @export
+compute_Z.RM <- function(model) {
+  model$mosquito$Z
+}
+
