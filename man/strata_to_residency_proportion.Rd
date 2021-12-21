@@ -9,7 +9,7 @@ strata_to_residency_proportion(H_strata, J_strata)
 \arguments{
 \item{H_strata}{a vector of population size by strata}
 
-\item{J_strata}{a matrix chose columns sum to one giving the distribution of
+\item{J_strata}{a matrix whose columns sum to one giving the distribution of
 strata populations over patches}
 }
 \value{
