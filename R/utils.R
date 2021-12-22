@@ -30,6 +30,9 @@ approx_equal <- function(a, b, tol = sqrt(.Machine$double.eps)) {
 #' @export
 sample_stochastic_vector <- function(x, prob) {
   stopifnot(length(x) == nrow(prob))
+  if (ncol(prob) == 1L) {
+    return(x)
+  }
   samp <- vapply(X = 1:length(x), FUN = function(i) {
     rmultinom(n = 1, size = x[i], prob = prob[i, ])
   }, FUN.VALUE = numeric(ncol(prob)), USE.NAMES = FALSE)

@@ -13,13 +13,19 @@
 #' @param p daily survival probability, may either be a scalar, a vector of
 #' length 365, or a vector of length equal to `tmax` in the `model` object from [MicroMoB::make_MicroMoB]
 #' @param psi a mosquito dispersal matrix (rows must sum to 1)
-#' @param M total mosquito density per patch
-#' @param Y density of incubating mosquitoes per patch
-#' @param Z density of infectious mosquitoes per patch
+#' @param M total mosquito density per patch (vector of length `p`)
+#' @param Y density of incubating mosquitoes per patch (vector of length `p`)
+#' @param Z density of infectious mosquitoes per patch (vector of length `p`)
 #' @export
 setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
   stopifnot(inherits(model, "MicroMoB"))
   stopifnot(is.logical(stochastic))
+
+  if (stochastic) {
+    M <- as.integer(M)
+    Y <- as.integer(Y)
+    Z <- as.integer(Z)
+  }
 
   if (length(eip) == 1L) {
     stopifnot(is.finite(eip))
