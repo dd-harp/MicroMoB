@@ -179,13 +179,11 @@ human_out <- melt(human_out, id.vars = "Day", variable.name = "Compartment", val
 human_out[, "Species" := "Human"]
 
 det_out <- rbind(mosquito_out, human_out)
-
-ggplot(det_out) +
-    geom_line(aes(x = Day, y = Count, color = Compartment)) +
-    facet_wrap(. ~ Species, scales = "free")
 ```
 
-Now we draw 10 trajectories from the stochastic simulation, and plot output.
+Now we draw 10 trajectories from the stochastic simulation, and plot output. We plot
+the cloud of stochastic trajectories as faint lines and the deterministic solution as
+solid lines.
 
 ```{R}
 sto_out <- mclapply(X = 1:10, FUN = function(runid) {
@@ -230,6 +228,7 @@ sto_out <- mclapply(X = 1:10, FUN = function(runid) {
 sto_out <- do.call(rbind, sto_out)
 
 ggplot(sto_out) +
-    geom_line(aes(x = Day, y = Count, color = Compartment, group = interaction(Run, Compartment)), alpha = 0.35) +
+    geom_line(aes(x = Day, y = Count, color = Compartment, group = interaction(Run, Compartment)), alpha = 0.3) +
+    geom_line(data = det_out, aes(x = Day, y = Count, color = Compartment)) +
     facet_wrap(. ~ Species, scales = "free")
 ```
