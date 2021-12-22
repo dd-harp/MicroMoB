@@ -29,6 +29,8 @@ trace derived (exogeneously forced) model of emergence, and a SIS (Susceptible-I
 human model. This is in fact quite similar to the "classic" Ross-Macdonald
 (though best written by Aron and May) model.
 
+## Endemic equilibrium solution
+
 First we will write out the closest approximating ODE model and derive an endemic
 equilibrium to check that our discrete time models are approximately correct.
 
@@ -91,3 +93,59 @@ Finally plug this into the first equation to solve $\lambda$:
 \begin{equation}
   \lambda = g \left( \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}} \right)
 \end{equation}
+
+We can set up some model parameters and calculate numeric solutions for those values.
+
+```{R}
+# mosquito parameters
+f <- 0.3
+q <- 1
+eip <- 10
+
+lifespan <- 20
+g <- 1/lifespan
+
+# human parameters
+b <- 0.55
+c <- 0.15
+r <- 1/200
+
+S <- 1e3
+I <- 200
+N <- S + I
+
+# transmission parameters
+kappa <- (I/N)*c
+
+# equilibrium solutions
+Z <- (r*I*N) / (b*f*q*S)
+Y <- Z / exp(-g*eip)
+M <- (Z*(g + (f*q*kappa))) / (f*q*kappa*exp(-g*eip))
+lambda <- g*M
+```
+
+## MicroMoB simulation
+
+Now let's set up a simulation with only a single patch and only a single human stratum.
+
+```{R}
+patches <- 1
+nstrata <- 1
+tmax <- 365 * 2
+
+# human parameters
+theta <- diag(nstrata)
+H <- N
+X <- I
+
+# mosquito parameters
+q <- 1 - 1/lifespan
+psi <- diag(patches)
+
+mod <- make_MicroMoB(tmax = tmax, p = patches)
+setup_humans_SIS(mod, stochastic = TRUE, theta = theta, H = H, X = X, b = b, c = c, r = r)
+setup_aqua_trace(mod, stochastic = TRUE, lambda = lambda)
+setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = eip, p = p, psi = psi, M = M, Y = Y, Z = Z)
+setup_alternative_trace(mod)
+setup_visitor_trace(mod)
+```

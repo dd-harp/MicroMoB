@@ -1,5 +1,5 @@
 test_that("test bloodmeal with simple RM setup", {
-  p <- 1
+  patches <- 1
   n <- 1
   tmax <- 5
 
@@ -15,12 +15,13 @@ test_that("test bloodmeal with simple RM setup", {
   f <- 0.3
   q <- 1
   eip <- 10
+  p <- 0.9
   M <- 500
   Y <- 100
   Z <- 80
-  psi <- diag(p)
+  psi <- diag(patches)
 
-  mod <- make_MicroMoB(tmax = tmax, p = p)
+  mod <- make_MicroMoB(tmax = tmax, p = patches)
   setup_humans_SIS(mod, stochastic = FALSE, theta = theta, H = H, X = X, b = b, c = c, r = r)
   setup_aqua_trace(mod, stochastic = FALSE, lambda = 0)
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = p, psi = psi, M = M, Y = Y, Z = Z)
