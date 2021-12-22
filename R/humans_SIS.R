@@ -52,7 +52,6 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
   model$human$H <- H
   model$human$X <- X
 
-  model$human$h <- rep(0, n)
   model$human$EIR <- rep(0, n)
 
   model$human$b <- b
@@ -76,7 +75,9 @@ step_humans.SIS <- function(model) {
 #' @export
 step_humans.SIS_deterministic <- function(model) {
 
-  new_infections <- pexp(q = model$human$h) * (model$human$H - model$human$X)
+  h <- model$human$EIR * model$human$b
+
+  new_infections <- pexp(q = h) * (model$human$H - model$human$X)
   old_infections <- (1 - pexp(q = model$human$r)) * model$human$X
 
   model$human$X <- new_infections + old_infections
@@ -89,8 +90,10 @@ step_humans.SIS_deterministic <- function(model) {
 #' @export
 step_humans.SIS_stochastic <- function(model) {
 
+  h <- model$human$EIR * model$human$b
   n <- model$global$n
-  new_infections <- rbinom(n = n, prob = pexp(q = model$human$h), size = model$human$H - model$human$X)
+
+  new_infections <- rbinom(n = n, prob = pexp(q = h), size = model$human$H - model$human$X)
   old_infections <- rbinom(n = n, prob = 1 - pexp(q = model$human$r), size = model$human$X)
 
   model$human$X <- new_infections + old_infections

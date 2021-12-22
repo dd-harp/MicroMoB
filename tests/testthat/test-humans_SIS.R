@@ -60,7 +60,7 @@ test_that("deterministic updates of human SIS model work with pulsed h", {
 
   mod <- make_MicroMoB(tmax = tmax, p = p)
 
-  b <- 0.55
+  b <- 1
   c <- 0.15
   r <- 1/200
 
@@ -72,7 +72,7 @@ test_that("deterministic updates of human SIS model work with pulsed h", {
 
   setup_humans_SIS(model = mod, stochastic = FALSE, theta = theta, H = H, X = X, b = b, c = c, r = r)
 
-  mod$human$h <- rep(qexp(p = 0.25), n)
+  mod$human$EIR <- rep(qexp(p = 0.25), n)
   step_humans(model = mod)
 
   expect_true(all(mod$human$X > X))
@@ -82,7 +82,7 @@ test_that("deterministic updates of human SIS model work with pulsed h", {
 
   pulse_X <- mod$human$X
 
-  mod$human$h <- rep(0, n)
+  mod$human$EIR <- rep(0, n)
   for (i in 2:tmax) {
     step_humans(model = mod)
     expect_true(all(mod$human$X < prev_X))
@@ -133,7 +133,7 @@ test_that("stochastic updates of human SIS model work with pulsed h", {
 
   mod <- make_MicroMoB(tmax = tmax, p = p)
 
-  b <- 0.55
+  b <- 1
   c <- 0.15
   r <- 1/200
 
@@ -145,7 +145,7 @@ test_that("stochastic updates of human SIS model work with pulsed h", {
 
   setup_humans_SIS(model = mod, stochastic = TRUE, theta = theta, H = H, X = X, b = b, c = c, r = r)
 
-  mod$human$h <- rep(qexp(p = 0.25), n)
+  mod$human$EIR <- rep(qexp(p = 0.25), n)
   step_humans(model = mod)
 
   expect_true(all(mod$human$X >= X))
@@ -155,7 +155,7 @@ test_that("stochastic updates of human SIS model work with pulsed h", {
 
   pulse_X <- mod$human$X
 
-  mod$human$h <- rep(0, n)
+  mod$human$EIR <- rep(0, n)
   for (i in 2:tmax) {
     step_humans(model = mod)
     expect_true(all(mod$human$X <= prev_X))
