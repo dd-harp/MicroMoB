@@ -37,7 +37,7 @@ compute_bloodmeal <- function(model) {
   v <- W / (W + Wd)
 
   # human blood feeding fraction
-  q <- (W + Wd) / B
+  q <- compute_q(model, W = W, Wd = Wd, B = B)
 
   # density of infective mosquitoes
   Z <- compute_Z(model)

@@ -16,10 +16,14 @@ setup_alternative_trace <- function(model, O = NULL) {
       stopifnot(ncol(O) == tmax)
     } else {
       stopifnot(length(O) == p)
-      O <- replicate(tmax, O)
+      if (p > 1) {
+        O <- replicate(tmax, O)
+      } else {
+        O <- matrix(data = O, nrow = p, ncol = tmax)
+      }
     }
   } else {
-    O <- replicate(tmax, rep(0, p))
+    O <- matrix(data = 0, nrow = p, ncol = tmax)
   }
 
   model$alternative <- structure(list(), class = "trace")

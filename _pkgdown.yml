@@ -24,6 +24,7 @@ reference:
   contents:
   - step_mosquitoes
   - compute_f
+  - compute_q
   - compute_Z
 
 - subtitle: Ross-Macdonald (RM) mosquito model
@@ -34,6 +35,7 @@ reference:
   - step_mosquitoes.RM_deterministic
   - step_mosquitoes.RM_stochastic
   - compute_f.RM
+  - compute_q.RM
   - compute_Z.RM
 
 - title: Aquatic (immature) mosquito component

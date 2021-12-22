@@ -18,10 +18,14 @@ setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
       stopifnot(ncol(Wd) == tmax)
     } else {
       stopifnot(length(Wd) == p)
-      Wd <- replicate(tmax, Wd)
+      if (p > 1) {
+        Wd <- replicate(tmax, Wd)
+      } else {
+        Wd <- matrix(data = Wd, nrow = p, ncol = tmax)
+      }
     }
   } else {
-    Wd <- replicate(tmax, rep(0, p))
+    Wd <- matrix(data = 0, nrow = p, ncol = tmax)
   }
 
   if (!is.null(xd)) {
@@ -30,10 +34,14 @@ setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
       stopifnot(ncol(xd) == tmax)
     } else {
       stopifnot(length(xd) == p)
-      xd <- replicate(tmax, xd)
+      if (p > 1) {
+        xd <- replicate(tmax, xd)
+      } else {
+        xd <- matrix(data = xd, nrow = p, ncol = tmax)
+      }
     }
   } else {
-    xd <- replicate(tmax, rep(0, p))
+    xd <- matrix(data = 0, nrow = p, ncol = tmax)
   }
 
   model$visitor <- structure(list(), class = "trace")

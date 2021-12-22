@@ -1,4 +1,4 @@
-# MicroMoB
+# MicroMoB (Microsimulation for mosquito-borne pathogens)
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/dd-harp/MicroMoB/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/MicroMoB/actions)
