@@ -44,6 +44,7 @@
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
     <a class="dropdown-item" href="../articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
+    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
     <a class="dropdown-item" href="../articles/key-themes.html">key-themes</a>
     <a class="dropdown-item" href="../articles/math.html">math</a>
   </div>
@@ -116,24 +117,15 @@
 </h2>
 <p>We use GitHub Actions as our continuous integration platform to run workflows. The workflows we use are from <a href="https://github.com/r-lib/actions" class="external-link">r-lib/actions</a> for R packages.</p>
 <p>We run three types of workflows.</p>
-<p><a href="https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml" class="external-link">R CMD check</a> runs during any push to <code>[main, feat/*, hotfix/*, bug/*, dev]</code> branches.</p>
+<p><a href="https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml" class="external-link">R CMD check</a> runs during any pull request to <code>[main, dev]</code> branches.</p>
 <p><a href="https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml" class="external-link">Test coverage</a> runs during pull requests to <code>[main, dev]</code> and uses our <a href="https://app.codecov.io/gh/dd-harp/MicroMoB" class="external-link">codecov.io integration</a> for checking test coverage.</p>
 <p>Finally, <a href="https://github.com/r-lib/actions/blob/master/examples/pkgdown.yaml" class="external-link">pkgdown</a> only runs on pushes to <code>main</code>, which will occur when <code>dev</code> is merged with <code>main</code> periodically.</p>
 <p>Please note that sometimes hard to diagnose bugs can be due to out of date workflows. If you find a strange or unusual bug when pushing to a branch, this is one thing to consider checking.</p>
 </div>
 <div class="section level2">
-<h2 id="code-organisation">Code organisation<a class="anchor" aria-label="anchor" href="#code-organisation"></a>
-</h2>
-<p><em>R/blood_feeding.R</em> - stuff</p>
-<p><em>R/human.R</em> - stuff</p>
-<p><em>R/other_hosts.R</em> - stuff</p>
-<p><em>R/time_spent.R</em> - stuff</p>
-<p><em>tests/</em> - tests for Micro-MoB</p>
-</div>
-<div class="section level2">
 <h2 id="pull-requests">Pull Requests<a class="anchor" aria-label="anchor" href="#pull-requests"></a>
 </h2>
-<p>Write me</p>
+<p>If making a pull request, please only use <code>dev</code> as the base branch. If you are adding a new feature (i.e. the pull is from a <code>feat/*</code> branch), please ensure you have added minimal tests using testthat so that the functionality of your feature can be tested.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
