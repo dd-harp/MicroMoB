@@ -142,6 +142,12 @@ X <- I
 # mosquito parameters
 p <- 1 - 1/lifespan
 psi <- diag(patches)
+
+# incubating mosquitoes
+pp <- p^(eip:1)
+pp <- pp / sum(pp)
+ZZ <- (Y-Z)*pp
+ZZ <- as.matrix(ZZ)
 ```
 
 We first run a deterministic simulation.
@@ -153,6 +159,8 @@ setup_aqua_trace(mod, stochastic = FALSE, lambda = lambda)
 setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = p, psi = psi, M = M, Y = Y, Z = Z)
 setup_alternative_trace(mod)
 setup_visitor_trace(mod)
+
+mod$mosquito$ZZ <- ZZ
 
 # matrices to hold output
 mosquito_out <- matrix(data = 0, nrow = tmax, ncol = 4, dimnames = list(NULL, c("Day", "M", "Y", "Z")))
