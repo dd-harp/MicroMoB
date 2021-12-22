@@ -23,11 +23,11 @@ length 365, or a vector of length equal to \code{tmax} in the \code{model} objec
 
 \item{psi}{a mosquito dispersal matrix (rows must sum to 1)}
 
-\item{M}{total mosquito density per patch}
+\item{M}{total mosquito density per patch (vector of length \code{p})}
 
-\item{Y}{density of incubating mosquitoes per patch}
+\item{Y}{density of incubating mosquitoes per patch (vector of length \code{p})}
 
-\item{Z}{density of infectious mosquitoes per patch}
+\item{Z}{density of infectious mosquitoes per patch (vector of length \code{p})}
 }
 \description{
 This is a generalized RM model which allows for time varying EIP and

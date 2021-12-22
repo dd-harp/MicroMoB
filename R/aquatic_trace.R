@@ -30,7 +30,11 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
     }
   } else {
     stopifnot(length(lambda) == p)
-    lambda_mat <- replicate(n = tmax, expr = lambda)
+    if (p > 1) {
+      lambda_mat <- replicate(n = tmax, expr = lambda)
+    } else {
+      lambda_mat <- matrix(data = lambda, nrow = 1, ncol = tmax)
+    }
   }
 
   aqua_class <- c("trace")
