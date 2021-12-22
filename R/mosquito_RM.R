@@ -248,12 +248,13 @@ compute_f.RM <- function(model, B) {
   model$mosquito$f
 }
 
-#' #' @title Compute human blood feeding fraction for RM model (\eqn{q})
-#' #' @inheritParams compute_f
-#' #' @export
-#' compute_q.RM <- function(model) {
-#'   model$mosquito$q
-#' }
+#' @title Compute human blood feeding fraction for RM model (\eqn{q})
+#' @inheritParams compute_q
+#' @export
+compute_q.RM <- function(model, W, Wd, B) {
+  model$mosquito$q
+}
+
 
 #' @title Compute density of infective mosquitoes for RM model (\eqn{Z})
 #' @inheritParams compute_Z

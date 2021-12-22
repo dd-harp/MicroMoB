@@ -15,13 +15,3 @@ a vector of length \code{p}
 \description{
 This method dispatches on the type of \code{model$mosquito}
 }
-\details{
-#' @title Compute human blood feeding fraction (\eqn{q})
-#' @description This method dispatches on the type of \code{model$mosquito}
-#' @param model an object from \link{make_MicroMoB}
-#' @return a vector of length \code{p}
-#' @export
-compute_q <- function(model) {
-UseMethod("compute_q", model$mosquito)
-}
-}

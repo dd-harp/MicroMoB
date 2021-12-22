@@ -25,7 +25,7 @@ test_that("sample stochastic vector", {
   expect <- as.vector(x %*% pmat)
 
   draw <- sample_stochastic_vector(x = x, prob = pmat)
-  expect_true(all(abs(expect - draw) / expect < 0.025))
+  expect_true(all(abs(expect - draw) / expect < 0.05))
   expect_equal(sum(x), sum(draw))
 
   cell <- 4
@@ -38,7 +38,7 @@ test_that("sample stochastic vector", {
   expect <- as.vector(x %*% pmat)
 
   draw <- sample_stochastic_vector(x = x, prob = pmat)
-  expect_true(all(abs(expect - draw) / expect < 0.025))
+  expect_true(all(abs(expect - draw) / expect < 0.05))
   expect_equal(sum(x), sum(draw))
 
 })
@@ -56,7 +56,7 @@ test_that("sample stochastic matrix", {
 
   draw <- sample_stochastic_matrix(x = ZZ, prob = psi)
 
-  expect_true(all(abs(expectation - draw) / expectation < 0.025))
+  expect_true(all(abs(expectation - draw) / expectation < 0.05))
   expect_equal(sum(draw), sum(ZZ))
   expect_equal(rowSums(draw), rowSums(ZZ))
 })
