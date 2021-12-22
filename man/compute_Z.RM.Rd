@@ -10,5 +10,5 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \description{
-Compute density of infective mosquitoes for RM model (\eqn{Z})
+This method returns \code{Z}.
 }

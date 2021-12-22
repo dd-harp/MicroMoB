@@ -41,4 +41,8 @@ test_that("test bloodmeal with simple RM setup", {
   expect_equal(as.vector(mod$human$EIR), EIR)
   expect_equal(as.vector(mod$mosquito$kappa), kappa)
 
+  # step mosquitoes
+  step_mosquitoes(mod)
+  mod$mosquito$ZZ
+
 })

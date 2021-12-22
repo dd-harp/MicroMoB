@@ -12,5 +12,6 @@
 \item{B}{a vector of length \code{p} giving total blood host availability by patch}
 }
 \description{
-Compute mosquito feeding rate for RM model (\eqn{f})
+This method simply returns the \code{f} parameter of the mosquito object,
+because the RM model assumes a constant blood feeding rate.
 }

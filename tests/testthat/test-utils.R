@@ -6,6 +6,19 @@ test_that("test is_binary", {
 })
 
 
+test_that("distribute works", {
+  p <- 2
+  nn <- 5:10
+  out <- vapply(X = nn, FUN = function(x) {distribute(n = x, p = p)}, FUN.VALUE = numeric(p))
+  expect_equal(colSums(out), nn)
+
+  p <- 3
+  nn <- 5:10
+  out <- vapply(X = nn, FUN = function(x) {distribute(n = x, p = p)}, FUN.VALUE = numeric(p))
+  expect_equal(colSums(out), nn)
+})
+
+
 test_that("approx equal is working", {
   expect_true(all(approx_equal(1:5, 1:5)))
   expect_true(all(approx_equal(as.numeric(1:5), as.numeric(1:5))))
