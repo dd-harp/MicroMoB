@@ -100,9 +100,9 @@ We can set up some model parameters and calculate numeric solutions for those va
 # mosquito parameters
 f <- 0.3
 q <- 1
-eip <- 10
+eip <- 15
 
-lifespan <- 10
+lifespan <- 20
 g <- 1/lifespan
 
 # human parameters
@@ -111,7 +111,7 @@ c <- 0.15
 r <- 1/200
 
 S <- 1e3
-I <- 250
+I <- 300
 N <- S + I
 
 # transmission parameters
@@ -194,5 +194,5 @@ sto_out <- do.call(rbind, sto_out)
 
 ggplot(sto_out) +
     geom_line(aes(x = Day, y = Count, color = Compartment, group = interaction(Run, Compartment)), alpha = 0.35) +
-    facet_grid(. ~ Species)
+    facet_wrap(. ~ Species, scales = "free")
 ```
