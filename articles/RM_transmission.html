@@ -131,9 +131,9 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 <code class="sourceCode R"><span class="co"># mosquito parameters</span>
 <span class="va">f</span> <span class="op">&lt;-</span> <span class="fl">0.3</span>
 <span class="va">q</span> <span class="op">&lt;-</span> <span class="fl">1</span>
-<span class="va">eip</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">eip</span> <span class="op">&lt;-</span> <span class="fl">15</span>
 
-<span class="va">lifespan</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">lifespan</span> <span class="op">&lt;-</span> <span class="fl">20</span>
 <span class="va">g</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="va">lifespan</span>
 
 <span class="co"># human parameters</span>
@@ -142,7 +142,7 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">200</span>
 
 <span class="va">S</span> <span class="op">&lt;-</span> <span class="fl">1e3</span>
-<span class="va">I</span> <span class="op">&lt;-</span> <span class="fl">250</span>
+<span class="va">I</span> <span class="op">&lt;-</span> <span class="fl">300</span>
 <span class="va">N</span> <span class="op">&lt;-</span> <span class="va">S</span> <span class="op">+</span> <span class="va">I</span>
 
 <span class="co"># transmission parameters</span>
@@ -221,7 +221,7 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">sto_out</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Count</span>, color <span class="op">=</span> <span class="va">Compartment</span>, group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">Run</span>, <span class="va">Compartment</span><span class="op">)</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.35</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Species</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Species</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
 <p><img src="RM_transmission_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
