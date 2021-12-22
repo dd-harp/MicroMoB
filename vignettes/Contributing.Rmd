@@ -53,7 +53,7 @@ for R packages.
 We run three types of workflows.
 
 [R CMD check](https://github.com/r-lib/actions/blob/master/examples/check-standard.yaml)
-runs during any push to `[main, feat/*, hotfix/*, bug/*, dev]` branches.
+runs during any pull request to `[main, dev]` branches.
 
 [Test coverage](https://github.com/r-lib/actions/blob/master/examples/test-coverage.yaml)
 runs during pull requests to `[main, dev]` and uses our [codecov.io integration](https://app.codecov.io/gh/dd-harp/MicroMoB)
@@ -67,18 +67,7 @@ Please note that sometimes hard to diagnose bugs can be due to out of date
 workflows. If you find a strange or unusual bug when pushing to a branch, this
 is one thing to consider checking.
 
-## Code organisation
-
-*R/blood_feeding.R* - stuff
-
-*R/human.R* - stuff
-
-*R/other_hosts.R* - stuff
-
-*R/time_spent.R* - stuff
-
-*tests/* - tests for Micro-MoB
-
 ## Pull Requests
 
-Write me
+If making a pull request, please only use `dev` as the base branch. If you are adding a new feature (i.e. the pull is from a `feat/*` branch),
+please ensure you have added minimal tests using testthat so that the functionality of your feature can be tested.
