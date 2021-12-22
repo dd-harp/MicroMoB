@@ -1,0 +1,93 @@
+---
+title: "Ross-Macdonald transmission model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Ross-Macdonald transmission model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+library(ggplot2)
+library(data.table)
+library(parallel)
+```
+
+In MicroMoB, the goal is to get various models fill in a set of component interfaces;
+if you want to write a new aquatic model, you fill in the interface and then plug
+into the existing framework, and let the simulation handle the rest! Here we
+present the most simple case of a Ross-Macdonald mosquito model linked to a
+trace derived (exogeneously forced) model of emergence, and a SIS (Susceptible-Infectious-Susceptible)
+human model. This is in fact quite similar to the "classic" Ross-Macdonald
+(though best written by Aron and May) model.
+
+First we will write out the closest approximating ODE model and derive an endemic
+equilibrium to check that our discrete time models are approximately correct.
+
+Let the human component be described by:
+
+\begin{equation}
+\dot{S} = -b fqZ (1/N) S + rI \\
+\dot{I} = b fqZ (1/N) S - rI
+\end{equation}
+
+here, $fqZ$ is the EIR, and $N$ is the total human population size. If we know
+the values of $S$ and $I$ we can solve for the density of infectious mosquitoes
+required to give those values at endemic equilibrium:
+
+\begin{equation}
+  Z = \frac{rIN}{bfqS}
+\end{equation}
+
+Now let us look at the system of ODEs describing the mosquitoes. Actually they are
+delay differential equations (DDE) to incorporate the delay between infection and
+infectiousness:
+
+\begin{equation}
+  \dot{M} = \lambda - gM \\
+  \dot{Y} = fq\kappa (M-Y) - gY \\
+  \dot{Z} = fq\kappa_{t-EIP} (M_{t-EIP} - Y_{t-EIP}) e^{-gEIP} - gZ
+\end{equation}
+
+We are only interested in equilibrium solutions, where all derivatives are zero
+and the state variables are the same for all time, so we can ignore the delays:
+
+\begin{equation}
+  0 = \lambda - gM \\
+  0 = fq\kappa (M-Y) - gY \\
+  0 = fq\kappa (M - Y) e^{-gEIP} - gZ
+\end{equation}
+
+Plug our solution for $Z$ into the last equation to get an expression for $M-Y$ in
+terms of known quantities:
+
+\begin{equation}
+M-Y = \frac{gZ}{fq\kappa e^{-gEIP}}
+\end{equation}
+
+Now plug $M-Y$ into the second equation to get an expression for $Y$, after some
+simplification we get:
+
+\begin{equation}
+  Y = \frac{Z}{e^{-gEIP}}
+\end{equation}
+
+To get $M$, add $(M-Y) + Y$ and simplify to get:
+
+\begin{equation}
+M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
+\end{equation}
+
+Finally plug this into the first equation to solve $\lambda$:
+
+\begin{equation}
+  \lambda = g \left( \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}} \right)
+\end{equation}
