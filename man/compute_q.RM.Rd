@@ -16,5 +16,7 @@
 \item{B}{a vector of length \code{p} giving total blood host availability by patch (\eqn{B})}
 }
 \description{
-Compute human blood feeding fraction for RM model (\eqn{q})
+This method simply returns the \code{q} parameter of the mosquito object,
+because the RM model assumes a constant fraction of blood meals are taken on
+human hosts.
 }

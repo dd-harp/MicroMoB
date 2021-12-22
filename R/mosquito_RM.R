@@ -114,6 +114,14 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
   model$mosquito$Y <- Y # infected (incubating)
   model$mosquito$Z <- Z # infectious
   model$mosquito$ZZ <- matrix(data = 0, nrow = maxEIP, ncol = model$global$p) # each row is the number that will be added to the infectious state on that day
+  if (any(Y > 0)) {
+    if (stochastic) {
+      ZZ <- Y - Z
+      model$mosquito$ZZ[1:maxEIP, ] <- vapply(X = ZZ, FUN = function(z) {distribute(n = z, p = maxEIP)}, FUN.VALUE = numeric(maxEIP))
+    } else {
+      model$mosquito$ZZ[1:maxEIP, ] <- as.matrix(replicate(n = maxEIP, expr = (Y - Z)/maxEIP))
+    }
+  }
 
   ZZ_shift <- matrix(0, nrow = maxEIP, ncol = maxEIP)
   ZZ_shift[1:(maxEIP-1), 2:maxEIP] <- diag(maxEIP-1)
@@ -248,6 +256,8 @@ step_mosquitoes.RM_stochastic <- function(model) {
 # compute values for blood feeding
 
 #' @title Compute mosquito feeding rate for RM model (\eqn{f})
+#' @description This method simply returns the `f` parameter of the mosquito object,
+#' because the RM model assumes a constant blood feeding rate.
 #' @inheritParams compute_f
 #' @export
 compute_f.RM <- function(model, B) {
@@ -255,6 +265,9 @@ compute_f.RM <- function(model, B) {
 }
 
 #' @title Compute human blood feeding fraction for RM model (\eqn{q})
+#' @description This method simply returns the `q` parameter of the mosquito object,
+#' because the RM model assumes a constant fraction of blood meals are taken on
+#' human hosts.
 #' @inheritParams compute_q
 #' @export
 compute_q.RM <- function(model, W, Wd, B) {
@@ -263,6 +276,7 @@ compute_q.RM <- function(model, W, Wd, B) {
 
 
 #' @title Compute density of infective mosquitoes for RM model (\eqn{Z})
+#' @description This method returns `Z`.
 #' @inheritParams compute_Z
 #' @export
 compute_Z.RM <- function(model) {
