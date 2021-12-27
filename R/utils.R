@@ -111,7 +111,7 @@ strata_to_residency_proportion <- function(H_strata, J_strata) {
   stopifnot(is.finite(H_strata))
   stopifnot(H_strata >= 0)
   stopifnot(length(H_strata) == ncol(J_strata))
-  stopifnot(colSums(J_strata) == 1)
+  stopifnot(approx_equal(colSums(J_strata), 1))
 
   p <- nrow(J_strata)
   s <- ncol(J_strata)
