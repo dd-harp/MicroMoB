@@ -24,7 +24,10 @@ In old MicroMoB $W$ was SiG (but it seems to be a matrix in the old one).
 In old MicroMoB $\kappa$ was NI.
 In old MicroMoB $\beta$ was DiB.
 
-## Spatial Dynamics and Micro-MoB papers comparison and walkthrough
+## Design considerations
+
+The way **Micro-MoB** should work means that single dispatch should be sufficient
+to update the model.
 
 ### Human population strata `R/human.R`
 
@@ -121,3 +124,73 @@ by their search weight).
 ### The human fraction
 
 ### The biting distribution matrix
+
+The biting distribution matrix must obey the following constraint `colSums(diag(par$H) %*% par$beta) = 1`.
+
+### Net infectiousness of humans $\kappa$
+
+In a standard Ross-Macdonald model, the force of infection on mosquitoes is $acx$
+where $x = X/H$ is prevalence of disease in humans, $a = fq$ is the human
+feeding rate, and $c$ is the transmission efficiency. From this, we know $\kappa$
+is the part referring to the net infectiousness of the human host population, 
+the proportion of bites on humans which infect a mosquito.
+
+```{r}
+H <- 100
+I <- 20
+c <- 0.15
+X <- I/H
+
+kappa <- c * X
+kappa
+```
+
+In Micro-MoB and RM-Spatial it's calculated like this:
+
+$$
+\kappa_{p\times 1} = \upsilon_{p\times 1} (\beta_{p\times n}^{\intercal} x_{n\times1}) + (1 - \upsilon_{p\times 1})x_{\delta_{p\times 1}}
+$$
+Here, $\upsilon_{p\times 1}$ is the resident fraction in each patch, $x_{\delta_{p\times 1}}$ is the net infectiousness of visitors, and
+$\beta_{n\times p}$ is the biting distribution matrix.
+
+In order to try to sync the models, lets examine how $\beta$ is made:
+
+$$
+\beta_{n\times p} = \mbox{diag}(w_{f})_{n\times n} \cdot \Psi_{n\times p} \cdot \mbox{diag}(1/W)_{p\times p}
+$$
+
+Where $W_{p\times 1} = \Psi^{\intercal}_{p\times n} \cdot w_{f}H_{n\times 1}$ is the available human population, $\Psi = \Theta \xi$ is the time at risk matrix,
+and $w_{f}$ are biting weights.
+
+To line up with the simple $\kappa$ from the RM model, let's assume there is only 1 patch, 1 strata, and the biting weight is $1$. We assume that
+there are no visitors, such that $\upsilon = 1$.
+
+```{r}
+Theta <- matrix(1, nrow = 1, ncol = 1)
+Psi <- Theta * 1
+w_f <- 1
+W <- t(Psi) %*% (w_f * H)
+
+beta <- diag(w_f) %*% Psi %*% diag(1/W)
+
+x <- c * X
+
+kappa_new <- t(beta) %*% (x)
+kappa_new
+```
+
+It looks like new $\kappa$ is off, in fact its off by precisely a factor of $1/H$, as I suspected:
+
+```{r}
+kappa_new * H
+```
+
+This is because $\beta$ simplifies to $1/H$. So the new computation of $\kappa$ has 
+an extra term of $1/H$ that is extraneous:
+
+$$
+\beta = 1 \cdot (1) \cdot (1/H) \\
+\kappa = (1/H) cx = (1/H)c(I/H)
+$$
+
+

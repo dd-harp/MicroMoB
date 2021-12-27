@@ -1,10 +1,9 @@
-#' MicroMoB: Discrete time simulation of mosquito-borne pathogen transmission
+#' MicroMoB: Microsimulation for mosquito-borne pathogens
 #'
-#' This package does things.
-#'
-#' @section MicroMoB functions:
-#' The MicroMoB functions ...
+#' @description
+#' Discrete time simulation of mosquito-borne pathogen transmission
 #'
 #' @docType package
 #' @name MicroMoB
-NULL
+#'
+"_PACKAGE"
