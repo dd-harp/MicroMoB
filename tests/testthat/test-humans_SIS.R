@@ -19,6 +19,44 @@ test_that("human object setup is working", {
   expect_equal(compute_wf(mod), wf)
   expect_equal(compute_Psi(mod), theta)
   expect_equal(compute_H(mod), H)
+
+})
+
+test_that("computation of human biting terms is working", {
+
+  n_strata <- 3
+  p <- 2
+  n <- p * n_strata
+  tmax <- 10
+
+  mod <- make_MicroMoB(tmax = tmax, p = p)
+
+  theta <- matrix(rexp(n*p), n, p)
+  theta <- theta / rowSums(theta)
+  wf <- rexp(n)
+  H <- rpois(n = n, lambda = 100)
+  X <- rpois(n = n, lambda = 15)
+  c <- 0.15
+
+  setup_humans_SIS(model = mod, stochastic = FALSE, theta = theta, H = H, X = X, wf = wf)
+
+  W_manual <- c(sum(H*wf*t(theta)[1, ]), sum(H*wf*t(theta)[2, ]))
+  expect_equal(compute_W(mod), W_manual)
+
+  beta_manual <- matrix(NaN, nrow = n, ncol = p)
+  for (i in 1:n) {
+    for (j in 1:p) {
+      beta_manual[i,j] = (theta[i,j]*wf[i]) / sum(wf * H * theta[, j])
+    }
+  }
+
+  W <- compute_W(mod)
+  wf <- compute_wf(mod)
+  Psi <- compute_Psi(mod)
+  beta <- diag(wf) %*% Psi %*% diag(1/W)
+
+  expect_equal(beta, beta_manual)
+
 })
 
 

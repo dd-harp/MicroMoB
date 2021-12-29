@@ -107,7 +107,7 @@ step_humans.SIS_stochastic <- function(model) {
 compute_W.SIS <- function(model) {
   Psi <- model$human$theta
   W <- t(Psi) %*% (model$human$wf * model$human$H)
-  return(W)
+  return(as.vector(W))
 }
 
 
@@ -124,7 +124,7 @@ compute_wf.SIS <- function(model) {
 #' @export
 compute_x.SIS <- function(model) {
   x <- (model$human$X / model$human$H) * model$human$c
-  return(x)
+  return(as.vector(x))
 }
 
 
