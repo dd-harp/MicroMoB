@@ -9,6 +9,9 @@
 compute_bloodmeal <- function(model) {
   stopifnot(inherits(model, "MicroMoB"))
 
+  n <- model$global$n
+  p <- model$global$p
+
   # human quantities
   W <- compute_W(model)
   H <- compute_H(model)
@@ -17,7 +20,7 @@ compute_bloodmeal <- function(model) {
   Psi <- compute_Psi(model)
 
   # biting distribution matrix (n x p)
-  beta <- diag(wf) %*% Psi %*% diag(1/W)
+  beta <- diag(wf, nrow = n, ncol = n) %*% Psi %*% diag(1/W, nrow = p, ncol = p)
 
   stopifnot(nrow(beta) == model$global$n)
   stopifnot(ncol(beta) == model$global$p)
