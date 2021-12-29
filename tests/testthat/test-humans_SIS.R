@@ -41,7 +41,8 @@ test_that("computation of human biting terms is working", {
   setup_humans_SIS(model = mod, stochastic = FALSE, theta = theta, H = H, X = X, wf = wf)
 
   W_manual <- c(sum(H*wf*t(theta)[1, ]), sum(H*wf*t(theta)[2, ]))
-  expect_equal(compute_W(mod), W_manual)
+  W <- compute_W(mod)
+  expect_equal(W, W_manual)
 
   beta_manual <- matrix(NaN, nrow = n, ncol = p)
   for (i in 1:n) {
@@ -50,7 +51,6 @@ test_that("computation of human biting terms is working", {
     }
   }
 
-  W <- compute_W(mod)
   wf <- compute_wf(mod)
   Psi <- compute_Psi(mod)
   beta <- diag(wf) %*% Psi %*% diag(1/W)
