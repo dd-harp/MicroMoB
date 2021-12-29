@@ -5,7 +5,9 @@
 [![codecov](https://codecov.io/gh/dd-harp/MicroMoB/branch/main/graph/badge.svg?)](https://codecov.io/gh/dd-harp/MicroMoB)
 <!-- badges: end -->
 
-What is MicroMoB? MicroMoB is a software package which implements a framework for building mathematical models of
+## What is MicroMoB? 
+
+MicroMoB is a software package which implements a framework for building mathematical models of
 mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios (importation, time-varying parameters, stratified human populations) while at the same time places constraints upon how parts of the framework interact so that the software
 does not become obfuscatingly complex each time a new feature must be added. The framework defines **components** which
 have an **interface**. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes,
