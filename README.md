@@ -5,6 +5,26 @@
 [![codecov](https://codecov.io/gh/dd-harp/MicroMoB/branch/main/graph/badge.svg?)](https://codecov.io/gh/dd-harp/MicroMoB)
 <!-- badges: end -->
 
+What is MicroMoB? MicroMoB is a software package which implements a framework for building mathematical models of
+mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios (importation, time-varying parameters, stratified human populations) while at the same time places constraints upon how parts of the framework interact so that the software
+does not become obfuscatingly complex each time a new feature must be added. The framework defines **components** which
+have an **interface**. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes,
+resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a **model**.
+For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that
+component "box". Certain computations that involve the passing of information between components are enforced, such as the bloodmeal,
+where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the 
+generic component interface, so any model fulfilling an interface can fit seamlessly into the software.
+
+MicroMoB was made to simplify the task of model building for MBPT systems. We hope it proves useful. Please
+visit the [website](https://dd-harp.github.io/MicroMoB/) to learn more.
+
+## Installation
+
+```
+remotes::install_github('dd-harp/MicroMoB')
+library(MicroMoB)
+```
+
 ## Software design
 
 The model object will be an environment with a class attribute.
