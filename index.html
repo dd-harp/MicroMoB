@@ -84,6 +84,18 @@
 <!-- badges: start -->
 
 <div class="section level2">
+<h2 id="what-is-micromob">What is MicroMoB?<a class="anchor" aria-label="anchor" href="#what-is-micromob"></a>
+</h2>
+<p>MicroMoB is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios (importation, time-varying parameters, stratified human populations) while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added. The framework defines <strong>components</strong> which have an <strong>interface</strong>. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes, resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a <strong>model</strong>. For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that component “box”. Certain computations that involve the passing of information between components are enforced, such as the bloodmeal, where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the generic component interface, so any model fulfilling an interface can fit seamlessly into the software.</p>
+<p>MicroMoB was made to simplify the task of model building for MBPT systems. We hope it proves useful. Please visit the <a href="https://dd-harp.github.io/MicroMoB/" class="external-link">website</a> to learn more.</p>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<pre><code><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'dd-harp/MicroMoB'</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dd-harp/MicroMoB" class="external-link">MicroMoB</a></span><span class="op">)</span></code></pre>
+</div>
+<div class="section level2">
 <h2 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
 </h2>
 <p>The model object will be an environment with a class attribute. All interior structure will be named lists. Each function will be passed the entire model object, and will dispatch on classes of objects within the model object.</p>
