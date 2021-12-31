@@ -22,7 +22,7 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
     if (ncol(lambda) == 365L) {
       ix <- (1:tmax) %% 365L
       ix[which(ix == 0L)] <- 365L
-      lambda_mat <- lambda[, ix]
+      lambda_mat <- lambda[, ix, drop = FALSE]
     } else if (ncol(lambda) == tmax) {
       lambda_mat <- lambda
     } else {
@@ -36,6 +36,9 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
       lambda_mat <- matrix(data = lambda, nrow = 1, ncol = tmax)
     }
   }
+
+  stopifnot(nrow(lambda_mat) == p)
+  stopifnot(ncol(lambda_mat) == tmax)
 
   aqua_class <- c("trace")
   if (stochastic) {
