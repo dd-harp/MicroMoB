@@ -60,10 +60,10 @@ test_that("Model updates correctly with RM mosquitoes, SIS humans, 2 patches", {
 
   # human dynamics
   recoveries <- pexp(q = r) * X
-  infections <- pexp(q = h) * (H - X)
+  infections_human <- pexp(q = h) * (H - X)
 
   # mosquito dynamics
-  infections <- (f*q) * kappa * (M - Y)
+  infections_mosy <- (f*q) * kappa * (M - Y)
 
   # compute update
   compute_bloodmeal(mod)
@@ -71,8 +71,11 @@ test_that("Model updates correctly with RM mosquitoes, SIS humans, 2 patches", {
   step_mosquitoes(mod)
 
   # tests
-  expect_equal(mod$human$X, X - recoveries + infections)
-  expect_equal(mod$mosquito$Y, as.vector(((Y + infections) * p) %*% psi))
+  expect_equal(mod$human$EIR, EIR)
+  expect_equal(mod$human$EIR * mod$human$b, h)
+  expect_equal(mod$mosquito$kappa, kappa)
+  expect_equal(mod$human$X, X - recoveries + infections_human)
+  expect_equal(mod$mosquito$Y, as.vector(((Y + infections_mosy) * p) %*% psi))
   expect_equal(mod$mosquito$M, as.vector((M * p) %*% psi))
 
 })
