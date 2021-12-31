@@ -22,8 +22,8 @@ compute_bloodmeal <- function(model) {
   # biting distribution matrix (n x p)
   beta <- diag(wf, nrow = n, ncol = n) %*% Psi %*% diag(1/W, nrow = p, ncol = p)
 
-  stopifnot(nrow(beta) == model$global$n)
-  stopifnot(ncol(beta) == model$global$p)
+  stopifnot(nrow(beta) == n)
+  stopifnot(ncol(beta) == p)
 
   # host availability
   Wd <- compute_Wd(model)
@@ -47,9 +47,12 @@ compute_bloodmeal <- function(model) {
 
   # calculate EIR and kappa (mosy->human, human->mosy
   model$human$EIR <- beta %*% (f*q*v*Z)
-  model$mosquito$kappa <- (v * t(beta) %*% (x*H)) + ((1 - v) * xd)
+  model$human$EIR <- as.vector(model$human$EIR)
 
-  stopifnot(length(model$human$EIR) == model$global$n)
-  stopifnot(length(model$mosquito$kappa) == model$global$p)
+  model$mosquito$kappa <- (v * (t(beta) %*% (x*H))) + ((1 - v) * xd)
+  model$mosquito$kappa <- as.vector(model$mosquito$kappa)
+
+  stopifnot(length(model$human$EIR) == n)
+  stopifnot(length(model$mosquito$kappa) == p)
 
 }

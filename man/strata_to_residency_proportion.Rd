@@ -10,7 +10,7 @@ strata_to_residency_proportion(H_strata, J_strata)
 \item{H_strata}{a vector of population size by strata}
 
 \item{J_strata}{a matrix whose columns sum to one giving the distribution of
-strata populations over patches}
+strata (columns) populations over patches (rows)}
 }
 \value{
 a \link{list} with three elements:
@@ -34,6 +34,7 @@ J <- matrix(
    0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = FALSE
 )
 H <- c(50, 60)
+# get the overall assignment of strata (cols) across patches (rows)
 H_overall <- J \%*\% diag(H)
 residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 }

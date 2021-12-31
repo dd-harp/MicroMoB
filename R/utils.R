@@ -90,7 +90,7 @@ sample_stochastic_matrix <- function(x, prob) {
 #' population size for the overall stratification of both residency and strata.
 #' @param H_strata a vector of population size by strata
 #' @param J_strata a matrix whose columns sum to one giving the distribution of
-#' strata populations over patches
+#' strata (columns) populations over patches (rows)
 #' @return a [list] with three elements:
 #'  * `assignment_indices`: provides a mapping from patch (rows) and strata (columns)
 #'     into the "unrolled" vector `H`
@@ -103,6 +103,7 @@ sample_stochastic_matrix <- function(x, prob) {
 #'    0.1, 0.6, 0.3), nrow = 3, ncol = 2, byrow = FALSE
 #' )
 #' H <- c(50, 60)
+#' # get the overall assignment of strata (cols) across patches (rows)
 #' H_overall <- J %*% diag(H)
 #' residency <- strata_to_residency_proportion(H_strata = H, J_strata = J)
 #' @export
@@ -122,6 +123,7 @@ strata_to_residency_proportion <- function(H_strata, J_strata) {
 
   pop$J <- do.call(what = cbind, args = replicate(n = s, expr = diag(p), simplify = FALSE))
   pop$H <- as.vector(J_strata %*% diag(H_strata))
+  pop$H <- as.integer(pop$H)
 
   return(pop)
 }
@@ -155,6 +157,7 @@ strata_to_residency_counts <- function(H_counts) {
   pop <- list()
 
   pop$H <- as.vector(H_counts)
+  pop$H <- as.integer(pop$H)
   pop$J <- do.call(what = cbind, args = replicate(n = s, expr = diag(p), simplify = FALSE))
 
   return(pop)
