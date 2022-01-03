@@ -159,11 +159,8 @@ step_mosquitoes.RM_deterministic <- function(model) {
   Y0 <- a * model$mosquito$kappa * (model$mosquito$M - model$mosquito$Y)
   Y0 <- pmax(Y0, 0)
 
-  # newly emerging adults
-  lambda <- compute_emergents(model)
-
   # survival
-  model$mosquito$M <- (p * model$mosquito$M) + lambda
+  model$mosquito$M <- p * model$mosquito$M
   model$mosquito$Y <- p * (model$mosquito$Y + Y0)
   model$mosquito$Z <- p * model$mosquito$Z
   model$mosquito$ZZ <- p * model$mosquito$ZZ
@@ -178,8 +175,11 @@ step_mosquitoes.RM_deterministic <- function(model) {
   model$mosquito$ZZ <- model$mosquito$ZZ_shift %*% model$mosquito$ZZ
   model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + ((Y0 * p) %*% psi)
 
+  # newly emerging adults
+  lambda <- compute_emergents(model)
+
   # make vectors
-  model$mosquito$M <- as.vector(model$mosquito$M)
+  model$mosquito$M <- as.vector(model$mosquito$M) + lambda
   model$mosquito$Y <- as.vector(model$mosquito$Y)
   model$mosquito$Z <- as.vector(model$mosquito$Z)
 
@@ -199,10 +199,6 @@ step_mosquitoes.RM_stochastic <- function(model) {
   p <- model$mosquito$p[tnow]
   psi <- model$mosquito$psi
   n_patch <- model$global$p
-
-  # newly emerging adults
-  lambda <- compute_emergents(model)
-  lambda <- sample_stochastic_vector(x = lambda, prob = psi)
 
   # newly infected mosquitoes
   a <- model$mosquito$f * model$mosquito$q
@@ -243,12 +239,16 @@ step_mosquitoes.RM_stochastic <- function(model) {
   # add newly infectious
   model$mosquito$Z <- model$mosquito$Z + model$mosquito$ZZ[1, ]
 
+  # newly emerging adults
+  lambda <- compute_emergents(model)
+
   # add newly emerging
   model$mosquito$M <- model$mosquito$Y + S + lambda
 
   # ZZ[t, ] is the number of mosquitoes that become infectious in each patch t days from now.
   model$mosquito$ZZ <- model$mosquito$ZZ_shift %*% model$mosquito$ZZ
   model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + Y0
+
 
 }
 

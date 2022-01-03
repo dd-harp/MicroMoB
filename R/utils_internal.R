@@ -41,8 +41,12 @@ distribute <- function(n,p){
 }
 
 
-#' @noRd
-time_varying_parameter <- function(param, p, tmax) {
+#' @title Input parameters that may vary by time and patch
+#' @param param if given a matrix, it must have nrows equal to `p` and ncols equal to
+#' either `tmax` or `365`; if given a vector it must be of length `p`, `tmax`, or `365`.
+#' @param p number of patches
+#' @param tmax number of time steps
+time_patch_varying_parameter <- function(param, p, tmax) {
   if (inherits(param, "matrix")) {
     stopifnot(nrow(param) == p)
     if (ncol(param) == 365L) {
@@ -55,14 +59,44 @@ time_varying_parameter <- function(param, p, tmax) {
       stop("incorrect dimensions of parameter")
     }
   } else {
-    stopifnot(length(param) == p)
-    if (p > 1) {
-      out <- replicate(n = tmax, expr = param)
+    # vector input
+    if (length(param) == p) {
+      if (p > 1) {
+        out <- replicate(n = tmax, expr = param)
+      } else {
+        out <- matrix(data = param, nrow = 1, ncol = tmax)
+      }
+    } else if (length(param) == tmax) {
+      out <- do.call(rbind, replicate(n = p, expr = param, simplify = FALSE))
+    } else if (length(param) == 365L) {
+      ix <- (1:tmax) %% 365L
+      ix[which(ix == 0L)] <- 365L
+      out <- do.call(rbind, replicate(n = p, expr = param[ix], simplify = FALSE))
     } else {
-      out <- matrix(data = param, nrow = 1, ncol = tmax)
+      stop("incorrect length of parameter")
     }
   }
   stopifnot(nrow(out) == p)
   stopifnot(ncol(out) == tmax)
+  return(out)
+}
+
+
+#' @title Input parameters that may vary by time
+#' @param param a vector of length `1`, `tmax`, or `365`.
+#' @param tmax number of time steps
+time_varying_parameter <- function(param, tmax) {
+  if (length(param) == 1L) {
+    out <- rep(param, tmax)
+  } else if(length(param) == 365L) {
+    ix <- (1:tmax) %% 365L
+    ix[which(ix == 0L)] <- 365L
+    out <- param[ix]
+  } else if(length(param) == tmax) {
+    out <- param
+  } else {
+    stop("incorrect length of parameter")
+  }
+  stopifnot(length(out) == tmax)
   return(out)
 }

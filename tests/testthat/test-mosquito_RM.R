@@ -218,7 +218,7 @@ test_that("deterministic RM step is working with pulse of infection, with disper
   mod$mosquito$kappa <- rep(1, 3)
   step_mosquitoes(model = mod)
 
-  expect_equal(mod$mosquito$M, as.vector(((M*0.9) + c(1e1,1e2,1e3)) %*% psi))
+  expect_equal(mod$mosquito$M, as.vector(((M*0.9)) %*% psi) + c(1e1,1e2,1e3))
   expect_true(all(mod$mosquito$Y > 0))
   expect_true(all(mod$mosquito$Z == 0))
   expect_true(all(mod$mosquito$ZZ[1, ] == 0))

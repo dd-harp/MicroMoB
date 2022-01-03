@@ -17,7 +17,7 @@ setup_humans_SIS(
 )
 }
 \arguments{
-\item{model}{an object from \link[MicroWNV:make_microWNV]{MicroWNV::make_microWNV}}
+\item{model}{an object from \link{make_MicroMoB}}
 
 \item{stochastic}{should the model update deterministically or stochastically?}
 

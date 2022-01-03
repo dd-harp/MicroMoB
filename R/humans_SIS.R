@@ -1,7 +1,7 @@
 #' @title Setup humans with SIS pathogen model
 #' @description A simple SIS model
 #' @param stochastic should the model update deterministically or stochastically?
-#' @param model an object from [MicroWNV::make_microWNV]
+#' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param theta a time spent matrix
 #' @param wf biting weights
 #' @param H vector of strata population sizes
