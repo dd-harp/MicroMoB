@@ -26,6 +26,7 @@ a named list model$visitor."><!-- mathjax --><script src="https://cdnjs.cloudfla
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
     <a class="dropdown-item" href="../articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
@@ -70,10 +71,10 @@ a named list <code>model$visitor</code>.</p>
     <dl><dt>model</dt>
 <dd><p>an object from <a href="make_MicroMoB.html">make_MicroMoB</a></p></dd>
 <dt>Wd</dt>
-<dd><p>a vector of length <code>p</code>, or a matrix with <code>p</code> rows and <code>tmax</code> columns,
+<dd><p>a time varying trace of visitor host availability passed to <a href="time_patch_varying_parameter.html">time_patch_varying_parameter</a>
 or <code>NULL</code> to set to <code>0</code> (no visitors)</p></dd>
 <dt>xd</dt>
-<dd><p>a vector of length <code>p</code>, or a matrix with <code>p</code> rows and <code>tmax</code> columns,
+<dd><p>a time varying trace of visitor net infectiousness passed to <a href="time_patch_varying_parameter.html">time_patch_varying_parameter</a>
 or <code>NULL</code> to set to <code>0</code> (no visitors)</p></dd>
 </dl></div>
 

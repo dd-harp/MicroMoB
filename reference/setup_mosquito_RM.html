@@ -28,6 +28,7 @@ be simulated deterministically or stochastically."><!-- mathjax --><script src="
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
     <a class="dropdown-item" href="../articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
@@ -65,7 +66,19 @@ be simulated deterministically or stochastically.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">setup_mosquito_RM</span><span class="op">(</span><span class="va">model</span>, <span class="va">stochastic</span>, <span class="va">f</span>, <span class="va">q</span>, <span class="va">eip</span>, <span class="va">p</span>, <span class="va">psi</span>, <span class="va">M</span>, <span class="va">Y</span>, <span class="va">Z</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">setup_mosquito_RM</span><span class="op">(</span>
+  <span class="va">model</span>,
+  <span class="va">stochastic</span>,
+  f <span class="op">=</span> <span class="fl">0.3</span>,
+  q <span class="op">=</span> <span class="fl">0.9</span>,
+  <span class="va">eip</span>,
+  <span class="va">p</span>,
+  <span class="va">psi</span>,
+  nu <span class="op">=</span> <span class="fl">25</span>,
+  <span class="va">M</span>,
+  <span class="va">Y</span>,
+  <span class="va">Z</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -79,13 +92,13 @@ be simulated deterministically or stochastically.</p>
 <dt>q</dt>
 <dd><p>the human blood feeding fraction</p></dd>
 <dt>eip</dt>
-<dd><p>the Extrinsic Incubation Period, may either be a scalar, a vector of
-length 365, or a vector of length equal to <code>tmax</code> in the <code>model</code> object from <a href="make_MicroMoB.html">make_MicroMoB</a></p></dd>
+<dd><p>the Extrinsic Incubation Period, may be time varying, see <a href="time_varying_parameter.html">time_varying_parameter</a></p></dd>
 <dt>p</dt>
-<dd><p>daily survival probability, may either be a scalar, a vector of
-length 365, or a vector of length equal to <code>tmax</code> in the <code>model</code> object from <a href="make_MicroMoB.html">make_MicroMoB</a></p></dd>
+<dd><p>daily survival probability, may be time varying, see <a href="time_varying_parameter.html">time_varying_parameter</a></p></dd>
 <dt>psi</dt>
 <dd><p>a mosquito dispersal matrix (rows must sum to 1)</p></dd>
+<dt>nu</dt>
+<dd><p>number of eggs laid per oviposition</p></dd>
 <dt>M</dt>
 <dd><p>total mosquito density per patch (vector of length <code>p</code>)</p></dd>
 <dt>Y</dt>

@@ -24,6 +24,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
     <a class="dropdown-item" href="../articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
@@ -98,6 +99,11 @@
           <code><a href="compute_Z.html">compute_Z()</a></code> 
         </dt>
         <dd>Compute density of infective mosquitoes (\(Z\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.html">compute_oviposit()</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch</dd>
       </dl></div><div class="section level2">
       
       <h3 id="ross-macdonald-rm-mosquito-model">Ross-Macdonald (RM) mosquito model<a class="anchor" aria-label="anchor" href="#ross-macdonald-rm-mosquito-model"></a></h3>
@@ -144,6 +150,62 @@
           <code><a href="compute_Z.RM.html">compute_Z(<i>&lt;RM&gt;</i>)</a></code> 
         </dt>
         <dd>Compute density of infective mosquitoes for RM model (\(Z\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.RM.html">compute_oviposit(<i>&lt;RM&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch for RM model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.RM_deterministic.html">compute_oviposit(<i>&lt;RM_deterministic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch for deterministic RM model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.RM_stochastic.html">compute_oviposit(<i>&lt;RM_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch for stochastic RM model</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="trace-forced-mosquito-model">Trace (forced) mosquito model<a class="anchor" aria-label="anchor" href="#trace-forced-mosquito-model"></a></h3>
+      <p class="section-desc"></p><p>This is a null mosquito component used to test aquatic models.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_mosquito_trace.html">setup_mosquito_trace()</a></code> 
+        </dt>
+        <dd>Setup null mosquito model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_mosquitoes.trace.html">step_mosquitoes(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update null mosquito population</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_f.trace.html">compute_f(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute null mosquito feeding rate (\(f\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_q.trace.html">compute_q(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute null human blood feeding fraction (\(q\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_Z.trace.html">compute_Z(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute null density of infective mosquitoes (\(Z\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.trace.html">compute_oviposit(<i>&lt;trace&gt;</i>)</a></code> <code><a href="compute_oviposit.trace.html">compute_oviposit(<i>&lt;trace&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch</dd>
       </dl></div><div class="section level2">
       <h2 id="aquatic-immature-mosquito-component">Aquatic (immature) mosquito component<a class="anchor" aria-label="anchor" href="#aquatic-immature-mosquito-component"></a></h2>
       
@@ -165,16 +227,6 @@
           <code><a href="compute_emergents.html">compute_emergents()</a></code> 
         </dt>
         <dd>Compute number of newly emerging adults (\(\lambda\))</dd>
-      </dl><dl><dt>
-          
-          <code><a href="add_oviposit.html">add_oviposit()</a></code> 
-        </dt>
-        <dd>Add eggs from oviposition to aquatic model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_oviposit.html">compute_oviposit()</a></code> 
-        </dt>
-        <dd>Compute number of eggs laid from oviposition for each patch</dd>
       </dl></div><div class="section level2">
       
       <h3 id="trace-forced-aquatic-model">Trace (forced) aquatic model<a class="anchor" aria-label="anchor" href="#trace-forced-aquatic-model"></a></h3>
@@ -211,16 +263,42 @@
           <code><a href="compute_emergents.trace_stochastic.html">compute_emergents(<i>&lt;trace_stochastic&gt;</i>)</a></code> 
         </dt>
         <dd>Compute number of newly emerging adults from forcing term (stochastic)</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="beverton-holt-aquatic-model">Beverton-Holt aquatic model<a class="anchor" aria-label="anchor" href="#beverton-holt-aquatic-model"></a></h3>
+      <p class="section-desc"></p><p>This is a simple non-linear model of aquatic (immature) dynamics with a single compartment.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_aqua_BH.html">setup_aqua_BH()</a></code> 
+        </dt>
+        <dd>Setup aquatic (immature) mosquito model with Beverton-Holt dynamics</dd>
       </dl><dl><dt>
           
-          <code><a href="add_oviposit.trace.html">add_oviposit(<i>&lt;trace&gt;</i>)</a></code> 
+          <code><a href="step_aqua.BH.html">step_aqua(<i>&lt;BH&gt;</i>)</a></code> 
         </dt>
-        <dd>Add eggs from oviposition to forced aquatic model</dd>
+        <dd>Update aquatic (immature) mosquito populations for Beverton-Holt dynamics</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_oviposit.trace.html">compute_oviposit(<i>&lt;trace&gt;</i>)</a></code> 
+          <code><a href="step_aqua.BH_deterministic.html">step_aqua(<i>&lt;BH_deterministic&gt;</i>)</a></code> 
         </dt>
-        <dd>Compute number of eggs laid from oviposition for each patch</dd>
+        <dd>Update aquatic (immature) mosquito populations for deterministic Beverton-Holt dynamics</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_aqua.BH_stochastic.html">step_aqua(<i>&lt;BH_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update aquatic (immature) mosquito populations for stochastic Beverton-Holt dynamics</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_emergents.BH.html">compute_emergents(<i>&lt;BH&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of newly emerging adults from Beverton-Holt dynamics</dd>
       </dl></div><div class="section level2">
       <h2 id="human-component">Human component<a class="anchor" aria-label="anchor" href="#human-component"></a></h2>
       
@@ -443,6 +521,16 @@
           <code><a href="strata_to_residency_counts.html">strata_to_residency_counts()</a></code> 
         </dt>
         <dd>Helper function for lumped population strata (counts)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="time_patch_varying_parameter.html">time_patch_varying_parameter()</a></code> 
+        </dt>
+        <dd>Input parameters that may vary by time and patch</dd>
+      </dl><dl><dt>
+          
+          <code><a href="time_varying_parameter.html">time_varying_parameter()</a></code> 
+        </dt>
+        <dd>Input parameters that may vary by time</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

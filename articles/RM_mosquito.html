@@ -41,6 +41,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
     <a class="dropdown-item" href="../articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
@@ -113,7 +114,7 @@
 <p>The deterministic model has the following form:</p>
 <p><span class="math display">\[\begin{equation}
 Y_{0} = a \kappa_{t} (M_{t} - Y_{t})  \\
-M_{t+1} = (pM_{t} + \lambda_{t}) \cdot \psi \\
+M_{t+1} = (pM_{t}) \cdot \psi +\lambda_{t} \\
 Y_{t+1} = p(Y_{t} + Y_{0}) \cdot \psi \\
 Z_{t+1} = (pZ_{t} \cdot \psi) + (a \kappa_{t-EIP} (M_{t-EIP} - Y_{t-EIP}) p^{EIP} \cdot \psi^{EIP})
 \end{equation}\]</span></p>

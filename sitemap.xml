@@ -10,6 +10,9 @@
     <loc>/LICENSE.html</loc>
   </url>
   <url>
+    <loc>/articles/BH_aqua.html</loc>
+  </url>
+  <url>
     <loc>/articles/Contributing.html</loc>
   </url>
   <url>
@@ -38,12 +41,6 @@
   </url>
   <url>
     <loc>/reference/MicroMoB.html</loc>
-  </url>
-  <url>
-    <loc>/reference/add_oviposit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/add_oviposit.trace.html</loc>
   </url>
   <url>
     <loc>/reference/compute_H.SIS.html</loc>
@@ -82,7 +79,13 @@
     <loc>/reference/compute_Z.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_Z.trace.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_bloodmeal.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_emergents.BH.html</loc>
   </url>
   <url>
     <loc>/reference/compute_emergents.html</loc>
@@ -103,6 +106,18 @@
     <loc>/reference/compute_f.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_f.trace.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_oviposit.RM.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_oviposit.RM_deterministic.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_oviposit.RM_stochastic.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_oviposit.html</loc>
   </url>
   <url>
@@ -113,6 +128,9 @@
   </url>
   <url>
     <loc>/reference/compute_q.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_q.trace.html</loc>
   </url>
   <url>
     <loc>/reference/compute_wf.SIS.html</loc>
@@ -148,6 +166,9 @@
     <loc>/reference/setup_alternative_trace.html</loc>
   </url>
   <url>
+    <loc>/reference/setup_aqua_BH.html</loc>
+  </url>
+  <url>
     <loc>/reference/setup_aqua_trace.html</loc>
   </url>
   <url>
@@ -157,7 +178,19 @@
     <loc>/reference/setup_mosquito_RM.html</loc>
   </url>
   <url>
+    <loc>/reference/setup_mosquito_trace.html</loc>
+  </url>
+  <url>
     <loc>/reference/setup_visitor_trace.html</loc>
+  </url>
+  <url>
+    <loc>/reference/step_aqua.BH.html</loc>
+  </url>
+  <url>
+    <loc>/reference/step_aqua.BH_deterministic.html</loc>
+  </url>
+  <url>
+    <loc>/reference/step_aqua.BH_stochastic.html</loc>
   </url>
   <url>
     <loc>/reference/step_aqua.html</loc>
@@ -190,9 +223,18 @@
     <loc>/reference/step_mosquitoes.html</loc>
   </url>
   <url>
+    <loc>/reference/step_mosquitoes.trace.html</loc>
+  </url>
+  <url>
     <loc>/reference/strata_to_residency_counts.html</loc>
   </url>
   <url>
     <loc>/reference/strata_to_residency_proportion.html</loc>
+  </url>
+  <url>
+    <loc>/reference/time_patch_varying_parameter.html</loc>
+  </url>
+  <url>
+    <loc>/reference/time_varying_parameter.html</loc>
   </url>
 </urlset>
