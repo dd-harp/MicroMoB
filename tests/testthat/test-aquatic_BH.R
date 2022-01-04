@@ -34,3 +34,35 @@ test_that("3 patch BH aqua model works", {
   expect_equal(order(mod$aqua$L), order(Lt))
   expect_equal(order(compute_emergents(mod)), order(At))
 })
+
+
+test_that("BH equilibrium works", {
+  p <- 1
+  tmax <- 10
+
+  # lambda out and eggs in are known quantities
+  lambda <- 10
+  eggs <- 100
+
+  # static pars
+  molt <-  0.1
+  surv <- 0.9
+
+  # solve L
+  L <- lambda * ((1/molt) - 1) + eggs
+  K <- - (lambda * L) / (lambda - L*molt*surv)
+
+  # model
+  mod <- make_MicroMoB(tmax = tmax, p = p)
+  setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = L)
+  setup_mosquito_trace(model = mod, oviposit = eggs)
+
+  while (mod$global$tnow <= tmax) {
+    step_aqua(model = mod)
+    mod$global$tnow <- mod$global$tnow + 1L
+  }
+
+  expect_equal(mod$aqua$L, L)
+  expect_equal(compute_emergents(mod), lambda)
+
+})
