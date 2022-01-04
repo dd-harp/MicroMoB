@@ -1,0 +1,145 @@
+---
+title: "Beverton-Holt aquatic model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Beverton-Holt aquatic model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+library(ggplot2)
+library(data.table)
+library(parallel)
+```
+
+The simplest non-trivial model of aquatic mosquito dynamics which exhibits density-dependence (negative feedback)
+is a Beverton-Holt (BH) style model. It is a kind of discrete logistic equation. We have implemented a BH model that
+conforms to the aquatic (immature) component interface to be used with other mosquito models fulfilling the adult
+component interface.
+
+The model groups all immature mosquito stages into a single compartment `L`. Each time step some number
+may mature and be ready to emerge as adults, `A`. The model requires 3 (potentially time and patch varying parameters),
+`K`, which determines the strength of density dependent mortality, `surv`, the baseline daily survival probability,
+and `molt`, the daily proportion of immature mosquitoes which mature and emerge as adults.
+
+## Deterministic model
+
+The state updating equation is as follows:
+
+\begin{equation}
+L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \frac{K}{L_{t}+K} \\
+A_{t} = molt \cdot surv \cdot L_{t} \frac{K}{L_{t}+K}
+\end{equation}
+
+## Stochastic model
+
+In the stochastic model on a time step, we first draw the number of survivors:
+
+\begin{equation}
+survivors \sim \mathrm{binomial}(L, surv \frac{K}{L_{t}+K})
+\end{equation}
+
+The number who emerge is also a binomial random variate:
+
+\begin{equation}
+emerge \sim \mathrm{binomial}(survivors, molt)
+\end{equation}
+
+Then state is updated:
+
+\begin{equation}
+L_{t+1} = eggs + survivors - emerge \\
+A_{t} = emerge
+\end{equation}
+
+## Determiniistic equilbrium
+
+Despite being a nonlinear equation, we can solve the equilibrium. We assume that `eggs` is known, and that the desired
+daily emergence is known (`lambda`, or `A` in the BH model's notation). Then we solve for `K` and `L`:
+
+\begin{equation}
+L = \lambda \left( \frac{1}{molt} - 1 \right) + eggs \\
+K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
+\end{equation}
+
+We can set up a simulation using a null adult mosquito model to check that solutions
+converge to the equilibrium.
+
+```{R}
+p <- 1
+tmax <- 1e2
+
+# lambda out and eggs in are known quantities
+lambda <- 10
+eggs <- 100
+
+# static pars
+molt <-  0.1
+surv <- 0.9
+
+# solve L
+L <- lambda * ((1/molt) - 1) + eggs
+K <- - (lambda * L) / (lambda - L*molt*surv)
+
+Linit <- 1
+
+# deterministic run
+mod <- make_MicroMoB(tmax = tmax, p = p)
+setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = Linit)
+setup_mosquito_trace(model = mod, oviposit = eggs)
+
+out_det <- matrix(data = NaN, nrow = tmax, ncol = 2)
+
+while (mod$global$tnow <= tmax) {
+  out_det[mod$global$tnow, ] <- c(mod$aqua$L, mod$aqua$A)
+  step_aqua(model = mod)
+  mod$global$tnow <- mod$global$tnow + 1L
+}
+
+# stochastic run
+out_sto <- mclapply(X = 1:10, FUN = function(runid) {
+  
+  mod <- make_MicroMoB(tmax = tmax, p = p)
+  setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = Linit)
+  setup_mosquito_trace(model = mod, oviposit = eggs)
+  
+  out_run <- matrix(data = NaN, nrow = tmax, ncol = 2)
+  
+  while (mod$global$tnow <= tmax) {
+    out_run[mod$global$tnow, ] <- c(mod$aqua$L, mod$aqua$A)
+    step_aqua(model = mod)
+    mod$global$tnow <- mod$global$tnow + 1L
+  }
+  out_run <- as.data.frame(out_run)
+  out_run$run <- as.integer(runid)
+  return(out_run)
+})
+```
+
+Let's format and plot the results. We can see that the model rapidly approaches equilibrium.
+
+```{R}
+out_det <- as.data.table(out_det)
+out_det[, "Day" := 1:tmax]
+out_det <- melt(out_det, id.vars = "Day", variable.name = "Stage", value.name = "Count")
+levels(out_det$Stage) <- c("L", "A")
+
+out_sto <- do.call(rbind, out_sto)
+out_sto <- as.data.table(out_sto)
+out_sto <- melt(out_sto, id.vars = "run", variable.name = "Stage", value.name = "Count")
+out_sto[, "Day" := 1:tmax, by = c("run", "Stage")]
+levels(out_sto$Stage) <- c("L", "A")
+
+ggplot(data = out_sto) +
+    geom_line(aes(x = Day, y = Count, color = Stage, group = interaction(run, Stage)), alpha = 0.25) +
+    geom_line(data = out_det, mapping = aes(x = Day, y = Count, color = Stage))
+```
