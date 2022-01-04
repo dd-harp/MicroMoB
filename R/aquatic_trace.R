@@ -44,7 +44,7 @@ step_aqua.trace <- function(model) {invisible()}
 # get emerging adults
 
 #' @title Compute number of newly emerging adults from forcing term
-#' @description This function dispatches on the second argument of `model$aqua`
+#' @description This function dispatches on the second class attribute of `model$aqua`
 #' for stochastic or deterministic behavior.
 #' @inheritParams compute_emergents
 #' @details see [MicroMoB::compute_emergents.trace_deterministic] and [MicroMoB::compute_emergents.trace_stochastic]
@@ -70,16 +70,6 @@ compute_emergents.trace_deterministic <- function(model) {
 compute_emergents.trace_stochastic <- function(model) {
   return(rpois(n = model$global$p, lambda = model$aqua$lambda[, model$global$tnow]))
 }
-
-
-# add oviposition
-
-#' @title Add eggs from oviposition to forced aquatic model
-#' @description This function does nothing as trace models are not affected by
-#' endogenous dynamics.
-#' @inheritParams add_oviposit
-#' @export
-add_oviposit.trace <- function(model, eggs) {invisible()}
 
 
 # compute clutch (eggs/patch/day)

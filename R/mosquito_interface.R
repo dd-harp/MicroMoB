@@ -38,3 +38,14 @@ compute_q <- function(model, W, Wd, B) {
 compute_Z <- function(model) {
   UseMethod("compute_Z", model$mosquito)
 }
+
+
+# compute oviposition (eggs/patch/day)
+
+#' @title Compute number of eggs laid from oviposition for each patch
+#' @description This method dispatches on the type of `model$mosquito`
+#' @param model an object from [MicroMoB::make_MicroMoB]
+#' @export
+compute_oviposit <- function(model) {
+  UseMethod("compute_oviposit", model$mosquito)
+}

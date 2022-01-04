@@ -27,27 +27,11 @@ test_that("test emergence model of aquatic dynamics with vector lambda", {
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = FALSE)
   expect_equal(compute_emergents(model = mod), lambda)
 
-  aq_before <- mod$aqua
-  compute_oviposit(model = mod)
-  expect_equal(aq_before, mod$aqua)
-
-  aq_before <- mod$aqua
-  add_oviposit(model = mod, eggs = c(10, 20))
-  expect_equal(aq_before, mod$aqua)
-
   # stochastic
   mod <- make_MicroMoB(tmax = tmax, p = p)
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = TRUE)
   lambda <- compute_emergents(model = mod)
   expect_true(lambda[1] < lambda[2])
-
-  aq_before <- mod$aqua
-  compute_oviposit(model = mod)
-  expect_equal(aq_before, mod$aqua)
-
-  aq_before <- mod$aqua
-  add_oviposit(model = mod, eggs = c(10, 20))
-  expect_equal(aq_before, mod$aqua)
 
 })
 
@@ -65,14 +49,6 @@ test_that("test emergence model of aquatic dynamics with 365 matrix lambda, tmax
   expect_equal(mod$aqua$lambda, lambda[, 1:tmax])
   expect_equal(compute_emergents(model = mod), lambda[, 1])
 
-  aq_before <- mod$aqua
-  compute_oviposit(model = mod)
-  expect_equal(aq_before, mod$aqua)
-
-  aq_before <- mod$aqua
-  add_oviposit(model = mod, eggs = c(10, 20))
-  expect_equal(aq_before, mod$aqua)
-
   # stochastic
   mod <- make_MicroMoB(tmax = tmax, p = p)
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = TRUE)
@@ -80,14 +56,6 @@ test_that("test emergence model of aquatic dynamics with 365 matrix lambda, tmax
   expect_equal(mod$aqua$lambda, lambda[, 1:tmax])
   lambda <- compute_emergents(model = mod)
   expect_true(lambda[1] < lambda[2])
-
-  aq_before <- mod$aqua
-  compute_oviposit(model = mod)
-  expect_equal(aq_before, mod$aqua)
-
-  aq_before <- mod$aqua
-  add_oviposit(model = mod, eggs = c(10, 20))
-  expect_equal(aq_before, mod$aqua)
 
 })
 

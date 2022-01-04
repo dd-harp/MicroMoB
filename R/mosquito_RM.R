@@ -11,11 +11,12 @@
 #' @param eip the Extrinsic Incubation Period, may be time varying, see [MicroMoB::time_varying_parameter]
 #' @param p daily survival probability, may be time varying, see [MicroMoB::time_varying_parameter]
 #' @param psi a mosquito dispersal matrix (rows must sum to 1)
+#' @param nu number of eggs laid per oviposition
 #' @param M total mosquito density per patch (vector of length `p`)
 #' @param Y density of incubating mosquitoes per patch (vector of length `p`)
 #' @param Z density of infectious mosquitoes per patch (vector of length `p`)
 #' @export
-setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
+setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, nu = 25, M, Y, Z) {
   stopifnot(inherits(model, "MicroMoB"))
   stopifnot(is.logical(stochastic))
 
@@ -39,6 +40,10 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
 
   stopifnot(dim(psi) == model$global$p)
   stopifnot(approx_equal(rowSums(psi), 1))
+
+  stopifnot(length(f) == 1L)
+  stopifnot(length(q) == 1L)
+  stopifnot(length(nu) == 1L)
 
   mosy_class <- c("RM")
   if (stochastic) {
@@ -66,6 +71,7 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
   model$mosquito$maxEIP <- maxEIP
   model$mosquito$p <- p_vec
   model$mosquito$psi <- psi
+  model$mosquito$nu <- nu
 
   model$mosquito$kappa <- rep(0, model$global$p)
 
@@ -249,4 +255,33 @@ compute_q.RM <- function(model, W, Wd, B) {
 #' @export
 compute_Z.RM <- function(model) {
   model$mosquito$Z
+}
+
+
+# compute values for aquatic model
+
+#' @title Compute number of eggs laid from oviposition for each patch for RM model
+#' @description This method returns a vector of length `p`.
+#' @inheritParams compute_oviposit
+#' @details see [MicroMoB::compute_oviposit.RM_deterministic] and [MicroMoB::compute_oviposit.RM_stochastic]
+#' @export
+compute_oviposit.RM <- function(model) {
+  NextMethod()
+}
+
+
+#' @title Compute number of eggs laid from oviposition for each patch for deterministic RM model
+#' @inheritParams compute_oviposit
+#' @export
+compute_oviposit.RM_deterministic <- function(model) {
+  model$mosquito$nu * model$mosquito$f * model$mosquito$M
+}
+
+
+#' @title Compute number of eggs laid from oviposition for each patch for stochastic RM model
+#' @inheritParams compute_oviposit
+#' @importFrom stats rpois
+#' @export
+compute_oviposit.RM_stochastic <- function(model) {
+  rpois(n = model$global$p, lambda = model$mosquito$nu * model$mosquito$f * model$mosquito$M)
 }

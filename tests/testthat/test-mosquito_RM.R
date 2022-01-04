@@ -50,6 +50,14 @@ test_that("RM model setup is working", {
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$p, p)
 
+  # oviposit tests
+  expected_nu_det <- mod$mosquito$nu * f * M
+  expect_equal(compute_oviposit(mod), expected_nu_det)
+
+  mod <- make_MicroMoB(tmax = tmax, p = 3)
+  setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = 5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  expect_true(all(compute_oviposit(mod) > 0))
+
   # other objs
   expect_equal(length(mod$mosquito$kappa), 3)
   expect_equal(length(mod$mosquito$M), 3)

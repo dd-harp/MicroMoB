@@ -4,7 +4,19 @@
 \alias{setup_mosquito_RM}
 \title{Setup generalized Ross-Macdonald mosquito model}
 \usage{
-setup_mosquito_RM(model, stochastic, f, q, eip, p, psi, M, Y, Z)
+setup_mosquito_RM(
+  model,
+  stochastic,
+  f = 0.3,
+  q = 0.9,
+  eip,
+  p,
+  psi,
+  nu = 25,
+  M,
+  Y,
+  Z
+)
 }
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
@@ -20,6 +32,8 @@ setup_mosquito_RM(model, stochastic, f, q, eip, p, psi, M, Y, Z)
 \item{p}{daily survival probability, may be time varying, see \link{time_varying_parameter}}
 
 \item{psi}{a mosquito dispersal matrix (rows must sum to 1)}
+
+\item{nu}{number of eggs laid per oviposition}
 
 \item{M}{total mosquito density per patch (vector of length \code{p})}
 
