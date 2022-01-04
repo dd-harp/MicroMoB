@@ -71,16 +71,21 @@ L = \lambda \left( \frac{1}{molt} - 1 \right) + eggs \\
 K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
 \end{equation}
 
-We can set up a simulation using a null adult mosquito model to check that solutions
-converge to the equilibrium.
+We can set up a simulation using the RM mosquito model to check that everything is
+at equilibrium. First we calculate the equilibrium values. We do not use any components
+other than the aquatic and adult mosquito components.
 
 ```{R}
-p <- 1
+patches <- 1
 tmax <- 1e2
 
-# lambda out and eggs in are known quantities
-lambda <- 10
-eggs <- 100
+M <- 120
+p <- 0.9
+lambda <- M*(1-p)
+
+nu <- 25
+f <- 0.3
+eggs <- nu * f * M
 
 # static pars
 molt <-  0.1
@@ -89,57 +94,62 @@ surv <- 0.9
 # solve L
 L <- lambda * ((1/molt) - 1) + eggs
 K <- - (lambda * L) / (lambda - L*molt*surv)
+```
 
-Linit <- 1
+Now we run a deterministic simulation and draw 10 stochastic trajectories.
 
+```{R}
 # deterministic run
-mod <- make_MicroMoB(tmax = tmax, p = p)
-setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = Linit)
-setup_mosquito_trace(model = mod, oviposit = eggs)
+mod <- make_MicroMoB(tmax = tmax, p = patches)
+setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = L)
+setup_mosquito_RM(model = mod, stochastic = FALSE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
 
-out_det <- matrix(data = NaN, nrow = tmax, ncol = 2)
+out_det <- matrix(data = NaN, nrow = tmax + 1, ncol = 3)
+out_det[1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
 
 while (mod$global$tnow <= tmax) {
-  out_det[mod$global$tnow, ] <- c(mod$aqua$L, mod$aqua$A)
   step_aqua(model = mod)
+  step_mosquitoes(model = mod)
+  out_det[mod$global$tnow + 1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
   mod$global$tnow <- mod$global$tnow + 1L
 }
 
-# stochastic run
+# stochastic runs
 out_sto <- mclapply(X = 1:10, FUN = function(runid) {
   
-  mod <- make_MicroMoB(tmax = tmax, p = p)
-  setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = Linit)
-  setup_mosquito_trace(model = mod, oviposit = eggs)
+  mod <- make_MicroMoB(tmax = tmax, p = patches)
+  setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = L)
+  setup_mosquito_RM(model = mod, stochastic = TRUE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
   
-  out_run <- matrix(data = NaN, nrow = tmax, ncol = 2)
+  out_run <- matrix(data = NaN, nrow = tmax + 1, ncol = 3)
+  out_run[1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
   
   while (mod$global$tnow <= tmax) {
-    out_run[mod$global$tnow, ] <- c(mod$aqua$L, mod$aqua$A)
     step_aqua(model = mod)
+    step_mosquitoes(model = mod)
+    out_run[mod$global$tnow + 1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
     mod$global$tnow <- mod$global$tnow + 1L
   }
+  
   out_run <- as.data.frame(out_run)
   out_run$run <- as.integer(runid)
   return(out_run)
 })
-```
 
-Let's format and plot the results. We can see that the model rapidly approaches equilibrium.
 
-```{R}
 out_det <- as.data.table(out_det)
-out_det[, "Day" := 1:tmax]
+out_det[, "Day" := 0:tmax]
 out_det <- melt(out_det, id.vars = "Day", variable.name = "Stage", value.name = "Count")
-levels(out_det$Stage) <- c("L", "A")
+levels(out_det$Stage) <- c("L", "A", "M")
 
 out_sto <- do.call(rbind, out_sto)
 out_sto <- as.data.table(out_sto)
 out_sto <- melt(out_sto, id.vars = "run", variable.name = "Stage", value.name = "Count")
-out_sto[, "Day" := 1:tmax, by = c("run", "Stage")]
-levels(out_sto$Stage) <- c("L", "A")
+out_sto[, "Day" := 0:tmax, by = c("run", "Stage")]
+levels(out_sto$Stage) <- c("L", "A", "M")
 
 ggplot(data = out_sto) +
-    geom_line(aes(x = Day, y = Count, color = Stage, group = interaction(run, Stage)), alpha = 0.25) +
-    geom_line(data = out_det, mapping = aes(x = Day, y = Count, color = Stage))
+    geom_line(aes(x = Day, y = Count, color = Stage, group = run), alpha = 0.35) +
+    geom_line(data = out_det, mapping = aes(x = Day, y = Count, color = Stage)) +
+    facet_wrap(. ~ Stage, scales = "free")
 ```
