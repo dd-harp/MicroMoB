@@ -134,3 +134,5 @@ reference:
   - sample_stochastic_matrix
   - strata_to_residency_proportion
   - strata_to_residency_counts
+  - time_patch_varying_parameter
+  - time_varying_parameter

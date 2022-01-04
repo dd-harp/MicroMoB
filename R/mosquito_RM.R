@@ -8,10 +8,8 @@
 #' @param stochastic should the model update deterministically or stochastically?
 #' @param f the blood feeding rate
 #' @param q the human blood feeding fraction
-#' @param eip the Extrinsic Incubation Period, may either be a scalar, a vector of
-#' length 365, or a vector of length equal to `tmax` in the `model` object from [MicroMoB::make_MicroMoB]
-#' @param p daily survival probability, may either be a scalar, a vector of
-#' length 365, or a vector of length equal to `tmax` in the `model` object from [MicroMoB::make_MicroMoB]
+#' @param eip the Extrinsic Incubation Period, may be time varying, see [MicroMoB::time_varying_parameter]
+#' @param p daily survival probability, may be time varying, see [MicroMoB::time_varying_parameter]
 #' @param psi a mosquito dispersal matrix (rows must sum to 1)
 #' @param M total mosquito density per patch (vector of length `p`)
 #' @param Y density of incubating mosquitoes per patch (vector of length `p`)
@@ -21,49 +19,19 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
   stopifnot(inherits(model, "MicroMoB"))
   stopifnot(is.logical(stochastic))
 
+  tmax <- model$global$tmax
+
   if (stochastic) {
     M <- as.integer(M)
     Y <- as.integer(Y)
     Z <- as.integer(Z)
   }
 
-  if (length(eip) == 1L) {
-    stopifnot(is.finite(eip))
-    stopifnot(eip > 0)
-    eip_vec <- rep(eip, model$global$tmax)
-  } else if(length(eip) == 365L) {
-    stopifnot(is.finite(eip))
-    stopifnot(eip > 0)
-    ix <- (1:model$global$tmax) %% 365L
-    ix[which(ix == 0L)] <- 365L
-    eip_vec <- eip[ix]
-  } else if(length(eip) == model$global$tmax) {
-    stopifnot(is.finite(eip))
-    stopifnot(eip > 0)
-    eip_vec <- eip
-  } else {
-    stop("incorrect length of eip vector")
-  }
+  eip_vec <- time_varying_parameter(param = eip, tmax = tmax)
 
   maxEIP <- max(eip_vec)
 
-  if (length(p) == 1L) {
-    stopifnot(is.finite(p))
-    stopifnot(p > 0)
-    p_vec <- rep(p, model$global$tmax)
-  } else if(length(p) == 365L) {
-    stopifnot(is.finite(p))
-    stopifnot(p > 0)
-    ix <- (1:model$global$tmax) %% 365L
-    ix[which(ix == 0L)] <- 365L
-    p_vec <- p[ix]
-  } else if(length(p) == model$global$tmax) {
-    stopifnot(is.finite(p))
-    stopifnot(p > 0)
-    p_vec <- p
-  } else {
-    stop("incorrect length of p vector")
-  }
+  p_vec <- time_varying_parameter(param = p, tmax = tmax)
 
   stopifnot(p_vec <= 1)
   stopifnot(p_vec >= 0)

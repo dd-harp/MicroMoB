@@ -9,11 +9,11 @@ setup_aqua_BH(model, molt, surv, K, stochastic)
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 
-\item{molt}{proportion of immature stages which will mature and emerge as adults each day}
+\item{molt}{proportion of immature stages which will mature and emerge as adults each day (may be time and patch varying see \link{time_patch_varying_parameter})}
 
-\item{surv}{daily survival probability}
+\item{surv}{daily survival probability (may be time and patch varying see \link{time_patch_varying_parameter})}
 
-\item{K}{carrying capacity}
+\item{K}{carrying capacity (may be time and patch varying see \link{time_patch_varying_parameter})}
 
 \item{stochastic}{should the model update deterministically or stochastically?}
 }

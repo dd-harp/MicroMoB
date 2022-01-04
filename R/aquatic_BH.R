@@ -6,9 +6,9 @@
 #' @details All parameters can be passed either as a vector of length equal to `p`, a matrix with `p` rows
 #' and `tmax` columns, or a matrix with `p` rows and `365` columns.
 #' @param model an object from [MicroMoB::make_MicroMoB]
-#' @param molt proportion of immature stages which will mature and emerge as adults each day
-#' @param surv daily survival probability
-#' @param K carrying capacity
+#' @param molt proportion of immature stages which will mature and emerge as adults each day (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
+#' @param surv daily survival probability (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
+#' @param K carrying capacity (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
 #' @param stochastic should the model update deterministically or stochastically?
 #' @export
 setup_aqua_BH <- function(model, molt, surv, K, stochastic) {

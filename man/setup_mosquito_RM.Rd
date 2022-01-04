@@ -15,11 +15,9 @@ setup_mosquito_RM(model, stochastic, f, q, eip, p, psi, M, Y, Z)
 
 \item{q}{the human blood feeding fraction}
 
-\item{eip}{the Extrinsic Incubation Period, may either be a scalar, a vector of
-length 365, or a vector of length equal to \code{tmax} in the \code{model} object from \link{make_MicroMoB}}
+\item{eip}{the Extrinsic Incubation Period, may be time varying, see \link{time_varying_parameter}}
 
-\item{p}{daily survival probability, may either be a scalar, a vector of
-length 365, or a vector of length equal to \code{tmax} in the \code{model} object from \link{make_MicroMoB}}
+\item{p}{daily survival probability, may be time varying, see \link{time_varying_parameter}}
 
 \item{psi}{a mosquito dispersal matrix (rows must sum to 1)}
 

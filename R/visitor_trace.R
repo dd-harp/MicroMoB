@@ -2,46 +2,27 @@
 #' @description This model complies with the visitors component interface. It adds
 #' a named list `model$visitor`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
-#' @param Wd a vector of length `p`, or a matrix with `p` rows and `tmax` columns,
+#' @param Wd a time varying trace of visitor host availability passed to [MicroMoB::time_patch_varying_parameter]
 #' or `NULL` to set to `0` (no visitors)
-#' @param xd a vector of length `p`, or a matrix with `p` rows and `tmax` columns,
+#' @param xd a time varying trace of visitor net infectiousness passed to [MicroMoB::time_patch_varying_parameter]
 #' or `NULL` to set to `0` (no visitors)
 #' @export
 setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
+
   p <- model$global$p
   tmax <- model$global$tmax
 
   if (!is.null(Wd)) {
-    if (inherits(Wd, "matrix")) {
-      stopifnot(nrow(Wd) == p)
-      stopifnot(ncol(Wd) == tmax)
-    } else {
-      stopifnot(length(Wd) == p)
-      if (p > 1) {
-        Wd <- replicate(tmax, Wd)
-      } else {
-        Wd <- matrix(data = Wd, nrow = p, ncol = tmax)
-      }
-    }
+    Wd <- time_patch_varying_parameter(param = Wd, p = p, tmax = tmax)
   } else {
-    Wd <- matrix(data = 0, nrow = p, ncol = tmax)
+    Wd <- time_patch_varying_parameter(param = rep(0, p), p = p, tmax = tmax)
   }
 
   if (!is.null(xd)) {
-    if (inherits(xd, "matrix")) {
-      stopifnot(nrow(xd) == p)
-      stopifnot(ncol(xd) == tmax)
-    } else {
-      stopifnot(length(xd) == p)
-      if (p > 1) {
-        xd <- replicate(tmax, xd)
-      } else {
-        xd <- matrix(data = xd, nrow = p, ncol = tmax)
-      }
-    }
+    xd <- time_patch_varying_parameter(param = xd, p = p, tmax = tmax)
   } else {
-    xd <- matrix(data = 0, nrow = p, ncol = tmax)
+    xd <- time_patch_varying_parameter(param = rep(0, p), p = p, tmax = tmax)
   }
 
   model$visitor <- structure(list(), class = "trace")
