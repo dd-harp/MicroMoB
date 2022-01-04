@@ -8,18 +8,19 @@
 #' @param stochastic should the model update deterministically or stochastically?
 #' @param f the blood feeding rate
 #' @param q the human blood feeding fraction
-#' @param eip the Extrinsic Incubation Period, may either be a scalar, a vector of
-#' length 365, or a vector of length equal to `tmax` in the `model` object from [MicroMoB::make_MicroMoB]
-#' @param p daily survival probability, may either be a scalar, a vector of
-#' length 365, or a vector of length equal to `tmax` in the `model` object from [MicroMoB::make_MicroMoB]
+#' @param eip the Extrinsic Incubation Period, may be time varying, see [MicroMoB::time_varying_parameter]
+#' @param p daily survival probability, may be time varying, see [MicroMoB::time_varying_parameter]
 #' @param psi a mosquito dispersal matrix (rows must sum to 1)
+#' @param nu number of eggs laid per oviposition
 #' @param M total mosquito density per patch (vector of length `p`)
 #' @param Y density of incubating mosquitoes per patch (vector of length `p`)
 #' @param Z density of infectious mosquitoes per patch (vector of length `p`)
 #' @export
-setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
+setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, nu = 25, M, Y, Z) {
   stopifnot(inherits(model, "MicroMoB"))
   stopifnot(is.logical(stochastic))
+
+  tmax <- model$global$tmax
 
   if (stochastic) {
     M <- as.integer(M)
@@ -27,43 +28,11 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
     Z <- as.integer(Z)
   }
 
-  if (length(eip) == 1L) {
-    stopifnot(is.finite(eip))
-    stopifnot(eip > 0)
-    eip_vec <- rep(eip, model$global$tmax)
-  } else if(length(eip) == 365L) {
-    stopifnot(is.finite(eip))
-    stopifnot(eip > 0)
-    ix <- (1:model$global$tmax) %% 365L
-    ix[which(ix == 0L)] <- 365L
-    eip_vec <- eip[ix]
-  } else if(length(eip) == model$global$tmax) {
-    stopifnot(is.finite(eip))
-    stopifnot(eip > 0)
-    eip_vec <- eip
-  } else {
-    stop("incorrect length of eip vector")
-  }
+  eip_vec <- time_varying_parameter(param = eip, tmax = tmax)
 
   maxEIP <- max(eip_vec)
 
-  if (length(p) == 1L) {
-    stopifnot(is.finite(p))
-    stopifnot(p > 0)
-    p_vec <- rep(p, model$global$tmax)
-  } else if(length(p) == 365L) {
-    stopifnot(is.finite(p))
-    stopifnot(p > 0)
-    ix <- (1:model$global$tmax) %% 365L
-    ix[which(ix == 0L)] <- 365L
-    p_vec <- p[ix]
-  } else if(length(p) == model$global$tmax) {
-    stopifnot(is.finite(p))
-    stopifnot(p > 0)
-    p_vec <- p
-  } else {
-    stop("incorrect length of p vector")
-  }
+  p_vec <- time_varying_parameter(param = p, tmax = tmax)
 
   stopifnot(p_vec <= 1)
   stopifnot(p_vec >= 0)
@@ -71,6 +40,10 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
 
   stopifnot(dim(psi) == model$global$p)
   stopifnot(approx_equal(rowSums(psi), 1))
+
+  stopifnot(length(f) == 1L)
+  stopifnot(length(q) == 1L)
+  stopifnot(length(nu) == 1L)
 
   mosy_class <- c("RM")
   if (stochastic) {
@@ -98,6 +71,7 @@ setup_mosquito_RM <- function(model, stochastic, f, q, eip, p, psi, M, Y, Z) {
   model$mosquito$maxEIP <- maxEIP
   model$mosquito$p <- p_vec
   model$mosquito$psi <- psi
+  model$mosquito$nu <- nu
 
   model$mosquito$kappa <- rep(0, model$global$p)
 
@@ -159,11 +133,8 @@ step_mosquitoes.RM_deterministic <- function(model) {
   Y0 <- a * model$mosquito$kappa * (model$mosquito$M - model$mosquito$Y)
   Y0 <- pmax(Y0, 0)
 
-  # newly emerging adults
-  lambda <- compute_emergents(model)
-
   # survival
-  model$mosquito$M <- (p * model$mosquito$M) + lambda
+  model$mosquito$M <- p * model$mosquito$M
   model$mosquito$Y <- p * (model$mosquito$Y + Y0)
   model$mosquito$Z <- p * model$mosquito$Z
   model$mosquito$ZZ <- p * model$mosquito$ZZ
@@ -178,8 +149,11 @@ step_mosquitoes.RM_deterministic <- function(model) {
   model$mosquito$ZZ <- model$mosquito$ZZ_shift %*% model$mosquito$ZZ
   model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + ((Y0 * p) %*% psi)
 
+  # newly emerging adults
+  lambda <- compute_emergents(model)
+
   # make vectors
-  model$mosquito$M <- as.vector(model$mosquito$M)
+  model$mosquito$M <- as.vector(model$mosquito$M) + lambda
   model$mosquito$Y <- as.vector(model$mosquito$Y)
   model$mosquito$Z <- as.vector(model$mosquito$Z)
 
@@ -199,10 +173,6 @@ step_mosquitoes.RM_stochastic <- function(model) {
   p <- model$mosquito$p[tnow]
   psi <- model$mosquito$psi
   n_patch <- model$global$p
-
-  # newly emerging adults
-  lambda <- compute_emergents(model)
-  lambda <- sample_stochastic_vector(x = lambda, prob = psi)
 
   # newly infected mosquitoes
   a <- model$mosquito$f * model$mosquito$q
@@ -243,12 +213,16 @@ step_mosquitoes.RM_stochastic <- function(model) {
   # add newly infectious
   model$mosquito$Z <- model$mosquito$Z + model$mosquito$ZZ[1, ]
 
+  # newly emerging adults
+  lambda <- compute_emergents(model)
+
   # add newly emerging
   model$mosquito$M <- model$mosquito$Y + S + lambda
 
   # ZZ[t, ] is the number of mosquitoes that become infectious in each patch t days from now.
   model$mosquito$ZZ <- model$mosquito$ZZ_shift %*% model$mosquito$ZZ
   model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + Y0
+
 
 }
 
@@ -281,4 +255,33 @@ compute_q.RM <- function(model, W, Wd, B) {
 #' @export
 compute_Z.RM <- function(model) {
   model$mosquito$Z
+}
+
+
+# compute values for aquatic model
+
+#' @title Compute number of eggs laid from oviposition for each patch for RM model
+#' @description This method returns a vector of length `p`.
+#' @inheritParams compute_oviposit
+#' @details see [MicroMoB::compute_oviposit.RM_deterministic] and [MicroMoB::compute_oviposit.RM_stochastic]
+#' @export
+compute_oviposit.RM <- function(model) {
+  NextMethod()
+}
+
+
+#' @title Compute number of eggs laid from oviposition for each patch for deterministic RM model
+#' @inheritParams compute_oviposit
+#' @export
+compute_oviposit.RM_deterministic <- function(model) {
+  model$mosquito$nu * model$mosquito$f * model$mosquito$M
+}
+
+
+#' @title Compute number of eggs laid from oviposition for each patch for stochastic RM model
+#' @inheritParams compute_oviposit
+#' @importFrom stats rpois
+#' @export
+compute_oviposit.RM_stochastic <- function(model) {
+  rpois(n = model$global$p, lambda = model$mosquito$nu * model$mosquito$f * model$mosquito$M)
 }

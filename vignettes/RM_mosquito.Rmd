@@ -54,7 +54,7 @@ The deterministic model has the following form:
 
 \begin{equation}
 Y_{0} = a \kappa_{t} (M_{t} - Y_{t})  \\
-M_{t+1} = (pM_{t} + \lambda_{t}) \cdot \psi \\
+M_{t+1} = (pM_{t}) \cdot \psi +\lambda_{t} \\
 Y_{t+1} = p(Y_{t} + Y_{0}) \cdot \psi \\
 Z_{t+1} = (pZ_{t} \cdot \psi) + (a \kappa_{t-EIP} (M_{t-EIP} - Y_{t-EIP}) p^{EIP} \cdot \psi^{EIP})
 \end{equation}

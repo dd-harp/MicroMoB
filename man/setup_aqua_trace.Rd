@@ -9,8 +9,7 @@ setup_aqua_trace(model, lambda, stochastic)
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 
-\item{lambda}{either a vector of length equal to \code{p}, a matrix with \code{p} rows
-and \code{tmax} columns, or a matrix with \code{p} rows and \code{365} columns}
+\item{lambda}{daily emergence of mosquitoes, may be time and patch varying, see \link{time_patch_varying_parameter}}
 
 \item{stochastic}{should the model update deterministically or stochastically?}
 }

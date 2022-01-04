@@ -1,0 +1,155 @@
+---
+title: "Beverton-Holt aquatic model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Beverton-Holt aquatic model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+library(ggplot2)
+library(data.table)
+library(parallel)
+```
+
+The simplest non-trivial model of aquatic mosquito dynamics which exhibits density-dependence (negative feedback)
+is a Beverton-Holt (BH) style model. It is a kind of discrete logistic equation. We have implemented a BH model that
+conforms to the aquatic (immature) component interface to be used with other mosquito models fulfilling the adult
+component interface.
+
+The model groups all immature mosquito stages into a single compartment `L`. Each time step some number
+may mature and be ready to emerge as adults, `A`. The model requires 3 (potentially time and patch varying parameters),
+`K`, which determines the strength of density dependent mortality, `surv`, the baseline daily survival probability,
+and `molt`, the daily proportion of immature mosquitoes which mature and emerge as adults.
+
+## Deterministic model
+
+The state updating equation is as follows:
+
+\begin{equation}
+L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \frac{K}{L_{t}+K} \\
+A_{t} = molt \cdot surv \cdot L_{t} \frac{K}{L_{t}+K}
+\end{equation}
+
+## Stochastic model
+
+In the stochastic model on a time step, we first draw the number of survivors:
+
+\begin{equation}
+survivors \sim \mathrm{binomial}(L, surv \frac{K}{L_{t}+K})
+\end{equation}
+
+The number who emerge is also a binomial random variate:
+
+\begin{equation}
+emerge \sim \mathrm{binomial}(survivors, molt)
+\end{equation}
+
+Then state is updated:
+
+\begin{equation}
+L_{t+1} = eggs + survivors - emerge \\
+A_{t} = emerge
+\end{equation}
+
+## Determiniistic equilbrium
+
+Despite being a nonlinear equation, we can solve the equilibrium. We assume that `eggs` is known, and that the desired
+daily emergence is known (`lambda`, or `A` in the BH model's notation). Then we solve for `K` and `L`:
+
+\begin{equation}
+L = \lambda \left( \frac{1}{molt} - 1 \right) + eggs \\
+K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
+\end{equation}
+
+We can set up a simulation using the RM mosquito model to check that everything is
+at equilibrium. First we calculate the equilibrium values. We do not use any components
+other than the aquatic and adult mosquito components.
+
+```{R}
+patches <- 1
+tmax <- 1e2
+
+M <- 120
+p <- 0.9
+lambda <- M*(1-p)
+
+nu <- 25
+f <- 0.3
+eggs <- nu * f * M
+
+# static pars
+molt <-  0.1
+surv <- 0.9
+
+# solve L
+L <- lambda * ((1/molt) - 1) + eggs
+K <- - (lambda * L) / (lambda - L*molt*surv)
+```
+
+Now we run a deterministic simulation and draw 10 stochastic trajectories.
+
+```{R}
+# deterministic run
+mod <- make_MicroMoB(tmax = tmax, p = patches)
+setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = L)
+setup_mosquito_RM(model = mod, stochastic = FALSE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
+
+out_det <- matrix(data = NaN, nrow = tmax + 1, ncol = 3)
+out_det[1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+
+while (mod$global$tnow <= tmax) {
+  step_aqua(model = mod)
+  step_mosquitoes(model = mod)
+  out_det[mod$global$tnow + 1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+  mod$global$tnow <- mod$global$tnow + 1L
+}
+
+# stochastic runs
+out_sto <- mclapply(X = 1:10, FUN = function(runid) {
+  
+  mod <- make_MicroMoB(tmax = tmax, p = patches)
+  setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = L)
+  setup_mosquito_RM(model = mod, stochastic = TRUE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
+  
+  out_run <- matrix(data = NaN, nrow = tmax + 1, ncol = 3)
+  out_run[1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+  
+  while (mod$global$tnow <= tmax) {
+    step_aqua(model = mod)
+    step_mosquitoes(model = mod)
+    out_run[mod$global$tnow + 1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+    mod$global$tnow <- mod$global$tnow + 1L
+  }
+  
+  out_run <- as.data.frame(out_run)
+  out_run$run <- as.integer(runid)
+  return(out_run)
+})
+
+
+out_det <- as.data.table(out_det)
+out_det[, "Day" := 0:tmax]
+out_det <- melt(out_det, id.vars = "Day", variable.name = "Stage", value.name = "Count")
+levels(out_det$Stage) <- c("L", "A", "M")
+
+out_sto <- do.call(rbind, out_sto)
+out_sto <- as.data.table(out_sto)
+out_sto <- melt(out_sto, id.vars = "run", variable.name = "Stage", value.name = "Count")
+out_sto[, "Day" := 0:tmax, by = c("run", "Stage")]
+levels(out_sto$Stage) <- c("L", "A", "M")
+
+ggplot(data = out_sto) +
+    geom_line(aes(x = Day, y = Count, color = Stage, group = run), alpha = 0.35) +
+    geom_line(data = out_det, mapping = aes(x = Day, y = Count, color = Stage)) +
+    facet_wrap(. ~ Stage, scales = "free")
+```

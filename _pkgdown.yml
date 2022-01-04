@@ -26,6 +26,7 @@ reference:
   - compute_f
   - compute_q
   - compute_Z
+  - compute_oviposit
 
 - subtitle: Ross-Macdonald (RM) mosquito model
   desc: This model implements the generalized RM mosquito model.
@@ -37,6 +38,19 @@ reference:
   - compute_f.RM
   - compute_q.RM
   - compute_Z.RM
+  - compute_oviposit.RM
+  - compute_oviposit.RM_deterministic
+  - compute_oviposit.RM_stochastic
+
+- subtitle: Trace (forced) mosquito model
+  desc: This is a null mosquito component used to test aquatic models.
+  contents:
+  - setup_mosquito_trace
+  - step_mosquitoes.trace
+  - compute_f.trace
+  - compute_q.trace
+  - compute_Z.trace
+  - compute_oviposit.trace
 
 - title: Aquatic (immature) mosquito component
 
@@ -49,8 +63,6 @@ reference:
   contents:
     - step_aqua
     - compute_emergents
-    - add_oviposit
-    - compute_oviposit
 
 - subtitle: Trace (forced) aquatic model
   desc: >
@@ -62,8 +74,17 @@ reference:
   - compute_emergents.trace
   - compute_emergents.trace_deterministic
   - compute_emergents.trace_stochastic
-  - add_oviposit.trace
-  - compute_oviposit.trace
+
+- subtitle: Beverton-Holt aquatic model
+  desc: >
+    This is a simple non-linear model of aquatic (immature) dynamics with a single
+    compartment.
+  contents:
+  - setup_aqua_BH
+  - step_aqua.BH
+  - step_aqua.BH_deterministic
+  - step_aqua.BH_stochastic
+  - compute_emergents.BH
 
 - title: Human component
 
@@ -134,3 +155,5 @@ reference:
   - sample_stochastic_matrix
   - strata_to_residency_proportion
   - strata_to_residency_counts
+  - time_patch_varying_parameter
+  - time_varying_parameter

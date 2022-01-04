@@ -9,8 +9,8 @@ setup_alternative_trace(model, O = NULL)
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 
-\item{O}{a vector of length \code{p}, or a matrix with \code{p} rows and \code{tmax} columns,
-or \code{NULL} to set to \code{0} (no visitors)}
+\item{O}{a time varying trace passed to \link{time_patch_varying_parameter}
+or \code{NULL} to set to \code{0} (no alternative blood hosts)}
 }
 \description{
 This model complies with the visitors component interface. It adds

@@ -4,8 +4,7 @@
 #' @description Emergence is passed as a (possibly time varying) parameter which is
 #' decoupled from the adult mosquito dynamics.
 #' @param model an object from [MicroMoB::make_MicroMoB]
-#' @param lambda either a vector of length equal to `p`, a matrix with `p` rows
-#' and `tmax` columns, or a matrix with `p` rows and `365` columns
+#' @param lambda daily emergence of mosquitoes, may be time and patch varying, see [MicroMoB::time_patch_varying_parameter]
 #' @param stochastic should the model update deterministically or stochastically?
 #' @export
 setup_aqua_trace <- function(model, lambda, stochastic) {
@@ -17,28 +16,7 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
   stopifnot(is.finite(lambda))
   stopifnot(lambda >= 0)
 
-  if (inherits(lambda, "matrix")) {
-    stopifnot(nrow(lambda) == p)
-    if (ncol(lambda) == 365L) {
-      ix <- (1:tmax) %% 365L
-      ix[which(ix == 0L)] <- 365L
-      lambda_mat <- lambda[, ix, drop = FALSE]
-    } else if (ncol(lambda) == tmax) {
-      lambda_mat <- lambda
-    } else {
-      stop("incorrect dimensions of lambda matrix")
-    }
-  } else {
-    stopifnot(length(lambda) == p)
-    if (p > 1) {
-      lambda_mat <- replicate(n = tmax, expr = lambda)
-    } else {
-      lambda_mat <- matrix(data = lambda, nrow = 1, ncol = tmax)
-    }
-  }
-
-  stopifnot(nrow(lambda_mat) == p)
-  stopifnot(ncol(lambda_mat) == tmax)
+  lambda_mat <- time_patch_varying_parameter(param = lambda, p = p, tmax = tmax)
 
   aqua_class <- c("trace")
   if (stochastic) {
@@ -66,7 +44,7 @@ step_aqua.trace <- function(model) {invisible()}
 # get emerging adults
 
 #' @title Compute number of newly emerging adults from forcing term
-#' @description This function dispatches on the second argument of `model$aqua`
+#' @description This function dispatches on the second class attribute of `model$aqua`
 #' for stochastic or deterministic behavior.
 #' @inheritParams compute_emergents
 #' @details see [MicroMoB::compute_emergents.trace_deterministic] and [MicroMoB::compute_emergents.trace_stochastic]
@@ -92,16 +70,6 @@ compute_emergents.trace_deterministic <- function(model) {
 compute_emergents.trace_stochastic <- function(model) {
   return(rpois(n = model$global$p, lambda = model$aqua$lambda[, model$global$tnow]))
 }
-
-
-# add oviposition
-
-#' @title Add eggs from oviposition to forced aquatic model
-#' @description This function does nothing as trace models are not affected by
-#' endogenous dynamics.
-#' @inheritParams add_oviposit
-#' @export
-add_oviposit.trace <- function(model, eggs) {invisible()}
 
 
 # compute clutch (eggs/patch/day)

@@ -2,28 +2,19 @@
 #' @description This model complies with the visitors component interface. It adds
 #' a named list `model$alternative`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
-#' @param O a vector of length `p`, or a matrix with `p` rows and `tmax` columns,
-#' or `NULL` to set to `0` (no visitors)
+#' @param O a time varying trace passed to [MicroMoB::time_patch_varying_parameter]
+#' or `NULL` to set to `0` (no alternative blood hosts)
 #' @export
 setup_alternative_trace <- function(model, O = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
+
   p <- model$global$p
   tmax <- model$global$tmax
 
   if (!is.null(O)) {
-    if (inherits(O, "matrix")) {
-      stopifnot(nrow(O) == p)
-      stopifnot(ncol(O) == tmax)
-    } else {
-      stopifnot(length(O) == p)
-      if (p > 1) {
-        O <- replicate(tmax, O)
-      } else {
-        O <- matrix(data = O, nrow = p, ncol = tmax)
-      }
-    }
+    O <- time_patch_varying_parameter(param = O, p = p, tmax = tmax)
   } else {
-    O <- matrix(data = 0, nrow = p, ncol = tmax)
+    O <- time_patch_varying_parameter(param = rep(0, p), p = p, tmax = tmax)
   }
 
   model$alternative <- structure(list(), class = "trace")

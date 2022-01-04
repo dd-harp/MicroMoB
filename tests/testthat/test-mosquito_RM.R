@@ -50,6 +50,14 @@ test_that("RM model setup is working", {
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$p, p)
 
+  # oviposit tests
+  expected_nu_det <- mod$mosquito$nu * f * M
+  expect_equal(compute_oviposit(mod), expected_nu_det)
+
+  mod <- make_MicroMoB(tmax = tmax, p = 3)
+  setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = 5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
+  expect_true(all(compute_oviposit(mod) > 0))
+
   # other objs
   expect_equal(length(mod$mosquito$kappa), 3)
   expect_equal(length(mod$mosquito$M), 3)
@@ -218,7 +226,7 @@ test_that("deterministic RM step is working with pulse of infection, with disper
   mod$mosquito$kappa <- rep(1, 3)
   step_mosquitoes(model = mod)
 
-  expect_equal(mod$mosquito$M, as.vector(((M*0.9) + c(1e1,1e2,1e3)) %*% psi))
+  expect_equal(mod$mosquito$M, as.vector(((M*0.9)) %*% psi) + c(1e1,1e2,1e3))
   expect_true(all(mod$mosquito$Y > 0))
   expect_true(all(mod$mosquito$Z == 0))
   expect_true(all(mod$mosquito$ZZ[1, ] == 0))

@@ -10,7 +10,7 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \description{
-This function dispatches on the second argument of \code{model$aqua}
+This function dispatches on the second class attribute of \code{model$aqua}
 for stochastic or deterministic behavior.
 }
 \details{
