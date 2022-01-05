@@ -16,6 +16,9 @@
     <loc>/articles/Contributing.html</loc>
   </url>
   <url>
+    <loc>/articles/MOI_human.html</loc>
+  </url>
+  <url>
     <loc>/articles/Micro-MoB.html</loc>
   </url>
   <url>
@@ -43,6 +46,9 @@
     <loc>/reference/MicroMoB.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_H.MOI.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_H.SIS.html</loc>
   </url>
   <url>
@@ -55,10 +61,16 @@
     <loc>/reference/compute_O.trace.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_Psi.MOI.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_Psi.SIS.html</loc>
   </url>
   <url>
     <loc>/reference/compute_Psi.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_W.MOI.html</loc>
   </url>
   <url>
     <loc>/reference/compute_W.SIS.html</loc>
@@ -133,10 +145,16 @@
     <loc>/reference/compute_q.trace.html</loc>
   </url>
   <url>
+    <loc>/reference/compute_wf.MOI.html</loc>
+  </url>
+  <url>
     <loc>/reference/compute_wf.SIS.html</loc>
   </url>
   <url>
     <loc>/reference/compute_wf.html</loc>
+  </url>
+  <url>
+    <loc>/reference/compute_x.MOI.html</loc>
   </url>
   <url>
     <loc>/reference/compute_x.SIS.html</loc>
@@ -172,6 +190,9 @@
     <loc>/reference/setup_aqua_trace.html</loc>
   </url>
   <url>
+    <loc>/reference/setup_humans_MOI.html</loc>
+  </url>
+  <url>
     <loc>/reference/setup_humans_SIS.html</loc>
   </url>
   <url>
@@ -197,6 +218,15 @@
   </url>
   <url>
     <loc>/reference/step_aqua.trace.html</loc>
+  </url>
+  <url>
+    <loc>/reference/step_humans.MOI.html</loc>
+  </url>
+  <url>
+    <loc>/reference/step_humans.MOI_deterministic.html</loc>
+  </url>
+  <url>
+    <loc>/reference/step_humans.MOI_stochastic.html</loc>
   </url>
   <url>
     <loc>/reference/step_humans.SIS.html</loc>

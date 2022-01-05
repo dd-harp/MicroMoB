@@ -26,6 +26,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
+    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
     <a class="dropdown-item" href="../articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
     <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
@@ -396,6 +397,62 @@
           <code><a href="compute_Psi.SIS.html">compute_Psi(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Compute time at risk matrix for SIS model (\(\Psi\))</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="moi-human-model">MOI human model<a class="anchor" aria-label="anchor" href="#moi-human-model"></a></h3>
+      <p class="section-desc"></p><p>The MOI (multiplicity of infection) human model is a queueing (M/M/inf) model for superinfection, where persons can be infected by multiple distinct parasite broods.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_humans_MOI.html">setup_humans_MOI()</a></code> 
+        </dt>
+        <dd>Setup humans with MOI (multiplicity of infection) pathogen model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.MOI.html">step_humans(<i>&lt;MOI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update MOI human model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.MOI_deterministic.html">step_humans(<i>&lt;MOI_deterministic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update MOI human model (deterministic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.MOI_stochastic.html">step_humans(<i>&lt;MOI_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update MOI human model (stochastic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_W.MOI.html">compute_W(<i>&lt;MOI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute available humans for MOI model (\(W\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_wf.MOI.html">compute_wf(<i>&lt;MOI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human biting weights for MOI model (\(w_{f}\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_x.MOI.html">compute_x(<i>&lt;MOI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute net infectiousness for MOI model (\(x\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_H.MOI.html">compute_H(<i>&lt;MOI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human population strata sizes for MOI model (\(H\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_Psi.MOI.html">compute_Psi(<i>&lt;MOI&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute time at risk matrix for MOI model (\(\Psi\))</dd>
       </dl></div><div class="section level2">
       <h2 id="visitor-component">Visitor component<a class="anchor" aria-label="anchor" href="#visitor-component"></a></h2>
       
