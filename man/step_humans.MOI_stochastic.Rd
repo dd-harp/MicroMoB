@@ -2,7 +2,7 @@
 % Please edit documentation in R/humans_MOI.R
 \name{step_humans.MOI_stochastic}
 \alias{step_humans.MOI_stochastic}
-\title{Update SIS human model (stochastic)}
+\title{Update MOI human model (stochastic)}
 \usage{
 \method{step_humans}{MOI_stochastic}(model)
 }
@@ -10,5 +10,5 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \description{
-Update SIS human model (stochastic)
+Update MOI human model (stochastic)
 }

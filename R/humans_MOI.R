@@ -84,7 +84,7 @@ step_humans.MOI <- function(model) {
 
 #' @title Update MOI human model (deterministic)
 #' @inheritParams step_humans
-#' @importFrom stats pexp
+#' @importFrom stats pexp rbinom
 #' @importFrom utils tail
 #' @export
 step_humans.MOI_deterministic <- function(model) {
@@ -92,8 +92,10 @@ step_humans.MOI_deterministic <- function(model) {
   maxMOI <- nrow(model$human$MOI)
 
   h <- model$human$EIR * model$human$b # FOI by strata
+  h <- pexp(q = h)
 
   rho <- model$human$r * (1:(maxMOI-1))^model$human$sigma # recovery by MOI
+  rho <- pexp(q = rho)
 
   # new infections in each bin
   new_infections <- model$human$MOI %*% diag(h)
@@ -119,19 +121,56 @@ step_humans.MOI_deterministic <- function(model) {
 
 }
 
-#' @title Update SIS human model (stochastic)
+#' @title Update MOI human model (stochastic)
 #' @inheritParams step_humans
 #' @importFrom stats pexp rbinom
+#' @importFrom abind abind
 #' @export
 step_humans.MOI_stochastic <- function(model) {
-  stop("not done yet")
-  # h <- model$human$EIR * model$human$b
-  # n <- model$global$n
-  #
-  # new_infections <- rbinom(n = n, prob = pexp(q = h), size = model$human$H - model$human$X)
-  # old_infections <- rbinom(n = n, prob = 1 - pexp(q = model$human$r), size = model$human$X)
-  #
-  # model$human$X <- new_infections + old_infections
+
+  n <- model$global$n
+
+  maxMOI <- nrow(model$human$MOI)
+
+  h <- model$human$EIR * model$human$b # FOI by strata
+
+  rho <- model$human$r * (1:(maxMOI-1))^model$human$sigma # recovery by MOI
+
+  # who experiences some events in each strata
+  events <- vapply(X = 1:n, FUN = function(i) {
+
+    # P(infection or recovery)
+    hazards <- rep(h[i], maxMOI)
+    hazards[2:maxMOI] <- hazards[2:maxMOI] + rho
+    probs <- pexp(q = hazards) # P(inf or rec) = 1 - exp(-inf + rec)
+
+    # sample who experiences either event
+    any <- rbinom(n = maxMOI, size = model$human$MOI[, i], prob = probs)
+
+    # sample recovery (rho / rho + h)
+    recovery <- rbinom(n = maxMOI, size = any, prob = c(0, rho) / hazards)
+    infection <- any - recovery
+
+    cbind(infection, recovery)
+
+  }, FUN.VALUE = matrix(0, maxMOI, 2), USE.NAMES = FALSE)
+
+  # check if we need to extend MOI
+  if (any(events[maxMOI, 2, ] > 0)) {
+    events <- abind(events, matrix(data = 0, nrow = 2, ncol = n), along = 1)
+    model$human$MOI <- rbind(model$human$MOI, 0)
+    maxMOI <- nrow(model$human$MOI)
+  }
+
+  # apply state updates
+  for (i in 1:n) {
+    # infections
+    model$human$MOI[, i] <- model$human$MOI[, i] - events[, 1L, i]
+    model$human$MOI[-1L, i] <- model$human$MOI[-1L, i] + events[-maxMOI, 1L, i]
+    # recoveries
+    model$human$MOI[-1L, i] <- model$human$MOI[-1L, i] - events[-1L, 2L, i]
+    model$human$MOI[-maxMOI, i] <- model$human$MOI[-maxMOI, i] + events[-1L, 2L, i]
+  }
 
 }
 
