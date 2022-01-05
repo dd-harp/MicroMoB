@@ -11,5 +11,7 @@
 }
 \description{
 In the simple MOI (queueing) model here (M/M/inf), net infectiousness
-is considered not to vary with increasing MOI.
+is considered not to vary with increasing MOI. It is calculated as
+\deqn{c \cdot (1 - \frac{X_{0}}{H})}
+where \eqn{X_{0}} is the number of uninfected persons (multiplicity of infection of zero).
 }

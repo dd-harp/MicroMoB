@@ -115,6 +115,21 @@ reference:
   - compute_H.SIS
   - compute_Psi.SIS
 
+- subtitle: MOI human model
+  desc: >
+    The MOI (multiplicity of infection) human model is a queueing (M/M/inf) model for superinfection,
+    where persons can be infected by multiple distinct parasite broods.
+  contents:
+  - setup_humans_MOI
+  - step_humans.MOI
+  - step_humans.MOI_deterministic
+  - step_humans.MOI_stochastic
+  - compute_W.MOI
+  - compute_wf.MOI
+  - compute_x.MOI
+  - compute_H.MOI
+  - compute_Psi.MOI
+
 - title: Visitor component
 
   desc: >
