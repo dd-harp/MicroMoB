@@ -61,7 +61,7 @@ L_{t+1} = eggs + survivors - emerge \\
 A_{t} = emerge
 \end{equation}
 
-## Determiniistic equilbrium
+## Deterministic equilbrium
 
 Despite being a nonlinear equation, we can solve the equilibrium. We assume that `eggs` is known, and that the desired
 daily emergence is known (`lambda`, or `A` in the BH model's notation). Then we solve for `K` and `L`:
