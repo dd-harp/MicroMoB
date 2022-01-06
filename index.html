@@ -46,6 +46,9 @@
     <div id="navbar" class="collapse navbar-collapse ms-2">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
+  <a class="nav-link" href="articles/MicroMoB.html">Get started</a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
@@ -54,11 +57,9 @@
     <a class="dropdown-item" href="articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="articles/Contributing.html">Contributing</a>
     <a class="dropdown-item" href="articles/MOI_human.html">Queueing model for human superinfection</a>
-    <a class="dropdown-item" href="articles/Micro-MoB.html">Micro-MoB</a>
     <a class="dropdown-item" href="articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
     <a class="dropdown-item" href="articles/RM_transmission.html">Ross-Macdonald transmission model</a>
     <a class="dropdown-item" href="articles/key-themes.html">key-themes</a>
-    <a class="dropdown-item" href="articles/math.html">math</a>
   </div>
 </li>
       </ul>
@@ -81,15 +82,15 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="micromob-microsimulation-for-mosquito-borne-pathogens">MicroMoB (Microsimulation for mosquito-borne pathogens)<a class="anchor" aria-label="anchor" href="#micromob-microsimulation-for-mosquito-borne-pathogens"></a>
+<div class="page-header"><h1 id="micro-mob-microsimulation-for-mosquito-borne-pathogens">Micro-MoB (Microsimulation for mosquito-borne pathogens)<a class="anchor" aria-label="anchor" href="#micro-mob-microsimulation-for-mosquito-borne-pathogens"></a>
 </h1></div>
 <!-- badges: start -->
 
 <div class="section level2">
-<h2 id="what-is-micromob">What is MicroMoB?<a class="anchor" aria-label="anchor" href="#what-is-micromob"></a>
+<h2 id="what-is-micro-mob">What is Micro-MoB?<a class="anchor" aria-label="anchor" href="#what-is-micro-mob"></a>
 </h2>
-<p>MicroMoB is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios (importation, time-varying parameters, stratified human populations) while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added. The framework defines <strong>components</strong> which have an <strong>interface</strong>. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes, resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a <strong>model</strong>. For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that component “box”. Certain computations that involve the passing of information between components are enforced, such as the bloodmeal, where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the generic component interface, so any model fulfilling an interface can fit seamlessly into the software.</p>
-<p>MicroMoB was made to simplify the task of model building for MBPT systems. We hope it proves useful. Please visit the <a href="https://dd-harp.github.io/MicroMoB/" class="external-link">website</a> to learn more.</p>
+<p><strong>Micro-MoB</strong> was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. It stands for “Microsimulation for mosquito-borne pathogens”. It is a modular framework to build discrete time MBPT models. It uses R’s <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a> to define a set of <em>components</em> and <em>interfaces</em> which can be filled by any specific <em>model</em> that implements the interface. These parts, along with certain <em>invariants</em> can be put together to define a full simulation model.</p>
+<p>We hope it proves useful. Please visit the <a href="https://dd-harp.github.io/MicroMoB/" class="external-link">website</a> to learn more.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -98,46 +99,25 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dd-harp/MicroMoB" class="external-link">MicroMoB</a></span><span class="op">)</span></code></pre>
 </div>
 <div class="section level2">
-<h2 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
+<h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>The model object will be an environment with a class attribute. All interior structure will be named lists. Each function will be passed the entire model object, and will dispatch on classes of objects within the model object.</p>
+<p>To learn more about the software design, the problems it was designed to solve, and how to build new models in <strong>Micro-MoB</strong>, please read <code><a href="articles/MicroMoB.html">vignette("MicroMoB")</a></code>.</p>
+<p>We also have articles describing some well-known models of specific components of MBPT models that are implemented in <strong>Micro-MoB</strong>:</p>
+<ul>
+<li>
+<code><a href="articles/RM_mosquito.html">vignette("RM_mosquito")</a></code>: read about an implementation of a flexible <a href="https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1002588" class="external-link">Ross-Macdonald model</a> of adult mosquito dynamics.</li>
+<li>
+<code><a href="articles/MOI_human.html">vignette("MOI_human")</a></code>: read about an implementation of the <span class="math inline">(<em>M</em>/<em>M</em>/∞)</span> queuing model for superinfection in humans.</li>
+<li>
+<code><a href="articles/BH_aqua.html">vignette("BH_aqua")</a></code>: read about a simple non-linear model of aquatic (immature) stage mosquito dynamics based on the well known <a href="https://en.wikipedia.org/wiki/Beverton-Holt_model" class="external-link">Beverton-Holt model</a> from ecology.</li>
+<li>
+<code><a href="articles/RM_transmission.html">vignette("RM_transmission")</a></code>: read about how we put together models fulfilling each component to run a simple Ross-Macdonald style model of pathogen transmission between human hosts and mosquito vectors.</li>
+</ul>
 </div>
 <div class="section level2">
-<h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
-<p>The model is broken into components, for humans, immature and adult mosquitoes (and some others). Each component has an <em>interface</em>, which are methods which must be defined for that component. A component’s interface is stored in file, for example, R/humans_interface.R shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal) will call generic methods not knowing what specific code is implementing them, and so they must return values consistent with their definition.</p>
-<p>We call a specific implementation of a component a <em>model</em>. Specific implementations are found in files that replace <em>_interface</em> with the model name, for example R/humans_SIR.R. Their accompanying test files are located in tests/testthat. If you are creating a new model, please remember to test it adequately.</p>
-<p>We list the components which require interfaces below and specific models to implement them.</p>
-<div class="section level3">
-<h3 id="mosquitoes">Mosquitoes<a class="anchor" aria-label="anchor" href="#mosquitoes"></a>
-</h3>
-<p>The mosquito component is responsible for all dynamics which update adult mosquito populations. The interface is defined in R/mosquito_interface.R.</p>
-</div>
-<div class="section level3">
-<h3 id="aquatic">Aquatic<a class="anchor" aria-label="anchor" href="#aquatic"></a>
-</h3>
-<p>The aquatic component is responsible for all dynamics which update immature (aquatic stage) mosquito populations. The interface is defined in R/aquatic_interface.R.</p>
-</div>
-<div class="section level3">
-<h3 id="humans">Humans<a class="anchor" aria-label="anchor" href="#humans"></a>
-</h3>
-<p>The human component updates human populations. The interface is defined in R/humans_interface.R.</p>
-</div>
-<div class="section level3">
-<h3 id="visitor">Visitor<a class="anchor" aria-label="anchor" href="#visitor"></a>
-</h3>
-<p>The human component updates human populations outside of the resident population of the geographic area being simulated. The interface is defined in R/visitor_interface.R.</p>
-</div>
-<div class="section level3">
-<h3 id="alternative-blood-hosts">Alternative blood hosts<a class="anchor" aria-label="anchor" href="#alternative-blood-hosts"></a>
-</h3>
-<p>The alternative blood host component is responsible for other blood hosts for mosquitoes (livestock, dogs, etc). The interface is defined in R/althost_interface.R.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="update">Update<a class="anchor" aria-label="anchor" href="#update"></a>
-</h2>
-<p>To update the model, a function is called which gathers information from the various components to calculate rates which couple components (i.e. infection) together, which are then passed back to each individual component, and updated using the generic interface for each component.</p>
+<p>Thank you for your interest in <strong>Micro-MoB</strong>! If you have a bug to report, please open an <a href="https://github.com/dd-harp/MicroMoB/issues" class="external-link">issue on GitHub</a>. If you would like to open a pull request or have further questions, please see our guide to contributing to the project at <code><a href="articles/Contributing.html">vignette("Contributing")</a></code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
