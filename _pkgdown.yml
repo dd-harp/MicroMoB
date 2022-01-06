@@ -117,7 +117,7 @@ reference:
 
 - subtitle: MOI human model
   desc: >
-    The MOI (multiplicity of infection) human model is a queueing (M/M/inf) model for superinfection,
+    The MOI (multiplicity of infection) human model is a queueing model for superinfection,
     where persons can be infected by multiple distinct parasite broods.
   contents:
   - setup_humans_MOI

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Thank you for taking the time to contribute to Micro-MoB (Microsimulation for Mosquito-Borne pathogens).
+Thank you for taking the time to contribute to **Micro-MoB** (Microsimulation for Mosquito-Borne pathogens).
 
 ## Issues
 
@@ -22,7 +22,7 @@ If you find a bug, have a question about how to use a feature that does not have
 
 For bug reports please include:
 
- * Micro-MoB version
+ * **Micro-MoB** version
  * Operating System
  * R version
  * Steps to recreate
