@@ -50,7 +50,6 @@
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
     <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
     <a class="dropdown-item" href="../articles/bloodmeal.html">Blood feeding</a>
-    <a class="dropdown-item" href="../articles/key-themes.html">key-themes</a>
   </div>
 </li>
       </ul>
@@ -131,7 +130,7 @@
 <p>With these parameter values we expect a mean MOI of about 5. We see that the simulation converges to this equilibrium distribution after some time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html" class="external-link">weighted.mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, w <span class="op">=</span> <span class="va">MOI_out</span><span class="op">[</span>, <span class="va">tmax</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] 5.04781</span></code></pre></div>
+<span class="co">#&gt; [1] 5.046</span></code></pre></div>
 <p>Now we can plot the compartment sizes.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot output</span>
