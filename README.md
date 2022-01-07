@@ -27,6 +27,9 @@ library(MicroMoB)
 
 To learn more about the software design, the problems it was designed to solve,
 and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`.
+After that, `vignette("bloodmeal")` describes how the bloodmeal algorithm computes
+the distribution of bites using each component's interface, allowing different models
+to be linked in a consistent framework.
 
 We also have articles describing some well-known models of specific components
 of MBPT models that are implemented in **Micro-MoB**:
