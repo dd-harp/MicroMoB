@@ -10,7 +10,7 @@ compute_Psi(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a matrix with \code{n} rows and \code{p} columns
+a matrix with \code{n} rows and \code{p} columns, the time at risk matrix
 }
 \description{
 The time at risk matrix is \eqn{\Psi = \Theta \xi} This method dispatches on the type of \code{model$human}.

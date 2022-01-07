@@ -14,7 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-MicroMoB is a software package which implements a framework for building mathematical models of
+## Introduction
+
+**Micro-MoB** is a software package which implements a framework for building mathematical models of
 mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added. 
 
 The framework defines **components** which have an **interface**. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes,
@@ -81,9 +83,4 @@ mosquitoes (livestock, dogs, etc). The interface is defined in `R/other_interfac
 
 ### Bloodmeal
 
-```{r echo=FALSE, out.width='100%'}
-knitr::include_graphics('./Ross-Macdonald.png')
-```
-
-Describe the bloodmeal code here. Don't show math, this vignette is for software/conceptual
-work only. Do the math in another vignette just for the bloodmeal.
+We describe how the bloodmeal algorithm works in a separate article, `vignette("bloodmeal")`

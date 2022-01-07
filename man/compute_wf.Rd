@@ -10,7 +10,7 @@ compute_wf(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{n}
+a vector of length \code{n} giving the biting weights of human hosts in each stratum
 }
 \description{
 This method dispatches on the type of \code{model$human}.

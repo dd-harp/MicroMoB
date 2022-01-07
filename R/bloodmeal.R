@@ -52,7 +52,14 @@ compute_bloodmeal <- function(model) {
   model$mosquito$kappa <- (v * (t(beta) %*% (x*H))) + ((1 - v) * xd)
   model$mosquito$kappa <- as.vector(model$mosquito$kappa)
 
+  # mosquito feeding habit: f, q
+  model$mosquito$f <- f
+  model$mosquito$q <- q
+
+  # check dimensions
   stopifnot(length(model$human$EIR) == n)
   stopifnot(length(model$mosquito$kappa) == p)
+  stopifnot(length(f) == p)
+  stopifnot(length(q) == p)
 
 }

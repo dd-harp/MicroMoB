@@ -10,7 +10,7 @@ compute_W(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{p}
+a vector of length \code{p} giving the biting availability of human hosts at each patch
 }
 \description{
 This is normally computed as \deqn{W = \Psi^{\intercal} \cdot w_{f} H}.
