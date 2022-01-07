@@ -10,7 +10,7 @@ compute_O(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{p}
+a vector of length \code{p} giving biting availability of other blood hosts at each patch
 }
 \description{
 This method dispatches on the type of \code{model$alternative}.

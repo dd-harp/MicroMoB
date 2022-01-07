@@ -8,7 +8,7 @@
 ## What is Micro-MoB? 
 
 **Micro-MoB** was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. 
-It stands for "Microsimulation for mosquito-borne pathogens". It is a modular
+It stands for "microsimulation for mosquito-borne pathogens". It is a modular
 framework to build discrete time MBPT models. It uses R's [S3 object system](http://adv-r.had.co.nz/S3.html)
 to define a set of _components_ and _interfaces_ which can be filled by any specific _model_ that
 implements the interface. These parts, along with certain _invariants_ can be put
@@ -27,6 +27,9 @@ library(MicroMoB)
 
 To learn more about the software design, the problems it was designed to solve,
 and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`.
+After that, `vignette("bloodmeal")` describes how the bloodmeal algorithm computes
+the distribution of bites using each component's interface, allowing different models
+to be linked in a consistent framework.
 
 We also have articles describing some well-known models of specific components
 of MBPT models that are implemented in **Micro-MoB**:

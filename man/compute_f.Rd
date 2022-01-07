@@ -12,7 +12,7 @@ compute_f(model, B)
 \item{B}{a vector of length \code{p} giving total blood host availability by patch}
 }
 \value{
-a vector of length \code{p}
+a vector of length \code{p} giving the per-capita blood feeding rate of mosquitoes in each patch
 }
 \description{
 This method dispatches on the type of \code{model$mosquito}

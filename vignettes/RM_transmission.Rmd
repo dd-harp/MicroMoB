@@ -132,7 +132,7 @@ Now let's set up a simulation with only a single patch and only a single human s
 ```{R}
 patches <- 1
 nstrata <- 1
-tmax <- 365 * 3
+tmax <- 365 * 2
 
 # human parameters
 theta <- diag(nstrata)

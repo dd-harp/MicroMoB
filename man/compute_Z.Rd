@@ -10,8 +10,9 @@ compute_Z(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{p}
+a vector of length \code{p} giving the density of infected and infectious mosquitoes in each patch
 }
 \description{
-This method dispatches on the type of \code{model$mosquito}
+This method dispatches on the type of \code{model$mosquito}. \eqn{Z}
+is also known as the "sporozoite rate" in malariaology.
 }

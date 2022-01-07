@@ -10,7 +10,7 @@ compute_H(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{n}
+a vector of length \code{n} giving the size of each human population stratum
 }
 \description{
 This method dispatches on the type of \code{model$human}.

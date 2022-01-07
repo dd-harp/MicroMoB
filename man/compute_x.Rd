@@ -10,7 +10,7 @@ compute_x(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{n}
+a vector of length \code{n} giving the net infectiousness of human hosts in each stratum
 }
 \description{
 In a Ross-Macdonald style transmission model, this is computed as
