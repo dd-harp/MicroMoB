@@ -49,6 +49,7 @@
     <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
     <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
+    <a class="dropdown-item" href="../articles/bloodmeal.html">Blood feeding</a>
     <a class="dropdown-item" href="../articles/key-themes.html">key-themes</a>
   </div>
 </li>
@@ -82,8 +83,12 @@
 
     
     
-<p>MicroMoB is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p><strong>Micro-MoB</strong> is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added.</p>
 <p>The framework defines <strong>components</strong> which have an <strong>interface</strong>. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes, resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a <strong>model</strong>. For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that component “box”. Certain computations that involve the passing of information between components are <strong>invariant</strong>, such as the bloodmeal, where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the generic component interface, so any model fulfilling an interface can fit seamlessly into the existing set of models.</p>
+</div>
 <div class="section level2">
 <h2 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
 </h2>
@@ -128,8 +133,7 @@
 <div class="section level3">
 <h3 id="bloodmeal">Bloodmeal<a class="anchor" aria-label="anchor" href="#bloodmeal"></a>
 </h3>
-<p><img src="Ross-Macdonald.png" width="100%"></p>
-<p>Describe the bloodmeal code here. Don’t show math, this vignette is for software/conceptual work only. Do the math in another vignette just for the bloodmeal.</p>
+<p>We describe how the bloodmeal algorithm works in a separate article, <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

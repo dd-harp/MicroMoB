@@ -59,6 +59,7 @@
     <a class="dropdown-item" href="articles/MOI_human.html">Queueing model for human superinfection</a>
     <a class="dropdown-item" href="articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
     <a class="dropdown-item" href="articles/RM_transmission.html">Ross-Macdonald transmission model</a>
+    <a class="dropdown-item" href="articles/bloodmeal.html">Blood feeding</a>
     <a class="dropdown-item" href="articles/key-themes.html">key-themes</a>
   </div>
 </li>
@@ -89,7 +90,7 @@
 <div class="section level2">
 <h2 id="what-is-micro-mob">What is Micro-MoB?<a class="anchor" aria-label="anchor" href="#what-is-micro-mob"></a>
 </h2>
-<p><strong>Micro-MoB</strong> was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. It stands for “Microsimulation for mosquito-borne pathogens”. It is a modular framework to build discrete time MBPT models. It uses R’s <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a> to define a set of <em>components</em> and <em>interfaces</em> which can be filled by any specific <em>model</em> that implements the interface. These parts, along with certain <em>invariants</em> can be put together to define a full simulation model.</p>
+<p><strong>Micro-MoB</strong> was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. It stands for “microsimulation for mosquito-borne pathogens”. It is a modular framework to build discrete time MBPT models. It uses R’s <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a> to define a set of <em>components</em> and <em>interfaces</em> which can be filled by any specific <em>model</em> that implements the interface. These parts, along with certain <em>invariants</em> can be put together to define a full simulation model.</p>
 <p>We hope it proves useful. Please visit the <a href="https://dd-harp.github.io/MicroMoB/" class="external-link">website</a> to learn more.</p>
 </div>
 <div class="section level2">
@@ -101,7 +102,7 @@
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>To learn more about the software design, the problems it was designed to solve, and how to build new models in <strong>Micro-MoB</strong>, please read <code><a href="articles/MicroMoB.html">vignette("MicroMoB")</a></code>.</p>
+<p>To learn more about the software design, the problems it was designed to solve, and how to build new models in <strong>Micro-MoB</strong>, please read <code><a href="articles/MicroMoB.html">vignette("MicroMoB")</a></code>. After that, <code><a href="articles/bloodmeal.html">vignette("bloodmeal")</a></code> describes how the bloodmeal algorithm computes the distribution of bites using each component’s interface, allowing different models to be linked in a consistent framework.</p>
 <p>We also have articles describing some well-known models of specific components of MBPT models that are implemented in <strong>Micro-MoB</strong>:</p>
 <ul>
 <li>
