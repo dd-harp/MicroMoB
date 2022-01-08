@@ -97,7 +97,7 @@ test_that("stochastic MOI model updates correctly, MOI matrix not completely fil
   expect_true(all(diffs < 0.10))
 
   pval <- ks.test(as.vector(MOI_det), as.vector(MOI_sto))$p.value
-  expect_true(pval > 0.9)
+  expect_true(pval > 0.8)
 })
 
 
