@@ -36,7 +36,7 @@
     
     <a class="navbar-brand me-2" href="index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,18 +93,19 @@
 <h2 id="what-is-micro-mob">What is Micro-MoB?<a class="anchor" aria-label="anchor" href="#what-is-micro-mob"></a>
 </h2>
 <p><strong>Micro-MoB</strong> was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. It stands for “microsimulation for mosquito-borne pathogens”. It is a modular framework to build discrete time MBPT models. It uses R’s <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a> to define a set of <em>components</em> and <em>interfaces</em> which can be filled by any specific <em>model</em> that implements the interface. These parts, along with certain <em>invariants</em> can be put together to define a full simulation model.</p>
-<p>We hope it proves useful. Please visit the <a href="https://dd-harp.github.io/MicroMoB/" class="external-link">website</a> to learn more.</p>
+<p>We hope it proves useful. Please visit the <a href="https://dd-harp.github.io/MicroMoB/">website</a> to learn more.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <pre><code><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'dd-harp/MicroMoB'</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dd-harp/MicroMoB" class="external-link">MicroMoB</a></span><span class="op">)</span></code></pre>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/MicroMoB/">MicroMoB</a></span><span class="op">)</span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>To learn more about the software design, the problems it was designed to solve, and how to build new models in <strong>Micro-MoB</strong>, please read <code><a href="articles/MicroMoB.html">vignette("MicroMoB")</a></code>. After that, <code><a href="articles/bloodmeal.html">vignette("bloodmeal")</a></code> describes how the bloodmeal algorithm computes the distribution of bites using each component’s interface, allowing different models to be linked in a consistent framework.</p>
+<p>To learn more about the software design, the problems it was designed to solve, and how to build new models in <strong>Micro-MoB</strong>, please read <code><a href="articles/MicroMoB.html">vignette("MicroMoB")</a></code>.</p>
+<p>After that, <code><a href="articles/bloodmeal.html">vignette("bloodmeal")</a></code> describes how the bloodmeal algorithm computes the distribution of bites using each component’s interface, allowing different models to be linked in a consistent framework.</p>
 <p>We also have articles describing some well-known models of specific components of MBPT models that are implemented in <strong>Micro-MoB</strong>:</p>
 <ul>
 <li>
@@ -121,6 +122,11 @@
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
 <p>Thank you for your interest in <strong>Micro-MoB</strong>! If you have a bug to report, please open an <a href="https://github.com/dd-harp/MicroMoB/issues" class="external-link">issue on GitHub</a>. If you would like to open a pull request or have further questions, please see our guide to contributing to the project at <code><a href="articles/Contributing.html">vignette("Contributing")</a></code>.</p>
+</div>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the <strong>Micro-MoB</strong> project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -139,6 +145,12 @@
 </ul>
 </div>
 
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>

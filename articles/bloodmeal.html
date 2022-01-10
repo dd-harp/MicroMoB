@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,7 +165,7 @@
 </h2>
 <p>The entomological inoculation rate is directly proportional to the force of infection in humans <span class="math inline">\(h = EIR \cdot b\)</span>, where <span class="math inline">\(b\)</span> is the transmission efficiency, the probability a bite from an infectious mosquito successfully causes infection in a human host. It is simply computed as:</p>
 <p><span class="math display">\[\begin{equation}
-\beta_{n\times 1} = \beta \cdot fq\upsilon Z
+EIR_{n\times 1} = \beta \cdot fq\upsilon Z
 \end{equation}\]</span></p>
 </div>
 <div class="section level2">
@@ -173,7 +173,7 @@
 </h2>
 <p>The net infectiousness of humans is the probability that a mosquito would become infected after biting a random human host. It’s directly proportional the force of infection in mosquitoes, which is <span class="math inline">\(\kappa fq\)</span>. After being calculated and passed to the mosquitoes, any particular mosquito model can use it to update state over a time step.</p>
 <p><span class="math display">\[\begin{equation}
-\kappa_{p\times 1} (\upsilon \cdot (\beta^{\intercal} \cdot (xH))) + ((1 - \upsilon) x_{\delta})
+\kappa_{p\times 1} \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
 \end{equation}\]</span></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

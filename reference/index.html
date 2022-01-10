@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@
       </dl></div><div class="section level2">
       <h2 id="adult-mosquito-component">Adult mosquito component<a class="anchor" aria-label="anchor" href="#adult-mosquito-component"></a></h2>
       
-      <p class="section-desc"></p><p>The adult mosquito component is responsible for updating mosquito populations of the adult (flying) life stage, and handling pathogen dynamics in adult populations. Any model of adult mosquitoes in MicroMoB is required to implement the following interface methods.</p>
+      <p class="section-desc"></p><p>The adult mosquito component is responsible for updating mosquito populations of the adult (flying) life stage, and handling pathogen dynamics in adult populations. Any model of adult mosquitoes in MicroMoB is required to implement the following interface methods. It is stored and dispatches on the object in <code>model$mosquito</code>.</p>
 
       
     </div><div id="" class="section level2">
@@ -214,7 +214,7 @@
       </dl></div><div class="section level2">
       <h2 id="aquatic-immature-mosquito-component">Aquatic (immature) mosquito component<a class="anchor" aria-label="anchor" href="#aquatic-immature-mosquito-component"></a></h2>
       
-      <p class="section-desc"></p><p>The aquatic mosquito component is responsible for updating aquatic mosquito populations which live in aquatic habitats. It must calculate how many eggs are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate the number of emerging adults. Any model of immature mosquitoes in MicroMoB is required to implement the following interface methods.</p>
+      <p class="section-desc"></p><p>The aquatic mosquito component is responsible for updating aquatic mosquito populations which live in aquatic habitats. It must calculate how many eggs are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate the number of emerging adults. Any model of immature mosquitoes in MicroMoB is required to implement the following interface methods. It is stored and dispatches on the object in <code>model$aqua</code>.</p>
 
       
     </div><div id="" class="section level2">
@@ -307,7 +307,7 @@
       </dl></div><div class="section level2">
       <h2 id="human-component">Human component<a class="anchor" aria-label="anchor" href="#human-component"></a></h2>
       
-      <p class="section-desc"></p><p>The human component is responsible for updating human populations and their pathogen dynamics. Any model of humans in MicroMoB is required to implement the following interface methods.</p>
+      <p class="section-desc"></p><p>The human component is responsible for updating human populations and their pathogen dynamics. Any model of humans in MicroMoB is required to implement the following interface methods. It is stored and dispatches on the object in <code>model$human</code>.</p>
 
       
     </div><div id="" class="section level2">
@@ -460,7 +460,7 @@
       </dl></div><div class="section level2">
       <h2 id="visitor-component">Visitor component<a class="anchor" aria-label="anchor" href="#visitor-component"></a></h2>
       
-      <p class="section-desc"></p><p>The visitor component is responsible for modeling human populations that are not part of the resident population of the geographic area being simulated.</p>
+      <p class="section-desc"></p><p>The visitor component is responsible for modeling human populations that are not part of the resident population of the geographic area being simulated. It is stored and dispatches on the object in <code>model$visitor</code>.</p>
 
       
     </div><div id="" class="section level2">
@@ -507,7 +507,7 @@
       </dl></div><div class="section level2">
       <h2 id="alternative-blood-hosts-component">Alternative blood hosts component<a class="anchor" aria-label="anchor" href="#alternative-blood-hosts-component"></a></h2>
       
-      <p class="section-desc"></p><p>The alternative blood hosts component is responsible for modeling other blood host populations (livestock, dogs, etc.).</p>
+      <p class="section-desc"></p><p>The alternative blood hosts component is responsible for modeling other blood host populations (livestock, dogs, etc.). It is stored and dispatches on the object in <code>model$alternative</code>.</p>
 
       
     </div><div id="" class="section level2">

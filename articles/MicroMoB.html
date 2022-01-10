@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,42 +100,54 @@
 <h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
 </h2>
 <p><img src="Dynamics.png" width="100%"></p>
-<p>The model is broken into components, for humans, immature and adult mosquitoes (and some others). Each component has an <em>interface</em>, which are methods which must be defined for that component. A component’s interface is stored in file, for example, R/humans_interface.R shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal) will call generic methods not knowing what specific code is implementing them, and so they must return values consistent with their definition.</p>
+<p>The model is broken into components, for humans, immature and adult mosquitoes (and some others). Each component has an <em>interface</em>, which are methods which must be defined for that component. A component’s interface is stored in file, for example, <code>R/humans_interface.R</code> shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal) will call generic methods not knowing what specific code is implementing them, and so they must return values consistent with their definition.</p>
 <p>We call a specific implementation of a component a <em>model</em>. Specific implementations are found in files that replace <em>_interface</em> with the model name, for example R/humans_SIR.R. Their accompanying test files are located in tests/testthat. If you are creating a new model, please remember to test it adequately.</p>
 <p>We list the components which require interfaces below and specific models to implement them.</p>
 <div class="section level3">
 <h3 id="mosquitoes">Mosquitoes<a class="anchor" aria-label="anchor" href="#mosquitoes"></a>
 </h3>
-<p>The mosquito component is responsible for all dynamics which update adult mosquito populations. The interface is defined in <code>R/mosquito_interface.R</code>.</p>
+<p>The mosquito component is responsible for all dynamics which update adult mosquito populations. The interface is defined in <code>R/mosquito_interface.R</code>, and the interface methods which are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component">here</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="aquatic">Aquatic<a class="anchor" aria-label="anchor" href="#aquatic"></a>
 </h3>
-<p>The aquatic component is responsible for all dynamics which update immature (aquatic stage) mosquito populations. The interface is defined in <code>R/aquatic_interface.R</code>.</p>
+<p>The aquatic component is responsible for all dynamics which update immature (aquatic stage) mosquito populations. The interface is defined in <code>R/aquatic_interface.R</code>, and the interface methods with are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#aquatic-immature-mosquito-component">here</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="humans">Humans<a class="anchor" aria-label="anchor" href="#humans"></a>
 </h3>
-<p>The human component updates human populations. The interface is defined in <code>R/humans_interface.R</code>.</p>
+<p>The human component updates human populations. The interface is defined in <code>R/humans_interface.R</code>, and the interface methods with are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#human-component">here</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="visitor">Visitor<a class="anchor" aria-label="anchor" href="#visitor"></a>
 </h3>
-<p>The human component updates human populations outside of the resident population of the geographic area being simulated. The interface is defined in <code>R/visitor_interface.R</code>.</p>
+<p>The human component updates human populations outside of the resident population of the geographic area being simulated. The interface is defined in <code>R/visitor_interface.R</code>, and the interface methods with are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#visitor-component">here</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="other-blood-hosts">Other blood hosts<a class="anchor" aria-label="anchor" href="#other-blood-hosts"></a>
 </h3>
-<p>The other (alternative) blood host component is responsible for other blood hosts for mosquitoes (livestock, dogs, etc). The interface is defined in <code>R/other_interface.R</code>.</p>
+<p>The other (alternative) blood host component is responsible for other blood hosts for mosquitoes (livestock, dogs, etc). The interface is defined in <code>R/other_interface.R</code>, and the interface methods with are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component">here</a>.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="writing-new-models">Writing new models<a class="anchor" aria-label="anchor" href="#writing-new-models"></a>
+</h2>
+<p>To write a model for a component means that one must write methods that fulfill each component’s interface, and ensure that those methods return the correct data structure. Information on the methods can be found in the function reference under each component. In addition, a new model must have a setup function, which takes in parameters, does argument checking, and attaches a new object with the correct name and class attached to the model object returned from <code><a href="../reference/make_MicroMoB.html">make_MicroMoB()</a></code>.</p>
+<p>For example, to make a new mosquito model, with class <code>MyModel</code>, one would need to do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Write a function <code>setup_mosquito_MyModel</code> which attaches an object (usually a list) to the model environment with the <code>class</code> attribute assigned to <code>"MyModel"</code>.</li>
+<li>Write methods for the interface <code>compute_f.MyModel</code>, <code>compute_q.MyModel</code>, <code>compute_Z.MyModel</code>, and <code>compute_oviposit.MyModel</code>. Information on what each method is expected to compute and return can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component">here</a>.</li>
+<li>Write a step (updating) function, <code>step_mosquitoes.MyModel</code>. One can optionally allow the <code>class</code> attribute of the model list to have 2 elements to allow for dispatching on stochastic or deterministic step updates, in which case one would additionally write <code>step_mosquitoes.MyModel_stochastic</code> and <code>step_mosquitoes.MyModel_deterministic</code>. Please look at the <a href="https://github.com/dd-harp/MicroMoB/blob/HEAD/R/mosquito_RM.R" class="external-link">source code</a> of the Ross-Macdonald mosquito model to see how to do this.</li>
+</ol>
 </div>
 <div class="section level2">
 <h2 id="invariants">Invariants<a class="anchor" aria-label="anchor" href="#invariants"></a>
 </h2>
+<p>What we call <em>invariants</em> are functions which do not dispatch on any types; rather they collect the information they need from each component via that component’s interface, which will return information in the right dimension for any properly written model fulfilling that component. These invariants use that information to compute quantities that allow interaction (feedback) between components, which is passed back to each component and used to compute their update.</p>
 <div class="section level3">
 <h3 id="bloodmeal">Bloodmeal<a class="anchor" aria-label="anchor" href="#bloodmeal"></a>
 </h3>
-<p>We describe how the bloodmeal algorithm works in a separate article, <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code></p>
+<p>We describe how the bloodmeal algorithm works in a separate article, <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

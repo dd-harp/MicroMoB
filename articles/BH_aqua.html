@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +86,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dd-harp/MicroMoB" class="external-link">MicroMoB</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/MicroMoB/">MicroMoB</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></code></pre></div>
@@ -97,8 +97,8 @@
 </h2>
 <p>The state updating equation is as follows:</p>
 <p><span class="math display">\[\begin{equation}
-L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \frac{K}{L_{t}+K} \\
-A_{t} = molt \cdot surv \cdot L_{t} \frac{K}{L_{t}+K}
+L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right) \\
+A_{t} = molt \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right)
 \end{equation}\]</span></p>
 </div>
 <div class="section level2">
@@ -106,7 +106,7 @@ A_{t} = molt \cdot surv \cdot L_{t} \frac{K}{L_{t}+K}
 </h2>
 <p>In the stochastic model on a time step, we first draw the number of survivors:</p>
 <p><span class="math display">\[\begin{equation}
-survivors \sim \mathrm{binomial}(L, surv \frac{K}{L_{t}+K})
+survivors \sim \mathrm{binomial}(L, surv \left( \frac{K}{L_{t}+K} \right)
 \end{equation}\]</span></p>
 <p>The number who emerge is also a binomial random variate:</p>
 <p><span class="math display">\[\begin{equation}

@@ -1,270 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/articles/BH_aqua.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/Contributing.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/BH_aqua.html</loc>
   </url>
   <url>
-    <loc>/articles/MOI_human.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/Contributing.html</loc>
   </url>
   <url>
-    <loc>/articles/MicroMoB.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/MOI_human.html</loc>
   </url>
   <url>
-    <loc>/articles/RM_mosquito.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/MicroMoB.html</loc>
   </url>
   <url>
-    <loc>/articles/RM_transmission.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/RM_mosquito.html</loc>
   </url>
   <url>
-    <loc>/articles/bloodmeal.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/RM_transmission.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/bloodmeal.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/articles/index.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/authors.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/index.html</loc>
   </url>
   <url>
-    <loc>/reference/MicroMoB.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_H.MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/MicroMoB.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_H.SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_H.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_O.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_O.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_O.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Psi.MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_O.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Psi.SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Psi.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_W.MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_W.SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_W.MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_W.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_W.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Wd.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_W.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Wd.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Wd.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Z.RM.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Wd.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Z.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_Z.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_bloodmeal.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_emergents.BH.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_bloodmeal.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_emergents.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.BH.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_emergents.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_emergents.trace_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_emergents.trace_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.trace_deterministic.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_f.RM.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.trace_stochastic.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_f.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_f.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_oviposit.RM.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_oviposit.RM_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_oviposit.RM_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.RM_deterministic.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_oviposit.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.RM_stochastic.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_oviposit.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_q.RM.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_q.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_q.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_wf.MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_wf.SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_wf.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_x.MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_x.SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_x.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_xd.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_xd.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_xd.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_xd.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/make_MicroMoB.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/sample_stochastic_matrix.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/make_MicroMoB.html</loc>
   </url>
   <url>
-    <loc>/reference/sample_stochastic_vector.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/sample_stochastic_matrix.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_alternative_trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/sample_stochastic_vector.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_alternative_trace.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_aqua_trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_aqua_BH.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_humans_MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_aqua_trace.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_humans_SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_mosquito_trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_mosquito_RM.html</loc>
   </url>
   <url>
-    <loc>/reference/setup_visitor_trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_mosquito_trace.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aqua.BH.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_visitor_trace.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aqua.BH_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.BH.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aqua.BH_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.BH_deterministic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aqua.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.BH_stochastic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_aqua.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.MOI.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.MOI_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.MOI_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI_deterministic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.SIS.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI_stochastic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.SIS_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.SIS_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS_deterministic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_humans.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS_stochastic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_mosquitoes.RM.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.html</loc>
   </url>
   <url>
-    <loc>/reference/step_mosquitoes.RM_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.RM.html</loc>
   </url>
   <url>
-    <loc>/reference/step_mosquitoes.RM_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.RM_deterministic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_mosquitoes.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.RM_stochastic.html</loc>
   </url>
   <url>
-    <loc>/reference/step_mosquitoes.trace.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.html</loc>
   </url>
   <url>
-    <loc>/reference/strata_to_residency_counts.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.trace.html</loc>
   </url>
   <url>
-    <loc>/reference/strata_to_residency_proportion.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/strata_to_residency_counts.html</loc>
   </url>
   <url>
-    <loc>/reference/time_patch_varying_parameter.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/strata_to_residency_proportion.html</loc>
   </url>
   <url>
-    <loc>/reference/time_varying_parameter.html</loc>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/time_patch_varying_parameter.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/time_varying_parameter.html</loc>
   </url>
 </urlset>

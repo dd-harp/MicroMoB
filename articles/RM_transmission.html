@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,7 +86,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dd-harp/MicroMoB" class="external-link">MicroMoB</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/MicroMoB/">MicroMoB</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></code></pre></div>
@@ -184,7 +184,7 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 <span class="va">pp</span> <span class="op">&lt;-</span> <span class="va">pp</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span>
 <span class="va">ZZ</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">Y</span><span class="op">-</span><span class="va">Z</span><span class="op">)</span><span class="op">*</span><span class="va">pp</span>
 <span class="va">ZZ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">ZZ</span><span class="op">)</span></code></pre></div>
-<p>We first run a deterministic simulation.</p>
+<p>We first run a deterministic simulation. The first thing we need to do is create the model object and initialize all the components with specific models, which we do below. Note that because we explicitly calculated the rough equilibrium values of the number of incubating mosquitoes on each day, we set <code>ZZ</code> in the mosquito object, this is not required in general, as the function will scatter the appropriate total number across the days.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_MicroMoB.html">make_MicroMoB</a></span><span class="op">(</span>tmax <span class="op">=</span> <span class="va">tmax</span>, p <span class="op">=</span> <span class="va">patches</span><span class="op">)</span>
 <span class="fu"><a href="../reference/setup_humans_SIS.html">setup_humans_SIS</a></span><span class="op">(</span><span class="va">mod</span>, stochastic <span class="op">=</span> <span class="cn">FALSE</span>, theta <span class="op">=</span> <span class="va">theta</span>, H <span class="op">=</span> <span class="va">H</span>, X <span class="op">=</span> <span class="va">X</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span><span class="op">)</span>
@@ -193,9 +193,10 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 <span class="fu"><a href="../reference/setup_alternative_trace.html">setup_alternative_trace</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
 <span class="fu"><a href="../reference/setup_visitor_trace.html">setup_visitor_trace</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>
 
-<span class="va">mod</span><span class="op">$</span><span class="va">mosquito</span><span class="op">$</span><span class="va">ZZ</span> <span class="op">&lt;-</span> <span class="va">ZZ</span>
-
-<span class="co"># matrices to hold output</span>
+<span class="va">mod</span><span class="op">$</span><span class="va">mosquito</span><span class="op">$</span><span class="va">ZZ</span> <span class="op">&lt;-</span> <span class="va">ZZ</span></code></pre></div>
+<p>Now we can make matrices to store output and run the model. Note that we call <code><a href="../reference/compute_bloodmeal.html">compute_bloodmeal()</a></code> <em>before</em> any other updating functions are called. This is crucical for properly updating models in <strong>Micro-MoB</strong>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># matrices to hold output</span>
 <span class="va">mosquito_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">tmax</span>, ncol <span class="op">=</span> <span class="fl">4</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Day"</span>, <span class="st">"M"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">mosquito_out</span><span class="op">[</span>, <span class="st">"Day"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="va">tmax</span>
 <span class="va">human_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">tmax</span>, ncol <span class="op">=</span> <span class="fl">3</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="cn">NULL</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Day"</span>, <span class="st">"S"</span>, <span class="st">"I"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -221,7 +222,7 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 
 <span class="va">det_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">mosquito_out</span>, <span class="va">human_out</span><span class="op">)</span></code></pre></div>
 <p>Now we draw 10 trajectories from the stochastic simulation, and plot output. We plot the cloud of stochastic trajectories as faint lines and the deterministic solution as solid lines.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sto_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">runid</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_MicroMoB.html">make_MicroMoB</a></span><span class="op">(</span>tmax <span class="op">=</span> <span class="va">tmax</span>, p <span class="op">=</span> <span class="va">patches</span><span class="op">)</span>
@@ -267,7 +268,7 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Count</span>, color <span class="op">=</span> <span class="va">Compartment</span>, group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/interaction.html" class="external-link">interaction</a></span><span class="op">(</span><span class="va">Run</span>, <span class="va">Compartment</span><span class="op">)</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">det_out</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Count</span>, color <span class="op">=</span> <span class="va">Compartment</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Species</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
-<p><img src="RM_transmission_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="RM_transmission_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
