@@ -22,7 +22,8 @@ reference:
     The adult mosquito component is responsible for updating mosquito populations
     of the adult (flying) life stage, and handling pathogen dynamics in adult
     populations. Any model of adult mosquitoes in MicroMoB is required to
-    implement the following interface methods.
+    implement the following interface methods. It is stored and dispatches on
+    the object in `model$mosquito`.
   contents:
   - step_mosquitoes
   - compute_f
@@ -61,7 +62,8 @@ reference:
     populations which live in aquatic habitats. It must calculate how many eggs
     are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate
     the number of emerging adults. Any model of immature mosquitoes in MicroMoB is required to
-    implement the following interface methods.
+    implement the following interface methods. It is stored and dispatches on
+    the object in `model$aqua`.
   contents:
     - step_aqua
     - compute_emergents
@@ -93,7 +95,8 @@ reference:
   desc: >
     The human component is responsible for updating human populations
     and their pathogen dynamics. Any model of humans in MicroMoB is required to
-    implement the following interface methods.
+    implement the following interface methods. It is stored and dispatches on
+    the object in `model$human`.
   contents:
   - step_humans
   - compute_W
@@ -137,6 +140,7 @@ reference:
   desc: >
     The visitor component is responsible for modeling human populations that are
     not part of the resident population of the geographic area being simulated.
+    It is stored and dispatches on the object in `model$visitor`.
   contents:
   - compute_Wd
   - compute_xd
@@ -153,7 +157,7 @@ reference:
 
   desc: >
     The alternative blood hosts component is responsible for modeling other blood
-    host populations (livestock, dogs, etc.).
+    host populations (livestock, dogs, etc.). It is stored and dispatches on the object in `model$alternative`.
   contents:
   - compute_O
 

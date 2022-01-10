@@ -5,7 +5,7 @@
 [![codecov](https://codecov.io/gh/dd-harp/MicroMoB/branch/main/graph/badge.svg?)](https://codecov.io/gh/dd-harp/MicroMoB)
 <!-- badges: end -->
 
-## What is Micro-MoB? 
+## What is Micro-MoB?
 
 **Micro-MoB** was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. 
 It stands for "microsimulation for mosquito-borne pathogens". It is a modular
@@ -27,6 +27,7 @@ library(MicroMoB)
 
 To learn more about the software design, the problems it was designed to solve,
 and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`.
+
 After that, `vignette("bloodmeal")` describes how the bloodmeal algorithm computes
 the distribution of bites using each component's interface, allowing different models
 to be linked in a consistent framework.

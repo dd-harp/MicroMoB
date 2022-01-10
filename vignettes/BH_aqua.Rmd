@@ -36,8 +36,8 @@ and `molt`, the daily proportion of immature mosquitoes which mature and emerge 
 The state updating equation is as follows:
 
 \begin{equation}
-L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \frac{K}{L_{t}+K} \\
-A_{t} = molt \cdot surv \cdot L_{t} \frac{K}{L_{t}+K}
+L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right) \\
+A_{t} = molt \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right)
 \end{equation}
 
 ## Stochastic model
@@ -45,7 +45,7 @@ A_{t} = molt \cdot surv \cdot L_{t} \frac{K}{L_{t}+K}
 In the stochastic model on a time step, we first draw the number of survivors:
 
 \begin{equation}
-survivors \sim \mathrm{binomial}(L, surv \frac{K}{L_{t}+K})
+survivors \sim \mathrm{binomial}(L, surv \left( \frac{K}{L_{t}+K} \right)
 \end{equation}
 
 The number who emerge is also a binomial random variate:
