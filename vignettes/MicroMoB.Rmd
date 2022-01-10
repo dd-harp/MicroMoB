@@ -41,7 +41,7 @@ knitr::include_graphics('./Dynamics.png')
 
 The model is broken into components, for humans, immature and adult mosquitoes (and some others).
 Each component has an _interface_, which are methods which must be defined for that
-component. A component's interface is stored in file, for example, R/humans_interface.R
+component. A component's interface is stored in file, for example, `R/humans_interface.R`
 shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal)
 will call generic methods not knowing what specific code is implementing them, and so
 they must return values consistent with their definition.
@@ -58,29 +58,64 @@ to implement them.
 ### Mosquitoes
 
 The mosquito component is responsible for all dynamics which update adult mosquito
-populations. The interface is defined in `R/mosquito_interface.R`.
+populations. The interface is defined in `R/mosquito_interface.R`, and the interface
+methods which are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component).
 
 ### Aquatic
 
 The aquatic component is responsible for all dynamics which update immature (aquatic
-stage) mosquito populations. The interface is defined in `R/aquatic_interface.R`.
+stage) mosquito populations. The interface is defined in `R/aquatic_interface.R`,
+and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#aquatic-immature-mosquito-component).
 
 ### Humans
 
-The human component updates human populations. The interface is defined in `R/humans_interface.R`.
+The human component updates human populations. The interface is defined in `R/humans_interface.R`,
+and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#human-component).
 
 ### Visitor
 
 The human component updates human populations outside of the resident population of the geographic area being simulated. 
-The interface is defined in `R/visitor_interface.R`.
+The interface is defined in `R/visitor_interface.R`, and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#visitor-component).
 
 ### Other blood hosts
 
 The other (alternative) blood host component is responsible for other blood hosts for 
-mosquitoes (livestock, dogs, etc). The interface is defined in `R/other_interface.R`.
+mosquitoes (livestock, dogs, etc). The interface is defined in `R/other_interface.R`,
+and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component).
+
+## Writing new models
+
+To write a model for a component means that one must write methods that fulfill
+each component's interface, and ensure that those methods return the correct
+data structure. Information on the methods can be found in the function reference
+under each component. In addition, a new model must have a setup function,
+which takes in parameters, does argument checking, and attaches a new object with
+the correct name and class attached to the model object returned from `make_MicroMoB()`.
+
+For example, to make a new mosquito model, with class `MyModel`, one would need
+to do the following:
+  
+  1. Write a function `setup_mosquito_MyModel` which attaches an object (usually a list)
+  to the model environment with the `class` attribute assigned to `"MyModel"`.
+  2. Write methods for the interface `compute_f.MyModel`, `compute_q.MyModel`,
+  `compute_Z.MyModel`, and `compute_oviposit.MyModel`. Information on what each
+  method is expected to compute and return can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component).
+  3. Write a step (updating) function, `step_mosquitoes.MyModel`. One can optionally
+  allow the `class` attribute of the model list to have 2 elements to allow for dispatching
+  on stochastic or deterministic step updates, in which case one would additionally write
+  `step_mosquitoes.MyModel_stochastic` and `step_mosquitoes.MyModel_deterministic`.
+  Please look at the [source code](https://github.com/dd-harp/MicroMoB/blob/HEAD/R/mosquito_RM.R)
+  of the Ross-Macdonald mosquito model to see how to do this.
 
 ## Invariants
 
+What we call _invariants_ are functions which do not dispatch on any types; rather
+they collect the information they need from each component via that component's
+interface, which will return information in the right dimension for any properly
+written model fulfilling that component. These invariants use that information to
+compute quantities that allow interaction (feedback) between components, which
+is passed back to each component and used to compute their update.
+
 ### Bloodmeal
 
-We describe how the bloodmeal algorithm works in a separate article, `vignette("bloodmeal")`
+We describe how the bloodmeal algorithm works in a separate article, `vignette("bloodmeal")`.

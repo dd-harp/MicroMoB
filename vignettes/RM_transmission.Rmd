@@ -150,7 +150,12 @@ ZZ <- (Y-Z)*pp
 ZZ <- as.matrix(ZZ)
 ```
 
-We first run a deterministic simulation.
+We first run a deterministic simulation. The first thing we need to do is create
+the model object and initialize all the components with specific models, which we do
+below. Note that because we explicitly calculated the rough equilibrium values
+of the number of incubating mosquitoes on each day, we set `ZZ` in the mosquito object,
+this is not required in general, as the function will scatter the appropriate total
+number across the days.
 
 ```{R}
 mod <- make_MicroMoB(tmax = tmax, p = patches)
@@ -161,7 +166,13 @@ setup_alternative_trace(mod)
 setup_visitor_trace(mod)
 
 mod$mosquito$ZZ <- ZZ
+```
 
+Now we can make matrices to store output and run the model. Note that we call `compute_bloodmeal()`
+_before_ any other updating functions are called. This is crucical for properly updating
+models in **Micro-MoB**.
+
+```{R}
 # matrices to hold output
 mosquito_out <- matrix(data = 0, nrow = tmax, ncol = 4, dimnames = list(NULL, c("Day", "M", "Y", "Z")))
 mosquito_out[, "Day"] <- 1:tmax
