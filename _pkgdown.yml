@@ -4,6 +4,8 @@ template:
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
 
+url: https://dd-harp.github.io/MicroMoB/
+
 reference:
 
 - title: Bloodmeal

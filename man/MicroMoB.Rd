@@ -11,7 +11,8 @@ Discrete time simulation of mosquito-borne pathogen transmission
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/dd-harp/MicroMoB https://dd-harp.github.io/MicroMoB/index.html}
+  \item \url{https://dd-harp.github.io/MicroMoB/}
+  \item \url{https://github.com/dd-harp/MicroMoB}
   \item Report bugs at \url{https://github.com/dd-harp/MicroMoB/issues}
 }
 

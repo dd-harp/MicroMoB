@@ -26,7 +26,7 @@ Suggests:
     ggplot2,
     data.table
 VignetteBuilder: knitr
-URL: https://github.com/dd-harp/MicroMoB https://dd-harp.github.io/MicroMoB/index.html
+URL: https://dd-harp.github.io/MicroMoB/, https://github.com/dd-harp/MicroMoB
 BugReports: https://github.com/dd-harp/MicroMoB/issues
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3

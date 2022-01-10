@@ -50,3 +50,7 @@ Thank you for your interest in **Micro-MoB**! If you have a bug to report, pleas
 open an [issue on GitHub](https://github.com/dd-harp/MicroMoB/issues). If you would like
 to open a pull request or have further questions, please see our guide to
 contributing to the project at `vignette("Contributing")`.
+
+## Code of Conduct
+  
+Please note that the **Micro-MoB** project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
