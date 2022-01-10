@@ -90,16 +90,22 @@
 </h2>
 <p><strong>Micro-MoB</strong> is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added.</p>
 <p>The framework defines <strong>components</strong> which have an <strong>interface</strong>. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes, resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a <strong>model</strong>. For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that component “box”. Certain computations that involve the passing of information between components are <strong>invariant</strong>, such as the bloodmeal, where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the generic component interface, so any model fulfilling an interface can fit seamlessly into the existing set of models.</p>
-</div>
-<div class="section level2">
-<h2 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
-</h2>
+<div class="section level3">
+<h3 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
+</h3>
 <p>To accomplish this component-interface design in R, we use the <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a>. Each component is a named element in the model object (an environment). The interface defines a set of generic functions which dispatch on the specific class of the object taking the place of that component.</p>
+</div>
+<div class="section level3">
+<h3 id="dynamics">Dynamics<a class="anchor" aria-label="anchor" href="#dynamics"></a>
+</h3>
+<p>A simplified conceptual overview of dynamics in <strong>Micro-MoB</strong> is shown below. Over a time step, aquatic (immature) mosquitoes take in eggs laid by ovipositing adult mosquitoes <span class="math inline">\(G\)</span>, and give rise to newly emerging adults <span class="math inline">\(\Lambda\)</span>. Adult mosquitoes undergo mortality and search for blood meals. The proportion of bites on human hosts which cause infections in mosquitoes is <span class="math inline">\(\kappa\)</span>, and causes some fraction of mosquitoes to become infected <span class="math inline">\(Y\)</span> and eventually infectious <span class="math inline">\(Z\)</span>. The human component takes in <span class="math inline">\(EIR\)</span>, the per-capita rate at which persons receive infectious bites, which affects prevalence <span class="math inline">\(X\)</span>.</p>
+<p>The red circle represents the <em>bloodmeal</em>, the process by which adult mosquitoes initiate an oviposition cycle, seek out available hosts, and attempt to feed on them. It is this process which transfers pathogens between the two species.</p>
+<p><img src="DynamicsOverview.png" width="100%"></p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
 </h2>
-<p><img src="Dynamics.png" width="100%"></p>
 <p>The model is broken into components, for humans, immature and adult mosquitoes (and some others). Each component has an <em>interface</em>, which are methods which must be defined for that component. A component’s interface is stored in file, for example, <code>R/humans_interface.R</code> shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal) will call generic methods not knowing what specific code is implementing them, and so they must return values consistent with their definition.</p>
 <p>We call a specific implementation of a component a <em>model</em>. Specific implementations are found in files that replace <em>_interface</em> with the model name, for example R/humans_SIR.R. Their accompanying test files are located in tests/testthat. If you are creating a new model, please remember to test it adequately.</p>
 <p>We list the components which require interfaces below and specific models to implement them.</p>
