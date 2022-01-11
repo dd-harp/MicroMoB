@@ -28,5 +28,6 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://dd-harp.github.io/MicroMoB/, https://github.com/dd-harp/MicroMoB
 BugReports: https://github.com/dd-harp/MicroMoB/issues
+NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
