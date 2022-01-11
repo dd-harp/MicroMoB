@@ -1,5 +1,18 @@
 # utilities for users
 
+#' @title Draw a multinomially distributed random vector
+#' @description Warning: this function does no argument checking. Ensure the arguments
+#' are as follows.
+#' @param n an integer giving the number of balls to distribute in bins
+#' @param prob a vector of probabilities for each bin, which must sum to one
+#' @return an integer vector of length equal to the length of `prob`
+#' @note This function uses the algorithm presented in:
+#' Startek, Michał. "An asymptotically optimal, online algorithm for weighted random sampling with replacement." arXiv preprint arXiv:1611.00532 (2016).
+#' @export
+draw_multinom <- function(n, prob) {
+  .Call(C_draw_multinom, as.integer(n), as.numeric(prob))
+}
+
 #' @title Sample a stochastic vector
 #' @description Given a vector of counts in cells, `x` and a stochastic matrix `prob`, each
 #' row of which describes a probability distribution of how that cell should be
@@ -19,8 +32,9 @@ sample_stochastic_vector <- function(x, prob) {
     return(x)
   }
   samp <- vapply(X = 1:length(x), FUN = function(i) {
-    rmultinom(n = 1, size = x[i], prob = prob[i, ])
-  }, FUN.VALUE = numeric(ncol(prob)), USE.NAMES = FALSE)
+    # rmultinom(n = 1, size = x[i], prob = prob[i, ])
+    draw_multinom(n = x[i], prob = prob[i, ])
+  }, FUN.VALUE = integer(ncol(prob)), USE.NAMES = FALSE)
   rowSums(samp)
 }
 

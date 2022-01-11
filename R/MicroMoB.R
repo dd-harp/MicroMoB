@@ -6,4 +6,5 @@
 #' @docType package
 #' @name MicroMoB
 #'
+#' @useDynLib MicroMoB, .registration = TRUE
 "_PACKAGE"

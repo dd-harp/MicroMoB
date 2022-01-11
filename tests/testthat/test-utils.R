@@ -1,3 +1,13 @@
+test_that("sample draw_multinomial", {
+
+  n <- 10
+  prob <- c(0.5, 0.2, 0.05, 0.25)
+  draw <- draw_multinom(n = n, prob = prob)
+  expect_equal(sum(draw), n)
+  expect_length(draw, length(prob))
+
+})
+
 test_that("sample stochastic vector", {
 
   cell <- 4
