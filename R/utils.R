@@ -1,5 +1,13 @@
 # utilities for users
 
+#' @useDynLib MicroMoB draw_multinom_
+#' @export
+draw_multinom <- function(n, prob) {
+  stopifnot(length(n) == 1L)
+  stopifnot(approx_equal(sum(prob), 1))
+  .Call(draw_multinom_, as.integer(n), as.numeric(prob))
+}
+
 #' @title Sample a stochastic vector
 #' @description Given a vector of counts in cells, `x` and a stochastic matrix `prob`, each
 #' row of which describes a probability distribution of how that cell should be
