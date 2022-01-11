@@ -1,5 +1,7 @@
-#include "utils_sample.h"
+#include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
+
+#include "utils_sample.h"
 
 static const
   R_CallMethodDef callMethods[] = {
@@ -11,4 +13,5 @@ void R_init_MicroMoB(DllInfo *dll)
 {
   R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
+  R_forceSymbols(dll, TRUE);
 }
