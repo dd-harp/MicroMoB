@@ -1,3 +1,7 @@
+# MicroMoB 0.0.4
+
+  * faster multinomial draws, using the algorithm presented in ["An asymptotically optimal, online algorithm for weighted random sampling with replacement"](https://arxiv.org/abs/1611.00532)
+
 # MicroMoB 0.0.3
 
   * add Code of Conduct
