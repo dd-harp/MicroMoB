@@ -18,3 +18,7 @@ an integer vector of length equal to the length of \code{prob}
 Warning: this function does no argument checking. Ensure the arguments
 are as follows.
 }
+\note{
+This function uses the algorithm presented in:
+Startek, Michał. "An asymptotically optimal, online algorithm for weighted random sampling with replacement." arXiv preprint arXiv:1611.00532 (2016).
+}

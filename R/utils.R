@@ -6,7 +6,8 @@
 #' @param n an integer giving the number of balls to distribute in bins
 #' @param prob a vector of probabilities for each bin, which must sum to one
 #' @return an integer vector of length equal to the length of `prob`
-# #' @useDynLib MicroMoB draw_multinom_
+#' @note This function uses the algorithm presented in:
+#' Startek, Michał. "An asymptotically optimal, online algorithm for weighted random sampling with replacement." arXiv preprint arXiv:1611.00532 (2016).
 #' @export
 draw_multinom <- function(n, prob) {
   .Call(C_draw_multinom, as.integer(n), as.numeric(prob))

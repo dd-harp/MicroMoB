@@ -27,6 +27,7 @@ SEXP C_draw_multinom(
 }
 
 
+// this algorithm is from: Startek, Michał. "An asymptotically optimal, online algorithm for weighted random sampling with replacement." arXiv preprint arXiv:1611.00532 (2016).
 void draw_multinom_internal(
     int n,
     double* probs,
