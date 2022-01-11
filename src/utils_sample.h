@@ -11,7 +11,7 @@
 #include <Rmath.h>
 #include <Rinternals.h>
 
-SEXP draw_multinom_(
+SEXP C_draw_multinom(
     SEXP n,
     SEXP probs
 );

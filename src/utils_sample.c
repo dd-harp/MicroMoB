@@ -8,7 +8,7 @@
 
 static inline double get_beta_1_b(const double b){return 1.0 - pow(unif_rand(), 1.0/b);}
 
-SEXP draw_multinom_(
+SEXP C_draw_multinom(
     SEXP n,
     SEXP probs
 ) {
@@ -42,7 +42,7 @@ void draw_multinom_internal(
 
   double pprob = 0.0;
   double cprob = 0.0;
-  unsigned int pidx = 0;
+  int pidx = 0;
   while (n > 0) {
     pprob += probs[pidx];
     while (((pprob - cprob) * n / (1.0 - cprob)) < switchover) {

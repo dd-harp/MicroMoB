@@ -1,11 +1,15 @@
 # utilities for users
 
-#' @useDynLib MicroMoB draw_multinom_
+#' @title Draw a multinomially distributed random vector
+#' @description Warning: this function does no argument checking. Ensure the arguments
+#' are as follows.
+#' @param n an integer giving the number of balls to distribute in bins
+#' @param prob a vector of probabilities for each bin, which must sum to one
+#' @return an integer vector of length equal to the length of `prob`
+# #' @useDynLib MicroMoB draw_multinom_
 #' @export
 draw_multinom <- function(n, prob) {
-  stopifnot(length(n) == 1L)
-  stopifnot(approx_equal(sum(prob), 1))
-  .Call(draw_multinom_, as.integer(n), as.numeric(prob))
+  .Call(C_draw_multinom, as.integer(n), as.numeric(prob))
 }
 
 #' @title Sample a stochastic vector
@@ -27,8 +31,9 @@ sample_stochastic_vector <- function(x, prob) {
     return(x)
   }
   samp <- vapply(X = 1:length(x), FUN = function(i) {
-    rmultinom(n = 1, size = x[i], prob = prob[i, ])
-  }, FUN.VALUE = numeric(ncol(prob)), USE.NAMES = FALSE)
+    # rmultinom(n = 1, size = x[i], prob = prob[i, ])
+    draw_multinom(n = x[i], prob = prob[i, ])
+  }, FUN.VALUE = integer(ncol(prob)), USE.NAMES = FALSE)
   rowSums(samp)
 }
 
