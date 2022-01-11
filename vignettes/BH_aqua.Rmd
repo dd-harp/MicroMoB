@@ -45,7 +45,7 @@ A_{t} = molt \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right)
 In the stochastic model on a time step, we first draw the number of survivors:
 
 \begin{equation}
-survivors \sim \mathrm{binomial}(L, surv \left( \frac{K}{L_{t}+K} \right)
+survivors \sim \mathrm{binomial}(L, surv \left( \frac{K}{L_{t}+K} \right) )
 \end{equation}
 
 The number who emerge is also a binomial random variate:
