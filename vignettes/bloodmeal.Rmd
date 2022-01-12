@@ -109,3 +109,18 @@ mosquito model can use it to update state over a time step.
 \begin{equation}
 \kappa_{p\times 1} \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
 \end{equation}
+
+## Directed wiring diagram
+
+Another way to view the bloodmeal compuation is as a [directed wiring diagram (DWD)](https://www.algebraicjulia.org/blog/post/2021/01/machines/).
+In this DWD there are two "boxes". Rectangles are elements of the model with state, similar to machines in automata theory.
+Circles represent functions which do not have internal state, but may take some number of inputs and produce
+and output. Circles which are inside of a rectangle represent functions that "belong" to that rectangle.
+
+Putting this back in terms of **Micro-MoB**, rectangles are components and circles are either _invariant_ functions
+(if they live outside of a box), or are methods that dispatch depending on what model fills their component (if
+they live inside of a box).
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./bloodfeeding_DWD.png')
+```
