@@ -155,7 +155,7 @@
 <div class="section level2">
 <h2 id="biting-distribution-matrix-beta">Biting distribution matrix (<span class="math inline">\(\beta\)</span>)<a class="anchor" aria-label="anchor" href="#biting-distribution-matrix-beta"></a>
 </h2>
-<p><span class="math inline">\(beta\)</span>, the biting distribution matrix, is an <code>n</code> by <code>p</code> matrix which describes how bites from mosquitoes in patches get distributed over human population strata. If it is multiplied on the right by a vector <span class="math inline">\(fq \upsilon Z\)</span> which gives the total number of bites on humans taken by mosquitoes in each patch, the result is a length <code>n</code> vector giving the per-capita <span class="math inline">\(EIR\)</span>.</p>
+<p><span class="math inline">\(\beta\)</span>, the biting distribution matrix, is an <code>n</code> by <code>p</code> matrix which describes how bites from mosquitoes in patches get distributed over human population strata. If it is multiplied on the right by a vector <span class="math inline">\(fq \upsilon Z\)</span> which gives the total number of bites on humans taken by mosquitoes in each patch, the result is a length <code>n</code> vector giving the per-capita <span class="math inline">\(EIR\)</span>.</p>
 <p><span class="math display">\[\begin{equation}
 \beta_{n\times p} = \mbox{diag}(w_{f}) \cdot \Psi \cdot \mbox{diag}(1/W) \\
 \end{equation}\]</span></p>
@@ -173,7 +173,7 @@ EIR_{n\times 1} = \beta \cdot fq\upsilon Z
 </h2>
 <p>The net infectiousness of humans is the probability that a mosquito would become infected after biting a random human host. It’s directly proportional the force of infection in mosquitoes, which is <span class="math inline">\(\kappa fq\)</span>. After being calculated and passed to the mosquitoes, any particular mosquito model can use it to update state over a time step.</p>
 <p><span class="math display">\[\begin{equation}
-\kappa_{p\times 1} \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
+\kappa_{p\times 1} = \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
 \end{equation}\]</span></p>
 </div>
 <div class="section level2">
