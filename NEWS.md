@@ -1,3 +1,8 @@
+# MicroMoB 0.0.5
+
+  * higher quality graphics (https://github.com/dd-harp/MicroMoB/issues/47)
+  * bloodmeal directed wiring diagram (https://github.com/dd-harp/MicroMoB/issues/41)
+
 # MicroMoB 0.0.4
 
   * faster multinomial draws, using the algorithm presented in ["An asymptotically optimal, online algorithm for weighted random sampling with replacement"](https://arxiv.org/abs/1611.00532)
