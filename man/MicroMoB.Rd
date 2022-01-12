@@ -25,4 +25,9 @@ Authors:
   \item David L. Smith \email{smitdave@uw.edu} (\href{https://orcid.org/0000-0003-4367-3849}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item Sophie Libkind [contributor]
+}
+
 }
