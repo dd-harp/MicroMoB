@@ -176,6 +176,13 @@ EIR_{n\times 1} = \beta \cdot fq\upsilon Z
 \kappa_{p\times 1} \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
 \end{equation}\]</span></p>
 </div>
+<div class="section level2">
+<h2 id="directed-wiring-diagram">Directed wiring diagram<a class="anchor" aria-label="anchor" href="#directed-wiring-diagram"></a>
+</h2>
+<p>Another way to view the bloodmeal compuation is as a <a href="https://www.algebraicjulia.org/blog/post/2021/01/machines/" class="external-link">directed wiring diagram (DWD)</a>. In this DWD there are two “boxes”. Rectangles are elements of the model with state, similar to machines in automata theory. Circles represent functions which do not have internal state, but may take some number of inputs and produce and output. Circles which are inside of a rectangle represent functions that “belong” to that rectangle.</p>
+<p>Putting this back in terms of <strong>Micro-MoB</strong>, rectangles are components and circles are either <em>invariant</em> functions (if they live outside of a box), or are methods that dispatch depending on what model fills their component (if they live inside of a box).</p>
+<p><img src="bloodfeeding_DWD.png" width="100%"></p>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
