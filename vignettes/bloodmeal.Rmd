@@ -99,7 +99,7 @@ causes infection in a human host. It is simply computed as:
 EIR_{n\times 1} = \beta \cdot fq\upsilon Z
 \end{equation}
 
-## Net infectiousness of human population ($\kappa$)
+## Net infectiousness of the human population ($\kappa$)
 
 The net infectiousness of humans is the probability that a mosquito would become infected
 after biting a random human host. It's directly proportional the force of infection in mosquitoes,
@@ -107,7 +107,7 @@ which is $\kappa fq$. After being calculated and passed to the mosquitoes, any p
 mosquito model can use it to update state over a time step.
 
 \begin{equation}
-\kappa_{p\times 1} = \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
+\kappa_{p\times 1} = \upsilon \cdot (\beta^{\intercal} \cdot xH) + (1 - \upsilon) x_{\delta}
 \end{equation}
 
 ## Directed wiring diagram
