@@ -17,14 +17,22 @@ knitr::opts_chunk$set(
 ## Introduction
 
 **Micro-MoB** is a software package which implements a framework for building mathematical models of
-mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added. 
+mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to incorporate vastly different
+models while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added.
 
-The framework defines **components** which have an **interface**. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes,
-resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a **model**.
-For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that
-component "box". Certain computations that involve the passing of information between components are **invariant**, such as the bloodmeal,
-where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the 
-generic component interface, so any model fulfilling an interface can fit seamlessly into the existing set of models.
+We define terms used to talk about **Micro-MoB** below:
+
+  * **components**: these are the irreducible "parts" of MBPT models, and must be implemented in any model built
+  in **Micro-MoB**, even if only as a trivial model (e.g. as a constant value or external forcing term). The components
+  are adult mosquitoes, immature (aquatic) mosquitoes, resident (modeled) humans, non-resident visitors, and other blood hosts
+  (e.g. livestock).
+  * **interface**: each component defines an interface, which other components and invariants (functions) can use to query
+  information about it. The interface defines what a component is expected to compute and expose to the rest of the system.
+  * **model**: a specific instantiation of a component, which necessarily fulfills that component's interface. The SIS (Susceptible-Infectious-Susceptible) model for human dynamics is a model for the human component, for example.
+  * **invariant**: any computation which is generic across any specific set of models and which uses the generic interface
+  to query state and compute values which may be returned to components. The bloodmeal algorithm is an example, and the code
+  is a contract with the modeller meaning any model fulfilling the component interface it fills will be able to interact
+  with the rest of the framework, and the existing set of models. It is described in `vignette("bloodmeal")`.
 
 ### Software design
 
@@ -33,38 +41,13 @@ Each component is a named element in the model object (an environment). The inte
 defines a set of generic functions which dispatch on the specific class of the object
 taking the place of that component.
 
-### Dynamics
-
-A simplified conceptual overview of dynamics in **Micro-MoB** is shown below. Over
-a time step, aquatic (immature) mosquitoes take in eggs laid by ovipositing adult mosquitoes
-$G$, and give rise to newly emerging adults $\Lambda$. Adult mosquitoes undergo mortality
-and search for blood meals. The proportion of bites on human hosts which cause infections
-in mosquitoes is $\kappa$, and causes some fraction of mosquitoes to become infected $Y$
-and eventually infectious $Z$. The human component takes in $EIR$, the per-capita rate
-at which persons receive infectious bites, which affects prevalence $X$.
-
-The red circle represents the _bloodmeal_, the process by which adult mosquitoes
-initiate an oviposition cycle, seek out available hosts, and attempt to feed on them.
-It is this process which transfers pathogens between the two species.
-
-```{r echo=FALSE, out.width='100%'}
-knitr::include_graphics('./DynamicsOverview.png')
-```
-
 ## Components
 
-The model is broken into components, for humans, immature and adult mosquitoes (and some others).
-Each component has an _interface_, which are methods which must be defined for that
-component. A component's interface is stored in file, for example, `R/humans_interface.R`
-shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal)
-will call generic methods not knowing what specific code is implementing them, and so
-they must return values consistent with their definition.
+For each component, the interface is defined in a file, for example, `R/humans_interface.R`
+shows the user what methods must be defined for any human model.
 
-We call a specific implementation of a component a _model_.
-Specific implementations are found in files that replace _\_interface_ with the
-model name, for example R/humans_SIR.R. Their accompanying test files are located in
-tests/testthat. If you are creating a new model, please remember to test it
-adequately.
+A specific implementation of a component is a model, and files that replace _\_interface_ with the
+model name implement that model (e.g. `R/humans_SIS.R` implements a SIS model). 
 
 We list the components which require interfaces below and specific models
 to implement them.
@@ -97,6 +80,25 @@ The other (alternative) blood host component is responsible for other blood host
 mosquitoes (livestock, dogs, etc). The interface is defined in `R/other_interface.R`,
 and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component).
 
+### Dynamics
+
+A simplified schematic of the relationships between components (i.e. the model's _dynamics_) in
+**Micro-MoB** is shown below.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./DynamicsOverview.png')
+```
+
+The aquatic (immature) mosquito compoment $L$ is in blue. Over a time step, it takes in eggs laid by
+ovipositing adult mosquitoes $G$, and updates state, producing newly emerging adults $\Lambda$.
+These emergents are added to the adult mosquito component (green). In the adult component,
+$M$ represents the total mosquito density, $Y$ and $Z$ are infected and infectious mosquito
+populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts,
+and during blood feeding are infected with probability $\kappa$, computed by the bloodmeal (red).
+Infectious mosquitoes take bites on human hosts, resulting in a human per-capita rate of
+infection $EIR$, computed by the bloodmeal, which changes prevalence of disease, $X$. The
+overall human component (yellow) has dynamics acting on $H$.
+
 ## Writing new models
 
 To write a model for a component means that one must write methods that fulfill
@@ -120,16 +122,6 @@ to do the following:
   `step_mosquitoes.MyModel_stochastic` and `step_mosquitoes.MyModel_deterministic`.
   Please look at the [source code](https://github.com/dd-harp/MicroMoB/blob/HEAD/R/mosquito_RM.R)
   of the Ross-Macdonald mosquito model to see how to do this.
-
-## Invariants
-
-What we call _invariants_ are functions which do not dispatch on any types; rather
-they collect the information they need from each component via that component's
-interface, which will return information in the right dimension for any properly
-written model fulfilling that component. These invariants use that information to
-compute quantities that allow interaction (feedback) between components, which
-is passed back to each component and used to compute their update.
-
-### Bloodmeal
-
-We describe how the bloodmeal algorithm works in a separate article, `vignette("bloodmeal")`.
+  4. Write basic tests for your model, which go in `tests/testthat`. At a minimum,
+  your tests should confirm that the model can be set up properly and produces
+  correct results when updated over a time step.

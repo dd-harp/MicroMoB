@@ -12,7 +12,8 @@ It stands for "microsimulation for mosquito-borne pathogens". It is a modular
 framework to build discrete time MBPT models. It uses R's [S3 object system](http://adv-r.had.co.nz/S3.html)
 to define a set of _components_ and _interfaces_ which can be filled by any specific _model_ that
 implements the interface. These parts, along with certain _invariants_ can be put
-together to define a full simulation model.
+together to define a full simulation model. Definitions for all these terms can be found
+in the documentation.
 
 We hope it proves useful. Please visit the [website](https://dd-harp.github.io/MicroMoB/) to learn more.
 
@@ -25,10 +26,9 @@ library(MicroMoB)
 
 ## Documentation
 
-To learn more about the software design, the problems it was designed to solve,
-and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`.
-
-After that, `vignette("bloodmeal")` describes how the bloodmeal algorithm computes
+To start learning more about the software design, the problems it was designed to solve,
+and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`. After, 
+`vignette("bloodmeal")` describes how the bloodmeal algorithm computes
 the distribution of bites using each component's interface, allowing different models
 to be linked in a consistent framework.
 

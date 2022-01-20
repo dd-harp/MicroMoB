@@ -28,8 +28,10 @@ distinct parasite broods, was an important concept in malaria epidemiology.
 
 The basic model was presented as an $(M/M/\infty)$ queueing process, with state space
 $X_{0}, X_{1}, \dots$, where the subscripts denote the number of parasite broods
-an individual is infected with (such that $0$ is an uninfected person). The force
-of infection is denoted $h$ and the recovery rate from compartment $m$ is $\rho_{m}$.
+an individual is infected with (such that $0$ is an uninfected person). The number of broods
+infecting a person is known as the multiplicity of infection (MOI).
+
+The force of infection is denoted $h$ and the recovery rate from compartment $m$ is $\rho_{m}$.
 Then the deterministic dynamics can be expressed as:
 
 \begin{equation}
@@ -57,7 +59,9 @@ large values of MOI, but may become computationally expensive in such cases.
 ## Simulation
 
 Let's check that we recover approximately the correct distribution over MOI.
-First we set up and run a simulation for 1000 days.
+First we set up and run a simulation for 1000 days. We use `make_MicroMoB()`
+to set up the base model object and `setup_humans_MOI()` with our chosen parameters
+to set up the multiplicity of infection human model.
 
 ```{R}
 h <- 0.025
@@ -106,8 +110,15 @@ ggplot(data = MOI_out_dt) +
 ```
 
 Another check for Poisson-ness of the MOI distribution is to plot the compartment sizes at the last time point.
+The theoretical distribution is plotted as a blue line.
 
 ```{R}
-ggplot(data.frame(Count = MOI_out[, tmax], MOI = 0:100), aes(MOI, Count)) +
-    geom_bar(stat = "identity")
+MOI_final <- MOI_out_dt[Day == tmax, ]
+MOI_final[, "prop" := Count / sum(Count)]
+MOI_final[, "MOI" := 0:100]
+MOI_final[, "theoretical" := dpois(x = MOI, lambda = h/r)]
+
+ggplot(MOI_final, aes(MOI, prop)) +
+    geom_bar(stat = 'identity') +
+    geom_line(aes(x = MOI, y = theoretical), color = "blue")
 ```
