@@ -12,7 +12,7 @@ step_humans <- function(model) {
 
 
 #' @title Compute available humans (\eqn{W})
-#' @description This is normally computed as \deqn{W = \Psi^{\intercal} \cdot w_{f} H}.
+#' @description This is normally computed as \deqn{W = \Psi^{\top} \cdot w_{f} H}.
 #' This method dispatches on the type of `model$human`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @return a vector of length `p` giving the biting availability of human hosts at each patch

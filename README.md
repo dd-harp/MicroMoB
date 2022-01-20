@@ -27,8 +27,9 @@ library(MicroMoB)
 ## Documentation
 
 To start learning more about the software design, the problems it was designed to solve,
-and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`. After, 
-`vignette("bloodmeal")` describes how the bloodmeal algorithm computes
+and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`. 
+
+Next, `vignette("bloodmeal")` describes how the bloodmeal algorithm computes
 the distribution of bites using each component's interface, allowing different models
 to be linked in a consistent framework.
 

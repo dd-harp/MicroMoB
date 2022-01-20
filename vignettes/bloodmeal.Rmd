@@ -107,7 +107,7 @@ which is $\kappa fq$. After being calculated and passed to the mosquitoes, any p
 mosquito model can use it to update state over a time step.
 
 \begin{equation}
-\kappa_{p\times 1} = \upsilon \cdot (\beta^{\intercal} \cdot xH) + (1 - \upsilon) x_{\delta}
+\kappa_{p\times 1} = \upsilon \cdot (\beta^{\top} \cdot xH) + (1 - \upsilon) x_{\delta}
 \end{equation}
 
 ## Directed wiring diagram
