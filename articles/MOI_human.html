@@ -26,14 +26,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/MicroMoB.html">Get started</a>
@@ -74,6 +74,9 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Queueing model for human superinfection</h1>
@@ -91,7 +94,8 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></code></pre></div>
 <p>One of the earliest elaborations on Ross’s early SIS style models of malaria infection in human populations was a queueing model which was developed when it became apparent that <em>superinfection</em>, when an individual host is simultaneously infected with multiple distinct parasite broods, was an important concept in malaria epidemiology.</p>
-<p>The basic model was presented as an <span class="math inline">\((M/M/\infty)\)</span> queueing process, with state space <span class="math inline">\(X_{0}, X_{1}, \dots\)</span>, where the subscripts denote the number of parasite broods an individual is infected with (such that <span class="math inline">\(0\)</span> is an uninfected person). The force of infection is denoted <span class="math inline">\(h\)</span> and the recovery rate from compartment <span class="math inline">\(m\)</span> is <span class="math inline">\(\rho_{m}\)</span>. Then the deterministic dynamics can be expressed as:</p>
+<p>The basic model was presented as an <span class="math inline">\((M/M/\infty)\)</span> queueing process, with state space <span class="math inline">\(X_{0}, X_{1}, \dots\)</span>, where the subscripts denote the number of parasite broods an individual is infected with (such that <span class="math inline">\(0\)</span> is an uninfected person). The number of broods infecting a person is known as the multiplicity of infection (MOI).</p>
+<p>The force of infection is denoted <span class="math inline">\(h\)</span> and the recovery rate from compartment <span class="math inline">\(m\)</span> is <span class="math inline">\(\rho_{m}\)</span>. Then the deterministic dynamics can be expressed as:</p>
 <p><span class="math display">\[\begin{equation}
 \dot{X}_{0} = -h X_{0} + \rho_{1} X_{1} \\
 \dot{X}_{m} = -(h + \rho_{m})X_{m} + h X_{m-1} + \rho_{m+1} X_{m+1}
@@ -106,7 +110,7 @@
 <div class="section level2">
 <h2 id="simulation">Simulation<a class="anchor" aria-label="anchor" href="#simulation"></a>
 </h2>
-<p>Let’s check that we recover approximately the correct distribution over MOI. First we set up and run a simulation for 1000 days.</p>
+<p>Let’s check that we recover approximately the correct distribution over MOI. First we set up and run a simulation for 1000 days. We use <code><a href="../reference/make_MicroMoB.html">make_MicroMoB()</a></code> to set up the base model object and <code><a href="../reference/setup_humans_MOI.html">setup_humans_MOI()</a></code> with our chosen parameters to set up the multiplicity of infection human model.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">h</span> <span class="op">&lt;-</span> <span class="fl">0.025</span>
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">200</span>
@@ -133,7 +137,7 @@
 <p>With these parameter values we expect a mean MOI of about 5. We see that the simulation converges to this equilibrium distribution after some time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html" class="external-link">weighted.mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, w <span class="op">=</span> <span class="va">MOI_out</span><span class="op">[</span>, <span class="va">tmax</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] 5.03908</span></code></pre></div>
+<span class="co">#&gt; [1] 5.02785</span></code></pre></div>
 <p>Now we can plot the compartment sizes.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot output</span>
@@ -146,10 +150,16 @@
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MOI_out_dt</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Count</span>, group <span class="op">=</span> <span class="va">MOI</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">MOI</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="MOI_human_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>Another check for Poisson-ness of the MOI distribution is to plot the compartment sizes at the last time point.</p>
+<p>Another check for Poisson-ness of the MOI distribution is to plot the compartment sizes at the last time point. The theoretical distribution is plotted as a blue line.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Count <span class="op">=</span> <span class="va">MOI_out</span><span class="op">[</span>, <span class="va">tmax</span><span class="op">]</span>, MOI <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">MOI</span>, <span class="va">Count</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">MOI_final</span> <span class="op">&lt;-</span> <span class="va">MOI_out_dt</span><span class="op">[</span><span class="va">Day</span> <span class="op">==</span> <span class="va">tmax</span>, <span class="op">]</span>
+<span class="va">MOI_final</span><span class="op">[</span>, <span class="st">"prop"</span> <span class="op">:=</span> <span class="va">Count</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">Count</span><span class="op">)</span><span class="op">]</span>
+<span class="va">MOI_final</span><span class="op">[</span>, <span class="st">"MOI"</span> <span class="op">:=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span>
+<span class="va">MOI_final</span><span class="op">[</span>, <span class="st">"theoretical"</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">dpois</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">MOI</span>, lambda <span class="op">=</span> <span class="va">h</span><span class="op">/</span><span class="va">r</span><span class="op">)</span><span class="op">]</span>
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">MOI_final</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">MOI</span>, <span class="va">prop</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">MOI</span>, y <span class="op">=</span> <span class="va">theoretical</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></code></pre></div>
 <p><img src="MOI_human_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
   </main>
@@ -164,7 +174,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>

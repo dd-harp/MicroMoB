@@ -26,14 +26,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/MicroMoB.html">Get started</a>
@@ -73,6 +73,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 
 <div class="row">
   <main id="main"><div class="page-header">
@@ -184,7 +187,9 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 <span class="va">pp</span> <span class="op">&lt;-</span> <span class="va">pp</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span>
 <span class="va">ZZ</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">Y</span><span class="op">-</span><span class="va">Z</span><span class="op">)</span><span class="op">*</span><span class="va">pp</span>
 <span class="va">ZZ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">ZZ</span><span class="op">)</span></code></pre></div>
-<p>We first run a deterministic simulation. The first thing we need to do is create the model object and initialize all the components with specific models, which we do below. Note that because we explicitly calculated the rough equilibrium values of the number of incubating mosquitoes on each day, we set <code>ZZ</code> in the mosquito object, this is not required in general, as the function will scatter the appropriate total number across the days.</p>
+<p>We first run a deterministic simulation. The first thing we need to do is create the base model object using <code><a href="../reference/make_MicroMoB.html">make_MicroMoB()</a></code> and initialize all the components with specific models, which we do below. <code><a href="../reference/setup_humans_SIS.html">setup_humans_SIS()</a></code> sets up the human component to use a SIS model of infection, and <code><a href="../reference/setup_alternative_trace.html">setup_alternative_trace()</a></code> and <code><a href="../reference/setup_visitor_trace.html">setup_visitor_trace()</a></code> set up the other blood hosts and visitor components with simple trace models (trivially set to zero).</p>
+<p><code><a href="../reference/setup_mosquito_RM.html">setup_mosquito_RM()</a></code> sets up the adult mosquito component using the Ross-Macdonald model, and <code><a href="../reference/setup_aqua_trace.html">setup_aqua_trace()</a></code> sets up the aquatic mosquito component using a trace.</p>
+<p>Note that because we explicitly calculated the rough equilibrium values of the number of incubating mosquitoes on each day, we set <code>ZZ</code> in the mosquito object, this is not required in general, as the function will scatter the appropriate total number across the days.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_MicroMoB.html">make_MicroMoB</a></span><span class="op">(</span>tmax <span class="op">=</span> <span class="va">tmax</span>, p <span class="op">=</span> <span class="va">patches</span><span class="op">)</span>
 <span class="fu"><a href="../reference/setup_humans_SIS.html">setup_humans_SIS</a></span><span class="op">(</span><span class="va">mod</span>, stochastic <span class="op">=</span> <span class="cn">FALSE</span>, theta <span class="op">=</span> <span class="va">theta</span>, H <span class="op">=</span> <span class="va">H</span>, X <span class="op">=</span> <span class="va">X</span>, b <span class="op">=</span> <span class="va">b</span>, c <span class="op">=</span> <span class="va">c</span>, r <span class="op">=</span> <span class="va">r</span><span class="op">)</span>
@@ -283,7 +288,7 @@ M = \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}}
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>

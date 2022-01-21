@@ -26,14 +26,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="active nav-item">
   <a class="nav-link" href="../articles/MicroMoB.html">Get started</a>
@@ -74,6 +74,9 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Micro-MoB (Microsimulation for mosquito-borne pathogens)</h1>
@@ -88,26 +91,29 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p><strong>Micro-MoB</strong> is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to model real scenarios while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added.</p>
-<p>The framework defines <strong>components</strong> which have an <strong>interface</strong>. The components cover all parts of MBPT models: adult mosquitoes, immature (aquatic) mosquitoes, resident humans, non-resident visitors, and other blood hosts. A specific instantation of a component is called a <strong>model</strong>. For example, the Ross-Macdonald model of adult mosquito dynamics can fulfill the adult mosquito interface and thus fill that component “box”. Certain computations that involve the passing of information between components are <strong>invariant</strong>, such as the bloodmeal, where a matrix is computed describing how bites from mosquitoes are distributed across hosts. These computations use the generic component interface, so any model fulfilling an interface can fit seamlessly into the existing set of models.</p>
+<p><strong>Micro-MoB</strong> is a software package which implements a framework for building mathematical models of mosquito-borne pathogen transmission (MBPT). The framework is flexible enough to incorporate vastly different models while at the same time places constraints upon how parts of the framework interact so that the software does not become obfuscatingly complex each time a new feature must be added.</p>
+<p>We define terms used to talk about <strong>Micro-MoB</strong> below:</p>
+<ul>
+<li>
+<strong>components</strong>: these are the irreducible “parts” of MBPT models, and must be implemented in any model built in <strong>Micro-MoB</strong>, even if only as a trivial model (e.g. as a constant value or external forcing term). The components are adult mosquitoes, immature (aquatic) mosquitoes, resident (modeled) humans, non-resident visitors, and other blood hosts (e.g. livestock).</li>
+<li>
+<strong>interface</strong>: each component defines an interface, which other components and invariants (functions) can use to query information about it. The interface defines what a component is expected to compute and expose to the rest of the system.</li>
+<li>
+<strong>model</strong>: a specific instantiation of a component, which necessarily fulfills that component’s interface. The SIS (Susceptible-Infectious-Susceptible) model for human dynamics is a model for the human component, for example.</li>
+<li>
+<strong>invariant</strong>: any computation which is generic across any specific set of models and which uses the generic interface to query state and compute values which may be returned to components. The bloodmeal algorithm is an example, and the code is a contract with the modeller meaning any model fulfilling the component interface it fills will be able to interact with the rest of the framework, and the existing set of models. It is described in <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code>.</li>
+</ul>
 <div class="section level3">
 <h3 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
 </h3>
 <p>To accomplish this component-interface design in R, we use the <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a>. Each component is a named element in the model object (an environment). The interface defines a set of generic functions which dispatch on the specific class of the object taking the place of that component.</p>
 </div>
-<div class="section level3">
-<h3 id="dynamics">Dynamics<a class="anchor" aria-label="anchor" href="#dynamics"></a>
-</h3>
-<p>A simplified conceptual overview of dynamics in <strong>Micro-MoB</strong> is shown below. Over a time step, aquatic (immature) mosquitoes take in eggs laid by ovipositing adult mosquitoes <span class="math inline">\(G\)</span>, and give rise to newly emerging adults <span class="math inline">\(\Lambda\)</span>. Adult mosquitoes undergo mortality and search for blood meals. The proportion of bites on human hosts which cause infections in mosquitoes is <span class="math inline">\(\kappa\)</span>, and causes some fraction of mosquitoes to become infected <span class="math inline">\(Y\)</span> and eventually infectious <span class="math inline">\(Z\)</span>. The human component takes in <span class="math inline">\(EIR\)</span>, the per-capita rate at which persons receive infectious bites, which affects prevalence <span class="math inline">\(X\)</span>.</p>
-<p>The red circle represents the <em>bloodmeal</em>, the process by which adult mosquitoes initiate an oviposition cycle, seek out available hosts, and attempt to feed on them. It is this process which transfers pathogens between the two species.</p>
-<p><img src="DynamicsOverview.png" width="100%"></p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="components">Components<a class="anchor" aria-label="anchor" href="#components"></a>
 </h2>
-<p>The model is broken into components, for humans, immature and adult mosquitoes (and some others). Each component has an <em>interface</em>, which are methods which must be defined for that component. A component’s interface is stored in file, for example, <code>R/humans_interface.R</code> shows the user what methods must be defined for any human model. Other components (e.g. the bloodmeal) will call generic methods not knowing what specific code is implementing them, and so they must return values consistent with their definition.</p>
-<p>We call a specific implementation of a component a <em>model</em>. Specific implementations are found in files that replace <em>_interface</em> with the model name, for example R/humans_SIR.R. Their accompanying test files are located in tests/testthat. If you are creating a new model, please remember to test it adequately.</p>
+<p>For each component, the interface is defined in a file, for example, <code>R/humans_interface.R</code> shows the user what methods must be defined for any human model.</p>
+<p>A specific implementation of a component is a model, and files that replace <em>_interface</em> with the model name implement that model (e.g. <code>R/humans_SIS.R</code> implements a SIS model).</p>
 <p>We list the components which require interfaces below and specific models to implement them.</p>
 <div class="section level3">
 <h3 id="mosquitoes">Mosquitoes<a class="anchor" aria-label="anchor" href="#mosquitoes"></a>
@@ -134,6 +140,13 @@
 </h3>
 <p>The other (alternative) blood host component is responsible for other blood hosts for mosquitoes (livestock, dogs, etc). The interface is defined in <code>R/other_interface.R</code>, and the interface methods with are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component">here</a>.</p>
 </div>
+<div class="section level3">
+<h3 id="dynamics">Dynamics<a class="anchor" aria-label="anchor" href="#dynamics"></a>
+</h3>
+<p>A simplified schematic of the relationships between components (i.e. the model’s <em>dynamics</em>) in <strong>Micro-MoB</strong> is shown below.</p>
+<p><img src="DynamicsOverview.png" width="100%"></p>
+<p>The aquatic (immature) mosquito compoment <span class="math inline">\(L\)</span> is in blue. Over a time step, it takes in eggs laid by ovipositing adult mosquitoes <span class="math inline">\(G\)</span>, and updates state, producing newly emerging adults <span class="math inline">\(\Lambda\)</span>. These emergents are added to the adult mosquito component (green). In the adult component, <span class="math inline">\(M\)</span> represents the total mosquito density, <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> are infected and infectious mosquito populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts, and during blood feeding are infected with probability <span class="math inline">\(\kappa\)</span>, computed by the bloodmeal (red). Infectious mosquitoes take bites on human hosts, resulting in a human per-capita rate of infection <span class="math inline">\(EIR\)</span>, computed by the bloodmeal, which changes prevalence of disease, <span class="math inline">\(X\)</span>. The overall human component (yellow) has dynamics acting on <span class="math inline">\(H\)</span>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="writing-new-models">Writing new models<a class="anchor" aria-label="anchor" href="#writing-new-models"></a>
@@ -144,17 +157,8 @@
 <li>Write a function <code>setup_mosquito_MyModel</code> which attaches an object (usually a list) to the model environment with the <code>class</code> attribute assigned to <code>"MyModel"</code>.</li>
 <li>Write methods for the interface <code>compute_f.MyModel</code>, <code>compute_q.MyModel</code>, <code>compute_Z.MyModel</code>, and <code>compute_oviposit.MyModel</code>. Information on what each method is expected to compute and return can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component">here</a>.</li>
 <li>Write a step (updating) function, <code>step_mosquitoes.MyModel</code>. One can optionally allow the <code>class</code> attribute of the model list to have 2 elements to allow for dispatching on stochastic or deterministic step updates, in which case one would additionally write <code>step_mosquitoes.MyModel_stochastic</code> and <code>step_mosquitoes.MyModel_deterministic</code>. Please look at the <a href="https://github.com/dd-harp/MicroMoB/blob/HEAD/R/mosquito_RM.R" class="external-link">source code</a> of the Ross-Macdonald mosquito model to see how to do this.</li>
+<li>Write basic tests for your model, which go in <code>tests/testthat</code>. At a minimum, your tests should confirm that the model can be set up properly and produces correct results when updated over a time step.</li>
 </ol>
-</div>
-<div class="section level2">
-<h2 id="invariants">Invariants<a class="anchor" aria-label="anchor" href="#invariants"></a>
-</h2>
-<p>What we call <em>invariants</em> are functions which do not dispatch on any types; rather they collect the information they need from each component via that component’s interface, which will return information in the right dimension for any properly written model fulfilling that component. These invariants use that information to compute quantities that allow interaction (feedback) between components, which is passed back to each component and used to compute their update.</p>
-<div class="section level3">
-<h3 id="bloodmeal">Bloodmeal<a class="anchor" aria-label="anchor" href="#bloodmeal"></a>
-</h3>
-<p>We describe how the bloodmeal algorithm works in a separate article, <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code>.</p>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -169,7 +173,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>

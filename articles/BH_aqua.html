@@ -26,14 +26,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../articles/MicroMoB.html">Get started</a>
@@ -74,6 +74,9 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Beverton-Holt aquatic model</h1>
@@ -97,8 +100,8 @@
 </h2>
 <p>The state updating equation is as follows:</p>
 <p><span class="math display">\[\begin{equation}
-L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right) \\
-A_{t} = molt \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right)
+L_{t+1} = eggs + (1-molt) \cdot surv \cdot L_{t} \cdot \left( \frac{K}{L_{t}+K} \right) \\
+A_{t} = molt \cdot surv \cdot L_{t} \cdot \left( \frac{K}{L_{t}+K} \right)
 \end{equation}\]</span></p>
 </div>
 <div class="section level2">
@@ -106,7 +109,7 @@ A_{t} = molt \cdot surv \cdot L_{t} \left( \frac{K}{L_{t}+K} \right)
 </h2>
 <p>In the stochastic model on a time step, we first draw the number of survivors:</p>
 <p><span class="math display">\[\begin{equation}
-survivors \sim \mathrm{binomial}(L, surv \left( \frac{K}{L_{t}+K} \right) )
+survivors \sim \mathrm{binomial}(L, surv \cdot \left( \frac{K}{L_{t}+K} \right) )
 \end{equation}\]</span></p>
 <p>The number who emerge is also a binomial random variate:</p>
 <p><span class="math display">\[\begin{equation}
@@ -146,7 +149,8 @@ K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
 <span class="co"># solve L</span>
 <span class="va">L</span> <span class="op">&lt;-</span> <span class="va">lambda</span> <span class="op">*</span> <span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">molt</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="va">eggs</span>
 <span class="va">K</span> <span class="op">&lt;-</span> <span class="op">-</span> <span class="op">(</span><span class="va">lambda</span> <span class="op">*</span> <span class="va">L</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">lambda</span> <span class="op">-</span> <span class="va">L</span><span class="op">*</span><span class="va">molt</span><span class="op">*</span><span class="va">surv</span><span class="op">)</span></code></pre></div>
-<p>Now we run a deterministic simulation and draw 10 stochastic trajectories.</p>
+<p>Let’s set up the model. We use <code><a href="../reference/make_MicroMoB.html">make_MicroMoB()</a></code> to set up the base model object, and <code><a href="../reference/setup_aqua_BH.html">setup_aqua_BH()</a></code> for the Beverton-Holt aquatic model with our chosen parameters. <code><a href="../reference/setup_mosquito_RM.html">setup_mosquito_RM()</a></code> will set up a Ross-Macdonal model of adult mosquito dynamics.</p>
+<p>We run a deterministic simulation and store output in a matrix.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># deterministic run</span>
 <span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_MicroMoB.html">make_MicroMoB</a></span><span class="op">(</span>tmax <span class="op">=</span> <span class="va">tmax</span>, p <span class="op">=</span> <span class="va">patches</span><span class="op">)</span>
@@ -161,9 +165,10 @@ K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
   <span class="fu"><a href="../reference/step_mosquitoes.html">step_mosquitoes</a></span><span class="op">(</span>model <span class="op">=</span> <span class="va">mod</span><span class="op">)</span>
   <span class="va">out_det</span><span class="op">[</span><span class="va">mod</span><span class="op">$</span><span class="va">global</span><span class="op">$</span><span class="va">tnow</span> <span class="op">+</span> <span class="fl">1L</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">mod</span><span class="op">$</span><span class="va">aqua</span><span class="op">$</span><span class="va">L</span>, <span class="va">mod</span><span class="op">$</span><span class="va">aqua</span><span class="op">$</span><span class="va">A</span>, <span class="va">mod</span><span class="op">$</span><span class="va">mosquito</span><span class="op">$</span><span class="va">M</span><span class="op">)</span>
   <span class="va">mod</span><span class="op">$</span><span class="va">global</span><span class="op">$</span><span class="va">tnow</span> <span class="op">&lt;-</span> <span class="va">mod</span><span class="op">$</span><span class="va">global</span><span class="op">$</span><span class="va">tnow</span> <span class="op">+</span> <span class="fl">1L</span>
-<span class="op">}</span>
-
-<span class="co"># stochastic runs</span>
+<span class="op">}</span></code></pre></div>
+<p>Now we run the same model, but using the option <code>stochastic = TRUE</code> for our dynamics, and draw 10 trajectories.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># stochastic runs</span>
 <span class="va">out_sto</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">runid</span><span class="op">)</span> <span class="op">{</span>
   
   <span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make_MicroMoB.html">make_MicroMoB</a></span><span class="op">(</span>tmax <span class="op">=</span> <span class="va">tmax</span>, p <span class="op">=</span> <span class="va">patches</span><span class="op">)</span>
@@ -183,10 +188,10 @@ K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
   <span class="va">out_run</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">out_run</span><span class="op">)</span>
   <span class="va">out_run</span><span class="op">$</span><span class="va">run</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">runid</span><span class="op">)</span>
   <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">out_run</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span>
-
-
-<span class="va">out_det</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">out_det</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+<p>Now we process the output and plot the results. Determinstic solutions are solid lines and each stochastic trajectory is a faint line.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">out_det</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">out_det</span><span class="op">)</span>
 <span class="va">out_det</span><span class="op">[</span>, <span class="st">"Day"</span> <span class="op">:=</span> <span class="fl">0</span><span class="op">:</span><span class="va">tmax</span><span class="op">]</span>
 <span class="va">out_det</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/melt.data.table.html" class="external-link">melt</a></span><span class="op">(</span><span class="va">out_det</span>, id.vars <span class="op">=</span> <span class="st">"Day"</span>, variable.name <span class="op">=</span> <span class="st">"Stage"</span>, value.name <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">out_det</span><span class="op">$</span><span class="va">Stage</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"L"</span>, <span class="st">"A"</span>, <span class="st">"M"</span><span class="op">)</span>
@@ -201,7 +206,7 @@ K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Count</span>, color <span class="op">=</span> <span class="va">Stage</span>, group <span class="op">=</span> <span class="va">run</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.35</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">out_det</span>, mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Day</span>, y <span class="op">=</span> <span class="va">Count</span>, color <span class="op">=</span> <span class="va">Stage</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">Stage</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
-<p><img src="BH_aqua_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="BH_aqua_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -216,7 +221,7 @@ K = \frac{-\lambda L}{\lambda - L \cdot molt \cdot surv}
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
