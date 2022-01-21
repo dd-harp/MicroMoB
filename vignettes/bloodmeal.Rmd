@@ -112,7 +112,7 @@ mosquito model can use it to update state over a time step.
 
 ## Directed wiring diagram
 
-Another way to view the bloodmeal compuation is as a [directed wiring diagram (DWD)](https://www.algebraicjulia.org/blog/post/2021/01/machines/).
+Another way to view the bloodmeal computation is as a [directed wiring diagram (DWD)](https://www.algebraicjulia.org/blog/post/2021/01/machines/).
 In this DWD there are two types of "boxes", rectangles and circles. Rectangles are elements of the model with state, similar to machines in automata theory. Circles represent functions which do not have internal state, but may take some number of inputs and produce
 and output. Circles which are inside of a rectangle represent functions that "belong" to that rectangle.
 

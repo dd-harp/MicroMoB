@@ -61,7 +61,7 @@ L_{t+1} = eggs + survivors - emerge \\
 A_{t} = emerge
 \end{equation}
 
-## Deterministic equilbrium
+## Deterministic equilibrium
 
 Despite being a nonlinear equation, we can solve the equilibrium. We assume that `eggs` is known, and that the desired
 daily emergence is known (`lambda`, or `A` in the BH model's notation). Then we solve for `K` and `L`:
@@ -98,7 +98,7 @@ K <- - (lambda * L) / (lambda - L*molt*surv)
 
 Let's set up the model. We use `make_MicroMoB()` to set up the base model object, and
 `setup_aqua_BH()` for the Beverton-Holt aquatic model with our chosen parameters.
-`setup_mosquito_RM()` will set up a Ross-Macdonal model of adult mosquito dynamics.
+`setup_mosquito_RM()` will set up a Ross-Macdonald model of adult mosquito dynamics.
 
 We run a deterministic simulation and store output in a matrix.
 
@@ -146,7 +146,7 @@ out_sto <- mclapply(X = 1:10, FUN = function(runid) {
 })
 ```
 
-Now we process the output and plot the results. Determinstic solutions are solid lines
+Now we process the output and plot the results. Deterministic solutions are solid lines
 and each stochastic trajectory is a faint line.
 
 ```{R}
