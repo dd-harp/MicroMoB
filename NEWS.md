@@ -1,3 +1,8 @@
+# MicroMoB 0.0.6
+
+  * improve all vignettes and documentation for clarity.
+  * fix DESCRIPTION according to CRAN checks.
+
 # MicroMoB 0.0.5
 
   * higher quality graphics (https://github.com/dd-harp/MicroMoB/issues/47)

@@ -151,8 +151,15 @@ ZZ <- as.matrix(ZZ)
 ```
 
 We first run a deterministic simulation. The first thing we need to do is create
-the model object and initialize all the components with specific models, which we do
-below. Note that because we explicitly calculated the rough equilibrium values
+the base model object using `make_MicroMoB()` and initialize all the components with specific models, which we do
+below. `setup_humans_SIS()` sets up the human component to use a SIS model of infection,
+and `setup_alternative_trace()` and `setup_visitor_trace()` set up the other blood hosts
+and visitor components with simple trace models (trivially set to zero).
+
+`setup_mosquito_RM()` sets up the adult mosquito component using the Ross-Macdonald model, and
+`setup_aqua_trace()` sets up the aquatic mosquito component using a trace.
+
+Note that because we explicitly calculated the rough equilibrium values
 of the number of incubating mosquitoes on each day, we set `ZZ` in the mosquito object,
 this is not required in general, as the function will scatter the appropriate total
 number across the days.

@@ -1,13 +1,13 @@
 Package: MicroMoB
 Type: Package
-Title: Discrete time simulation of mosquito-borne pathogen transmission
-Version: 0.0.5
+Title: Discrete Time Simulation of Mosquito-Borne Pathogen Transmission
+Version: 0.0.6
 Authors@R: c(
       person("Sean L.", "Wu", email = "slwood89@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0000-0002-5781-9493")),
       person("David L.", "Smith", email = "smitdave@uw.edu", role = "aut", comment = c(ORCID = "0000-0003-4367-3849")),
       person("Sophie", "Libkind", role = "ctb")
     )
-Description: MicroMoB provides a framework based on S3 dispatch for constructing models
+Description: Provides a framework based on S3 dispatch for constructing models
   of mosquito-borne pathogen transmission which are constructed from submodels of various
   components (i.e. immature and adult mosquitoes, human populations). A consistent mathematical
   expression for the distribution of bites on hosts means that different models
@@ -15,7 +15,6 @@ Description: MicroMoB provides a framework based on S3 dispatch for constructing
   over a discrete time step.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.2
 Imports:
     extraDistr,

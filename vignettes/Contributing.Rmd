@@ -42,7 +42,7 @@ We use Git on this project. Which means we use `main`, `dev`, `feat/*`, `bug/*`,
   * `hotfix`: the difference between a `bug/*` and `hotfix/*` branch is `hotfix` is for small quick fixes (misspellings, incorrect arguments, etc.)
   and are short-lived. After being merged with `dev`, they can be deleted.
 
-We periodically merge `dev` into `master` for small release updates. These releases will appear on the [GitHub releases page](https://github.com/dd-harp/MicroMoB/releases). 
+We periodically merge `dev` into `main` for small release updates. These releases will appear on the [GitHub releases page](https://github.com/dd-harp/MicroMoB/releases). 
 
 ## Continuous integration
 
@@ -64,8 +64,8 @@ only runs on pushes to `main`, which will occur when `dev` is merged with `main`
 periodically.
 
 Please note that sometimes hard to diagnose bugs can be due to out of date
-workflows. If you find a strange or unusual bug when pushing to a branch, this
-is one thing to consider checking.
+workflows. If you find a strange or unusual bug coming from a workflow, this
+is something to consider checking.
 
 ## Pull Requests
 

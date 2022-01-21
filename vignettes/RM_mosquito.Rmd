@@ -122,8 +122,9 @@ mtext(side = 4, line = 3, 'Survival Probability (blue)')
 
 ### Deterministic simulation
 
-Now we can set up the models. Let's first do a deterministic simulation. We use `setup_mosquito_RM`
-to setup the RM mosquito model for the mosquito component, and `setup_aqua_trace` to set up
+Now we can set up the models. Let's first do a deterministic simulation. 
+We use `make_MicroMoB()` to set up the base model object and `setup_mosquito_RM()`
+to setup the RM mosquito model for the mosquito component. `setup_aqua_trace()` sets up
 the aquatic (immature) component as a simple trace (forced) model.
 
 ```{r, fig.width=10, fig.height=8}

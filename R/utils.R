@@ -32,7 +32,6 @@ sample_stochastic_vector <- function(x, prob) {
     return(x)
   }
   samp <- vapply(X = 1:length(x), FUN = function(i) {
-    # rmultinom(n = 1, size = x[i], prob = prob[i, ])
     draw_multinom(n = x[i], prob = prob[i, ])
   }, FUN.VALUE = integer(ncol(prob)), USE.NAMES = FALSE)
   rowSums(samp)

@@ -13,6 +13,6 @@ compute_W(model)
 a vector of length \code{p} giving the biting availability of human hosts at each patch
 }
 \description{
-This is normally computed as \deqn{W = \Psi^{\intercal} \cdot w_{f} H}.
+This is normally computed as \deqn{W = \Psi^{\top} \cdot w_{f} H}.
 This method dispatches on the type of \code{model$human}.
 }

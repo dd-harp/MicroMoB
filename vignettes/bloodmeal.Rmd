@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 Blood feeding (when a adult female mosquito seeks out and feeds on a blood host) is a crucial
 _invariant_ in **Micro-MoB**, and models of mosquito-borne pathogen transmission (MBPT) generally.
-In **Micro-MoB**, blood feeding is an algorithm which uses information provided by the 
+Blood feeding is an algorithm which uses information provided by the 
 interface from each component to compute values which give the distribution of bites
 from mosquitoes onto hosts, and the rate that mosquitoes feed. The blood feeding
 function (`compute_bloodmeal()`) is in `R/bloodmeal.R`.
@@ -40,13 +40,13 @@ knitr::include_graphics('./bloodfeeding.png')
 
 The bloodmeal function updates several values within specific components. Those are:
 
-  * $\kappa$: a vector of length `p`, giving the net infectiousness of hosts to mosquitoes in each patch.
-  * $EIR$: a vector of length `n`, giving the entomological inoculation rate on hosts in each strata.
-  * $f$: a vector of length `p`, giving the blood feeding rate of mosquitoes in each patch.
-  * $q$: a vector of length `p`, giving the proportion of blood meals taken on human hosts by mosquitoes in each patch.
+  * $\kappa$: a vector of length `p`, giving the net infectiousness of hosts to mosquitoes in each patch (adult mosquito component).
+  * $EIR$: a vector of length `n`, giving the entomological inoculation rate on hosts in each strata (human component).
+  * $f$: a vector of length `p`, giving the blood feeding rate of mosquitoes in each patch (adult mosquito component).
+  * $q$: a vector of length `p`, giving the proportion of blood meals taken on human hosts by mosquitoes in each patch (adult mosquito component).
   
-After these values have been computed and updates, each component's update (step) function
-can appropriately update its own infection dynamics. These four values are the crucial
+After these values have been computed, each component's update (step) function
+can use them to update infection in the population. These four values are the crucial
 metrics that describe how mosquitoes feed upon hosts, and how pathogens are transferred
 between infectious hosts to susceptible mosquitoes, and vice versa. For this reason we call
 bloodfeeding an invariant, meaning any full MBPT model will need to simulate this process. 
@@ -99,7 +99,7 @@ causes infection in a human host. It is simply computed as:
 EIR_{n\times 1} = \beta \cdot fq\upsilon Z
 \end{equation}
 
-## Net infectiousness of human population ($\kappa$)
+## Net infectiousness of the human population ($\kappa$)
 
 The net infectiousness of humans is the probability that a mosquito would become infected
 after biting a random human host. It's directly proportional the force of infection in mosquitoes,
@@ -107,14 +107,13 @@ which is $\kappa fq$. After being calculated and passed to the mosquitoes, any p
 mosquito model can use it to update state over a time step.
 
 \begin{equation}
-\kappa_{p\times 1} = \upsilon \cdot (\beta^{\intercal} \cdot (xH)) + (1 - \upsilon) x_{\delta}
+\kappa_{p\times 1} = \upsilon \cdot (\beta^{\top} \cdot xH) + (1 - \upsilon) x_{\delta}
 \end{equation}
 
 ## Directed wiring diagram
 
 Another way to view the bloodmeal compuation is as a [directed wiring diagram (DWD)](https://www.algebraicjulia.org/blog/post/2021/01/machines/).
-In this DWD there are two "boxes". Rectangles are elements of the model with state, similar to machines in automata theory.
-Circles represent functions which do not have internal state, but may take some number of inputs and produce
+In this DWD there are two types of "boxes", rectangles and circles. Rectangles are elements of the model with state, similar to machines in automata theory. Circles represent functions which do not have internal state, but may take some number of inputs and produce
 and output. Circles which are inside of a rectangle represent functions that "belong" to that rectangle.
 
 Putting this back in terms of **Micro-MoB**, rectangles are components and circles are either _invariant_ functions
