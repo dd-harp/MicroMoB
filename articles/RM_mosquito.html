@@ -138,7 +138,7 @@ Z_{t+1} = (pZ_{t} \cdot \psi) + (a \kappa_{t-EIP} (M_{t-EIP} - Y_{t-EIP}) p^{EIP
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>Let’s do an example. We’ll need to set up both the aquatic and mosquito components. The example will run for three years. We will make <span class="math inline">\(\lambda\)</span> a vector giving emergence for each patch, for each day of the year, peaking in the middle of the year with 100 mosquitoes emerging per day, per patch.</p>
-<p>We also assume that daily survival <code>p</code> is sinsuoidal, with a period of 365 days.</p>
+<p>We also assume that daily survival <code>p</code> is sinusoidal, with a period of 365 days.</p>
 <p>We let the EIP be a constant 5 days. We will also set <span class="math inline">\(\kappa = 0.05\)</span> for each day.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tmax</span> <span class="op">&lt;-</span> <span class="fl">365</span> <span class="op">*</span> <span class="fl">3</span>
