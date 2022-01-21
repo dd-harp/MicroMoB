@@ -15,7 +15,6 @@ Description: Provides a framework based on S3 dispatch for constructing models
   over a discrete time step.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 RoxygenNote: 7.1.2
 Imports:
     extraDistr,
