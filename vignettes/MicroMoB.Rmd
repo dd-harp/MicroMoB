@@ -89,9 +89,9 @@ A simplified schematic of the relationships between components (i.e. the model's
 knitr::include_graphics('./DynamicsOverview.png')
 ```
 
-The aquatic (immature) mosquito compoment $L$ is in blue. Over a time step, it takes in eggs laid by
+The aquatic (immature) mosquito component $L$ is in blue. Over a time step, it takes in eggs laid by
 ovipositing adult mosquitoes $G$, and updates state, producing newly emerging adults $\Lambda$.
-These emergents are added to the adult mosquito component (green). In the adult component,
+These emerging mosquitoes are added to the adult mosquito component (green). In the adult component,
 $M$ represents the total mosquito density, $Y$ and $Z$ are infected and infectious mosquito
 populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts,
 and during blood feeding are infected with probability $\kappa$, computed by the bloodmeal (red).

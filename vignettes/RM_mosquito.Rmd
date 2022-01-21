@@ -83,7 +83,7 @@ The example will run for three years.
 We will make $\lambda$ a vector giving emergence for each patch, for each day of the year,
 peaking in the middle of the year with 100 mosquitoes emerging per day, per patch.
 
-We also assume that daily survival `p` is sinsuoidal, with a period of 365 days.
+We also assume that daily survival `p` is sinusoidal, with a period of 365 days.
 
 We let the EIP be a constant 5 days. We will also set $\kappa = 0.05$ for each day.
 

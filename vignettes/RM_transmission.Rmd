@@ -176,7 +176,7 @@ mod$mosquito$ZZ <- ZZ
 ```
 
 Now we can make matrices to store output and run the model. Note that we call `compute_bloodmeal()`
-_before_ any other updating functions are called. This is crucical for properly updating
+_before_ any other updating functions are called. This is crucial for properly updating
 models in **Micro-MoB**.
 
 ```{R}
