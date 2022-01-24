@@ -169,6 +169,10 @@ reference:
   - compute_O.trace
 
 - title: Utility and global methods
+
+- subtitle: Utilities for users
+  desc: >
+    These are utilities which are intended for typical users to access.
   contents:
   - MicroMoB
   - make_MicroMoB
@@ -179,3 +183,13 @@ reference:
   - strata_to_residency_counts
   - time_patch_varying_parameter
   - time_varying_parameter
+
+- subtitle: Internal utilities
+  desc: >
+    These are lower-level utilities. They are exported and documented because other
+    packages which extend Micro-MoB may want to use them.
+  contents:
+  - is_binary
+  - approx_equal
+  - divmod
+  - distribute
