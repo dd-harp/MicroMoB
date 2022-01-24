@@ -1,3 +1,7 @@
+# MicroMoB 0.0.7
+
+  * fix moved URL in README.md as per CRAN request.
+
 # MicroMoB 0.0.6
 
   * improve all vignettes and documentation for clarity.

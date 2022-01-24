@@ -104,4 +104,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# other R items
 inst/doc
+^CRAN-SUBMISSION$
