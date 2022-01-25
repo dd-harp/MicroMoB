@@ -1,5 +1,5 @@
 #' @title Setup humans with SIS pathogen model
-#' @description A simple SIS model
+#' @description A simple SIS (Susceptible-Infected-Susceptible) model
 #' @param stochastic should the model update deterministically or stochastically?
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param theta a time spent matrix

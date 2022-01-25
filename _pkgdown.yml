@@ -107,7 +107,7 @@ reference:
 
 - subtitle: SIS human model
   desc: >
-    This model implements a simple SIS model of humans with risk distributed
+    This model implements a simple SIS (Susceptible-Infected-Susceptible) model of humans with risk distributed
     according to time at risk matrices.
   contents:
   - setup_humans_SIS
@@ -134,6 +134,21 @@ reference:
   - compute_x.MOI
   - compute_H.MOI
   - compute_Psi.MOI
+
+- subtitle: SIR human model
+  desc: >
+    The SIR (Susceptible-Infected-Recovered) model is a simple model for many strongly
+    immunizing arboviruses.
+  contents:
+  - setup_humans_SIR
+  - step_humans.SIR
+  - step_humans.SIR_deterministic
+  - step_humans.SIR_stochastic
+  - compute_W.SIR
+  - compute_wf.SIR
+  - compute_x.SIR
+  - compute_H.SIR
+  - compute_Psi.SIR
 
 - title: Visitor component
 
@@ -169,6 +184,10 @@ reference:
   - compute_O.trace
 
 - title: Utility and global methods
+
+- subtitle: Utilities for users
+  desc: >
+    These are utilities which are intended for typical users to access.
   contents:
   - MicroMoB
   - make_MicroMoB
@@ -179,3 +198,13 @@ reference:
   - strata_to_residency_counts
   - time_patch_varying_parameter
   - time_varying_parameter
+
+- subtitle: Internal utilities
+  desc: >
+    These are lower-level utilities. They are exported and documented because other
+    packages which extend Micro-MoB may want to use them.
+  contents:
+  - is_binary
+  - approx_equal
+  - divmod
+  - distribute
