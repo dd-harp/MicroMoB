@@ -1,3 +1,7 @@
+# MicroMoB 0.0.8
+
+  * add SIR model of human infection.
+
 # MicroMoB 0.0.7
 
   * fix moved URL in README.md as per CRAN request.
