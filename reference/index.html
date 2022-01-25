@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -348,7 +348,7 @@
       </dl></div><div class="section level2">
       
       <h3 id="sis-human-model">SIS human model<a class="anchor" aria-label="anchor" href="#sis-human-model"></a></h3>
-      <p class="section-desc"></p><p>This model implements a simple SIS model of humans with risk distributed according to time at risk matrices.</p>
+      <p class="section-desc"></p><p>This model implements a simple SIS (Susceptible-Infected-Susceptible) model of humans with risk distributed according to time at risk matrices.</p>
 
       
     </div><div id="" class="section level2">
@@ -458,6 +458,62 @@
         </dt>
         <dd>Compute time at risk matrix for MOI model (\(\Psi\))</dd>
       </dl></div><div class="section level2">
+      
+      <h3 id="sir-human-model">SIR human model<a class="anchor" aria-label="anchor" href="#sir-human-model"></a></h3>
+      <p class="section-desc"></p><p>The SIR (Susceptible-Infected-Recovered) model is a simple model for many strongly immunizing arboviruses.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_humans_SIR.html">setup_humans_SIR()</a></code> 
+        </dt>
+        <dd>Setup humans with SIR infection model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.SIR.html">step_humans(<i>&lt;SIR&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update SIR human model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.SIR_deterministic.html">step_humans(<i>&lt;SIR_deterministic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update SIR human model (deterministic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.SIR_stochastic.html">step_humans(<i>&lt;SIR_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update SIR human model (stochastic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_W.SIR.html">compute_W(<i>&lt;SIR&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute available humans for SIR model (\(W\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_wf.SIR.html">compute_wf(<i>&lt;SIR&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human biting weights for SIR model (\(w_{f}\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_x.SIR.html">compute_x(<i>&lt;SIR&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute net infectiousness for SIR model (\(x\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_H.SIR.html">compute_H(<i>&lt;SIR&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human population strata sizes for SIR model (\(H\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_Psi.SIR.html">compute_Psi(<i>&lt;SIR&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute time at risk matrix for SIR model (\(\Psi\))</dd>
+      </dl></div><div class="section level2">
       <h2 id="visitor-component">Visitor component<a class="anchor" aria-label="anchor" href="#visitor-component"></a></h2>
       
       <p class="section-desc"></p><p>The visitor component is responsible for modeling human populations that are not part of the resident population of the geographic area being simulated. It is stored and dispatches on the object in <code>model$visitor</code>.</p>
@@ -547,6 +603,12 @@
       
 
       
+    </div><div class="section level2">
+      
+      <h3 id="utilities-for-users">Utilities for users<a class="anchor" aria-label="anchor" href="#utilities-for-users"></a></h3>
+      <p class="section-desc"></p><p>These are utilities which are intended for typical users to access.</p>
+
+      
     </div><div id="" class="section level2">
       
       
@@ -597,6 +659,37 @@
           <code><a href="time_varying_parameter.html">time_varying_parameter()</a></code> 
         </dt>
         <dd>Input parameters that may vary by time</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="internal-utilities">Internal utilities<a class="anchor" aria-label="anchor" href="#internal-utilities"></a></h3>
+      <p class="section-desc"></p><p>These are lower-level utilities. They are exported and documented because other packages which extend Micro-MoB may want to use them.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="is_binary.html">is_binary()</a></code> 
+        </dt>
+        <dd>Does a numeric object consist of only zeros and ones?</dd>
+      </dl><dl><dt>
+          
+          <code><a href="approx_equal.html">approx_equal()</a></code> 
+        </dt>
+        <dd>Check if two numeric values are approximately equal</dd>
+      </dl><dl><dt>
+          
+          <code><a href="divmod.html">divmod()</a></code> 
+        </dt>
+        <dd>Division of integers</dd>
+      </dl><dl><dt>
+          
+          <code><a href="distribute.html">distribute()</a></code> 
+        </dt>
+        <dd>Distribute items into bins as evenly as possible</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

@@ -49,7 +49,13 @@
     <loc>https://dd-harp.github.io/MicroMoB/reference/MicroMoB.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/approx_equal.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.MOI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.SIR.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.SIS.html</loc>
@@ -67,6 +73,9 @@
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.MOI.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.SIR.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.SIS.html</loc>
   </url>
   <url>
@@ -74,6 +83,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_W.MOI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_W.SIR.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_W.SIS.html</loc>
@@ -151,6 +163,9 @@
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.MOI.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.SIR.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.SIS.html</loc>
   </url>
   <url>
@@ -158,6 +173,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.MOI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.SIR.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.SIS.html</loc>
@@ -172,10 +190,19 @@
     <loc>https://dd-harp.github.io/MicroMoB/reference/compute_xd.trace.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/distribute.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/divmod.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/draw_multinom.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/is_binary.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/make_MicroMoB.html</loc>
@@ -197,6 +224,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_MOI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_SIR.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_SIS.html</loc>
@@ -233,6 +263,15 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI_stochastic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIR_deterministic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIR_stochastic.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS.html</loc>
