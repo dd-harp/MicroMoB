@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+no return value
+}
 \description{
 Update Ross-Macdonald mosquitoes (deterministic)
 }

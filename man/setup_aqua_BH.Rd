@@ -19,6 +19,9 @@ setup_aqua_BH(model, stochastic, molt, surv, K, L)
 
 \item{L}{initial number of immature mosquitoes}
 }
+\value{
+no return value
+}
 \description{
 A single compartment for all aquatic stages is modeled which
 suffers density dependent mortality like the Beverton-Holt model.

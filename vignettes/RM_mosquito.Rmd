@@ -87,6 +87,10 @@ We also assume that daily survival `p` is sinusoidal, with a period of 365 days.
 
 We let the EIP be a constant 5 days. We will also set $\kappa = 0.05$ for each day.
 
+```{r, echo=FALSE}
+pardefault <- par()$mar
+```
+
 ```{r, fig.width=8, fig.height=6}
 tmax <- 365 * 3
 p <- 3
@@ -119,6 +123,9 @@ axis(side = 4)
 mtext(side = 4, line = 3, 'Survival Probability (blue)')
 ```
 
+```{r, echo=FALSE}
+par(mar = pardefault)
+```
 
 ### Deterministic simulation
 

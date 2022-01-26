@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving the total number of eggs laid by adult mosquitoes in each patch
+}
 \description{
 This method returns a vector of length \code{p}.
 }

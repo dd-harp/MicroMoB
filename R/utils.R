@@ -145,6 +145,7 @@ strata_to_residency_counts <- function(H_counts) {
 #' either `tmax` or `365`; if given a vector it must be of length `p`, `tmax`, or `365`.
 #' @param p number of patches
 #' @param tmax number of time steps
+#' @return a matrix with `p` rows and `tmax` columns
 #' @export
 time_patch_varying_parameter <- function(param, p, tmax) {
   if (inherits(param, "matrix")) {
@@ -185,6 +186,7 @@ time_patch_varying_parameter <- function(param, p, tmax) {
 #' @title Input parameters that may vary by time
 #' @param param a vector of length `1`, `tmax`, or `365`.
 #' @param tmax number of time steps
+#' @return a vector with `tmax` elements
 #' @export
 time_varying_parameter <- function(param, tmax) {
   if (length(param) == 1L) {

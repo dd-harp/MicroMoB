@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+no return value
+}
 \description{
 This function dispatches on the second argument of \code{model$mosquito}
 for stochastic or deterministic behavior.

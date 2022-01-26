@@ -9,6 +9,9 @@ compute_bloodmeal(model)
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+no return value
+}
 \description{
 This should be run prior to any \code{step} functions to update
 components over a time step. It computes various quantities related to

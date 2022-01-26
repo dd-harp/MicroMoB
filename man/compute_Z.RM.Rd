@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving the density of infected and infectious mosquitoes in each patch
+}
 \description{
 This method returns \code{Z}.
 }

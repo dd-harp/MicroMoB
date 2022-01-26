@@ -40,6 +40,9 @@ multiplicity of infection (rows).}
 \item{sigma}{control non-independence of pathogen clearance; \code{sigma > 1} indicates competition
 (clearance is faster than independent) and \code{sigma < 1} indicates facilitation (clearance is slower than independent).}
 }
+\value{
+no return value
+}
 \description{
 This is a queueing model (M/M/inf) of superinfection in humans.
 }

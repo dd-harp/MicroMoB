@@ -13,6 +13,9 @@ setup_aqua_trace(model, lambda, stochastic)
 
 \item{stochastic}{should the model update deterministically or stochastically?}
 }
+\value{
+no return value
+}
 \description{
 Emergence is passed as a (possibly time varying) parameter which is
 decoupled from the adult mosquito dynamics.

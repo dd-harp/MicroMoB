@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{n} giving the net infectiousness of human hosts in each stratum
+}
 \description{
 Compute net infectiousness for SIS model (\eqn{x})
 }

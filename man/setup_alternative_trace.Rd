@@ -12,6 +12,9 @@ setup_alternative_trace(model, O = NULL)
 \item{O}{a time varying trace passed to \link{time_patch_varying_parameter}
 or \code{NULL} to set to \code{0} (no alternative blood hosts)}
 }
+\value{
+no return value
+}
 \description{
 This model complies with the visitors component interface. It adds
 a named list \code{model$alternative}.

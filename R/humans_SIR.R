@@ -9,6 +9,7 @@
 #' @param b transmission efficiency (mosquito to human)
 #' @param c transmission efficiency (human to mosquito)
 #' @param gamma rate of recovery
+#' @return no return value
 #' @export
 setup_humans_SIR <- function(model, stochastic, theta, wf = NULL, H, SIR, b = 0.55, c = 0.15, gamma = 1/5) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -73,6 +74,7 @@ setup_humans_SIR <- function(model, stochastic, theta, wf = NULL, H, SIR, b = 0.
 
 #' @title Update SIR human model
 #' @inheritParams step_humans
+#' @return no return value
 #' @export
 step_humans.SIR <- function(model) {
   NextMethod()
@@ -80,6 +82,7 @@ step_humans.SIR <- function(model) {
 
 #' @title Update SIR human model (deterministic)
 #' @inheritParams step_humans
+#' @return no return value
 #' @importFrom stats pexp
 #' @export
 step_humans.SIR_deterministic <- function(model) {
@@ -103,6 +106,7 @@ step_humans.SIR_deterministic <- function(model) {
 
 #' @title Update SIR human model (stochastic)
 #' @inheritParams step_humans
+#' @return no return value
 #' @importFrom stats pexp rbinom
 #' @export
 step_humans.SIR_stochastic <- function(model) {
@@ -126,6 +130,7 @@ step_humans.SIR_stochastic <- function(model) {
 
 #' @title Compute available humans for SIR model (\eqn{W})
 #' @inheritParams compute_W
+#' @return a vector of length `p` giving the biting availability of human hosts at each patch
 #' @export
 compute_W.SIR <- function(model) {
   Psi <- model$human$theta
@@ -135,6 +140,7 @@ compute_W.SIR <- function(model) {
 
 #' @title Compute human biting weights for SIR model (\eqn{w_{f}})
 #' @inheritParams compute_wf
+#' @return a vector of length `n` giving the biting weights of human hosts in each stratum
 #' @export
 compute_wf.SIR <- function(model) {
   model$human$wf
@@ -142,6 +148,7 @@ compute_wf.SIR <- function(model) {
 
 #' @title Compute net infectiousness for SIR model (\eqn{x})
 #' @inheritParams compute_x
+#' @return a vector of length `n` giving the net infectiousness of human hosts in each stratum
 #' @export
 compute_x.SIR <- function(model) {
   X <- model$human$SIR[, "I"] / model$human$H
@@ -150,6 +157,7 @@ compute_x.SIR <- function(model) {
 
 #' @title Compute human population strata sizes for SIR model (\eqn{H})
 #' @inheritParams compute_H
+#' @return a vector of length `n` giving the size of each human population stratum
 #' @export
 compute_H.SIR <- function(model) {
   model$human$H
@@ -158,6 +166,7 @@ compute_H.SIR <- function(model) {
 
 #' @title Compute time at risk matrix for SIR model (\eqn{\Psi})
 #' @inheritParams compute_Psi
+#' @return a matrix with `n` rows and `p` columns, the time at risk matrix
 #' @export
 compute_Psi.SIR <- function(model) {
   model$human$theta

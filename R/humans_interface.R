@@ -5,6 +5,7 @@
 #' @title Update human population
 #' @description This method dispatches on the type of `model$human`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return no return value
 #' @export
 step_humans <- function(model) {
   UseMethod("step_humans", model$human)

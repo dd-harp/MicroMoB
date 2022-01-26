@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{n} giving the biting weights of human hosts in each stratum
+}
 \description{
 Compute human biting weights for SIS model (\eqn{w_{f}})
 }

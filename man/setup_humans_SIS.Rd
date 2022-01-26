@@ -35,6 +35,9 @@ setup_humans_SIS(
 
 \item{r}{recovery rate (inverse of infectious duration)}
 }
+\value{
+no return value
+}
 \description{
 A simple SIS (Susceptible-Infected-Susceptible) model
 }

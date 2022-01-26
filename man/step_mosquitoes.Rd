@@ -9,6 +9,9 @@ step_mosquitoes(model)
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+no return value
+}
 \description{
 This method dispatches on the type of \code{model$mosquito}
 }

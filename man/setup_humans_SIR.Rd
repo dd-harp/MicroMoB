@@ -35,6 +35,9 @@ setup_humans_SIR(
 
 \item{gamma}{rate of recovery}
 }
+\value{
+no return value
+}
 \description{
 A simple SIR (Susceptible-Infected-Recovered) model
 }

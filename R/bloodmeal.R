@@ -5,6 +5,7 @@
 #' provided by each component. It updates the `EIR` vector for the human component, and `kappa`, the net infectiousness
 #' of hosts for the mosquito component.
 #' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return no return value
 #' @export
 compute_bloodmeal <- function(model) {
   stopifnot(inherits(model, "MicroMoB"))

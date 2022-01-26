@@ -5,6 +5,7 @@
 #' @title Update aquatic (immature) mosquito populations
 #' @description This method dispatches on the type of `model$aqua`
 #' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return no return value
 #' @export
 step_aqua <- function(model) {
   UseMethod("step_aqua", model$aqua)

@@ -14,6 +14,7 @@
 #' @param r recovery rate (inverse of infectious duration)
 #' @param sigma control non-independence of pathogen clearance; `sigma > 1` indicates competition
 #' (clearance is faster than independent) and `sigma < 1` indicates facilitation (clearance is slower than independent).
+#' @return no return value
 #' @export
 setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.55, c = 0.15, r = 1/200, sigma = 1) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -77,6 +78,7 @@ setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.
 
 #' @title Update MOI human model
 #' @inheritParams step_humans
+#' @return no return value
 #' @export
 step_humans.MOI <- function(model) {
   NextMethod()
@@ -84,6 +86,7 @@ step_humans.MOI <- function(model) {
 
 #' @title Update MOI human model (deterministic)
 #' @inheritParams step_humans
+#' @return no return value
 #' @importFrom stats pexp rbinom
 #' @importFrom utils tail
 #' @export
@@ -123,6 +126,7 @@ step_humans.MOI_deterministic <- function(model) {
 
 #' @title Update MOI human model (stochastic)
 #' @inheritParams step_humans
+#' @return no return value
 #' @importFrom stats pexp rbinom
 #' @importFrom abind abind
 #' @export
@@ -179,6 +183,7 @@ step_humans.MOI_stochastic <- function(model) {
 
 #' @title Compute available humans for MOI model (\eqn{W})
 #' @inheritParams compute_W
+#' @return a vector of length `p` giving the biting availability of human hosts at each patch
 #' @export
 compute_W.MOI <- function(model) {
   Psi <- model$human$theta
@@ -188,6 +193,7 @@ compute_W.MOI <- function(model) {
 
 #' @title Compute human biting weights for MOI model (\eqn{w_{f}})
 #' @inheritParams compute_wf
+#' @return a vector of length `n` giving the biting weights of human hosts in each stratum
 #' @export
 compute_wf.MOI <- function(model) {
   model$human$wf
@@ -199,6 +205,7 @@ compute_wf.MOI <- function(model) {
 #' \deqn{c \cdot (1 - \frac{X_{0}}{H})}
 #' where \eqn{X_{0}} is the number of uninfected persons (multiplicity of infection of zero).
 #' @inheritParams compute_x
+#' @return a vector of length `n` giving the net infectiousness of human hosts in each stratum
 #' @export
 compute_x.MOI <- function(model) {
   X <- (model$human$H - model$human$MOI[1, ]) / model$human$H
@@ -207,6 +214,7 @@ compute_x.MOI <- function(model) {
 
 #' @title Compute human population strata sizes for MOI model (\eqn{H})
 #' @inheritParams compute_H
+#' @return a vector of length `n` giving the size of each human population stratum
 #' @export
 compute_H.MOI <- function(model) {
   model$human$H
@@ -214,6 +222,7 @@ compute_H.MOI <- function(model) {
 
 #' @title Compute time at risk matrix for MOI model (\eqn{\Psi})
 #' @inheritParams compute_Psi
+#' @return a matrix with `n` rows and `p` columns, the time at risk matrix
 #' @export
 compute_Psi.MOI <- function(model) {
   model$human$theta

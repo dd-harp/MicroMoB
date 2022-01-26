@@ -15,6 +15,7 @@
 #' @param M total mosquito density per patch (vector of length `p`)
 #' @param Y density of incubating mosquitoes per patch (vector of length `p`)
 #' @param Z density of infectious mosquitoes per patch (vector of length `p`)
+#' @return no return value
 #' @export
 setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, nu = 25, M, Y, Z) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -110,6 +111,7 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 #' @description This function dispatches on the second argument of `model$mosquito`
 #' for stochastic or deterministic behavior.
 #' @inheritParams step_mosquitoes
+#' @return no return value
 #' @details see [MicroMoB::step_mosquitoes.RM_deterministic] and [MicroMoB::step_mosquitoes.RM_stochastic]
 #' @export
 step_mosquitoes.RM <- function(model) {
@@ -118,6 +120,7 @@ step_mosquitoes.RM <- function(model) {
 
 #' @title Update Ross-Macdonald mosquitoes (deterministic)
 #' @inheritParams step_mosquitoes
+#' @return no return value
 #' @export
 step_mosquitoes.RM_deterministic <- function(model) {
 
@@ -161,6 +164,7 @@ step_mosquitoes.RM_deterministic <- function(model) {
 
 #' @title Update Ross-Macdonald mosquitoes (stochastic)
 #' @inheritParams step_mosquitoes
+#' @return no return value
 #' @importFrom stats rbinom rmultinom
 #' @importFrom extraDistr rmvhyper
 #' @export
@@ -233,6 +237,7 @@ step_mosquitoes.RM_stochastic <- function(model) {
 #' @description This method simply returns the `f` parameter of the mosquito object,
 #' because the RM model assumes a constant blood feeding rate.
 #' @inheritParams compute_f
+#' @return a vector of length `p` giving the per-capita blood feeding rate of mosquitoes in each patch
 #' @export
 compute_f.RM <- function(model, B) {
   model$mosquito$f
@@ -243,6 +248,7 @@ compute_f.RM <- function(model, B) {
 #' because the RM model assumes a constant fraction of blood meals are taken on
 #' human hosts.
 #' @inheritParams compute_q
+#' @return a vector of length `p` giving the proportion of bites taken on human hosts in each patch
 #' @export
 compute_q.RM <- function(model, W, Wd, B) {
   model$mosquito$q
@@ -252,6 +258,7 @@ compute_q.RM <- function(model, W, Wd, B) {
 #' @title Compute density of infective mosquitoes for RM model (\eqn{Z})
 #' @description This method returns `Z`.
 #' @inheritParams compute_Z
+#' @return a vector of length `p` giving the density of infected and infectious mosquitoes in each patch
 #' @export
 compute_Z.RM <- function(model) {
   model$mosquito$Z
@@ -263,6 +270,7 @@ compute_Z.RM <- function(model) {
 #' @title Compute number of eggs laid from oviposition for each patch for RM model
 #' @description This method returns a vector of length `p`.
 #' @inheritParams compute_oviposit
+#' @return a vector of length `p` giving the total number of eggs laid by adult mosquitoes in each patch
 #' @details see [MicroMoB::compute_oviposit.RM_deterministic] and [MicroMoB::compute_oviposit.RM_stochastic]
 #' @export
 compute_oviposit.RM <- function(model) {
@@ -272,6 +280,7 @@ compute_oviposit.RM <- function(model) {
 
 #' @title Compute number of eggs laid from oviposition for each patch for deterministic RM model
 #' @inheritParams compute_oviposit
+#' @return a vector of length `p` giving the total number of eggs laid by adult mosquitoes in each patch
 #' @export
 compute_oviposit.RM_deterministic <- function(model) {
   model$mosquito$nu * model$mosquito$f * model$mosquito$M
@@ -280,6 +289,7 @@ compute_oviposit.RM_deterministic <- function(model) {
 
 #' @title Compute number of eggs laid from oviposition for each patch for stochastic RM model
 #' @inheritParams compute_oviposit
+#' @return a vector of length `p` giving the total number of eggs laid by adult mosquitoes in each patch
 #' @importFrom stats rpois
 #' @export
 compute_oviposit.RM_stochastic <- function(model) {

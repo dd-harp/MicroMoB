@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving net infectiousness of visitors at each patch
+}
 \description{
 Compute net infectiousness of visitors for trace model (\eqn{x_{\delta}})
 }

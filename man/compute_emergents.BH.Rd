@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving the number of newly emerging adult in each patch
+}
 \description{
 This function dispatches on the second class attribute of \code{model$aqua}
 for stochastic or deterministic behavior.

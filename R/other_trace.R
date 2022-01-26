@@ -4,6 +4,7 @@
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param O a time varying trace passed to [MicroMoB::time_patch_varying_parameter]
 #' or `NULL` to set to `0` (no alternative blood hosts)
+#' @return no return value
 #' @export
 setup_alternative_trace <- function(model, O = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -25,6 +26,7 @@ setup_alternative_trace <- function(model, O = NULL) {
 
 #' @title Compute available alternative blood hosts for trace model (\eqn{O})
 #' @inheritParams compute_O
+#' @return a vector of length `p` giving biting availability of other blood hosts at each patch
 #' @export
 compute_O.trace <- function(model) {
   model$alternative$O[, model$global$tnow]

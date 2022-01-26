@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving the biting availability of human hosts at each patch
+}
 \description{
 Compute available humans for MOI model (\eqn{W})
 }
