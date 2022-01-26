@@ -41,6 +41,25 @@ Each component is a named element in the model object (an environment). The inte
 defines a set of generic functions which dispatch on the specific class of the object
 taking the place of that component.
 
+### Dynamics
+
+A simplified schematic of the relationships between components (i.e. the model's _dynamics_) in
+**Micro-MoB** is shown below.
+
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics('./DynamicsOverview.png')
+```
+
+The aquatic (immature) mosquito component $L$ is in blue. Over a time step, it takes in eggs laid by
+ovipositing adult mosquitoes $G$, and updates state, producing newly emerging adults $\Lambda$.
+These emerging mosquitoes are added to the adult mosquito component (green). In the adult component,
+$M$ represents the total mosquito density, $Y$ and $Z$ are infected and infectious mosquito
+populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts,
+and during blood feeding are infected with probability $\kappa$, computed by the bloodmeal (red).
+Infectious mosquitoes take bites on human hosts, resulting in a human per-capita rate of
+infection $EIR$, computed by the bloodmeal, which changes prevalence of disease, $X$. The
+overall human component (yellow) has dynamics acting on $H$.
+
 ## Components
 
 For each component, the interface is defined in a file, for example, `R/humans_interface.R`
@@ -80,24 +99,21 @@ The other (alternative) blood host component is responsible for other blood host
 mosquitoes (livestock, dogs, etc). The interface is defined in `R/other_interface.R`,
 and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component).
 
-### Dynamics
+## Dynamics between components
 
-A simplified schematic of the relationships between components (i.e. the model's _dynamics_) in
-**Micro-MoB** is shown below.
+Now that we've seen the components and know where to find the interfaces, we can present
+the dynamics again, but annotated with more information telling us exactly what methods
+are used to pass information between components. For example, we see a green arrow sending eggs, $G$, 
+from the adult mosquitoes to the aquatic mosquitoes component. Within the aquatic component (blue oval)
+we see a green method, `compute_oviposit`, meaning that the aquatic component's state update
+method can use this interface method to get the number of eggs laid each time step.
+
+Please note we do not include the visitor or other blood host components in this diagram,
+as they are supplied as external forcing (or constants) to the bloodmeal and do not carry state.
 
 ```{r echo=FALSE, out.width='100%'}
-knitr::include_graphics('./DynamicsOverview.png')
+knitr::include_graphics('./DynamicsDetailed.png')
 ```
-
-The aquatic (immature) mosquito component $L$ is in blue. Over a time step, it takes in eggs laid by
-ovipositing adult mosquitoes $G$, and updates state, producing newly emerging adults $\Lambda$.
-These emerging mosquitoes are added to the adult mosquito component (green). In the adult component,
-$M$ represents the total mosquito density, $Y$ and $Z$ are infected and infectious mosquito
-populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts,
-and during blood feeding are infected with probability $\kappa$, computed by the bloodmeal (red).
-Infectious mosquitoes take bites on human hosts, resulting in a human per-capita rate of
-infection $EIR$, computed by the bloodmeal, which changes prevalence of disease, $X$. The
-overall human component (yellow) has dynamics acting on $H$.
 
 ## Writing new models
 
