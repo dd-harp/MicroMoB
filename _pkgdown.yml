@@ -6,6 +6,18 @@ template:
 
 url: https://dd-harp.github.io/MicroMoB/
 
+articles:
+- title: Vignettes
+  navbar: ~
+  contents:
+  - MicroMoB
+  - bloodmeal
+  - RM_mosquito
+  - MOI_human
+  - BH_aqua
+  - RM_transmission
+  - Contributing
+
 reference:
 - title: Bloodmeal
   desc: >

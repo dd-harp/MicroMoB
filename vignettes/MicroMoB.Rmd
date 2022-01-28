@@ -25,12 +25,14 @@ We define terms used to talk about **Micro-MoB** below:
   * **components**: these are the irreducible "parts" of MBPT models, and must be implemented in any model built
   in **Micro-MoB**, even if only as a trivial model (e.g. as a constant value or external forcing term). The components
   are adult mosquitoes, immature (aquatic) mosquitoes, resident (modeled) humans, non-resident visitors, and other blood hosts
-  (e.g. livestock).
+  (e.g. livestock). Components can themselves have arbitrarily complex internal structure, but models in this framework insist
+  each of these components be given a definition (even if it is trivial, for example the constant `0`).
   * **interface**: each component defines an interface, which other components and invariants (functions) can use to query
   information about it. The interface defines what a component is expected to compute and expose to the rest of the system.
   * **model**: a specific instantiation of a component, which necessarily fulfills that component's interface. The SIS (Susceptible-Infectious-Susceptible) model for human dynamics is a model for the human component, for example.
-  * **invariant**: any computation which is generic across any specific set of models and which uses the generic interface
-  to query state and compute values which may be returned to components. The bloodmeal algorithm is an example, and the code
+  * **composition pattern**: the specific set of components and how they interact in **Micro-MoB**.
+  * **invariant component**: any computation which is generic across any specific set of models and which uses the generic interface
+  to query state and compute values. The bloodmeal algorithm is an example, and the code
   is a contract with the modeller meaning any model fulfilling the component interface it fills will be able to interact
   with the rest of the framework, and the existing set of models. It is described in `vignette("bloodmeal")`.
 

@@ -26,8 +26,7 @@ function (`compute_bloodmeal()`) is in `R/bloodmeal.R`.
 ## Schematic
 
 Below is a schematic describing visually the quantities that are generated in the blood meal algorithm.
-Different colors refer to different components: green indicates human characteristics independent of infection status,
-purple indicates human characteristics dependent upon infection status, blue indicates
+Different colors refer to different components: green indicates values from the human component, blue indicates
 values from the adult mosquito component, and yellow indicates values from the other blood hosts and visitor
 components.
 
@@ -49,7 +48,7 @@ After these values have been computed, each component's update (step) function
 can use them to update infection in the population. These four values are the crucial
 metrics that describe how mosquitoes feed upon hosts, and how pathogens are transferred
 between infectious hosts to susceptible mosquitoes, and vice versa. For this reason we call
-bloodfeeding an invariant, meaning any full MBPT model will need to simulate this process. 
+bloodfeeding an invariant component, meaning any full MBPT model will need to simulate this process. 
 
 ## Human component
 
