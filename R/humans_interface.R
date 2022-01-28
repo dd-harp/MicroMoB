@@ -5,20 +5,10 @@
 #' @title Update human population
 #' @description This method dispatches on the type of `model$human`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return no return value
 #' @export
 step_humans <- function(model) {
   UseMethod("step_humans", model$human)
-}
-
-
-#' @title Compute available humans (\eqn{W})
-#' @description This is normally computed as \deqn{W = \Psi^{\top} \cdot w_{f} H}.
-#' This method dispatches on the type of `model$human`.
-#' @param model an object from [MicroMoB::make_MicroMoB]
-#' @return a vector of length `p` giving the biting availability of human hosts at each patch
-#' @export
-compute_W <- function(model) {
-  UseMethod("compute_W", model$human)
 }
 
 

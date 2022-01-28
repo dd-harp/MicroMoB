@@ -1,3 +1,9 @@
+# MicroMoB 0.0.9
+
+  * add information on return value to all function documentation
+  * reset `par` options in vignettes
+  * improve diagrams in vignettes
+
 # MicroMoB 0.0.8
 
   * add SIR model of human infection.

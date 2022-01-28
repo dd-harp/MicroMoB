@@ -9,6 +9,7 @@
 #' @param b transmission efficiency (mosquito to human)
 #' @param c transmission efficiency (human to mosquito)
 #' @param r recovery rate (inverse of infectious duration)
+#' @return no return value
 #' @export
 setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55, c = 0.15, r = 1/200) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -64,6 +65,7 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
 
 #' @title Update SIS human model
 #' @inheritParams step_humans
+#' @return no return value
 #' @export
 step_humans.SIS <- function(model) {
   NextMethod()
@@ -71,6 +73,7 @@ step_humans.SIS <- function(model) {
 
 #' @title Update SIS human model (deterministic)
 #' @inheritParams step_humans
+#' @return no return value
 #' @importFrom stats pexp
 #' @export
 step_humans.SIS_deterministic <- function(model) {
@@ -86,6 +89,7 @@ step_humans.SIS_deterministic <- function(model) {
 
 #' @title Update SIS human model (stochastic)
 #' @inheritParams step_humans
+#' @return no return value
 #' @importFrom stats pexp rbinom
 #' @export
 step_humans.SIS_stochastic <- function(model) {
@@ -101,18 +105,9 @@ step_humans.SIS_stochastic <- function(model) {
 }
 
 
-#' @title Compute available humans for SIS model (\eqn{W})
-#' @inheritParams compute_W
-#' @export
-compute_W.SIS <- function(model) {
-  Psi <- model$human$theta
-  W <- t(Psi) %*% (model$human$wf * model$human$H)
-  return(as.vector(W))
-}
-
-
 #' @title Compute human biting weights for SIS model (\eqn{w_{f}})
 #' @inheritParams compute_wf
+#' @return a vector of length `n` giving the biting weights of human hosts in each stratum
 #' @export
 compute_wf.SIS <- function(model) {
   model$human$wf
@@ -121,6 +116,7 @@ compute_wf.SIS <- function(model) {
 
 #' @title Compute net infectiousness for SIS model (\eqn{x})
 #' @inheritParams compute_x
+#' @return a vector of length `n` giving the net infectiousness of human hosts in each stratum
 #' @export
 compute_x.SIS <- function(model) {
   x <- (model$human$X / model$human$H) * model$human$c
@@ -130,6 +126,7 @@ compute_x.SIS <- function(model) {
 
 #' @title Compute human population strata sizes for SIS model (\eqn{H})
 #' @inheritParams compute_H
+#' @return a vector of length `n` giving the size of each human population stratum
 #' @export
 compute_H.SIS <- function(model) {
   model$human$H
@@ -138,6 +135,7 @@ compute_H.SIS <- function(model) {
 
 #' @title Compute time at risk matrix for SIS model (\eqn{\Psi})
 #' @inheritParams compute_Psi
+#' @return a matrix with `n` rows and `p` columns, the time at risk matrix
 #' @export
 compute_Psi.SIS <- function(model) {
   model$human$theta

@@ -15,6 +15,9 @@ or \code{NULL} to set to \code{0} (no visitors)}
 \item{xd}{a time varying trace of visitor net infectiousness passed to \link{time_patch_varying_parameter}
 or \code{NULL} to set to \code{0} (no visitors)}
 }
+\value{
+no return value
+}
 \description{
 This model complies with the visitors component interface. It adds
 a named list \code{model$visitor}.

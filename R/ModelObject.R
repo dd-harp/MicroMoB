@@ -3,6 +3,7 @@
 #' a single list, `model$global` storing global state.
 #' @param tmax number of days to simulate
 #' @param p number of places
+#' @return an object of class [environment]
 #' @export
 make_MicroMoB <- function(tmax, p) {
   stopifnot(is.finite(tmax))

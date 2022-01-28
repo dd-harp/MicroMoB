@@ -11,6 +11,9 @@ time_varying_parameter(param, tmax)
 
 \item{tmax}{number of time steps}
 }
+\value{
+a vector with \code{tmax} elements
+}
 \description{
 Input parameters that may vary by time
 }

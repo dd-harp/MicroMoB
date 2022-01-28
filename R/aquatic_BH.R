@@ -11,6 +11,7 @@
 #' @param surv daily survival probability (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
 #' @param K carrying capacity (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
 #' @param L initial number of immature mosquitoes
+#' @return no return value
 #' @export
 setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -61,6 +62,7 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 #' @description This function dispatches on the second class attribute of `model$aqua`
 #' for stochastic or deterministic behavior.
 #' @inheritParams step_aqua
+#' @return no return value
 #' @export
 step_aqua.BH <- function(model) {
   NextMethod()
@@ -69,6 +71,7 @@ step_aqua.BH <- function(model) {
 #' @title Update aquatic (immature) mosquito populations for deterministic Beverton-Holt dynamics
 #' @description Run a deterministic state update.
 #' @inheritParams step_aqua
+#' @return no return value
 #' @export
 step_aqua.BH_deterministic <- function(model) {
 
@@ -89,6 +92,7 @@ step_aqua.BH_deterministic <- function(model) {
 #' @title Update aquatic (immature) mosquito populations for stochastic Beverton-Holt dynamics
 #' @description Run a stochastic state update.
 #' @inheritParams step_aqua
+#' @return no return value
 #' @importFrom stats rbinom
 #' @export
 step_aqua.BH_stochastic <- function(model) {
@@ -119,6 +123,7 @@ step_aqua.BH_stochastic <- function(model) {
 #' @description This function dispatches on the second class attribute of `model$aqua`
 #' for stochastic or deterministic behavior.
 #' @inheritParams compute_emergents
+#' @return a vector of length `p` giving the number of newly emerging adult in each patch
 #' @export
 compute_emergents.BH <- function(model) {
   model$aqua$A

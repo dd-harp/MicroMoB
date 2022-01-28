@@ -41,6 +41,9 @@ setup_mosquito_RM(
 
 \item{Z}{density of infectious mosquitoes per patch (vector of length \code{p})}
 }
+\value{
+no return value
+}
 \description{
 This is a generalized RM model which allows for time varying EIP and
 survival probability. It complies with the mosquito component interface, and may

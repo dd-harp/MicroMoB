@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a matrix with \code{n} rows and \code{p} columns, the time at risk matrix
+}
 \description{
 Compute time at risk matrix for SIS model (\eqn{\Psi})
 }

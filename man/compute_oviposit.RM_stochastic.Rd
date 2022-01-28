@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving the total number of eggs laid by adult mosquitoes in each patch
+}
 \description{
 Compute number of eggs laid from oviposition for each patch for stochastic RM model
 }

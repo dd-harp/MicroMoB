@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving biting availability of other blood hosts at each patch
+}
 \description{
 Compute available alternative blood hosts for trace model (\eqn{O})
 }

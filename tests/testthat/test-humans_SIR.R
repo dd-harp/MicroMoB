@@ -22,7 +22,6 @@ test_that("human object setup is working", {
   )
 
   setup_humans_SIR(model = mod, stochastic = FALSE, theta = theta, wf = wf, H = H, SIR = SIR, b = b, c = c, gamma = gamma)
-  expect_equal(compute_W(mod), as.vector(t(theta) %*% (wf * H)))
   expect_equal(compute_wf(mod), rep(1, p))
   expect_equal(compute_x(mod), (SIR[, 2] / H) * c)
   expect_equal(compute_H(mod), H)

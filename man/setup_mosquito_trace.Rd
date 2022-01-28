@@ -11,6 +11,9 @@ setup_mosquito_trace(model, oviposit)
 
 \item{oviposit}{a vector of length \code{p} used as a return value for \link{compute_oviposit}}
 }
+\value{
+no return value
+}
 \description{
 This is a null model of mosquito dynamics that is only for testing/verifying aquatic models.
 It implements a single method \link{compute_oviposit.trace} and all other methods throw an error.

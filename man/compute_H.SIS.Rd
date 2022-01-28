@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{n} giving the size of each human population stratum
+}
 \description{
 Compute human population strata sizes for SIS model (\eqn{H})
 }

@@ -11,6 +11,9 @@
 
 \item{B}{a vector of length \code{p} giving total blood host availability by patch}
 }
+\value{
+no return value
+}
 \description{
 Compute null mosquito feeding rate (\eqn{f})
 }

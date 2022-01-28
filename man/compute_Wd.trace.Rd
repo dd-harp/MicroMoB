@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{p} giving biting availability of visitors at each patch
+}
 \description{
 Compute available visitors for trace model (\eqn{W_{\delta}})
 }

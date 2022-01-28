@@ -6,6 +6,7 @@
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param lambda daily emergence of mosquitoes, may be time and patch varying, see [MicroMoB::time_patch_varying_parameter]
 #' @param stochastic should the model update deterministically or stochastically?
+#' @return no return value
 #' @export
 setup_aqua_trace <- function(model, lambda, stochastic) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -37,6 +38,7 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
 #' @description This function does nothing as trace models are do not have
 #' endogenous dynamics.
 #' @inheritParams step_aqua
+#' @return no return value
 #' @export
 step_aqua.trace <- function(model) {invisible()}
 
@@ -48,6 +50,7 @@ step_aqua.trace <- function(model) {invisible()}
 #' for stochastic or deterministic behavior.
 #' @inheritParams compute_emergents
 #' @details see [MicroMoB::compute_emergents.trace_deterministic] and [MicroMoB::compute_emergents.trace_stochastic]
+#' @return no return value
 #' @export
 compute_emergents.trace <- function(model) {
   NextMethod()
@@ -56,6 +59,7 @@ compute_emergents.trace <- function(model) {
 #' @title Compute number of newly emerging adults from forcing term (deterministic)
 #' @description Return the column of the lambda matrix for this day.
 #' @inheritParams compute_emergents
+#' @return a vector of length `p` giving the number of newly emerging adult in each patch
 #' @export
 compute_emergents.trace_deterministic <- function(model) {
   return(model$aqua$lambda[, model$global$tnow])
@@ -65,17 +69,9 @@ compute_emergents.trace_deterministic <- function(model) {
 #' @description Draw a Poisson distributed number of emerging adults with mean parameter
 #' from the column of the trace matrix for this day.
 #' @inheritParams compute_emergents
+#' @return a vector of length `p` giving the number of newly emerging adult in each patch
 #' @importFrom stats rpois
 #' @export
 compute_emergents.trace_stochastic <- function(model) {
   return(rpois(n = model$global$p, lambda = model$aqua$lambda[, model$global$tnow]))
 }
-
-
-# compute clutch (eggs/patch/day)
-
-#' @title Compute number of eggs laid from oviposition for each patch
-#' @description This is to be used with modeling emergence as a trace.
-#' @inheritParams compute_oviposit
-#' @export
-compute_oviposit.trace <- function(model) {invisible()}

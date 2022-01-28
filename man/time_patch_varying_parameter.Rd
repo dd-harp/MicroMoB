@@ -14,6 +14,9 @@ either \code{tmax} or \code{365}; if given a vector it must be of length \code{p
 
 \item{tmax}{number of time steps}
 }
+\value{
+a matrix with \code{p} rows and \code{tmax} columns
+}
 \description{
 Input parameters that may vary by time and patch
 }

@@ -9,6 +9,9 @@
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
 }
+\value{
+a vector of length \code{n} giving the net infectiousness of human hosts in each stratum
+}
 \description{
 In the simple MOI (queueing) model here (M/M/inf), net infectiousness
 is considered not to vary with increasing MOI. It is calculated as

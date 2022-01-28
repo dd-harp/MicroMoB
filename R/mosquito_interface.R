@@ -3,6 +3,7 @@
 #' @title Update mosquito population
 #' @description This method dispatches on the type of `model$mosquito`
 #' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return no return value
 #' @export
 step_mosquitoes <- function(model) {
   UseMethod("step_mosquitoes", model$mosquito)

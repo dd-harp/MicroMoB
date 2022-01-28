@@ -6,6 +6,7 @@
 #' or `NULL` to set to `0` (no visitors)
 #' @param xd a time varying trace of visitor net infectiousness passed to [MicroMoB::time_patch_varying_parameter]
 #' or `NULL` to set to `0` (no visitors)
+#' @return no return value
 #' @export
 setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
@@ -34,6 +35,7 @@ setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
 
 #' @title Compute available visitors for trace model (\eqn{W_{\delta}})
 #' @inheritParams compute_Wd
+#' @return a vector of length `p` giving biting availability of visitors at each patch
 #' @export
 compute_Wd.trace <- function(model) {
   model$visitor$Wd[, model$global$tnow]
@@ -41,6 +43,7 @@ compute_Wd.trace <- function(model) {
 
 #' @title Compute net infectiousness of visitors for trace model (\eqn{x_{\delta}})
 #' @inheritParams compute_xd
+#' @return a vector of length `p` giving net infectiousness of visitors at each patch
 #' @export
 compute_xd.trace <- function(model) {
   model$visitor$xd[, model$global$tnow]

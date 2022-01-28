@@ -15,6 +15,9 @@
 
 \item{B}{a vector of length \code{p} giving total blood host availability by patch (\eqn{B})}
 }
+\value{
+no return value
+}
 \description{
 Compute null human blood feeding fraction (\eqn{q})
 }

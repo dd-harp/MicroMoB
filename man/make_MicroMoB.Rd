@@ -11,6 +11,9 @@ make_MicroMoB(tmax, p)
 
 \item{p}{number of places}
 }
+\value{
+an object of class \link{environment}
+}
 \description{
 The model object is a hashed \link{environment}. By default it contains
 a single list, \code{model$global} storing global state.

@@ -11,6 +11,9 @@
 
 \item{B}{a vector of length \code{p} giving total blood host availability by patch}
 }
+\value{
+a vector of length \code{p} giving the per-capita blood feeding rate of mosquitoes in each patch
+}
 \description{
 This method simply returns the \code{f} parameter of the mosquito object,
 because the RM model assumes a constant blood feeding rate.
