@@ -181,16 +181,6 @@ step_humans.MOI_stochastic <- function(model) {
 
 # biting computation
 
-#' @title Compute available humans for MOI model (\eqn{W})
-#' @inheritParams compute_W
-#' @return a vector of length `p` giving the biting availability of human hosts at each patch
-#' @export
-compute_W.MOI <- function(model) {
-  Psi <- model$human$theta
-  W <- t(Psi) %*% (model$human$wf * model$human$H)
-  return(as.vector(W))
-}
-
 #' @title Compute human biting weights for MOI model (\eqn{w_{f}})
 #' @inheritParams compute_wf
 #' @return a vector of length `n` giving the biting weights of human hosts in each stratum

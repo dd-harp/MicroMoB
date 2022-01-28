@@ -7,7 +7,6 @@ template:
 url: https://dd-harp.github.io/MicroMoB/
 
 reference:
-
 - title: Bloodmeal
   desc: >
     The bloodmeal function computes bites taken by mosquitoes on hosts relevant
@@ -99,7 +98,6 @@ reference:
     the object in `model$human`.
   contents:
   - step_humans
-  - compute_W
   - compute_wf
   - compute_x
   - compute_H
@@ -114,7 +112,6 @@ reference:
   - step_humans.SIS
   - step_humans.SIS_deterministic
   - step_humans.SIS_stochastic
-  - compute_W.SIS
   - compute_wf.SIS
   - compute_x.SIS
   - compute_H.SIS
@@ -129,7 +126,6 @@ reference:
   - step_humans.MOI
   - step_humans.MOI_deterministic
   - step_humans.MOI_stochastic
-  - compute_W.MOI
   - compute_wf.MOI
   - compute_x.MOI
   - compute_H.MOI
@@ -144,7 +140,6 @@ reference:
   - step_humans.SIR
   - step_humans.SIR_deterministic
   - step_humans.SIR_stochastic
-  - compute_W.SIR
   - compute_wf.SIR
   - compute_x.SIR
   - compute_H.SIR

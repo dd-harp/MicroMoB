@@ -14,11 +14,11 @@ compute_bloodmeal <- function(model) {
   p <- model$global$p
 
   # human quantities
-  W <- compute_W(model)
   H <- compute_H(model)
   x <- compute_x(model)
   wf <- compute_wf(model)
   Psi <- compute_Psi(model)
+  W <- as.vector(t(Psi) %*% (wf * H))
 
   # biting distribution matrix (n x p)
   beta <- diag(wf, nrow = n, ncol = n) %*% Psi %*% diag(1/W, nrow = p, ncol = p)

@@ -56,11 +56,12 @@ bloodfeeding an invariant, meaning any full MBPT model will need to simulate thi
 Using the generic interface from the human component, the following values are calculated
 which are used to compute biting and transmission.
 
-  * `W`: from `compute_W`, gives the weighted person time at risk spent at each patch
   * `H`: from `compute_H`, gives the total population in each strata
   * `x`: from `compute_x`, gives the net infectiousness from humans in each strata
   * `wf`: from `compute_wf`, gives the biting weights of each strata
   * `Psi`: from `compute_Psi`, gives the time at risk matrix
+  * `W`: gives the weighted person time at risk spent at each patch; please
+  note `W` is calculated from the above values (rather than from a dispatching method)
   
 ## Mosquito component
 

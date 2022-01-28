@@ -105,17 +105,6 @@ step_humans.SIS_stochastic <- function(model) {
 }
 
 
-#' @title Compute available humans for SIS model (\eqn{W})
-#' @inheritParams compute_W
-#' @return a vector of length `p` giving the biting availability of human hosts at each patch
-#' @export
-compute_W.SIS <- function(model) {
-  Psi <- model$human$theta
-  W <- t(Psi) %*% (model$human$wf * model$human$H)
-  return(as.vector(W))
-}
-
-
 #' @title Compute human biting weights for SIS model (\eqn{w_{f}})
 #' @inheritParams compute_wf
 #' @return a vector of length `n` giving the biting weights of human hosts in each stratum
