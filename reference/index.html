@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,12 +27,12 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
-    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
-    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
-    <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
-    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
     <a class="dropdown-item" href="../articles/bloodmeal.html">Blood feeding</a>
+    <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
+    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
+    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
+    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
   </div>
 </li>
 <li class="nav-item">
@@ -208,9 +208,9 @@
         <dd>Compute null density of infective mosquitoes (\(Z\))</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_oviposit.trace.html">compute_oviposit(<i>&lt;trace&gt;</i>)</a></code> <code><a href="compute_oviposit.trace.html">compute_oviposit(<i>&lt;trace&gt;</i>)</a></code> 
+          <code><a href="compute_oviposit.trace.html">compute_oviposit(<i>&lt;trace&gt;</i>)</a></code> 
         </dt>
-        <dd>Compute number of eggs laid from oviposition for each patch</dd>
+        <dd>Compute number of eggs laid from oviposition for each patch for null model</dd>
       </dl></div><div class="section level2">
       <h2 id="aquatic-immature-mosquito-component">Aquatic (immature) mosquito component<a class="anchor" aria-label="anchor" href="#aquatic-immature-mosquito-component"></a></h2>
       
@@ -322,11 +322,6 @@
         <dd>Update human population</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_W.html">compute_W()</a></code> 
-        </dt>
-        <dd>Compute available humans (\(W\))</dd>
-      </dl><dl><dt>
-          
           <code><a href="compute_wf.html">compute_wf()</a></code> 
         </dt>
         <dd>Compute human biting weights (\(w_{f}\))</dd>
@@ -376,11 +371,6 @@
           <code><a href="step_humans.SIS_stochastic.html">step_humans(<i>&lt;SIS_stochastic&gt;</i>)</a></code> 
         </dt>
         <dd>Update SIS human model (stochastic)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_W.SIS.html">compute_W(<i>&lt;SIS&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute available humans for SIS model (\(W\))</dd>
       </dl><dl><dt>
           
           <code><a href="compute_wf.SIS.html">compute_wf(<i>&lt;SIS&gt;</i>)</a></code> 
@@ -434,11 +424,6 @@
         <dd>Update MOI human model (stochastic)</dd>
       </dl><dl><dt>
           
-          <code><a href="compute_W.MOI.html">compute_W(<i>&lt;MOI&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute available humans for MOI model (\(W\))</dd>
-      </dl><dl><dt>
-          
           <code><a href="compute_wf.MOI.html">compute_wf(<i>&lt;MOI&gt;</i>)</a></code> 
         </dt>
         <dd>Compute human biting weights for MOI model (\(w_{f}\))</dd>
@@ -488,11 +473,6 @@
           <code><a href="step_humans.SIR_stochastic.html">step_humans(<i>&lt;SIR_stochastic&gt;</i>)</a></code> 
         </dt>
         <dd>Update SIR human model (stochastic)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="compute_W.SIR.html">compute_W(<i>&lt;SIR&gt;</i>)</a></code> 
-        </dt>
-        <dd>Compute available humans for SIR model (\(W\))</dd>
       </dl><dl><dt>
           
           <code><a href="compute_wf.SIR.html">compute_wf(<i>&lt;SIR&gt;</i>)</a></code> 

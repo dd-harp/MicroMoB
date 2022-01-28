@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,12 +44,12 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
-    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
-    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
-    <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
-    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
     <a class="dropdown-item" href="../articles/bloodmeal.html">Blood feeding</a>
+    <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
+    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
+    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
+    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
   </div>
 </li>
 <li class="nav-item">
@@ -95,18 +95,27 @@
 <p>We define terms used to talk about <strong>Micro-MoB</strong> below:</p>
 <ul>
 <li>
-<strong>components</strong>: these are the irreducible “parts” of MBPT models, and must be implemented in any model built in <strong>Micro-MoB</strong>, even if only as a trivial model (e.g. as a constant value or external forcing term). The components are adult mosquitoes, immature (aquatic) mosquitoes, resident (modeled) humans, non-resident visitors, and other blood hosts (e.g. livestock).</li>
+<strong>components</strong>: these are the irreducible “parts” of MBPT models, and must be implemented in any model built in <strong>Micro-MoB</strong>, even if only as a trivial model (e.g. as a constant value or external forcing term). The components are adult mosquitoes, immature (aquatic) mosquitoes, resident (modeled) humans, non-resident visitors, and other blood hosts (e.g. livestock). Components can themselves have arbitrarily complex internal structure, but models in this framework insist each of these components be given a definition (even if it is trivial, for example the constant <code>0</code>).</li>
 <li>
 <strong>interface</strong>: each component defines an interface, which other components and invariants (functions) can use to query information about it. The interface defines what a component is expected to compute and expose to the rest of the system.</li>
 <li>
 <strong>model</strong>: a specific instantiation of a component, which necessarily fulfills that component’s interface. The SIS (Susceptible-Infectious-Susceptible) model for human dynamics is a model for the human component, for example.</li>
 <li>
-<strong>invariant</strong>: any computation which is generic across any specific set of models and which uses the generic interface to query state and compute values which may be returned to components. The bloodmeal algorithm is an example, and the code is a contract with the modeller meaning any model fulfilling the component interface it fills will be able to interact with the rest of the framework, and the existing set of models. It is described in <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code>.</li>
+<strong>composition pattern</strong>: the specific set of components and how they interact in <strong>Micro-MoB</strong>.</li>
+<li>
+<strong>invariant component</strong>: any computation which is generic across any specific set of models and which uses the generic interface to query state and compute values. The bloodmeal algorithm is an example, and the code is a contract with the modeller meaning any model fulfilling the component interface it fills will be able to interact with the rest of the framework, and the existing set of models. It is described in <code><a href="../articles/bloodmeal.html">vignette("bloodmeal")</a></code>.</li>
 </ul>
 <div class="section level3">
 <h3 id="software-design">Software design<a class="anchor" aria-label="anchor" href="#software-design"></a>
 </h3>
 <p>To accomplish this component-interface design in R, we use the <a href="http://adv-r.had.co.nz/S3.html" class="external-link">S3 object system</a>. Each component is a named element in the model object (an environment). The interface defines a set of generic functions which dispatch on the specific class of the object taking the place of that component.</p>
+</div>
+<div class="section level3">
+<h3 id="dynamics">Dynamics<a class="anchor" aria-label="anchor" href="#dynamics"></a>
+</h3>
+<p>A simplified schematic of the relationships between components (i.e. the model’s <em>dynamics</em>) in <strong>Micro-MoB</strong> is shown below.</p>
+<p><img src="DynamicsOverview.png" width="100%"></p>
+<p>The aquatic (immature) mosquito component <span class="math inline">\(L\)</span> is in blue. Over a time step, it takes in eggs laid by ovipositing adult mosquitoes <span class="math inline">\(G\)</span>, and updates state, producing newly emerging adults <span class="math inline">\(\Lambda\)</span>. These emerging mosquitoes are added to the adult mosquito component (green). In the adult component, <span class="math inline">\(M\)</span> represents the total mosquito density, <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> are infected and infectious mosquito populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts, and during blood feeding are infected with probability <span class="math inline">\(\kappa\)</span>, computed by the bloodmeal (red). Infectious mosquitoes take bites on human hosts, resulting in a human per-capita rate of infection <span class="math inline">\(EIR\)</span>, computed by the bloodmeal, which changes prevalence of disease, <span class="math inline">\(X\)</span>. The overall human component (yellow) has dynamics acting on <span class="math inline">\(H\)</span>.</p>
 </div>
 </div>
 <div class="section level2">
@@ -140,13 +149,13 @@
 </h3>
 <p>The other (alternative) blood host component is responsible for other blood hosts for mosquitoes (livestock, dogs, etc). The interface is defined in <code>R/other_interface.R</code>, and the interface methods with are required to be implemented can be found <a href="https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component">here</a>.</p>
 </div>
-<div class="section level3">
-<h3 id="dynamics">Dynamics<a class="anchor" aria-label="anchor" href="#dynamics"></a>
-</h3>
-<p>A simplified schematic of the relationships between components (i.e. the model’s <em>dynamics</em>) in <strong>Micro-MoB</strong> is shown below.</p>
-<p><img src="DynamicsOverview.png" width="100%"></p>
-<p>The aquatic (immature) mosquito component <span class="math inline">\(L\)</span> is in blue. Over a time step, it takes in eggs laid by ovipositing adult mosquitoes <span class="math inline">\(G\)</span>, and updates state, producing newly emerging adults <span class="math inline">\(\Lambda\)</span>. These emerging mosquitoes are added to the adult mosquito component (green). In the adult component, <span class="math inline">\(M\)</span> represents the total mosquito density, <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> are infected and infectious mosquito populations, respectively. Uninfected mosquitoes become infected by biting infectious hosts, and during blood feeding are infected with probability <span class="math inline">\(\kappa\)</span>, computed by the bloodmeal (red). Infectious mosquitoes take bites on human hosts, resulting in a human per-capita rate of infection <span class="math inline">\(EIR\)</span>, computed by the bloodmeal, which changes prevalence of disease, <span class="math inline">\(X\)</span>. The overall human component (yellow) has dynamics acting on <span class="math inline">\(H\)</span>.</p>
 </div>
+<div class="section level2">
+<h2 id="dynamics-between-components">Dynamics between components<a class="anchor" aria-label="anchor" href="#dynamics-between-components"></a>
+</h2>
+<p>Now that we’ve seen the components and know where to find the interfaces, we can present the dynamics again, but annotated with more information telling us exactly what methods are used to pass information between components. For example, we see a green arrow sending eggs, <span class="math inline">\(G\)</span>, from the adult mosquitoes to the aquatic mosquitoes component. Within the aquatic component (blue oval) we see a green method, <code>compute_oviposit</code>, meaning that the aquatic component’s state update method can use this interface method to get the number of eggs laid each time step.</p>
+<p>Please note we do not include the visitor or other blood host components in this diagram, as they are supplied as external forcing (or constants) to the bloodmeal and do not carry state.</p>
+<p><img src="DynamicsDetailed.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="writing-new-models">Writing new models<a class="anchor" aria-label="anchor" href="#writing-new-models"></a>

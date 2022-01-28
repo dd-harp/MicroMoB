@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,12 +44,12 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
-    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
-    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
-    <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
-    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
     <a class="dropdown-item" href="../articles/bloodmeal.html">Blood feeding</a>
+    <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
+    <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
+    <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
+    <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
+    <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
   </div>
 </li>
 <li class="nav-item">
@@ -96,7 +96,7 @@
 <div class="section level2">
 <h2 id="schematic">Schematic<a class="anchor" aria-label="anchor" href="#schematic"></a>
 </h2>
-<p>Below is a schematic describing visually the quantities that are generated in the blood meal algorithm. Different colors refer to different components: green indicates human characteristics independent of infection status, purple indicates human characteristics dependent upon infection status, blue indicates values from the adult mosquito component, and yellow indicates values from the other blood hosts and visitor components.</p>
+<p>Below is a schematic describing visually the quantities that are generated in the blood meal algorithm. Different colors refer to different components: green indicates values from the human component, blue indicates values from the adult mosquito component, and yellow indicates values from the other blood hosts and visitor components.</p>
 <p>Values which are computed by the blood meal which are not directly involved with transmission are in red, and values that are directly relevant for transmission are in grey.</p>
 <p><img src="bloodfeeding.png" width="100%"></p>
 <p>The bloodmeal function updates several values within specific components. Those are:</p>
@@ -110,15 +110,13 @@
 <li>
 <span class="math inline">\(q\)</span>: a vector of length <code>p</code>, giving the proportion of blood meals taken on human hosts by mosquitoes in each patch (adult mosquito component).</li>
 </ul>
-<p>After these values have been computed, each component’s update (step) function can use them to update infection in the population. These four values are the crucial metrics that describe how mosquitoes feed upon hosts, and how pathogens are transferred between infectious hosts to susceptible mosquitoes, and vice versa. For this reason we call bloodfeeding an invariant, meaning any full MBPT model will need to simulate this process.</p>
+<p>After these values have been computed, each component’s update (step) function can use them to update infection in the population. These four values are the crucial metrics that describe how mosquitoes feed upon hosts, and how pathogens are transferred between infectious hosts to susceptible mosquitoes, and vice versa. For this reason we call bloodfeeding an invariant component, meaning any full MBPT model will need to simulate this process.</p>
 </div>
 <div class="section level2">
 <h2 id="human-component">Human component<a class="anchor" aria-label="anchor" href="#human-component"></a>
 </h2>
 <p>Using the generic interface from the human component, the following values are calculated which are used to compute biting and transmission.</p>
 <ul>
-<li>
-<code>W</code>: from <code>compute_W</code>, gives the weighted person time at risk spent at each patch</li>
 <li>
 <code>H</code>: from <code>compute_H</code>, gives the total population in each strata</li>
 <li>
@@ -127,6 +125,8 @@
 <code>wf</code>: from <code>compute_wf</code>, gives the biting weights of each strata</li>
 <li>
 <code>Psi</code>: from <code>compute_Psi</code>, gives the time at risk matrix</li>
+<li>
+<code>W</code>: gives the weighted person time at risk spent at each patch; please note <code>W</code> is calculated from the above values (rather than from a dispatching method)</li>
 </ul>
 </div>
 <div class="section level2">
