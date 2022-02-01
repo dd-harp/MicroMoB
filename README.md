@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/dd-harp/MicroMoB/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/MicroMoB/actions)
+[![CRAN](https://www.r-pkg.org/badges/version/MicroMoB)](https://cran.r-project.org/package=MicroMoB)
 [![codecov](https://codecov.io/gh/dd-harp/MicroMoB/branch/main/graph/badge.svg?token=VAZXH6PVNG)](https://app.codecov.io/gh/dd-harp/MicroMoB)
 <!-- badges: end -->
 
