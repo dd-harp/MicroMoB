@@ -73,6 +73,72 @@ setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.
 }
 
 
+#' @title Get parameters for MOI human model
+#' @description The JSON config file should have 9 entries:
+#'  * stochastic: a boolean value
+#'  * theta: matrix (row major)
+#'  * wf: vector
+#'  * H: vector
+#'  * MOI: vector (row major)
+#'  * b: scalar
+#'  * c: scalar
+#'  * r: scalar
+#'  * sigma: scalar
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_humans_MOI].
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' n <- 6 # number of human population strata
+#' p <- 2 # number of patches
+#' theta <- matrix(rexp(n*p), nrow = n, ncol = p)
+#' theta <- theta / rowSums(theta)
+#' H <- rep(10, n)
+#' MOI <- matrix(0, nrow = 10, ncol = n)
+#' MOI[1, ] <- H
+#' par <- list(
+#'  "stochastic" = FALSE,
+#'  "theta" = theta,
+#'  "wf" = rep(1, n),
+#'  "H" = H,
+#'  "MOI" = MOI,
+#'  "b" = 0.55,
+#'  "c" = 0.15,
+#'  "r" = 1/200,
+#'  "sigma" = 1
+#' )
+#' toJSON(par)
+#' @export
+get_config_humans_MOI <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+
+  stopifnot(length(pars) == 9L)
+  stopifnot(is.logical(pars$stochastic))
+
+  stopifnot(is.numeric(pars$theta))
+  stopifnot(is.matrix(pars$theta))
+
+  stopifnot(is.numeric(pars$wf))
+  stopifnot(is.vector(pars$wf))
+
+  stopifnot(is.numeric(pars$H))
+  stopifnot(is.vector(pars$H))
+
+  stopifnot(is.numeric(pars$MOI))
+  stopifnot(is.matrix(pars$MOI))
+
+  stopifnot(is.numeric(pars$b))
+  stopifnot(is.numeric(pars$c))
+  stopifnot(is.numeric(pars$r))
+  stopifnot(is.numeric(pars$sigma))
+
+  return(pars)
+}
+
+
 # step (update)
 
 #' @title Update MOI human model

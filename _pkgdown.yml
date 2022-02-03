@@ -136,6 +136,7 @@ reference:
     where persons can be infected by multiple distinct parasite broods.
   contents:
   - setup_humans_MOI
+  - get_config_humans_MOI
   - step_humans.MOI
   - step_humans.MOI_deterministic
   - step_humans.MOI_stochastic

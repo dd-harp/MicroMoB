@@ -207,3 +207,53 @@ test_that("stochastic updates of human SIR model work with pulsed h", {
   expect_equal(sum(SIR), sum(mod$human$SIR))
 
 })
+
+
+test_that("test JSON config working", {
+
+  library(jsonlite)
+
+  n <- 6 # number of human population strata
+  p <- 2 # number of patches
+
+  theta <- matrix(rexp(n*p), nrow = n, ncol = p)
+  theta <- theta / rowSums(theta)
+  H <- rep(10, n)
+  SIR <- matrix(0, nrow = n, ncol = 3)
+  SIR[, 1] <- H
+
+  # sending to JSON does not change R type when read back in
+  par <- list(
+    "stochastic" = FALSE,
+    "theta" = theta,
+    "wf" = rep(1, n),
+    "H" = H,
+    "SIR" = SIR,
+    "b" = 0.55,
+    "c" = 0.15,
+    "gamma" = 1/7
+  )
+
+  json_path <- tempfile(pattern = "human_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  par_in <- get_config_humans_SIR(path = json_path)
+  expect_true(all.equal(par, par_in))
+
+  # reject obviously bad input
+  par <- list(
+    "stochastic" = FALSE,
+    "theta" = theta,
+    "wf" = rep(1, n),
+    "H" = H,
+    "SIR" = SIR,
+    "b" = 0.55,
+    "c" = 0.15,
+    "gamma" = NULL
+  )
+
+  json_path <- tempfile(pattern = "aqua_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  expect_error(get_config_humans_SIR(path = json_path))
+
+})
+

@@ -131,3 +131,53 @@ test_that("stochastic MOI model updates correctly, MOI matrix is filled", {
 })
 
 
+test_that("test JSON config working", {
+
+  library(jsonlite)
+
+  n <- 6 # number of human population strata
+  p <- 2 # number of patches
+
+  theta <- matrix(rexp(n*p), nrow = n, ncol = p)
+  theta <- theta / rowSums(theta)
+  H <- rep(10, n)
+  MOI <- matrix(0, nrow = 10, ncol = n)
+  MOI[1, ] <- H
+
+  # sending to JSON does not change R type when read back in
+  par <- list(
+    "stochastic" = FALSE,
+    "theta" = theta,
+    "wf" = rep(1, n),
+    "H" = H,
+    "MOI" = MOI,
+    "b" = 0.55,
+    "c" = 0.15,
+    "r" = 1/200,
+    "sigma" = 1
+  )
+
+  json_path <- tempfile(pattern = "human_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  par_in <- get_config_humans_MOI(path = json_path)
+  expect_true(all.equal(par, par_in))
+
+  # reject obviously bad input
+  par <- list(
+    "stochastic" = FALSE,
+    "theta" = theta[1],
+    "wf" = rep(1, n),
+    "H" = H,
+    "MOI" = MOI,
+    "b" = 0.55,
+    "c" = 0.15,
+    "r" = 1/200,
+    "sigma" = 1
+  )
+
+  json_path <- tempfile(pattern = "aqua_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  expect_error(get_config_humans_MOI(path = json_path))
+
+})
+
