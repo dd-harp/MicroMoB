@@ -2,6 +2,10 @@
 
 #' @title Setup humans with MOI (multiplicity of infection) pathogen model
 #' @description This is a queueing model (M/M/inf) of superinfection in humans.
+#' @note The [MicroMoB::step_humans] method for the MOI model will grow the `MOI`
+#' matrix (add rows) if an individual's MOI exceeds the size of the matrix; therefore
+#' it's a good idea to pad the input matrix with extra empty rows to avoid
+#' reallocating memory during the simulation as much as possible.
 #' @param stochastic should the model update deterministically or stochastically?
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param theta a time spent matrix
@@ -32,11 +36,6 @@ setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.
   stopifnot(colSums(MOI) == H)
   stopifnot(ncol(MOI) == n)
   stopifnot(nrow(MOI) > 2)
-
-  # # get a sufficiently large MOI matrix
-  # if (nrow(MOI) < 50) {
-  #   MOI <- rbind(MOI, matrix(0, nrow = 50 - nrow(MOI), ncol = n))
-  # }
 
   stopifnot(is.finite(c(b, c, r, sigma)))
   stopifnot(c(b, c, r, sigma) >= 0)

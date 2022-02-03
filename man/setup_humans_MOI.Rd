@@ -46,3 +46,9 @@ no return value
 \description{
 This is a queueing model (M/M/inf) of superinfection in humans.
 }
+\note{
+The \link{step_humans} method for the MOI model will grow the \code{MOI}
+matrix (add rows) if an individual's MOI exceeds the size of the matrix; therefore
+it's a good idea to pad the input matrix with extra empty rows to avoid
+reallocating memory during the simulation as much as possible.
+}
