@@ -85,6 +85,7 @@ reference:
     term and it is not affected by endogenous dynamics.
   contents:
   - setup_aqua_trace
+  - get_config_aqua_trace
   - step_aqua.trace
   - compute_emergents.trace
   - compute_emergents.trace_deterministic

@@ -22,7 +22,12 @@ We hope it proves useful. Please visit the [website](https://dd-harp.github.io/M
 
 ```
 remotes::install_github('dd-harp/MicroMoB')
-library(MicroMoB)
+```
+
+Alternatively you can install **Micro-MoB** directly from CRAN, but be aware that the CRAN version may not be the most recent version of the package:
+
+```
+install.packages('MicroMoB')
 ```
 
 ## Documentation

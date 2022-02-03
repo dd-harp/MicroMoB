@@ -56,6 +56,55 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 }
 
 
+#' @title Get parameters for aquatic (immature) model with Beverton-Holt dynamics
+#' @description The JSON config file should have two entries:
+#'  * stochastic: a boolean value
+#'  * molt: a scalar, vector, or matrix (row major)
+#'  * surv: a scalar, vector, or matrix (row major)
+#'  * K: a scalar, vector, or matrix (row major)
+#'  * L: a vector
+#' Please see [MicroMoB::time_patch_varying_parameter] for allowed dimensions of entries
+#' `molt`, `surv`, and `K`. `L` should be of length equal to the number of patches.
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' p <- 3 # number of patches
+#' t <- 10 # number of days to simulate
+#' par <- list(
+#'  "stochastic" = FALSE,
+#'  "molt" = 0.3,
+#'  "surv" = rep(0.5, 365),
+#'  "K" = matrix(rpois(n = t * p, lambda = 100), nrow = p, ncol = t),
+#'  "L" = rep(10, p)
+#' )
+#' toJSON(par)
+#' @export
+get_config_aqua_BH <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+
+  stopifnot(length(pars) == 5L)
+  stopifnot(is.logical(pars$stochastic))
+
+  stopifnot(is.numeric(pars$molt))
+  stopifnot(is.vector(pars$molt) | is.matrix(pars$molt))
+
+  stopifnot(is.numeric(pars$surv))
+  stopifnot(is.vector(pars$surv) | is.matrix(pars$surv))
+
+  stopifnot(is.numeric(pars$K))
+  stopifnot(is.vector(pars$K) | is.matrix(pars$K))
+
+  stopifnot(is.numeric(pars$molt))
+  stopifnot(is.vector(pars$molt) | is.matrix(pars$molt))
+
+  stopifnot(is.numeric(pars$L))
+  return(pars)
+}
+
+
 # step function
 
 #' @title Update aquatic (immature) mosquito populations for Beverton-Holt dynamics
