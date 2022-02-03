@@ -38,6 +38,8 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
 #'  * lambda: a scalar, vector, or matrix (row major). It will be passed to
 #'  [MicroMoB::time_patch_varying_parameter], see that function's documentation for
 #'  appropriate dimensions.
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_aqua_trace].
 #' @param path a file path to a JSON file
 #' @return a named [list]
 #' @importFrom jsonlite read_json

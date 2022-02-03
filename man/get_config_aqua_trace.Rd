@@ -20,6 +20,8 @@ The JSON config file should have two entries:
 \link{time_patch_varying_parameter}, see that function's documentation for
 appropriate dimensions.
 }
+
+For interpretation of the entries, please read \link{setup_aqua_trace}.
 }
 \examples{
 # to see an example of proper JSON input, run the following

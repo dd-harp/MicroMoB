@@ -63,8 +63,10 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 #'  * surv: a scalar, vector, or matrix (row major)
 #'  * K: a scalar, vector, or matrix (row major)
 #'  * L: a vector
+#'
 #' Please see [MicroMoB::time_patch_varying_parameter] for allowed dimensions of entries
 #' `molt`, `surv`, and `K`. `L` should be of length equal to the number of patches.
+#' For interpretation of the entries, please read [MicroMoB::setup_aqua_BH].
 #' @param path a file path to a JSON file
 #' @return a named [list]
 #' @importFrom jsonlite read_json

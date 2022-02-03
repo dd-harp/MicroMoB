@@ -20,9 +20,11 @@ The JSON config file should have two entries:
 \item surv: a scalar, vector, or matrix (row major)
 \item K: a scalar, vector, or matrix (row major)
 \item L: a vector
+}
+
 Please see \link{time_patch_varying_parameter} for allowed dimensions of entries
 \code{molt}, \code{surv}, and \code{K}. \code{L} should be of length equal to the number of patches.
-}
+For interpretation of the entries, please read \link{setup_aqua_BH}.
 }
 \examples{
 # to see an example of proper JSON input, run the following
