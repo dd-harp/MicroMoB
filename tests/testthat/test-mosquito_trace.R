@@ -26,3 +26,29 @@ test_that("null mosquito trace works", {
   expect_error(compute_q(mod))
   expect_error(compute_Z(mod))
 })
+
+
+test_that("test JSON config working", {
+
+  library(jsonlite)
+
+  # sending to JSON does not change R type when read back in
+  par <- list(
+    "oviposit" = rep(1, 3)
+  )
+
+  json_path <- tempfile(pattern = "mosquito_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  par_in <- get_config_mosquito_trace(path = json_path)
+  expect_true(all.equal(par, par_in))
+
+  # reject obviously bad input
+  par <- list(
+    "oviposit" = NULL
+  )
+
+  json_path <- tempfile(pattern = "mosquito_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  expect_error(get_config_mosquito_trace(path = json_path))
+
+})

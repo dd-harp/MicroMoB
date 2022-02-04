@@ -61,6 +61,66 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
 }
 
 
+#' @title Get parameters for SIS human model
+#' @description The JSON config file should have 8 entries:
+#'  * stochastic: a boolean value
+#'  * theta: matrix (row major)
+#'  * wf: vector
+#'  * H: vector
+#'  * X: vector
+#'  * b: scalar
+#'  * r: scalar
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_humans_SIS].
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' n <- 6 # number of human population strata
+#' p <- 2 # number of patches
+#' theta <- matrix(rexp(n*p), nrow = n, ncol = p)
+#' theta <- theta / rowSums(theta)
+#' H <- rep(10, n)
+#' X <- rep(3, n)
+#' par <- list(
+#'  "stochastic" = FALSE,
+#'  "theta" = theta,
+#'  "wf" = rep(1, n),
+#'  "H" = H,
+#'  "X" = X,
+#'  "b" = 0.55,
+#'  "r" = 1/200
+#' )
+#' toJSON(par)
+#' @export
+get_config_humans_SIS <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+
+  stopifnot(length(pars) == 8L)
+  stopifnot(is.logical(pars$stochastic))
+
+  stopifnot(is.numeric(pars$theta))
+  stopifnot(is.matrix(pars$theta))
+
+  stopifnot(is.numeric(pars$wf))
+  stopifnot(is.vector(pars$wf))
+
+  stopifnot(is.numeric(pars$H))
+  stopifnot(is.vector(pars$H))
+
+  stopifnot(is.numeric(pars$X))
+  stopifnot(is.vector(pars$X))
+
+  stopifnot(is.numeric(pars$b))
+  stopifnot(is.numeric(pars$c))
+  stopifnot(is.numeric(pars$r))
+
+  return(pars)
+}
+
+
 # step (update)
 
 #' @title Update SIS human model

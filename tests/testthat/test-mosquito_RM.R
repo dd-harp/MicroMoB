@@ -444,3 +444,56 @@ test_that("stochastic RM step is working with pulse of infection, with dispersal
 
 })
 
+
+test_that("test JSON config working", {
+
+  library(jsonlite)
+
+  t <- 10 # days to simulate
+  p <- 2 # number of patches
+
+  EIP <-  rep(5, t)
+  p_surv <- 0.95
+  psi <- matrix(rexp(p^2), nrow = p, ncol = p)
+  psi <- psi / rowSums(psi)
+
+  # sending to JSON does not change R type when read back in
+  par <- list(
+    "stochastic" = FALSE,
+    "f" = 0.3,
+    "q" = 0.9,
+    "eip" = EIP,
+    "p" = p_surv,
+    "psi" = psi,
+    "nu" = 20,
+    "M" = rep(100, p),
+    "Y" = rep(20, p),
+    "Z" = rep(5, p)
+  )
+
+  json_path <- tempfile(pattern = "mosquito_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  par_in <- get_config_mosquito_RM(path = json_path)
+  expect_true(all.equal(par, par_in))
+
+  # reject obviously bad input
+  par <- list(
+    "stochastic" = FALSE,
+    "f" = 0.3,
+    "q" = 0.9,
+    "eip" = EIP,
+    "p" = p_surv,
+    "psi" = NULL,
+    "nu" = 20,
+    "M" = rep(100, p),
+    "Y" = rep(20, p),
+    "Z" = rep(5, p)
+  )
+
+  json_path <- tempfile(pattern = "mosquito_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  expect_error(get_config_mosquito_RM(path = json_path))
+
+})
+
+
