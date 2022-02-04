@@ -46,6 +46,7 @@ reference:
   desc: This model implements the generalized RM mosquito model.
   contents:
   - setup_mosquito_RM
+  - get_config_mosquito_RM
   - step_mosquitoes.RM
   - step_mosquitoes.RM_deterministic
   - step_mosquitoes.RM_stochastic
@@ -60,6 +61,7 @@ reference:
   desc: This is a null mosquito component used to test aquatic models.
   contents:
   - setup_mosquito_trace
+  - get_config_mosquito_trace
   - step_mosquitoes.trace
   - compute_f.trace
   - compute_q.trace
@@ -85,6 +87,7 @@ reference:
     term and it is not affected by endogenous dynamics.
   contents:
   - setup_aqua_trace
+  - get_config_aqua_trace
   - step_aqua.trace
   - compute_emergents.trace
   - compute_emergents.trace_deterministic
@@ -121,6 +124,7 @@ reference:
     according to time at risk matrices.
   contents:
   - setup_humans_SIS
+  - get_config_humans_SIS
   - step_humans.SIS
   - step_humans.SIS_deterministic
   - step_humans.SIS_stochastic
@@ -135,6 +139,7 @@ reference:
     where persons can be infected by multiple distinct parasite broods.
   contents:
   - setup_humans_MOI
+  - get_config_humans_MOI
   - step_humans.MOI
   - step_humans.MOI_deterministic
   - step_humans.MOI_stochastic
@@ -149,6 +154,7 @@ reference:
     immunizing arboviruses.
   contents:
   - setup_humans_SIR
+  - get_config_humans_SIR
   - step_humans.SIR
   - step_humans.SIR_deterministic
   - step_humans.SIR_stochastic
@@ -172,6 +178,7 @@ reference:
     This is a simple trace driven visitor model.
   contents:
   - setup_visitor_trace
+  - get_config_visitor_trace
   - compute_Wd.trace
   - compute_xd.trace
 
@@ -188,6 +195,7 @@ reference:
     This is a simple trace driven alternative blood hosts model.
   contents:
   - setup_alternative_trace
+  - get_config_alternative_trace
   - compute_O.trace
 
 - title: Utility and global methods

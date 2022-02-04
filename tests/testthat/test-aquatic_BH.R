@@ -66,3 +66,43 @@ test_that("BH equilibrium works", {
   expect_equal(compute_emergents(mod), lambda)
 
 })
+
+
+test_that("test JSON config working", {
+
+  library(jsonlite)
+
+  t <- 50
+  p <- 3
+
+  # sending to JSON does not change R type when read back in
+  par <- list(
+    "stochastic" = FALSE,
+    "molt" = 0.3,
+    "surv" = rep(0.5, 365),
+    "K" = matrix(rpois(n = t * p, lambda = 100), nrow = p, ncol = t),
+    "L" = rep(10, p)
+  )
+
+  json_path <- tempfile(pattern = "aqua_par", fileext = ".json")
+  write_json(x = par, path = json_path)
+  par_in <- get_config_aqua_BH(path = json_path)
+  expect_true(all.equal(par, par_in))
+
+  # reject obviously bad input
+  par <- list(
+    "stochastic" = FALSE,
+    "molt" = 0.3,
+    "surv" = rep(0.5, 365),
+    "K" = matrix(rpois(n = t * p, lambda = 100), nrow = p, ncol = t),
+    "L" = as.character(rep(10, p))
+  )
+
+  json_path <- tempfile(pattern = "aqua_par", fileext = ".json")
+  write_json(x = par, path = json_path)
+  expect_error(get_config_aqua_BH(path = json_path))
+
+  unlink(x = json_path)
+
+})
+

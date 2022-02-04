@@ -1,3 +1,9 @@
+# MicroMoB 0.0.10
+
+  * add functions to each model allowing parameters to be read in from specially
+  formatted JSON files
+  * add `jsonlite` package to `Imports`
+
 # MicroMoB 0.0.9
 
   * add information on return value to all function documentation

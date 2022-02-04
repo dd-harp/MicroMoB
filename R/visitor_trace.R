@@ -33,6 +33,39 @@ setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
 }
 
 
+#' @title Get parameters for trace driven visitors
+#' @description The JSON config file should have two entries:
+#'  * Wd: vector or matrix (see [MicroMoB::time_patch_varying_parameter] for valid dimensions)
+#'  * xd: vector or matrix (see [MicroMoB::time_patch_varying_parameter] for valid dimensions)
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_visitor_trace].
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' par <- list(
+#'  "Wd" = rep(1, 5),
+#'  "xd" = rep(0.01, 365)
+#' )
+#' toJSON(par)
+#' @export
+get_config_visitor_trace <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+
+  stopifnot(length(pars) == 2L)
+
+  stopifnot(is.numeric(pars$Wd))
+  stopifnot(is.vector(pars$Wd) | is.matrix(pars$Wd))
+
+  stopifnot(is.numeric(pars$xd))
+  stopifnot(is.vector(pars$xd) | is.matrix(pars$xd))
+
+  return(pars)
+}
+
+
 #' @title Compute available visitors for trace model (\eqn{W_{\delta}})
 #' @inheritParams compute_Wd
 #' @return a vector of length `p` giving biting availability of visitors at each patch

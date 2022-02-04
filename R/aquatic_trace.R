@@ -32,6 +32,37 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
 }
 
 
+#' @title Get parameters for aquatic (immature) model with forced emergence
+#' @description The JSON config file should have two entries:
+#'  * stochastic: a boolean value
+#'  * lambda: a scalar, vector, or matrix (row major). It will be passed to
+#'  [MicroMoB::time_patch_varying_parameter], see that function's documentation for
+#'  appropriate dimensions.
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_aqua_trace].
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' t <- 10 # number of days to simulate
+#' par <- list(
+#'  "stochastic" = FALSE,
+#'  "lambda" = rpois(n = t, lambda = 10)
+#' )
+#' toJSON(par)
+#' @export
+get_config_aqua_trace <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+  stopifnot(length(pars) == 2L)
+  stopifnot(is.logical(pars$stochastic))
+  stopifnot(is.numeric(pars$lambda))
+  stopifnot(is.vector(pars$lambda) | is.matrix(pars$lambda))
+  return(pars)
+}
+
+
 # step function
 
 #' @title Update aquatic (immature) mosquito populations for forced emergence

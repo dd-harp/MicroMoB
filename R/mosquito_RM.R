@@ -105,6 +105,77 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 }
 
 
+#' @title Get parameters for generalized Ross-Macdonald mosquito model
+#' @description The JSON config file should have 8 entries:
+#'  * stochastic: a boolean value
+#'  * f: scalar
+#'  * q: scalar
+#'  * eip: scalar or vector; see see [MicroMoB::time_varying_parameter] for valid formats
+#'  * p: scalar or vector; see see [MicroMoB::time_varying_parameter] for valid formats
+#'  * psi: matrix
+#'  * nu: scalar
+#'  * M: vector
+#'  * Y: vector
+#'  * Z: vector
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_mosquito_RM].
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' t <- 10 # days to simulate
+#' p <- 2 # number of patches
+#' EIP <-  rep(5, t)
+#' p_surv <- 0.95
+#' psi <- matrix(rexp(p^2), nrow = p, ncol = p)
+#' psi <- psi / rowSums(psi)
+#' par <- list(
+#'  "stochastic" = FALSE,
+#'  "f" = 0.3,
+#'  "q" = 0.9,
+#'  "eip" = EIP,
+#'  "p" = p_surv,
+#'  "psi" = psi,
+#'  "nu" = 20,
+#'  "M" = rep(100, p),
+#'  "Y" = rep(20, p),
+#'  "Z" = rep(5, p)
+#' )
+#' toJSON(par)
+#' @export
+get_config_mosquito_RM <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+
+  stopifnot(length(pars) == 10L)
+  stopifnot(is.logical(pars$stochastic))
+
+  stopifnot(is.numeric(pars$f))
+  stopifnot(is.numeric(pars$q))
+
+  stopifnot(is.numeric(pars$eip))
+  stopifnot(is.vector(pars$eip))
+
+  stopifnot(is.numeric(pars$p))
+  stopifnot(is.vector(pars$p))
+
+  stopifnot(is.numeric(pars$psi))
+  stopifnot(is.matrix(pars$psi))
+
+  stopifnot(is.numeric(pars$nu))
+
+  stopifnot(is.numeric(pars$M))
+  stopifnot(is.numeric(pars$Y))
+  stopifnot(is.numeric(pars$Z))
+  stopifnot(is.vector(pars$M))
+  stopifnot(is.vector(pars$Y))
+  stopifnot(is.vector(pars$Z))
+
+  return(pars)
+}
+
+
 # update mosquitoes over one time step
 
 #' @title Update Ross-Macdonald mosquitoes

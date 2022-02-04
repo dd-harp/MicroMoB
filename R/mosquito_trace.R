@@ -18,6 +18,33 @@ setup_mosquito_trace <- function(model, oviposit) {
   model$mosquito$oviposit <- oviposit
 }
 
+#' @title Get parameters for null mosquito model
+#' @description The JSON config file should have 1 entry:
+#'  * oviposit: vector
+#'
+#' For interpretation of the entries, please read [MicroMoB::setup_mosquito_trace].
+#' @param path a file path to a JSON file
+#' @return a named [list]
+#' @importFrom jsonlite read_json
+#' @examples
+#' # to see an example of proper JSON input, run the following
+#' library(jsonlite)
+#' par <- list(
+#'  "oviposit" = rep(1, 5)
+#' )
+#' toJSON(par)
+#' @export
+get_config_mosquito_trace <- function(path) {
+  pars <- read_json(path = file.path(path), simplifyVector = TRUE)
+
+  stopifnot(length(pars) == 1L)
+
+  stopifnot(is.numeric(pars$oviposit))
+  stopifnot(is.vector(pars$oviposit))
+
+  return(pars)
+}
+
 #' @title Update null mosquito population
 #' @inheritParams step_mosquitoes
 #' @return no return value
