@@ -244,5 +244,7 @@ test_that("test JSON config working", {
   write_json(x = par, path = json_path, digits = NA)
   expect_error(get_config_humans_SIS(path = json_path))
 
+  unlink(x = json_path)
+
 })
 

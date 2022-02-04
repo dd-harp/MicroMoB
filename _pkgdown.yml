@@ -178,6 +178,7 @@ reference:
     This is a simple trace driven visitor model.
   contents:
   - setup_visitor_trace
+  - get_config_visitor_trace
   - compute_Wd.trace
   - compute_xd.trace
 
@@ -194,6 +195,7 @@ reference:
     This is a simple trace driven alternative blood hosts model.
   contents:
   - setup_alternative_trace
+  - get_config_alternative_trace
   - compute_O.trace
 
 - title: Utility and global methods

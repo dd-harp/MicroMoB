@@ -29,3 +29,32 @@ test_that("trace visitor model works", {
 
 })
 
+
+test_that("test JSON config working", {
+
+  library(jsonlite)
+
+  # sending to JSON does not change R type when read back in
+  par <- list(
+    "Wd" = rep(1, 5),
+    "xd" = rep(0.01, 365)
+  )
+
+  json_path <- tempfile(pattern = "visitor_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  par_in <- get_config_visitor_trace(path = json_path)
+  expect_true(all.equal(par, par_in))
+
+  # reject obviously bad input
+  par <- list(
+    "Wd" = rep(1, 5),
+    "xd" = NULL
+  )
+
+  json_path <- tempfile(pattern = "visitor_par", fileext = ".json")
+  write_json(x = par, path = json_path, digits = NA)
+  expect_error(get_config_visitor_trace(path = json_path))
+
+  unlink(x = json_path)
+
+})

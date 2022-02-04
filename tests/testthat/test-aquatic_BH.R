@@ -102,5 +102,7 @@ test_that("test JSON config working", {
   write_json(x = par, path = json_path)
   expect_error(get_config_aqua_BH(path = json_path))
 
+  unlink(x = json_path)
+
 })
 
