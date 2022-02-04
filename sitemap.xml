@@ -187,6 +187,33 @@
     <loc>https://dd-harp.github.io/MicroMoB/reference/draw_multinom.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_alternative_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_aqua_BH.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_aqua_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_humans_MOI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_humans_SIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_humans_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_mosquito_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_visitor_trace.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/index.html</loc>
   </url>
   <url>

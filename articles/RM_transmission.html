@@ -91,8 +91,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dd-harp.github.io/MicroMoB/">MicroMoB</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="co">#&gt; Warning in register(): Can't find generic `scale_type` in package ggplot2 to</span>
-<span class="co">#&gt; register S3 method.</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></code></pre></div>
 <p>In MicroMoB, the goal is to get various models fill in a set of component interfaces; if you want to write a new aquatic model, you fill in the interface and then plug into the existing framework, and let the simulation handle the rest! Here we present the most simple case of a Ross-Macdonald mosquito model linked to a trace derived (exogeneously forced) model of emergence, and a SIS (Susceptible-Infectious-Susceptible) human model. This is in fact quite similar to the “classic” Ross-Macdonald (though best written by Aron and May) model.</p>
