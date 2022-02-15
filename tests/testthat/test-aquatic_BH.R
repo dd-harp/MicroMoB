@@ -1,3 +1,15 @@
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "aqua_BH.json", package = "MicroMoB")
+  pars <- get_config_aqua_BH(path = path)
+  expect_equal(pars$stochastic, FALSE)
+  expect_equal(pars$molt, 0.3)
+  expect_equal(pars$surv, rep(0.5, 365))
+  expect_true(is.matrix(pars$K))
+  expect_true(nrow(pars$K) == 3L)
+  expect_true(ncol(pars$K) == 10L)
+  expect_equal(pars$L, rep(10, 3))
+})
+
 test_that("3 patch BH aqua model works", {
   p <- 3
   tmax <- 1
