@@ -31,5 +31,5 @@ par <- list(
  "stochastic" = FALSE,
  "lambda" = rpois(n = t, lambda = 10)
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

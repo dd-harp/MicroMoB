@@ -51,12 +51,13 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
 #'  "stochastic" = FALSE,
 #'  "lambda" = rpois(n = t, lambda = 10)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_aqua_trace <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
   stopifnot(length(pars) == 2L)
   stopifnot(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
   stopifnot(is.numeric(pars$lambda))
   stopifnot(is.vector(pars$lambda) | is.matrix(pars$lambda))
   return(pars)

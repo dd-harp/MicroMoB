@@ -54,3 +54,15 @@ test_that("test JSON config working", {
   unlink(x = json_path)
 
 })
+
+
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "mosquito_trace.json", package = "MicroMoB")
+  pars <- get_config_mosquito_trace(path = path)
+
+  expect_true(length(pars) == 1L)
+
+  expect_true(is.numeric(pars$oviposit))
+  expect_true(is.vector(pars$oviposit))
+
+})

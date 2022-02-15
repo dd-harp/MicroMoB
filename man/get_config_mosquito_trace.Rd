@@ -26,5 +26,5 @@ library(jsonlite)
 par <- list(
  "oviposit" = rep(1, 5)
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

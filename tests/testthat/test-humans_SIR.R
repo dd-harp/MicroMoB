@@ -259,3 +259,34 @@ test_that("test JSON config working", {
 
 })
 
+
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "humans_SIR.json", package = "MicroMoB")
+  pars <- get_config_humans_SIR(path = path)
+
+  expect_true(length(pars) == 8L)
+
+  expect_true(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
+
+  expect_true(is.numeric(pars$theta))
+  expect_true(is.matrix(pars$theta))
+
+  expect_true(is.numeric(pars$wf))
+  expect_true(is.vector(pars$wf))
+
+  expect_true(is.numeric(pars$H))
+  expect_true(is.vector(pars$H))
+
+  expect_true(is.numeric(pars$SIR))
+  expect_true(is.matrix(pars$SIR))
+
+  expect_true(is.numeric(pars$b))
+  expect_true(is.vector(pars$b))
+
+  expect_true(is.numeric(pars$c))
+  expect_true(is.vector(pars$c))
+
+  expect_true(is.numeric(pars$gamma))
+  expect_true(is.vector(pars$gamma))
+})

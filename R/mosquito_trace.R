@@ -32,7 +32,7 @@ setup_mosquito_trace <- function(model, oviposit) {
 #' par <- list(
 #'  "oviposit" = rep(1, 5)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_mosquito_trace <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)

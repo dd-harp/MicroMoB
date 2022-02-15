@@ -105,13 +105,14 @@ setup_humans_SIR <- function(model, stochastic, theta, wf = NULL, H, SIR, b = 0.
 #'  "c" = 0.15,
 #'  "gamma" = 1/7
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_humans_SIR <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
 
   stopifnot(length(pars) == 8L)
   stopifnot(is.logical(pars$stochastic))
+  stopifnot(length(pars$stochastic) == 1L)
 
   stopifnot(is.numeric(pars$theta))
   stopifnot(is.matrix(pars$theta))

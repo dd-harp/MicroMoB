@@ -82,13 +82,14 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 #'  "K" = matrix(rpois(n = t * p, lambda = 100), nrow = p, ncol = t),
 #'  "L" = rep(10, p)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_aqua_BH <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
 
   stopifnot(length(pars) == 5L)
   stopifnot(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
 
   stopifnot(is.numeric(pars$molt))
   stopifnot(is.vector(pars$molt) | is.matrix(pars$molt))

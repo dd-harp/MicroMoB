@@ -110,8 +110,8 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 #'  * stochastic: a boolean value
 #'  * f: scalar
 #'  * q: scalar
-#'  * eip: scalar or vector; see see [MicroMoB::time_varying_parameter] for valid formats
-#'  * p: scalar or vector; see see [MicroMoB::time_varying_parameter] for valid formats
+#'  * eip: scalar or vector; see [MicroMoB::time_varying_parameter] for valid formats
+#'  * p: scalar or vector; see [MicroMoB::time_varying_parameter] for valid formats
 #'  * psi: matrix
 #'  * nu: scalar
 #'  * M: vector
@@ -143,7 +143,7 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 #'  "Y" = rep(20, p),
 #'  "Z" = rep(5, p)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_mosquito_RM <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)

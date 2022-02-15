@@ -499,3 +499,33 @@ test_that("test JSON config working", {
 })
 
 
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "mosquito_RM.json", package = "MicroMoB")
+  pars <- get_config_mosquito_RM(path = path)
+
+  expect_true(length(pars) == 10L)
+  expect_true(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
+
+  expect_true(is.numeric(pars$f))
+  expect_true(is.numeric(pars$q))
+
+  expect_true(is.numeric(pars$eip))
+  expect_true(is.vector(pars$eip))
+
+  expect_true(is.numeric(pars$p))
+  expect_true(is.vector(pars$p))
+
+  expect_true(is.numeric(pars$psi))
+  expect_true(is.matrix(pars$psi))
+
+  expect_true(is.numeric(pars$nu))
+
+  expect_true(is.numeric(pars$M))
+  expect_true(is.numeric(pars$Y))
+  expect_true(is.numeric(pars$Z))
+  expect_true(is.vector(pars$M))
+  expect_true(is.vector(pars$Y))
+  expect_true(is.vector(pars$Z))
+
+})

@@ -31,8 +31,3 @@ get_config_mosquito_MicroMoB <- function(path) {
 
   return(pars)
 }
-
-
-# get_config_full_MicroMoB <- function(path) {
-#
-# }

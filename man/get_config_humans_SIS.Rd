@@ -21,6 +21,7 @@ The JSON config file should have 8 entries:
 \item H: vector
 \item X: vector
 \item b: scalar
+\item c: scalar
 \item r: scalar
 }
 
@@ -42,7 +43,8 @@ par <- list(
  "H" = H,
  "X" = X,
  "b" = 0.55,
+ "c" = 0.15,
  "r" = 1/200
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

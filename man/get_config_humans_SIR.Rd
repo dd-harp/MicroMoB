@@ -47,5 +47,5 @@ par <- list(
  "c" = 0.15,
  "gamma" = 1/7
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

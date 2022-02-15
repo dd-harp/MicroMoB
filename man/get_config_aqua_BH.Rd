@@ -38,5 +38,5 @@ par <- list(
  "K" = matrix(rpois(n = t * p, lambda = 100), nrow = p, ncol = t),
  "L" = rep(10, p)
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

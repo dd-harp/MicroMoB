@@ -18,8 +18,8 @@ The JSON config file should have 8 entries:
 \item stochastic: a boolean value
 \item f: scalar
 \item q: scalar
-\item eip: scalar or vector; see see \link{time_varying_parameter} for valid formats
-\item p: scalar or vector; see see \link{time_varying_parameter} for valid formats
+\item eip: scalar or vector; see \link{time_varying_parameter} for valid formats
+\item p: scalar or vector; see \link{time_varying_parameter} for valid formats
 \item psi: matrix
 \item nu: scalar
 \item M: vector
@@ -50,5 +50,5 @@ par <- list(
  "Y" = rep(20, p),
  "Z" = rep(5, p)
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

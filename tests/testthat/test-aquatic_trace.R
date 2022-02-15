@@ -189,3 +189,15 @@ test_that("test JSON config working", {
 
 })
 
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "aqua_trace.json", package = "MicroMoB")
+  pars <- get_config_aqua_trace(path = path)
+  expect_true(length(pars) == 2L)
+
+  expect_true(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
+
+  expect_true(is.numeric(pars$lambda))
+  expect_true(is.vector(pars$lambda) | is.matrix(pars$lambda))
+
+})
