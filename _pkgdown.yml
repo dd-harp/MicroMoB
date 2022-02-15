@@ -99,6 +99,7 @@ reference:
     compartment.
   contents:
   - setup_aqua_BH
+  - get_config_aqua_BH
   - step_aqua.BH
   - step_aqua.BH_deterministic
   - step_aqua.BH_stochastic
