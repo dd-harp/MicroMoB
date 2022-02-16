@@ -89,7 +89,7 @@ get_config_aqua_BH <- function(path) {
 
   stopifnot(length(pars) == 5L)
   stopifnot(is.logical(pars$stochastic))
-  expect_true(length(pars$stochastic) == 1L)
+  stopifnot(length(pars$stochastic) == 1L)
 
   stopifnot(is.numeric(pars$molt))
   stopifnot(is.vector(pars$molt) | is.matrix(pars$molt))

@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("main JSON config loads", {
 
   library(jsonlite)
 
@@ -20,3 +20,10 @@ test_that("multiplication works", {
   unlink(x = json_path)
 
 })
+
+
+# test_that("API can be started and loads parameters", {
+#
+#   api <- run_api_mosquito()
+#
+# })
