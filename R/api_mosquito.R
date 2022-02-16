@@ -32,6 +32,16 @@ get_config_mosquito_MicroMoB <- function(path) {
   return(pars)
 }
 
+
+#' @title Run Plumber API for mosquito-only simulation
+#' @param ... arguments passed to [plumber::pr_run]
+#' @importFrom plumber plumb_api pr_run
+#' @export
+run_api_mosquito <- function(...) {
+  pr_run(pr = plumb_api(package = "MicroMoB", name = "mosquito", edit = FALSE), ...)
+}
+
+
 #' @noRd
 #' @importFrom jsonlite unbox
 put_config_mosquito <- function(path, res) {
@@ -65,6 +75,7 @@ put_config_mosquito <- function(path, res) {
   return(list(msg = unbox("model parameters successfully read in")))
 }
 
+
 #' @noRd
 #' @importFrom jsonlite unbox
 get_parameters_adult_mosquito <- function(res) {
@@ -76,6 +87,7 @@ get_parameters_adult_mosquito <- function(res) {
     return(parenv$parameters$adult)
   }
 }
+
 
 #' @noRd
 #' @importFrom jsonlite unbox
@@ -89,10 +101,66 @@ get_parameters_aqua_mosquito <- function(res) {
   }
 }
 
-#' @title Run Plumber API for mosquito-only simulation
-#' @param ... arguments passed to [plumber::pr_run]
-#' @importFrom plumber plumb_api pr_run
-#' @export
-run_api_mosquito <- function(...) {
-  pr_run(pr = plumb_api(package = "MicroMoB", name = "mosquito", edit = FALSE), ...)
+
+#' @noRd
+#' @importFrom jsonlite unbox
+put_model_object_mosquito <- function(res) {
+
+  parenv <- parent.frame()
+
+  if (!exists(x = "parameters", envir = parenv)) {
+    res$status <- 400
+    return(list(error = unbox("model parameters not yet specified")))
+  }
+
+  global_pars <- parenv$parameters$global
+  adult_pars <- parenv$parameters$adult
+  aqua_pars <- parenv$parameters$aqua
+
+  # setup global model obj
+  parenv$mod <- make_MicroMoB(tmax = global_pars$tmax, p = global_pars$p)
+
+  # setup adult component
+  if (global_pars$adult_model == "RM") {
+    setup_mosquito_RM(
+      model = parenv$mod,
+      stochastic = adult_pars$stochastic,
+      f = adult_pars$f,
+      q = adult_pars$q,
+      eip = adult_pars$eip,
+      p = adult_pars$p,
+      psi = adult_pars$psi,
+      nu = adult_pars$nu,
+      M = adult_pars$M,
+      Y = adult_pars$Y,
+      Z = adult_pars$Z
+    )
+  } else {
+    res$status <- 400
+    return(list(error = unbox("unknown adult mosquito model specified")))
+  }
+
+  # setup aquatic component
+  if (global_pars$aqua_model == "trace") {
+    setup_aqua_trace(
+      model = parenv$mod,
+      lambda = aqua_pars$lambda,
+      stochastic = aqua_pars$stochastic
+    )
+  } else if (global_pars$aqua_model == "BH") {
+    setup_aqua_BH(
+      model = parenv$mod,
+      stochastic = aqua_pars$stochastic,
+      molt = aqua_pars$molt,
+      surv = aqua_pars$surv,
+      K = aqua_pars$K,
+      L = aqua_pars$L
+    )
+  } else {
+    res$status <- 400
+    return(list(error = unbox("unknown aquatic mosquito model specified")))
+  }
+
+  res$status <- 200
+  return(list(msg = unbox("model successfully set up")))
 }

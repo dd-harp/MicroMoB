@@ -89,7 +89,7 @@ setup_humans_SIR <- function(model, stochastic, theta, wf = NULL, H, SIR, b = 0.
 #' # to see an example of proper JSON input, run the following
 #' library(jsonlite)
 #' n <- 6 # number of human population strata
-#' p <- 2 # number of patches
+#' p <- 5 # number of patches
 #' theta <- matrix(rexp(n*p), nrow = n, ncol = p)
 #' theta <- theta / rowSums(theta)
 #' H <- rep(10, n)

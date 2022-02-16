@@ -126,7 +126,7 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 #' # to see an example of proper JSON input, run the following
 #' library(jsonlite)
 #' t <- 10 # days to simulate
-#' p <- 2 # number of patches
+#' p <- 5 # number of patches
 #' EIP <-  rep(5, t)
 #' p_surv <- 0.95
 #' psi <- matrix(rexp(p^2), nrow = p, ncol = p)

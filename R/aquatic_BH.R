@@ -73,7 +73,7 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 #' @examples
 #' # to see an example of proper JSON input, run the following
 #' library(jsonlite)
-#' p <- 3 # number of patches
+#' p <- 5 # number of patches
 #' t <- 10 # number of days to simulate
 #' par <- list(
 #'  "stochastic" = FALSE,

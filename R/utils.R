@@ -173,6 +173,8 @@ time_patch_varying_parameter <- function(param, p, tmax) {
       ix <- (1:tmax) %% 365L
       ix[which(ix == 0L)] <- 365L
       out <- do.call(rbind, replicate(n = p, expr = param[ix], simplify = FALSE))
+    } else if (length(param) == 1L) {
+      out <- matrix(data = param, nrow = p, ncol = tmax)
     } else {
       stop("incorrect length of parameter")
     }

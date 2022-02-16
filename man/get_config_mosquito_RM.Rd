@@ -33,7 +33,7 @@ For interpretation of the entries, please read \link{setup_mosquito_RM}.
 # to see an example of proper JSON input, run the following
 library(jsonlite)
 t <- 10 # days to simulate
-p <- 2 # number of patches
+p <- 5 # number of patches
 EIP <-  rep(5, t)
 p_surv <- 0.95
 psi <- matrix(rexp(p^2), nrow = p, ncol = p)

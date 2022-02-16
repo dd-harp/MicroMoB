@@ -13,3 +13,7 @@ MicroMoB:::get_parameters_adult_mosquito
 #* @get /parameters_aqua
 #* @serializer json list(pretty = TRUE)
 MicroMoB:::get_parameters_aqua_mosquito
+
+#* Setup model object and components for mosquito-only simulation
+#* @put /config_model_object_mosquito
+MicroMoB:::put_model_object_mosquito
