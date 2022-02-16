@@ -1,0 +1,10 @@
+# plumber API for mosquito-only simulation
+
+#* Setup parameters for mosquito-only simulation
+#* @put /config_mosquito
+MicroMoB:::put_config_mosquito
+
+#* Get parameters for adult mosquitoes for mosquito-only simulation
+#* @get /parameters_adults
+#* @serializer json list(pretty = TRUE)
+MicroMoB:::get_parameters_adult_mosquito

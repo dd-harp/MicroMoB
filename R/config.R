@@ -31,3 +31,56 @@ get_config_mosquito_MicroMoB <- function(path) {
 
   return(pars)
 }
+
+
+#' @noRd
+#' @importFrom jsonlite unbox
+put_config_mosquito <- function(path, res) {
+
+  global_pars <- get_config_mosquito_MicroMoB(path = path)
+
+  if (global_pars$aqua_model == "BH") {
+    aqua_pars <- get_config_aqua_BH(path = global_pars$aqua_path)
+  } else if (global_pars$aqua_model == "trace") {
+    aqua_pars <- get_config_aqua_trace(path = global_pars$aqua_path)
+  } else {
+    res$status <- 400
+    return(list(error = unbox("invalid aquatic model specified")))
+  }
+
+  if (global_pars$adult_model == "RM") {
+    adult_pars <- get_config_mosquito_RM(path = global_pars$adult_path)
+  } else {
+    res$status <- 400
+    return(list(error = unbox("invalid adult model specified")))
+  }
+
+  parameters <<- list()
+  parameters$global <<- global_pars
+  parameters$aqua <<- aqua_pars
+  parameters$adult <<- adult_pars
+
+  res$status <- 200
+  return(list(msg = unbox("model parameters successfully read in")))
+}
+
+
+#' @noRd
+#' @importFrom plumber serializer_json
+get_parameters_adult_mosquito <- function(res) {
+  if (!exists(x = "parameters", where = .GlobalEnv)) {
+    res$status <- 400
+    return(list(error = unbox("model parameters not yet specified")))
+  } else {
+    return(.GlobalEnv$parameters$adult)
+  }
+}
+
+
+#' @title Run Plumber API for mosquito-only simulation
+#' @param ... arguments passed to [plumber::pr_run]
+#' @importFrom plumber plumb_api
+#' @export
+run_api_mosquito <- function(...) {
+  pr_run(pr = plumb_api(package = "MicroMoB", name = "mosquito", edit = FALSE), ...)
+}

@@ -19,7 +19,8 @@ RoxygenNote: 7.1.2
 Imports:
     extraDistr,
     abind,
-    jsonlite
+    jsonlite,
+    plumber
 Suggests: 
     knitr,
     rmarkdown,
