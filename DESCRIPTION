@@ -20,7 +20,8 @@ Imports:
     extraDistr,
     abind,
     jsonlite,
-    plumber
+    plumber,
+    httpuv
 Suggests: 
     knitr,
     rmarkdown,
