@@ -129,6 +129,11 @@ test_that("deterministic RM step is working with pulse of infection, no dispersa
   # by hand
   expect_equal((M * a) * (0.9^4), mod$mosquito$Z)
 
+  out <- output_mosquitoes(mod)
+  expect_equal(out$M, mod$mosquito$M)
+  expect_equal(out$Y, mod$mosquito$Y)
+  expect_equal(out$Z, mod$mosquito$Z)
+
 })
 
 
@@ -314,6 +319,11 @@ test_that("stochastic RM step is working with pulse of infection, no dispersal",
 
   expected <-  (M * a) * (0.9^4)
   expect_true(all(abs(mod$mosquito$Z - expected) / expected < 0.025))
+
+  out <- output_mosquitoes(mod)
+  expect_equal(out$M, mod$mosquito$M)
+  expect_equal(out$Y, mod$mosquito$Y)
+  expect_equal(out$Z, mod$mosquito$Z)
 
 })
 

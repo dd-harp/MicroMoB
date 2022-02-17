@@ -36,6 +36,7 @@ reference:
     implement the following interface methods. It is stored and dispatches on
     the object in `model$mosquito`.
   contents:
+  - output_mosquitoes
   - step_mosquitoes
   - compute_f
   - compute_q
@@ -47,6 +48,7 @@ reference:
   contents:
   - setup_mosquito_RM
   - get_config_mosquito_RM
+  - output_mosquitoes.RM
   - step_mosquitoes.RM
   - step_mosquitoes.RM_deterministic
   - step_mosquitoes.RM_stochastic
@@ -62,6 +64,7 @@ reference:
   contents:
   - setup_mosquito_trace
   - get_config_mosquito_trace
+  - output_mosquitoes.trace
   - step_mosquitoes.trace
   - compute_f.trace
   - compute_q.trace
@@ -78,6 +81,7 @@ reference:
     implement the following interface methods. It is stored and dispatches on
     the object in `model$aqua`.
   contents:
+    - output_aqua
     - step_aqua
     - compute_emergents
 
@@ -88,6 +92,7 @@ reference:
   contents:
   - setup_aqua_trace
   - get_config_aqua_trace
+  - output_aqua.trace
   - step_aqua.trace
   - compute_emergents.trace
   - compute_emergents.trace_deterministic
@@ -100,6 +105,7 @@ reference:
   contents:
   - setup_aqua_BH
   - get_config_aqua_BH
+  - output_aqua.BH
   - step_aqua.BH
   - step_aqua.BH_deterministic
   - step_aqua.BH_stochastic

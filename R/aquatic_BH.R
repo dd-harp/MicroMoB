@@ -108,6 +108,18 @@ get_config_aqua_BH <- function(path) {
 }
 
 
+# output
+
+#' @title Get output for aquatic (immature) mosquito populations with Beverton-Holt dynamics
+#' @description Return a [data.frame].
+#' @inheritParams output_aqua
+#' @return a [data.frame] with columns `L` (immature) and `A` (emerging pupae)
+#' @export
+output_aqua.BH <- function(model) {
+  data.frame(L = model$aqua$L, A = model$aqua$A)
+}
+
+
 # step function
 
 #' @title Update aquatic (immature) mosquito populations for Beverton-Holt dynamics

@@ -14,6 +14,8 @@ test_that("null mosquito trace works", {
   expect_error(compute_q(mod))
   expect_error(compute_Z(mod))
 
+  expect_equal(output_mosquitoes(mod), data.frame())
+
   p <- 3
   tmax <- 10
   mod <- make_MicroMoB(tmax = tmax, p = p)
@@ -25,6 +27,9 @@ test_that("null mosquito trace works", {
   expect_error(compute_f(mod))
   expect_error(compute_q(mod))
   expect_error(compute_Z(mod))
+
+  expect_equal(output_mosquitoes(mod), data.frame())
+
 })
 
 

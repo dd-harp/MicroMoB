@@ -32,6 +32,9 @@ get_config_mosquito_MicroMoB <- function(path) {
   return(pars)
 }
 
+hello_world <- function() {
+  "Hello, world!"
+}
 
 #' @title Run Plumber API for mosquito-only simulation
 #' @param ... arguments passed to [plumber::pr_run]
@@ -163,4 +166,89 @@ put_model_object_mosquito <- function(res) {
 
   res$status <- 200
   return(list(msg = unbox("model successfully set up")))
+}
+
+
+#' @noRd
+put_step_aqua <- function(res) {
+
+  parenv <- parent.frame()
+
+  if (!exists(x = "mod", envir = parenv)) {
+    res$status <- 400
+    return(list(error = unbox("model object not found")))
+  }
+
+  if (parenv$mod$global$tnow > parenv$mod$global$tmax) {
+    res$status <- 400
+    return(list(error = unbox("attempt to step model out of defined time span")))
+  }
+
+  step_aqua(parenv$mod)
+}
+
+
+#' @noRd
+put_step_adult <- function(res) {
+
+  parenv <- parent.frame()
+
+  if (!exists(x = "mod", envir = parenv)) {
+    res$status <- 400
+    return(list(error = unbox("model object not found")))
+  }
+
+  if (parenv$mod$global$tnow > parenv$mod$global$tmax) {
+    res$status <- 400
+    return(list(error = unbox("attempt to step model out of defined time span")))
+  }
+
+  step_mosquitoes(parenv$mod)
+}
+
+
+#' @noRd
+get_output_aqua <- function(res) {
+
+  parenv <- parent.frame()
+
+  if (!exists(x = "mod", envir = parenv)) {
+    res$status <- 400
+    return(list(error = unbox("model object not found")))
+  }
+
+  output_aqua(parenv$mod)
+}
+
+
+#' @noRd
+get_output_adult <- function(res) {
+
+  parenv <- parent.frame()
+
+  if (!exists(x = "mod", envir = parenv)) {
+    res$status <- 400
+    return(list(error = unbox("model object not found")))
+  }
+
+  output_mosquitoes(parenv$mod)
+}
+
+#' @noRd
+clock_tick <- function(res) {
+
+  parenv <- parent.frame()
+
+  if (!exists(x = "mod", envir = parenv)) {
+    res$status <- 400
+    return(list(error = unbox("model object not found")))
+  }
+
+  if (parenv$mod$global$tnow > parenv$mod$global$tmax) {
+    res$status <- 400
+    return(list(error = unbox("attempt to step model out of defined time span")))
+  }
+
+  parenv$mod$global$tnow <- parenv$mod$global$tnow + 1L
+
 }

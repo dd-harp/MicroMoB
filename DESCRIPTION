@@ -26,10 +26,12 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     ggplot2,
-    data.table
+    data.table,
+    callr,
+    httr,
+    readr
 VignetteBuilder: knitr
 URL: https://dd-harp.github.io/MicroMoB/, https://github.com/dd-harp/MicroMoB
 BugReports: https://github.com/dd-harp/MicroMoB/issues
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
-Config/testthat/edition: 3

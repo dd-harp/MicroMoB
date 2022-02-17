@@ -64,10 +64,21 @@ get_config_aqua_trace <- function(path) {
 }
 
 
+# output
+
+#' @title Get output for aquatic (immature) mosquito populations with forced emergence
+#' @description This function returns an empty [data.frame] as trace models do
+#' not have endogeneous dynamics.
+#' @inheritParams output_aqua
+#' @return a [data.frame]
+#' @export
+output_aqua.trace <- function(model) {data.frame()}
+
+
 # step function
 
 #' @title Update aquatic (immature) mosquito populations for forced emergence
-#' @description This function does nothing as trace models are do not have
+#' @description This function does nothing as trace models do not have
 #' endogenous dynamics.
 #' @inheritParams step_aqua
 #' @return no return value

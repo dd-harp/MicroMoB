@@ -176,6 +176,19 @@ get_config_mosquito_RM <- function(path) {
 }
 
 
+# output
+
+#' @title Get output for Ross-Macdonald mosquito populations
+#' @description Return a [data.frame].
+#' @inheritParams output_mosquitoes
+#' @return a [data.frame] with columns `M` (all adult mosquitoes), `Y` (infected mosquitoes), and `Z` (infectious mosquitoes), and rows
+#' correspond to places.
+#' @export
+output_mosquitoes.RM <- function(model) {
+  data.frame(M = model$mosquito$M, Y = model$mosquito$Y, Z = model$mosquito$Z)
+}
+
+
 # update mosquitoes over one time step
 
 #' @title Update Ross-Macdonald mosquitoes
