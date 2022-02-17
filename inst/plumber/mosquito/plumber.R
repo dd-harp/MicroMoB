@@ -1,6 +1,6 @@
 library(plumber)
 
-#* @apiTitle plumber API for mosquito-only simulation
+#* @apiTitle API for mosquito-only simulation
 
 #* Return hello world
 #* @get /hello

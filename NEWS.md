@@ -2,7 +2,13 @@
 
   * add functions to each model allowing parameters to be read in from specially
   formatted JSON files
-  * add `jsonlite` package to `Imports`
+  * add `inst/extdata` folder with JSON files for testing config
+  * add `jsonlite` package to `Imports` for JSON config capability
+  * add `plumber` package to `Imports` to expose a web API
+  * add `inst/plumber/` subfolders to store Plumber APIs
+  * add `callr` package to `Suggests` for testing API
+  * add `httr` package to `Suggests` for testing API
+  * add `callr` package to `Suggests` for using CSV serialization to return simulation output from API
 
 # MicroMoB 0.0.9
 

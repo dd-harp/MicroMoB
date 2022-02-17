@@ -32,9 +32,6 @@ get_config_mosquito_MicroMoB <- function(path) {
   return(pars)
 }
 
-hello_world <- function() {
-  "Hello, world!"
-}
 
 #' @title Run Plumber API for mosquito-only simulation
 #' @param ... arguments passed to [plumber::pr_run]
@@ -42,6 +39,14 @@ hello_world <- function() {
 #' @export
 run_api_mosquito <- function(...) {
   pr_run(pr = plumb_api(package = "MicroMoB", name = "mosquito", edit = FALSE), ...)
+}
+
+
+# non exported functions used in Plumber API
+
+#' @noRd
+hello_world <- function() {
+  "Hello, world!"
 }
 
 
