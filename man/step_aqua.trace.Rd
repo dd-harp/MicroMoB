@@ -13,6 +13,6 @@
 no return value
 }
 \description{
-This function does nothing as trace models are do not have
+This function does nothing as trace models do not have
 endogenous dynamics.
 }

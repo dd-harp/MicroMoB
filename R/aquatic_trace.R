@@ -51,22 +51,34 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
 #'  "stochastic" = FALSE,
 #'  "lambda" = rpois(n = t, lambda = 10)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_aqua_trace <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
   stopifnot(length(pars) == 2L)
   stopifnot(is.logical(pars$stochastic))
+  stopifnot(length(pars$stochastic) == 1L)
   stopifnot(is.numeric(pars$lambda))
   stopifnot(is.vector(pars$lambda) | is.matrix(pars$lambda))
   return(pars)
 }
 
 
+# output
+
+#' @title Get output for aquatic (immature) mosquito populations with forced emergence
+#' @description This function returns an empty [data.frame] as trace models do
+#' not have endogeneous dynamics.
+#' @inheritParams output_aqua
+#' @return a [data.frame]
+#' @export
+output_aqua.trace <- function(model) {data.frame()}
+
+
 # step function
 
 #' @title Update aquatic (immature) mosquito populations for forced emergence
-#' @description This function does nothing as trace models are do not have
+#' @description This function does nothing as trace models do not have
 #' endogenous dynamics.
 #' @inheritParams step_aqua
 #' @return no return value

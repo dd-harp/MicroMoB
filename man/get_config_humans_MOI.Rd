@@ -19,7 +19,7 @@ The JSON config file should have 9 entries:
 \item theta: matrix (row major)
 \item wf: vector
 \item H: vector
-\item MOI: vector (row major)
+\item MOI: matrix (row major)
 \item b: scalar
 \item c: scalar
 \item r: scalar
@@ -32,7 +32,7 @@ For interpretation of the entries, please read \link{setup_humans_MOI}.
 # to see an example of proper JSON input, run the following
 library(jsonlite)
 n <- 6 # number of human population strata
-p <- 2 # number of patches
+p <- 5 # number of patches
 theta <- matrix(rexp(n*p), nrow = n, ncol = p)
 theta <- theta / rowSums(theta)
 H <- rep(10, n)
@@ -49,5 +49,5 @@ par <- list(
  "r" = 1/200,
  "sigma" = 1
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

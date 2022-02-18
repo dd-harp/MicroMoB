@@ -32,7 +32,7 @@ setup_mosquito_trace <- function(model, oviposit) {
 #' par <- list(
 #'  "oviposit" = rep(1, 5)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_mosquito_trace <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
@@ -44,6 +44,17 @@ get_config_mosquito_trace <- function(path) {
 
   return(pars)
 }
+
+
+# output
+
+#' @title Get output for null mosquito populations
+#' @description This function returns an empty [data.frame] as trace models do
+#' not have endogeneous dynamics.
+#' @inheritParams output_mosquitoes
+#' @return a [data.frame]
+#' @export
+output_mosquitoes.trace <- function(model) {data.frame()}
 
 #' @title Update null mosquito population
 #' @inheritParams step_mosquitoes

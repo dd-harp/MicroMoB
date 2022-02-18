@@ -79,7 +79,7 @@ setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.
 #'  * theta: matrix (row major)
 #'  * wf: vector
 #'  * H: vector
-#'  * MOI: vector (row major)
+#'  * MOI: matrix (row major)
 #'  * b: scalar
 #'  * c: scalar
 #'  * r: scalar
@@ -93,7 +93,7 @@ setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.
 #' # to see an example of proper JSON input, run the following
 #' library(jsonlite)
 #' n <- 6 # number of human population strata
-#' p <- 2 # number of patches
+#' p <- 5 # number of patches
 #' theta <- matrix(rexp(n*p), nrow = n, ncol = p)
 #' theta <- theta / rowSums(theta)
 #' H <- rep(10, n)
@@ -110,13 +110,14 @@ setup_humans_MOI <- function(model, stochastic, theta, wf = NULL, H, MOI, b = 0.
 #'  "r" = 1/200,
 #'  "sigma" = 1
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_humans_MOI <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
 
   stopifnot(length(pars) == 9L)
   stopifnot(is.logical(pars$stochastic))
+  stopifnot(length(pars$stochastic) == 1L)
 
   stopifnot(is.numeric(pars$theta))
   stopifnot(is.matrix(pars$theta))

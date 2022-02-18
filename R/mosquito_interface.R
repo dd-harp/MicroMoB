@@ -9,6 +9,16 @@ step_mosquitoes <- function(model) {
   UseMethod("step_mosquitoes", model$mosquito)
 }
 
+#' @title Get output for mosquito populations
+#' @description This method dispatches on the type of `model$mosquito`. It returns
+#' the current state of the adult mosquito component.
+#' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return a [data.frame]
+#' @export
+output_mosquitoes <- function(model) {
+  UseMethod("output_mosquitoes", model$mosquito)
+}
+
 #' @title Compute mosquito feeding rate (\eqn{f})
 #' @description This method dispatches on the type of `model$mosquito`
 #' @param model an object from [MicroMoB::make_MicroMoB]

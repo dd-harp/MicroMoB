@@ -28,5 +28,5 @@ par <- list(
  "Wd" = rep(1, 5),
  "xd" = rep(0.01, 365)
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

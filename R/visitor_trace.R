@@ -49,7 +49,7 @@ setup_visitor_trace <- function(model, Wd = NULL, xd = NULL) {
 #'  "Wd" = rep(1, 5),
 #'  "xd" = rep(0.01, 365)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_visitor_trace <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)

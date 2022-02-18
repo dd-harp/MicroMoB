@@ -38,7 +38,7 @@ setup_alternative_trace <- function(model, O = NULL) {
 #' par <- list(
 #'  "O" = rep(1, 5)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_alternative_trace <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)

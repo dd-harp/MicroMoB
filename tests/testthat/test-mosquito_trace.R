@@ -14,6 +14,8 @@ test_that("null mosquito trace works", {
   expect_error(compute_q(mod))
   expect_error(compute_Z(mod))
 
+  expect_equal(output_mosquitoes(mod), data.frame())
+
   p <- 3
   tmax <- 10
   mod <- make_MicroMoB(tmax = tmax, p = p)
@@ -25,6 +27,9 @@ test_that("null mosquito trace works", {
   expect_error(compute_f(mod))
   expect_error(compute_q(mod))
   expect_error(compute_Z(mod))
+
+  expect_equal(output_mosquitoes(mod), data.frame())
+
 })
 
 
@@ -52,5 +57,17 @@ test_that("test JSON config working", {
   expect_error(get_config_mosquito_trace(path = json_path))
 
   unlink(x = json_path)
+
+})
+
+
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "mosquito_trace.json", package = "MicroMoB")
+  pars <- get_config_mosquito_trace(path = path)
+
+  expect_true(length(pars) == 1L)
+
+  expect_true(is.numeric(pars$oviposit))
+  expect_true(is.vector(pars$oviposit))
 
 })

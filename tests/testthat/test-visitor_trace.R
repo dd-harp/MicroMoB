@@ -58,3 +58,18 @@ test_that("test JSON config working", {
   unlink(x = json_path)
 
 })
+
+
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "visitor_trace.json", package = "MicroMoB")
+  pars <- get_config_visitor_trace(path = path)
+
+  expect_true(length(pars) == 2L)
+
+  expect_true(is.numeric(pars$Wd))
+  expect_true(is.vector(pars$Wd) | is.matrix(pars$Wd))
+
+  expect_true(is.numeric(pars$xd))
+  expect_true(is.vector(pars$xd) | is.matrix(pars$xd))
+})
+

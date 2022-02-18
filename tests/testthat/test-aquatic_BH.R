@@ -21,6 +21,10 @@ test_that("3 patch BH aqua model works", {
   expect_equal(mod$aqua$L, Lt)
   expect_equal(compute_emergents(mod), At)
 
+  out <- output_aqua(mod)
+  expect_equal(out$L, mod$aqua$L)
+  expect_equal(out$A, mod$aqua$A)
+
   # check stochastic state update works
   mod <- make_MicroMoB(tmax = tmax, p = p)
   setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = L)
@@ -33,6 +37,11 @@ test_that("3 patch BH aqua model works", {
   expect_true(all(mod$aqua$L > 0))
   expect_equal(order(mod$aqua$L), order(Lt))
   expect_equal(order(compute_emergents(mod)), order(At))
+
+  out <- output_aqua(mod)
+  expect_equal(out$L, mod$aqua$L)
+  expect_equal(out$A, mod$aqua$A)
+
 })
 
 
@@ -106,3 +115,23 @@ test_that("test JSON config working", {
 
 })
 
+
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "aqua_BH.json", package = "MicroMoB")
+  pars <- get_config_aqua_BH(path = path)
+
+  expect_true(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
+
+  expect_true(is.numeric(pars$molt))
+  expect_true(is.vector(pars$molt) | is.matrix(pars$molt))
+
+  expect_true(is.numeric(pars$surv))
+  expect_true(is.vector(pars$surv) | is.matrix(pars$surv))
+
+  expect_true(is.numeric(pars$K))
+  expect_true(is.vector(pars$K) | is.matrix(pars$K))
+
+  expect_true(is.numeric(pars$L))
+  expect_true(is.vector(pars$L))
+})

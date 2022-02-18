@@ -11,6 +11,18 @@ step_aqua <- function(model) {
   UseMethod("step_aqua", model$aqua)
 }
 
+# retrieve output
+
+#' @title Get output for aquatic (immature) mosquito populations
+#' @description This method dispatches on the type of `model$aqua`. It returns
+#' the current state of the aquatic component.
+#' @param model an object from [MicroMoB::make_MicroMoB]
+#' @return a [data.frame]
+#' @export
+output_aqua <- function(model) {
+  UseMethod("output_aqua", model$aqua)
+}
+
 # get emergents
 
 #' @title Compute number of newly emerging adults (\eqn{\lambda})

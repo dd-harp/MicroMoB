@@ -21,6 +21,7 @@ The JSON config file should have 8 entries:
 \item H: vector
 \item X: vector
 \item b: scalar
+\item c: scalar
 \item r: scalar
 }
 
@@ -30,7 +31,7 @@ For interpretation of the entries, please read \link{setup_humans_SIS}.
 # to see an example of proper JSON input, run the following
 library(jsonlite)
 n <- 6 # number of human population strata
-p <- 2 # number of patches
+p <- 5 # number of patches
 theta <- matrix(rexp(n*p), nrow = n, ncol = p)
 theta <- theta / rowSums(theta)
 H <- rep(10, n)
@@ -42,7 +43,8 @@ par <- list(
  "H" = H,
  "X" = X,
  "b" = 0.55,
+ "c" = 0.15,
  "r" = 1/200
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

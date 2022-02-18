@@ -18,8 +18,8 @@ The JSON config file should have 8 entries:
 \item stochastic: a boolean value
 \item f: scalar
 \item q: scalar
-\item eip: scalar or vector; see see \link{time_varying_parameter} for valid formats
-\item p: scalar or vector; see see \link{time_varying_parameter} for valid formats
+\item eip: scalar or vector; see \link{time_varying_parameter} for valid formats
+\item p: scalar or vector; see \link{time_varying_parameter} for valid formats
 \item psi: matrix
 \item nu: scalar
 \item M: vector
@@ -33,7 +33,7 @@ For interpretation of the entries, please read \link{setup_mosquito_RM}.
 # to see an example of proper JSON input, run the following
 library(jsonlite)
 t <- 10 # days to simulate
-p <- 2 # number of patches
+p <- 5 # number of patches
 EIP <-  rep(5, t)
 p_surv <- 0.95
 psi <- matrix(rexp(p^2), nrow = p, ncol = p)
@@ -50,5 +50,5 @@ par <- list(
  "Y" = rep(20, p),
  "Z" = rep(5, p)
 )
-toJSON(par)
+toJSON(par, pretty = TRUE)
 }

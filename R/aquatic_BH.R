@@ -73,7 +73,7 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 #' @examples
 #' # to see an example of proper JSON input, run the following
 #' library(jsonlite)
-#' p <- 3 # number of patches
+#' p <- 5 # number of patches
 #' t <- 10 # number of days to simulate
 #' par <- list(
 #'  "stochastic" = FALSE,
@@ -82,13 +82,14 @@ setup_aqua_BH <- function(model, stochastic, molt, surv, K, L) {
 #'  "K" = matrix(rpois(n = t * p, lambda = 100), nrow = p, ncol = t),
 #'  "L" = rep(10, p)
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_aqua_BH <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
 
   stopifnot(length(pars) == 5L)
   stopifnot(is.logical(pars$stochastic))
+  stopifnot(length(pars$stochastic) == 1L)
 
   stopifnot(is.numeric(pars$molt))
   stopifnot(is.vector(pars$molt) | is.matrix(pars$molt))
@@ -104,6 +105,18 @@ get_config_aqua_BH <- function(path) {
 
   stopifnot(is.numeric(pars$L))
   return(pars)
+}
+
+
+# output
+
+#' @title Get output for aquatic (immature) mosquito populations with Beverton-Holt dynamics
+#' @description Return a [data.frame].
+#' @inheritParams output_aqua
+#' @return a [data.frame] with columns `L` (immature) and `A` (emerging pupae)
+#' @export
+output_aqua.BH <- function(model) {
+  data.frame(L = model$aqua$L, A = model$aqua$A)
 }
 
 

@@ -27,11 +27,15 @@ test_that("test emergence model of aquatic dynamics with vector lambda", {
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = FALSE)
   expect_equal(compute_emergents(model = mod), lambda)
 
+  expect_equal(output_aqua(mod), data.frame())
+
   # stochastic
   mod <- make_MicroMoB(tmax = tmax, p = p)
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = TRUE)
   lambda <- compute_emergents(model = mod)
   expect_true(lambda[1] < lambda[2])
+
+  expect_equal(output_aqua(mod), data.frame())
 
 })
 
@@ -189,3 +193,15 @@ test_that("test JSON config working", {
 
 })
 
+test_that("JSON parameters can read in", {
+  path <- system.file("extdata", "aqua_trace.json", package = "MicroMoB")
+  pars <- get_config_aqua_trace(path = path)
+  expect_true(length(pars) == 2L)
+
+  expect_true(is.logical(pars$stochastic))
+  expect_true(length(pars$stochastic) == 1L)
+
+  expect_true(is.numeric(pars$lambda))
+  expect_true(is.vector(pars$lambda) | is.matrix(pars$lambda))
+
+})

@@ -69,6 +69,7 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
 #'  * H: vector
 #'  * X: vector
 #'  * b: scalar
+#'  * c: scalar
 #'  * r: scalar
 #'
 #' For interpretation of the entries, please read [MicroMoB::setup_humans_SIS].
@@ -79,7 +80,7 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
 #' # to see an example of proper JSON input, run the following
 #' library(jsonlite)
 #' n <- 6 # number of human population strata
-#' p <- 2 # number of patches
+#' p <- 5 # number of patches
 #' theta <- matrix(rexp(n*p), nrow = n, ncol = p)
 #' theta <- theta / rowSums(theta)
 #' H <- rep(10, n)
@@ -91,15 +92,17 @@ setup_humans_SIS <- function(model, stochastic, theta, wf = NULL, H, X, b = 0.55
 #'  "H" = H,
 #'  "X" = X,
 #'  "b" = 0.55,
+#'  "c" = 0.15,
 #'  "r" = 1/200
 #' )
-#' toJSON(par)
+#' toJSON(par, pretty = TRUE)
 #' @export
 get_config_humans_SIS <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
 
   stopifnot(length(pars) == 8L)
   stopifnot(is.logical(pars$stochastic))
+  stopifnot(length(pars$stochastic) == 1L)
 
   stopifnot(is.numeric(pars$theta))
   stopifnot(is.matrix(pars$theta))
