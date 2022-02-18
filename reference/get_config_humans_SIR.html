@@ -32,7 +32,7 @@ For interpretation of the entries, please read setup_humans_SIR."><!-- mathjax -
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.10</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +113,7 @@ For interpretation of the entries, please read setup_humans_SIR."><!-- mathjax -
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># to see an example of proper JSON input, run the following</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805" class="external-link">jsonlite</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">6</span> <span class="co"># number of human population strata</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="co"># number of patches</span></span>
+<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of patches</span></span>
 <span class="r-in"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">p</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="va">theta</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">n</span><span class="op">)</span></span>
@@ -129,8 +129,31 @@ For interpretation of the entries, please read setup_humans_SIR."><!-- mathjax -
 <span class="r-in"> <span class="st">"c"</span> <span class="op">=</span> <span class="fl">0.15</span>,</span>
 <span class="r-in"> <span class="st">"gamma"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">7</span></span>
 <span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">par</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"stochastic":[false],"theta":[[0.5502,0.4498],[0.823,0.177],[0.9965,0.0035],[0.3027,0.6973],[0.7617,0.2383],[0.8629,0.1371]],"wf":[1,1,1,1,1,1],"H":[10,10,10,10,10,10],"SIR":[[10,0,0],[10,0,0],[10,0,0],[10,0,0],[10,0,0],[10,0,0]],"b":[0.55],"c":[0.15],"gamma":[0.1429]} </span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">par</span>, pretty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "stochastic": [false],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "theta": [</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0252, 0.0055, 0.1243, 0.3519, 0.4931],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.3821, 0.026, 0.3577, 0.0438, 0.1903],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0328, 0.3336, 0.0707, 0.3262, 0.2367],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0635, 0.0664, 0.4648, 0.364, 0.0414],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.1537, 0.084, 0.2144, 0.4359, 0.1121],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.1158, 0.0619, 0.2827, 0.0876, 0.452]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "wf": [1, 1, 1, 1, 1, 1],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "H": [10, 10, 10, 10, 10, 10],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "SIR": [</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [10, 0, 0],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [10, 0, 0],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [10, 0, 0],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [10, 0, 0],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [10, 0, 0],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [10, 0, 0]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "b": [0.55],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "c": [0.15],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "gamma": [0.1429]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> } </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
