@@ -207,19 +207,12 @@ reference:
 
 - title: Utility and global methods
 
-- subtitle: Plumber web API methods
-  desc: >
-    Micro-MoB provides an API interface for other applications to use.
-  contents:
-  - run_api_mosquito
-
 - subtitle: Utilities for users
   desc: >
     These are utilities which are intended for typical users to access.
   contents:
   - MicroMoB
   - make_MicroMoB
-  - get_config_mosquito_MicroMoB
   - sample_stochastic_vector
   - sample_stochastic_matrix
   - draw_multinom

@@ -1,8 +1,8 @@
 # Setup by starting APIs
 root_path <- "http://localhost"
 
-# api_port <- 8000
-api_port <- findPort()
+api_port <- 8000
+# api_port <- findPort()
 
 api <- callr::r_bg(
   function(port) {
@@ -22,43 +22,61 @@ test_that("API is alive", {
 })
 
 test_that("endpoints error properly", {
-    r <- httr::GET(root_path, port = api_port, path = "step_aqua")
-    expect_equal(r$status_code, 400)
-    expect_equal(httr::content(r), list(error = "model object not found"))
 
-    r <- httr::GET(root_path, port = api_port, path = "step_adult")
-    expect_equal(r$status_code, 400)
-    expect_equal(httr::content(r), list(error = "model object not found"))
+    r <- httr::GET(root_path, port = api_port, path = "config_global_parameters")
+    expect_equal(httr::status_code(r), 500)
+    expect_equal(httr::content(r), list(error = "500 - Internal server error"))
 
-    r <- httr::GET(root_path, port = api_port, path = "config_model_object_mosquito")
-    expect_equal(r$status_code, 400)
+    r <- httr::GET(root_path, port = api_port, path = "config_aqua_parameters")
+    expect_equal(httr::status_code(r), 400)
     expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
 
-    r <- httr::GET(root_path, port = api_port, path = "parameters_adults")
-    expect_equal(r$status_code, 400)
+    r <- httr::GET(root_path, port = api_port, path = "config_adult_parameters")
+    expect_equal(httr::status_code(r), 400)
+    expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
+
+    r <- httr::GET(root_path, port = api_port, path = "parameters_global")
+    expect_equal(httr::status_code(r), 400)
+    expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
+
+    r <- httr::GET(root_path, port = api_port, path = "parameters_adult")
+    expect_equal(httr::status_code(r), 400)
     expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
 
     r <- httr::GET(root_path, port = api_port, path = "parameters_aqua")
-    expect_equal(r$status_code, 400)
+    expect_equal(httr::status_code(r), 400)
     expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
 
-    r <- httr::GET(root_path, port = api_port, path = "step_adult")
-    expect_equal(r$status_code, 400)
-    expect_equal(httr::content(r), list(error = "model object not found"))
+    r <- httr::GET(root_path, port = api_port, path = "setup_model")
+    expect_equal(httr::status_code(r), 400)
+    expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
+
+    r <- httr::GET(root_path, port = api_port, path = "setup_aqua")
+    expect_equal(httr::status_code(r), 400)
+    expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
+
+    r <- httr::GET(root_path, port = api_port, path = "setup_adult")
+    expect_equal(httr::status_code(r), 400)
+    expect_equal(httr::content(r), list(error = "model parameters not yet specified"))
 
     r <- httr::GET(root_path, port = api_port, path = "step_aqua")
-    expect_equal(r$status_code, 400)
+    expect_equal(httr::status_code(r), 400)
     expect_equal(httr::content(r), list(error = "model object not found"))
 
-    r <- httr::GET(root_path, port = api_port, path = "output_adult")
-    expect_equal(r$status_code, 500)
+    r <- httr::GET(root_path, port = api_port, path = "step_adult")
+    expect_equal(httr::status_code(r), 400)
+    expect_equal(httr::content(r), list(error = "model object not found"))
 
     r <- httr::GET(root_path, port = api_port, path = "output_aqua")
-    expect_equal(r$status_code, 500)
+    expect_equal(httr::status_code(r), 500)
+
+    r <- httr::GET(root_path, port = api_port, path = "output_adult")
+    expect_equal(httr::status_code(r), 500)
 
     r <- httr::GET(root_path, port = api_port, path = "clock_tick")
     expect_equal(r$status_code, 400)
     expect_equal(httr::content(r), list(error = "model object not found"))
+
 })
 
 
@@ -125,15 +143,31 @@ test_that("run simulation via API", {
     jsonlite::write_json(x = par, path = global_pars_path, digits = 8, pretty = TRUE)
 
     # set up model
-    r <- httr::GET(root_path, port = api_port, path = "config_mosquito", query = list(path = global_pars_path))
+    r <- httr::GET(root_path, port = api_port, path = "config_global_parameters", query = list(path = global_pars_path))
     expect_equal(r$status_code, 200)
-    expect_equal(httr::content(r), list(msg = "model parameters successfully read in"))
+    expect_equal(httr::content(r), list(msg = "global parameters successfully read in"))
 
-    r <- httr::GET(root_path, port = api_port, path = "config_model_object_mosquito")
+    r <- httr::GET(root_path, port = api_port, path = "config_aqua_parameters")
     expect_equal(r$status_code, 200)
-    expect_equal(httr::content(r), list(msg = "model successfully set up"))
+    expect_equal(httr::content(r), list(msg = "aquatic component parameters successfully read in"))
 
-    r <- httr::GET(root_path, port = api_port, path = "parameters_adults")
+    r <- httr::GET(root_path, port = api_port, path = "config_adult_parameters")
+    expect_equal(r$status_code, 200)
+    expect_equal(httr::content(r), list(msg = "adult component parameters successfully read in"))
+
+    r <- httr::GET(root_path, port = api_port, path = "setup_model")
+    expect_equal(r$status_code, 200)
+    expect_equal(httr::content(r), list(msg = "model object successfully set up"))
+
+    r <- httr::GET(root_path, port = api_port, path = "setup_aqua")
+    expect_equal(r$status_code, 200)
+    expect_equal(httr::content(r), list(msg = "aquatic component successfully set up"))
+
+    r <- httr::GET(root_path, port = api_port, path = "setup_adult")
+    expect_equal(r$status_code, 200)
+    expect_equal(httr::content(r), list(msg = "adult component successfully set up"))
+
+    r <- httr::GET(root_path, port = api_port, path = "parameters_adult")
     expect_equal(r$status_code, 200)
     expect_true(length(httr::content(r)) == length(adult_pars))
 
@@ -163,7 +197,6 @@ test_that("run simulation via API", {
     expect_equal(A_out$Y, 0)
     expect_equal(A_out$Z, 0)
 
-    # api$kill(close_connections = TRUE)
     unlink(x = global_pars_path)
     unlink(x = aqua_pars_path)
     unlink(x = adult_pars_path)

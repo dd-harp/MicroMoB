@@ -2,47 +2,65 @@ library(plumber)
 
 #* @apiTitle API for mosquito-only simulation
 
-#* Return hello world
-#* @get /hello
-MicroMoB:::hello_world
+#* Setup global parameters
+#* @get /config_global_parameters
+#* @param path a file path to the global config JSON file
+MicroMoB:::api_setup_global_parameters
 
-#* Setup parameters for mosquito-only simulation
-#* @get /config_mosquito
-#* @param path a file path to the global config
-MicroMoB:::put_config_mosquito
+#* Setup aquatic component parameters
+#* @get /config_aqua_parameters
+MicroMoB:::api_setup_aqua_parameters
 
-#* Setup model object and components for mosquito-only simulation
-#* @get /config_model_object_mosquito
-MicroMoB:::put_model_object_mosquito
+#* Setup adult component parameters
+#* @get /config_adult_parameters
+MicroMoB:::api_setup_adult_parameters
 
-#* Get parameters for adult mosquitoes for mosquito-only simulation
-#* @get /parameters_adults
+#* Get global parameters
+#* @get /parameters_global
 #* @serializer json list(pretty = TRUE)
-MicroMoB:::get_parameters_adult_mosquito
+MicroMoB:::api_get_parameters_global
 
-#* Get parameters for aquatic (immature) mosquitoes for mosquito-only simulation
+#* Get adult component parameters
+#* @get /parameters_adult
+#* @serializer json list(pretty = TRUE)
+MicroMoB:::api_get_parameters_adult
+
+#* Get aquatic component parameters
 #* @get /parameters_aqua
 #* @serializer json list(pretty = TRUE)
-MicroMoB:::get_parameters_aqua_mosquito
+MicroMoB:::api_get_parameters_aqua
 
-#* Update (step) the aquatic (immature) mosquito component
+#* Setup model object
+#* @get /setup_model
+MicroMoB:::api_setup_model_object
+
+#* Setup aquatic component
+#* @get /setup_aqua
+MicroMoB:::api_setup_aqua
+
+#* Setup adult component
+#* @get /setup_adult
+MicroMoB:::api_setup_adult
+
+#* Update (step) the aquatic component
 #* @get /step_aqua
-MicroMoB:::put_step_aqua
+MicroMoB:::api_step_aqua
 
 #* Update (step) the adult mosquito component
 #* @get /step_adult
-MicroMoB:::put_step_adult
+MicroMoB:::api_step_adult
 
 #* Get output from the aquatic (immature) mosquito component
 #* @get /output_aqua
 #* @serializer csv
-MicroMoB:::get_output_aqua
+MicroMoB:::api_get_output_aqua
 
 #* Get output from the adult mosquito component
 #* @get /output_adult
 #* @serializer csv
-MicroMoB:::get_output_adult
+MicroMoB:::api_get_output_adult
 
 #* Increase clock by one time step
 #* @get /clock_tick
-MicroMoB:::clock_tick
+MicroMoB:::api_clock_tick
+
