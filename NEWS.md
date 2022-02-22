@@ -9,6 +9,7 @@
   * add `callr` package to `Suggests` for testing API
   * add `httr` package to `Suggests` for testing API
   * add `callr` package to `Suggests` for using CSV serialization to return simulation output from API
+  * `p` parameter for RM adult mosquito model is now allowed to be patch and time varying
 
 # MicroMoB 0.0.9
 

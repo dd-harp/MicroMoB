@@ -25,30 +25,30 @@ test_that("RM model setup is working", {
   # eip tests
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$eip, rep(5, tmax))
-  expect_equal(mod$mosquito$p, rep(0.9, tmax))
+  expect_equal(mod$mosquito$p, matrix(0.9, 3, tmax))
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   eip <- 1:365
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$eip, 1:tmax)
-  expect_equal(mod$mosquito$p, rep(0.9, tmax))
+  expect_equal(mod$mosquito$p, matrix(0.9, 3, tmax))
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   eip <- 1:tmax
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = 0.9, psi = psi, M = M, Y = Y, Z = Z)
   expect_equal(mod$mosquito$eip, 1:tmax)
-  expect_equal(mod$mosquito$p, rep(0.9, tmax))
+  expect_equal(mod$mosquito$p, matrix(0.9, 3, tmax))
 
   # p tests
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   p <- seq(from = 0.01, to = 0.99, length.out = 365)
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
-  expect_equal(mod$mosquito$p, p[1:tmax])
+  expect_equal(mod$mosquito$p, t(replicate(3, p[1:tmax])))
 
   mod <- make_MicroMoB(tmax = tmax, p = 3)
   p <- seq(from = 0.01, to = 0.99, length.out = tmax)
   setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = 5, p = p, psi = psi, M = M, Y = Y, Z = Z)
-  expect_equal(mod$mosquito$p, p)
+  expect_equal(mod$mosquito$p, t(replicate(3, p[1:tmax])))
 
   # oviposit tests
   expected_nu_det <- mod$mosquito$nu * f * M

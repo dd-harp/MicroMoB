@@ -8,8 +8,8 @@
 #' @param stochastic should the model update deterministically or stochastically?
 #' @param f the blood feeding rate
 #' @param q the human blood feeding fraction
-#' @param eip the Extrinsic Incubation Period, may be time varying, see [MicroMoB::time_varying_parameter]
-#' @param p daily survival probability, may be time varying, see [MicroMoB::time_varying_parameter]
+#' @param eip the Extrinsic Incubation Period (may be time varying see [MicroMoB::time_varying_parameter])
+#' @param p daily survival probability (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
 #' @param psi a mosquito dispersal matrix (rows must sum to 1)
 #' @param nu number of eggs laid per oviposition
 #' @param M total mosquito density per patch (vector of length `p`)
@@ -33,7 +33,7 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 
   maxEIP <- max(eip_vec)
 
-  p_vec <- time_varying_parameter(param = p, tmax = tmax)
+  p_vec <- time_patch_varying_parameter(param = p, p = model$global$p, tmax = tmax)
 
   stopifnot(p_vec <= 1)
   stopifnot(p_vec >= 0)
@@ -212,7 +212,7 @@ step_mosquitoes.RM_deterministic <- function(model) {
   tnow <- model$global$tnow
   EIP <- model$mosquito$eip[tnow]
   maxEIP <- model$mosquito$maxEIP
-  p <- model$mosquito$p[tnow]
+  p <- model$mosquito$p[, tnow]
   psi <- model$mosquito$psi
 
   # newly infected mosquitoes
@@ -258,7 +258,7 @@ step_mosquitoes.RM_stochastic <- function(model) {
   tnow <- model$global$tnow
   EIP <- model$mosquito$eip[tnow]
   maxEIP <- model$mosquito$maxEIP
-  p <- model$mosquito$p[tnow]
+  p <- model$mosquito$p[, tnow]
   psi <- model$mosquito$psi
   n_patch <- model$global$p
 
