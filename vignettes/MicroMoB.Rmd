@@ -116,30 +116,3 @@ as they are supplied as external forcing (or constants) to the bloodmeal and do 
 ```{r echo=FALSE, out.width='100%'}
 knitr::include_graphics('./DynamicsDetailed.png')
 ```
-
-## Writing new models
-
-To write a model for a component means that one must write methods that fulfill
-each component's interface, and ensure that those methods return the correct
-data structure. Information on the methods can be found in the function reference
-under each component. In addition, a new model must have a setup function,
-which takes in parameters, does argument checking, and attaches a new object with
-the correct name and class attached to the model object returned from `make_MicroMoB()`.
-
-For example, to make a new mosquito model, with class `MyModel`, one would need
-to do the following:
-  
-  1. Write a function `setup_mosquito_MyModel` which attaches an object (usually a list)
-  to the model environment with the `class` attribute assigned to `"MyModel"`.
-  2. Write methods for the interface `compute_f.MyModel`, `compute_q.MyModel`,
-  `compute_Z.MyModel`, and `compute_oviposit.MyModel`. Information on what each
-  method is expected to compute and return can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component).
-  3. Write a step (updating) function, `step_mosquitoes.MyModel`. One can optionally
-  allow the `class` attribute of the model list to have 2 elements to allow for dispatching
-  on stochastic or deterministic step updates, in which case one would additionally write
-  `step_mosquitoes.MyModel_stochastic` and `step_mosquitoes.MyModel_deterministic`.
-  Please look at the [source code](https://github.com/dd-harp/MicroMoB/blob/HEAD/R/mosquito_RM.R)
-  of the Ross-Macdonald mosquito model to see how to do this.
-  4. Write basic tests for your model, which go in `tests/testthat`. At a minimum,
-  your tests should confirm that the model can be set up properly and produces
-  correct results when updated over a time step.
