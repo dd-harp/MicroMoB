@@ -51,6 +51,11 @@ of MBPT models that are implemented in **Micro-MoB**:
   * `vignette("RM_transmission")`: read about how we put together models fulfilling
   each component to run a simple Ross-Macdonald style model of pathogen transmission
   between human hosts and mosquito vectors.
+  
+The article `vignette("Advanced")` contains information on how to extend **Micro-MoB**
+by linking to it from a new package, and how to write new models that interact with
+the rest of the system. It also contains information on how to use the
+[Plumber web API](https://www.rplumber.io/) which is supported for some models in **Micro-MoB**.
 
 ## Contributing
 

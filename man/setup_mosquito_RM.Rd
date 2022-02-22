@@ -27,9 +27,9 @@ setup_mosquito_RM(
 
 \item{q}{the human blood feeding fraction}
 
-\item{eip}{the Extrinsic Incubation Period, may be time varying, see \link{time_varying_parameter}}
+\item{eip}{the Extrinsic Incubation Period (may be time varying see \link{time_varying_parameter})}
 
-\item{p}{daily survival probability, may be time varying, see \link{time_varying_parameter}}
+\item{p}{daily survival probability (may be time and patch varying see \link{time_patch_varying_parameter})}
 
 \item{psi}{a mosquito dispersal matrix (rows must sum to 1)}
 
