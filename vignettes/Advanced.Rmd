@@ -70,7 +70,7 @@ to do the following:
 **Micro-MoB** includes some limited support for configuring and running models
 via web API, using the [Plumber package](https://www.rplumber.io/).
 
-All APIs are stored in `inst/APINAME/plumber`, where `APINAME` is the name of the specific API.
+All APIs are stored in `inst/plumber/APINAME/plumber.R`, where `APINAME` is the name of the specific API.
 
 A simple API can be started up from within R by running the following code:
 ```
