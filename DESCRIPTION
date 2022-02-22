@@ -30,7 +30,8 @@ Suggests:
     data.table,
     callr,
     httr,
-    readr
+    readr,
+    withr
 VignetteBuilder: knitr
 URL: https://dd-harp.github.io/MicroMoB/, https://github.com/dd-harp/MicroMoB
 BugReports: https://github.com/dd-harp/MicroMoB/issues

@@ -10,6 +10,9 @@
   * add `httr` package to `Suggests` for testing API
   * add `callr` package to `Suggests` for using CSV serialization to return simulation output from API
   * `p` parameter for RM adult mosquito model is now allowed to be patch and time varying
+  * add new vignette "Advanced topics" describing how to extend the package and
+  the Plumber web API.
+  * add `withr` package to `Suggests` to clean up after testing API.
 
 # MicroMoB 0.0.9
 
