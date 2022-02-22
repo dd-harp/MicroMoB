@@ -2,6 +2,7 @@ pandoc: 2.14.2
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
+  Advanced: Advanced.html
   BH_aqua: BH_aqua.html
   Contributing: Contributing.html
   MOI_human: MOI_human.html
@@ -9,7 +10,7 @@ articles:
   RM_mosquito: RM_mosquito.html
   RM_transmission: RM_transmission.html
   bloodmeal: bloodmeal.html
-last_built: 2022-02-18T00:59Z
+last_built: 2022-02-22T18:31Z
 urls:
   reference: https://dd-harp.github.io/MicroMoB/reference
   article: https://dd-harp.github.io/MicroMoB/articles
