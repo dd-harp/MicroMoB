@@ -27,6 +27,6 @@ A single compartment for all aquatic stages is modeled which
 suffers density dependent mortality like the Beverton-Holt model.
 }
 \details{
-All parameters can be passed either as a vector of length equal to \code{p}, a matrix with \code{p} rows
-and \code{tmax} columns, or a matrix with \code{p} rows and \code{365} columns.
+All parameters can be passed either as a vector of length equal to \code{l}, a matrix with \code{l} rows
+and \code{tmax} columns, or a matrix with \code{l} rows and \code{365} columns.
 }
