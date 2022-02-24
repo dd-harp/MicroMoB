@@ -12,12 +12,12 @@ setup_aqua_trace <- function(model, lambda, stochastic) {
   stopifnot(inherits(model, "MicroMoB"))
 
   tmax <- model$global$tmax
-  p <- model$global$p
+  l <- model$global$l
 
   stopifnot(is.finite(lambda))
   stopifnot(lambda >= 0)
 
-  lambda_mat <- time_patch_varying_parameter(param = lambda, p = p, tmax = tmax)
+  lambda_mat <- time_patch_varying_parameter(param = lambda, p = l, tmax = tmax)
 
   aqua_class <- c("trace")
   if (stochastic) {
@@ -102,7 +102,7 @@ compute_emergents.trace <- function(model) {
 #' @title Compute number of newly emerging adults from forcing term (deterministic)
 #' @description Return the column of the lambda matrix for this day.
 #' @inheritParams compute_emergents
-#' @return a vector of length `p` giving the number of newly emerging adult in each patch
+#' @return a vector of length `l` giving the number of newly emerging adult in each patch
 #' @export
 compute_emergents.trace_deterministic <- function(model) {
   return(model$aqua$lambda[, model$global$tnow])
@@ -112,9 +112,9 @@ compute_emergents.trace_deterministic <- function(model) {
 #' @description Draw a Poisson distributed number of emerging adults with mean parameter
 #' from the column of the trace matrix for this day.
 #' @inheritParams compute_emergents
-#' @return a vector of length `p` giving the number of newly emerging adult in each patch
+#' @return a vector of length `l` giving the number of newly emerging adult in each patch
 #' @importFrom stats rpois
 #' @export
 compute_emergents.trace_stochastic <- function(model) {
-  return(rpois(n = model$global$p, lambda = model$aqua$lambda[, model$global$tnow]))
+  return(rpois(n = model$global$l, lambda = model$aqua$lambda[, model$global$tnow]))
 }

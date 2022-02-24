@@ -10,7 +10,7 @@
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{p} giving the number of newly emerging adult in each patch
+a vector of length \code{l} giving the number of newly emerging adult in each patch
 }
 \description{
 Draw a Poisson distributed number of emerging adults with mean parameter

@@ -5,6 +5,7 @@ test_that("the model object constructs", {
   expect_true(storage.mode(obj) == "environment")
   expect_equal(obj$global$tmax, 10)
   expect_equal(obj$global$tnow, 1)
+  expect_equal(obj$global$p, obj$global$l)
 
   expect_error(make_MicroMoB(tmax = Inf, p = 1))
   expect_error(make_MicroMoB(tmax = -5, p = 1))

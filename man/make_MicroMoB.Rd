@@ -4,12 +4,14 @@
 \alias{make_MicroMoB}
 \title{Make a model object}
 \usage{
-make_MicroMoB(tmax, p)
+make_MicroMoB(tmax, p, l = p)
 }
 \arguments{
 \item{tmax}{number of days to simulate}
 
 \item{p}{number of places}
+
+\item{l}{number of aquatic habitats (optional, will be set to \code{p} by default)}
 }
 \value{
 an object of class \link{environment}
