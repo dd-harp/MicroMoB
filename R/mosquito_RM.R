@@ -211,7 +211,6 @@ step_mosquitoes.RM_deterministic <- function(model) {
   # parameters
   tnow <- model$global$tnow
   EIP <- model$mosquito$eip[tnow]
-  maxEIP <- model$mosquito$maxEIP
   p <- model$mosquito$p[, tnow]
   psi <- model$mosquito$psi
 

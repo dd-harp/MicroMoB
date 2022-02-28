@@ -869,195 +869,6 @@ makeKbq_BQS = function(Pbb, Pqb, Psb,
 
 
 
-KxyProfiles = function(mod){with(mod,{
-  par (mfrow = c(1,2), mar = c(2,2,2,2))
-  frame_bq(b, q, mtl = expression(K[q%->%b]))
-  arrowsX2Y(q, b, Kqb, clr="red")
-  addP.b(b, rowSums(Kqb), adj=2, clr="darkred")
-  addP.q(q, adj=1)
-
-  frame_bq(b, q, mtl = expression(K[b%->%q]))
-  arrowsX2Y(b, q, Kbq, clr="blue")
-  addP.b(b, adj=1)
-  addP.q(q, rowSums(Kbq), adj=2, clr="darkblue")
-})}
-
-
-
-
-
-
-
-KxxProfiles = function(mod, withHist=FALSE){with(mod,{
-  if(withHist == TRUE) par(mfcol = c(2,2))
-  if(withHist == FALSE) par(mfcol = c(1,2))
-
-  frame_bq(b, q, mtl = expression(K[b %->%b]))
-  flowX2X(b, Kbb)
-  symX2X(b, Kbb)
-  addP.q(q, adj=1)
-  addP.bb(b, Kbb, adj=3)
-
-  if(withHist == TRUE) hist(rowSums(Kbb), col="darkred")
-
-  frame_bq(b, q, mtl = expression(K[q %->%q]))
-  flowX2X(q, Kqq, clr="blue")
-  symX2X(q, Kqq, clr="blue")
-  addP.b(b, adj=1)
-  addP.qq(q, Kqq, adj=3)
-
-  if(withHist == TRUE) hist(rowSums(Kqq), col="darkblue")
-})}
-
-
-
-
-
-
-
-
-
-computeG= function(simObject, Tmax){
-  UseMethod("computeG", simObject)
-}
-
-computeG.BQ = function(simObject, Tmax=50){with(simObject,{
-  Q0 = diag(1, nq)
-  B = Mqb %*% Q0
-  Q = G = 0*Q0
-  for(i in 1:Tmax){
-    Bt = Mbb %*% B + Mqb %*% Q
-    Qt = Mbq %*% B + Mqq %*% Q
-    eggs = ova*psiQ*Q
-    G = G + eggs
-    B = Bt; Q=Qt
-  }
-  simObject$G = G
-  return(simObject)
-})}
-
-computeG.BQS = function(simObject, Tmax=50){with(simObject,{
-  Q0 = diag(1, nq)
-  B = Mqb %*% Q0
-  S = Mqs %*% Q0
-  Q = G = 0*Q0
-  for(i in 1:Tmax){
-    Bt = Mbb %*% B + Mqb %*% Q + Msb%*%S
-    Qt = Mbq %*% B + Mqq %*% Q + Msq%*%S
-    St = Mbs %*% B + Mqs %*% Q + Mss%*%S
-    eggs = ova*psiQ*Q
-    G = G + eggs
-    B = Bt; Q=Qt; S=St
-  }
-  simObject$G = G
-  return(simObject)
-})}
-
-computeGG = function(simObject){with(simObject,{
-  if(!exists("simObject$steadyState$Q")) simObject = steadyState(simObject)
-  simObject$GG = with(simObject,G %*% diag(as.vector(steadyState$Q)))
-  return(simObject)
-})}
-
-GProfile = function(mod, adj=2){with(mod,{
-  frame_bq(b, q)
-  flowX2X(q, G, clr = "lightblue",adj=adj)
-  symX2X(q, G, clr = "salmon", adj=adj)
-  addP.qq(q, G, pw=0.5, adj=adj)
-})}
-
-GGProfile = function(mod){with(mod,{
-  frame_bq(b, q)
-  flowX2X(q, GG, mnwd=0.001, adj=3, clr = "darkblue")
-  symX2X(q, GG, mnwd=0.001, adj=3)
-  addP.qq(q, GG, pw=0.5, adj=3)
-
-})}
-
-EGGProfile = function(mod, withHist=FALSE){with(mod,{
-  if(withHist == TRUE) par(mfcol = c(2,2))
-  if(withHist == FALSE) par(mfcol = c(1,2))
-
-  frame_bq(b, q)
-  flowX2X(q, G, clr = "blue")
-  symX2X(q, G)
-  addP.qq(q, G, pw=0.5, adj=3)
-
-  if(withHist == TRUE) hist(rowSums(G), col="blue")
-
-
-  frame_bq(b, q)
-  flowX2X(q, GG, mnwd=0.001, adj=3, clr = "darkblue")
-  symX2X(q, GG, mnwd=0.001, adj=3)
-  addP.qq(q, GG, pw=0.5, adj=3)
-
-  if(withHist == TRUE) hist(rowSums(GG), col="darkblue")
-})}
-
-
-
-
-
-
-
-computeV = function(simObject, Tmax){
-  UseMethod("computeV", simObject)
-}
-
-computeV.BQ = function(simObject, Tmax=100){with(simObject,{
-  Q = Mbq %*% diag(1, nb)
-  B = diag(0, nb)
-
-  for (i in 1:eip){
-    Bt = Mbb %*% B + Mqb %*% Q
-    Qt = Mbq %*% B + Mqq %*% Q
-    B=Bt; Q=Qt
-  }
-
-  Vt = 0*B
-  for (i in 1:Tmax){
-    Vt = Vt + pB*psiB*B
-    Bt = Mbb %*% B + Mqb %*% Q
-    Qt = Mbq %*% B + Mqq %*% Q
-    B=Bt; Q=Qt
-  }
-  simObject$V = Vt
-  return(simObject)
-})}
-
-computeV.BQS = function(simObject, Tmax=100){with(simObject,{
-  Q = Mbq %*% diag(1, nb)
-  B = diag(0, nb)
-
-  for (i in 1:eip){
-    Bt = Mbb %*% B + Mqb %*% Q + Msb%*%S
-    Qt = Mbq %*% B + Mqq %*% Q + Msq%*%S
-    St = Mbs %*% B + Mqs %*% Q + Mss%*%S
-    B=Bt; Q=Qt
-  }
-
-  Vt = 0*B
-  for (i in 1:Tmax){
-    Vt = Vt + pB*psiB*B
-    Bt = Mbb %*% B + Mqb %*% Q + Msb%*%S
-    Qt = Mbq %*% B + Mqq %*% Q + Msq%*%S
-    St = Mbs %*% B + Mqs %*% Q + Mss%*%S
-    B=Bt; Q=Qt
-  }
-  simObject$V = Vt
-  return(simObject)
-})}
-
-computeVC = function(simObject, Tmax=100){with(simObject,{
-  if(!exists("simObject$steadyState$B")) simObject = steadyState(simObject)
-  simObject$VC = with(simObject, V %*% diag(as.vector(steadyState$B)))
-  return(simObject)
-})}
-
-
-
-
-
 makeModel_BQ = function(b, q,
                         # Kernel Shapes, Search Weights
                         kFb, kFq,
@@ -1266,28 +1077,14 @@ Mbq = Psi_bq %*% diag(pB*psiB, dim(Psi_bb)[1])
 Mqb = Psi_qb %*% diag(pQ*psiQ, dim(Psi_qq)[2])
 Mqq = Psi_qq %*% diag(pQ*(1-psiQ), dim(Psi_qq)[2])
 
+bigM = rbind(
+  cbind(Mbb, Mqb),
+  cbind(Mbq, Mqq)
+)
+
+bigM[nq:(nq+nb), 1:nb]
 
 
-
-
-
-# makeM_BQ = function(Pbb, Pqb, Pbq, Pqq, pars){with(pars,{
-#
-#   # "hardened" adults
-#   Mbb = Pbb %*% diag(pB*(1-psiB), dim(Pbb)[1])
-#   Mbq = Pbq %*% diag(pB*psiB, dim(Pbb)[1])
-#   Mqb = Pqb %*% diag(pQ*psiQ, dim(Pqq)[2])
-#   Mqq = Pqq %*% diag(pQ*(1-psiQ), dim(Pqq)[2])
-#
-#   bigM = rbind(
-#     cbind(Mbb, Mqb),
-#     cbind(Mbq, Mqq)
-#   )
-#   # recently emerged adults
-#   Mlb = Pqb %*% diag(pQ, dim(Pqq)[2])
-#
-#   list(Mbb=Mbb, Mbq=Mbq, Mqb=Mqb, Mqq=Mqq, Mlb=Mlb, bigM=bigM)
-# })}
 
 
 maxEIP <- 4
@@ -1314,14 +1111,18 @@ Y %*% EIP_shift
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param stochastic should the model update deterministically or stochastically?
 #' @param f the blood feeding rate, should be a function which accepts a vector `B` and returns a vector of feeding rates of the same length
-#' @param q the human blood feeding fraction
 #' @param eip the Extrinsic Incubation Period (may be time varying see [MicroMoB::time_varying_parameter])
-#' @param p daily survival probability (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
-#' @param psi a mosquito dispersal matrix (rows must sum to 1)
+#' @param pB daily survival probability during blood feeding (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
+#' @param pQ daily survival probability during oviposition (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
+#' @param psiQ oviposition success probability (may be time and patch varying see [MicroMoB::time_patch_varying_parameter])
+#' @param Psi_bb movement matrix from blood feeding haunts to blood feeding haunts (columns must sum to 1, `p` rows and columns)
+#' @param Psi_bq movement matrix from blood feeding haunts to aquatic habitats (columns must sum to 1, `l` rows and `p` columns)
+#' @param Psi_qb movement matrix from aquatic habitats to blood feeding haunts (columns must sum to 1, `p` rows and `l` columns)
+#' @param Psi_qq movement matrix from aquatic habitats to aquatic habitats (columns must sum to 1, `l` rows and columns)
 #' @param nu number of eggs laid per oviposition
-#' @param M total mosquito density per patch (vector of length `p`)
-#' @param Y density of incubating mosquitoes per patch (vector of length `p`)
-#' @param Z density of infectious mosquitoes per patch (vector of length `p`)
+#' @param M number of susceptible mosquitoes (vector of length `p + l`)
+#' @param Y number of incubating mosquitoes (vector of length `p + l`)
+#' @param Z number of infectious mosquitoes (vector of length `p + l`)
 #' @return no return value
 #' @export
 setup_mosquito_BQ <- function(model, stochastic, f, eip, pB, pQ, psiQ, Psi_bb, Psi_bq, Psi_qb, Psi_qq, nu = 25, M, Y) {
@@ -1336,8 +1137,9 @@ setup_mosquito_BQ <- function(model, stochastic, f, eip, pB, pQ, psiQ, Psi_bb, P
 
   maxEIP <- max(eip_vec)
 
-  pB_mat <- time_patch_varying_parameter(param = p, p = p, tmax = tmax)
-  pQ_mat <- time_patch_varying_parameter(param = p, p = l, tmax = tmax)
+  pB_mat <- time_patch_varying_parameter(param = pB, p = p, tmax = tmax)
+  pQ_mat <- time_patch_varying_parameter(param = pQ, p = l, tmax = tmax)
+  psiQ_mat <- time_patch_varying_parameter(param = psiQ, p = l, tmax = tmax)
 
   stopifnot(dim(Psi_bb) == p)
   stopifnot(dim(Psi_bq) == c(l, p))
@@ -1361,7 +1163,7 @@ setup_mosquito_BQ <- function(model, stochastic, f, eip, pB, pQ, psiQ, Psi_bb, P
 
   model$mosquito <- structure(list(), class = mosy_class)
   model$mosquito$f <- f
-  model$mosquito$psiQ <- psiQ
+  model$mosquito$psiQ_mat <- psiQ_mat
   model$mosquito$nu <- nu
   model$mosquito$eip <- eip_vec
   model$mosquito$maxEIP <- maxEIP
@@ -1374,20 +1176,107 @@ setup_mosquito_BQ <- function(model, stochastic, f, eip, pB, pQ, psiQ, Psi_bb, P
   model$mosquito$Psi_qb <- Psi_qb
   model$mosquito$Psi_qq <- Psi_qq
 
-  model$mosquito$kappa <- rep(0, model$global$p)
+  model$mosquito$kappa <- rep(0, p)
 
   stopifnot(length(M) == p+l)
-  stopifnot(length(Y) == p+l)
+  stopifnot(nrow(Y) == p+l)
+  stopifnot(ncol(Y) == maxEIP+1)
   stopifnot(is.finite(M))
   stopifnot(is.finite(Y))
   stopifnot(M >= 0)
   stopifnot(Y >= 0)
+
+  model$mosquito$M <- matrix(data = M, ncol = 1)
+  model$mosquito$Y <- Y
 
   # matrix which multiplies Y on the right to shift all by one day
   EIP_shift <- matrix(data = 0, nrow = maxEIP + 1, ncol = maxEIP + 1)
   EIP_shift[1, 1] <- 1
   EIP_shift[2:(maxEIP+1), 1:maxEIP] <- diag(x = 1, nrow = maxEIP, ncol = maxEIP)
   model$mosquito$EIP_shift <- EIP_shift
+
+}
+
+
+
+# update mosquitoes over one time step
+
+#' @title Update blood feeding & oviposition (BQ) behavioral state mosquitoes
+#' @description This function dispatches on the second argument of `model$mosquito`
+#' for stochastic or deterministic behavior.
+#' @inheritParams step_mosquitoes
+#' @return no return value
+#' @details see [MicroMoB::step_mosquitoes.BQ_deterministic] and [MicroMoB::step_mosquitoes.BQ_stochastic]
+#' @export
+step_mosquitoes.BQ <- function(model) {
+  NextMethod()
+}
+
+
+
+Mbq_inf = Psi_bq %*% diag(pB*psiB*kappa, dim(Psi_bb)[1])
+Mbq_noinf = Psi_bq %*% diag(pB*psiB*(1-kappa), dim(Psi_bb)[1])
+
+Mbb = Psi_bb %*% diag(pB*(1-psiB), dim(Psi_bb)[1])
+Mbq = Psi_bq %*% diag(pB*psiB, dim(Psi_bb)[1])
+Mqb = Psi_qb %*% diag(pQ*psiQ, dim(Psi_qq)[2])
+Mqq = Psi_qq %*% diag(pQ*(1-psiQ), dim(Psi_qq)[2])
+
+#' @title Update blood feeding & oviposition (BQ) behavioral state mosquitoes (deterministic)
+#' @inheritParams step_mosquitoes
+#' @return no return value
+#' @importFrom stats pexp
+#' @export
+step_mosquitoes.BQ_deterministic <- function(model) {
+
+  # parameters
+  tnow <- model$global$tnow
+  EIP <- model$mosquito$eip[tnow]
+  p <- model$global$p
+  l <- model$global$l
+
+  psiB <- pexp(q = model$mosquito$f * model$mosquito$q)
+  psiQ <- model$mosquito$psiQ_mat[, tnow]
+
+  pB <- model$mosquito$pB_mat[, tnow]
+  pQ <- model$mosquito$pQ_mat[, tnow]
+
+  # construct update matrices
+  Mbq_inf <- model$mosquito$Psi_bq %*% diag(x = pB*psiB*kappa, ncol = p)
+  Mbq_noinf <- model$mosquito$Psi_bq %*% diag(x = pB*psiB*(1-kappa), ncol = p)
+
+  Mbb <- model$mosquito$Psi_bb %*% diag(x = pB*(1-psiB), ncol = p)
+  Mbq <- model$mosquito$Psi_bq %*% diag(x = pB*psiB, ncol = p)
+  Mqb <- model$mosquito$Psi_qb %*% diag(x = pQ*psiQ, ncol = l)
+  Mqq <- model$mosquito$Psi_qq %*% diag(x = pQ*(1-psiQ), ncol = l)
+
+  M <- matrix(data = 0, nrow = l+p, ncol = l+p)
+  M[1:p, 1:p] <- Mbb
+  M[1:p, l:(l+p)] <- Mqb
+  M[l:(l+p), 1:p] <- Mbq
+  M[l:(l+p), l:(l+p)] <- Mqq
+
+  M_noinf <- matrix(data = 0, nrow = l+p, ncol = l+p)
+  M_noinf[1:p, 1:p] <- Mbb
+  M_noinf[1:p, l:(l+p)] <- Mqb
+  M_noinf[l:(l+p), 1:p] <- Mbq_noinf
+  M_noinf[l:(l+p), l:(l+p)] <- Mqq
+
+  M_inf <- matrix(data = 0, nrow = l+p, ncol = l+p)
+  M_inf[l:(l+p), 1:p] <- Mbq_inf
+
+  # update
+  model$mosquito$M <- M_noinf %*% model$mosquito$M
+  for (i in 1:maxEIP) {
+    model$mosquito$Y[, i] <- M %*% model$mosquito$Y[, i]
+  }
+  model$mosquito$Y <- model$mosquito$Y %*% model$mosquito$EIP_shift
+  model$mosquito$Y[, EIP] <- M_inf %*% model$mosquito$M
+
+  # newly emerging adults
+  lambda <- compute_emergents(model)
+
+  model$mosquito$M[1:p, 1] <- lambda
 
 }
 
