@@ -97,6 +97,8 @@ setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_
 }
 
 
+#
+
 
 # update mosquitoes over one time step
 
@@ -110,8 +112,6 @@ setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_
 step_mosquitoes.BQ <- function(model) {
   NextMethod()
 }
-
-
 
 #' @title Update blood feeding & oviposition (BQ) behavioral state mosquitoes (deterministic)
 #' @inheritParams step_mosquitoes
@@ -170,7 +170,6 @@ step_mosquitoes.BQ_deterministic <- function(model) {
 
   # newly emerging adults
   lambda <- compute_emergents(model)
-
   model$mosquito$M[1:p, 1] <- model$mosquito$M[1:p, 1] + model$mosquito$Psi_qb %*% lambda
 
 }
@@ -179,7 +178,7 @@ step_mosquitoes.BQ_deterministic <- function(model) {
 #' @title Update blood feeding & oviposition (BQ) behavioral state mosquitoes (stochastic)
 #' @inheritParams step_mosquitoes
 #' @return no return value
-#' @importFrom stats pexp
+#' @importFrom stats pexp rbinom
 #' @export
 step_mosquitoes.BQ_stochastic <- function(model) {
 
@@ -219,8 +218,6 @@ step_mosquitoes.BQ_stochastic <- function(model) {
     BQ_move <- sample_stochastic_vector(x = BQ_success, prob = t(Psi_success))
     BQ_move <- BQ_move + sample_stochastic_vector(x = model$mosquito$Y[, i] - BQ_success, prob = t(Psi_fail))
     model$mosquito$Y[, i] <- BQ_move
-    # sample c(PsiB, PsiQ) success together for each day, get a 2 col matrix for each day (success/fail) and then move them around with Psis
-    # or could just get successes and fails = 1- successes
   }
 
   # for M we need to take into account Y0 (newly infecteds)
@@ -241,31 +238,33 @@ step_mosquitoes.BQ_stochastic <- function(model) {
 
   # newly emerging adults
   lambda <- compute_emergents(model)
-
   model$mosquito$M[1:p] <- model$mosquito$M[1:p] + model$mosquito$Psi_qb %*% lambda
 
 }
 
 
-
 # compute values for blood feeding
 
 #' @title Compute mosquito feeding rate for BQ model (\eqn{f})
-#' @description
+#' @description Blood feeding rates are modeled as a Holling type 2 (rational) function of blood host availability.
+#' \deqn{f(B) = f_x \frac{s_f B}{1+s_f B}}
+#' Here \eqn{f_x} is the maximum blood feeding rate and \eqn{s_f} is a scaling parameter.
 #' @inheritParams compute_f
 #' @return a vector of length `p` giving the per-capita blood feeding rate of mosquitoes in each blood feeding haunt
 #' @export
 compute_f.BQ <- function(model, B) {
-  stop("not implemented yet")
+  fx <- model$mosquito$fx
+  sf <- model$mosquito$sf
+  return(fx * ((sf * B) / (1 + (sf * B))))
 }
 
 #' @title Compute human blood feeding fraction for BQ model (\eqn{q})
-#' @description
+#' @description The human blood feeding fraction is simply the proportion of human hosts.
 #' @inheritParams compute_q
 #' @return a vector of length `p` giving the proportion of bites taken on human hosts in each blood feeding haunt
 #' @export
 compute_q.BQ <- function(model, W, Wd, B) {
-  stop("not implemented yet")
+  return((W + Wd) / B)
 }
 
 
@@ -275,7 +274,8 @@ compute_q.BQ <- function(model, W, Wd, B) {
 #' @return a vector of length `p` giving the density of infected and infectious mosquitoes in each blood feeding haunt
 #' @export
 compute_Z.BQ <- function(model) {
-  stop("not implemented yet")
+  p <- model$global$p
+  return(model$mosquito$Y[1:p, 1L])
 }
 
 
@@ -297,8 +297,11 @@ compute_oviposit.BQ <- function(model) {
 #' @return a vector of length `l` giving the total number of eggs laid by adult mosquitoes in each aquatic habitat
 #' @export
 compute_oviposit.BQ_deterministic <- function(model) {
-  # model$mosquito$nu * model$mosquito$f * model$mosquito$M
-  stop("not implemented yet")
+  l <- model$global$l
+  p <- model$global$p
+  psiQ <- model$mosquito$psiQ_mat[, tnow]
+  Q <- model$mosquito$M[l:(l+p), 1] + rowSums(model$mosquito$Y)[l:(l+p)]
+  return(model$mosquito$nu * psiQ * Q)
 }
 
 
@@ -308,6 +311,9 @@ compute_oviposit.BQ_deterministic <- function(model) {
 #' @importFrom stats rpois
 #' @export
 compute_oviposit.BQ_stochastic <- function(model) {
-  # rpois(n = model$global$p, lambda = model$mosquito$nu * model$mosquito$f * model$mosquito$M)
-  stop("not implemented yet")
+  l <- model$global$l
+  p <- model$global$p
+  psiQ <- model$mosquito$psiQ_mat[, tnow]
+  Q <- model$mosquito$M[l:(l+p), 1] + rowSums(model$mosquito$Y)[l:(l+p)]
+  return(rpois(n = p, lambda = model$mosquito$nu * psiQ * Q))
 }

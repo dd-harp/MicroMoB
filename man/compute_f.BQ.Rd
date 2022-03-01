@@ -15,5 +15,7 @@
 a vector of length \code{p} giving the per-capita blood feeding rate of mosquitoes in each blood feeding haunt
 }
 \description{
-Compute mosquito feeding rate for BQ model (\eqn{f})
+Blood feeding rates are modeled as a Holling type 2 (rational) function of blood host availability.
+\deqn{f(B) = f_x \frac{s_f B}{1+s_f B}}
+Here \eqn{f_x} is the maximum blood feeding rate and \eqn{s_f} is a scaling parameter.
 }

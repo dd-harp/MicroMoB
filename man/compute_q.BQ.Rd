@@ -19,5 +19,5 @@
 a vector of length \code{p} giving the proportion of bites taken on human hosts in each blood feeding haunt
 }
 \description{
-Compute human blood feeding fraction for BQ model (\eqn{q})
+The human blood feeding fraction is simply the proportion of human hosts.
 }
