@@ -51,12 +51,13 @@ test_that("Test BQ deterministic dynamics (1-step)", {
   EIP_shift[1, 1] <- 1
   EIP_shift[2:(maxEIP+1), 1:maxEIP] <- diag(x = 1, nrow = maxEIP, ncol = maxEIP)
 
-  M_mosy <- rpois(n = p+l, lambda = 1e3)
-  Y_mosy <- matrix(data = rpois(n = (p+l)*(maxEIP+1), lambda = 500), nrow = p+l, ncol = maxEIP+1)
+  M_mosy <- rpois(n = p+l, lambda = 1e4)
+  Y_mosy <- matrix(data = rpois(n = (p+l)*(maxEIP+1), lambda = 1e3), nrow = p+l, ncol = maxEIP+1)
 
   q <- rep(1, p)
   f <- stats::qexp(p = psiB)
 
+  # deterministic update
   mod <- make_MicroMoB(tmax = 2, p = p, l = l)
   setup_mosquito_BQ(model = mod, stochastic = FALSE, eip = maxEIP, pB = pB, pQ = pQ, psiQ = psiQ, Psi_bb = Psi_bb, Psi_bq = Psi_bq, Psi_qb = Psi_qb, Psi_qq = Psi_qq, M = M_mosy, Y = Y_mosy)
   setup_aqua_trace(model = mod, lambda = rep(0, l), stochastic = FALSE)
@@ -73,5 +74,15 @@ test_that("Test BQ deterministic dynamics (1-step)", {
 
   expect_equal(newM, mod$mosquito$M)
   expect_equal(newY, mod$mosquito$Y)
+
+  # stochastic update
+  mod <- make_MicroMoB(tmax = 2, p = p, l = l)
+  setup_mosquito_BQ(model = mod, stochastic = TRUE, eip = maxEIP, pB = pB, pQ = pQ, psiQ = psiQ, Psi_bb = Psi_bb, Psi_bq = Psi_bq, Psi_qb = Psi_qb, Psi_qq = Psi_qq, M = M_mosy, Y = Y_mosy)
+  setup_aqua_trace(model = mod, lambda = rep(0, l), stochastic = FALSE)
+
+  mod$mosquito$f <- f
+  mod$mosquito$q <- q
+  mod$mosquito$kappa <- kappa
+  step_mosquitoes(model = mod)
 
 })

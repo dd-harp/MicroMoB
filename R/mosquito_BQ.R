@@ -81,7 +81,11 @@ setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_
   stopifnot(M >= 0)
   stopifnot(Y >= 0)
 
-  model$mosquito$M <- matrix(data = M, ncol = 1)
+  if (stochastic) {
+    model$mosquito$M <- matrix(data = M, ncol = 1)
+  } else {
+    model$mosquito$M <- M
+  }
   model$mosquito$Y <- Y
 
   # matrix which multiplies Y on the right to shift all by one day
@@ -119,6 +123,7 @@ step_mosquitoes.BQ_deterministic <- function(model) {
   # parameters
   tnow <- model$global$tnow
   EIP <- model$mosquito$eip[tnow]
+  maxEIP <- model$mosquito$maxEIP
   p <- model$global$p
   l <- model$global$l
 
@@ -171,8 +176,74 @@ step_mosquitoes.BQ_deterministic <- function(model) {
 }
 
 
+#' @title Update blood feeding & oviposition (BQ) behavioral state mosquitoes (stochastic)
+#' @inheritParams step_mosquitoes
+#' @return no return value
+#' @importFrom stats pexp
+#' @export
 step_mosquitoes.BQ_stochastic <- function(model) {
-  stop("step_mosquitoes.BQ_stochastic is not implemented yet")
+
+  # parameters
+  tnow <- model$global$tnow
+  EIP <- model$mosquito$eip[tnow]
+  maxEIP <- model$mosquito$maxEIP
+  p <- model$global$p
+  l <- model$global$l
+
+  psiB <- pexp(q = model$mosquito$f * model$mosquito$q)
+  psiQ <- model$mosquito$psiQ_mat[, tnow]
+
+  pB <- model$mosquito$pB_mat[, tnow]
+  pQ <- model$mosquito$pQ_mat[, tnow]
+
+  kappa <- model$mosquito$kappa
+
+  # create movement matrices for success and fail
+  Psi_success <- matrix(data = 0, nrow = l+p, ncol = l+p)
+  Psi_success[1:p, l:(l+p)] <- model$mosquito$Psi_qb
+  Psi_success[l:(l+p), 1:p] <- model$mosquito$Psi_bq
+
+  Psi_fail <- matrix(data = 0, nrow = l+p, ncol = l+p)
+  Psi_fail[1:p, 1:p] <- model$mosquito$Psi_bb
+  Psi_fail[l:(l+p), l:(l+p)] <- model$mosquito$Psi_qq
+
+  # sample survivors
+  model$mosquito$M <- rbinom(n = l+p, size = model$mosquito$M, prob = c(pB, pQ))
+  for (i in 1:(maxEIP+1)) {
+    model$mosquito$Y[, i] <- rbinom(n = l+p, size = model$mosquito$Y[, i], prob = c(pB, pQ))
+  }
+
+  # sample behavioral success and movement
+  for (i in 1:(maxEIP+1)) {
+    BQ_success <- rbinom(n = l+p, size = model$mosquito$Y[, i], prob = c(psiB, psiQ))
+    BQ_move <- sample_stochastic_vector(x = BQ_success, prob = t(Psi_success))
+    BQ_move <- BQ_move + sample_stochastic_vector(x = model$mosquito$Y[, i] - BQ_success, prob = t(Psi_fail))
+    model$mosquito$Y[, i] <- BQ_move
+    # sample c(PsiB, PsiQ) success together for each day, get a 2 col matrix for each day (success/fail) and then move them around with Psis
+    # or could just get successes and fails = 1- successes
+  }
+
+  # for M we need to take into account Y0 (newly infecteds)
+  M_success <- rbinom(n = l+p, size = model$mosquito$M, prob = c(psiB, psiQ))
+  M_fail <- model$mosquito$M - M_success
+  Y0 <- rbinom(n = p, size = M_success[1:p], prob = kappa)
+  M_success[1:p] <- M_success[1:p] - Y0
+
+  M_move <- sample_stochastic_vector(x = M_success, prob = t(Psi_success))
+  M_move <- M_move + sample_stochastic_vector(x = M_fail, prob = t(Psi_fail))
+  model$mosquito$M <- M_move
+
+  Y0 <- sample_stochastic_vector(x = Y0, prob = t(model$mosquito$Psi_bq))
+
+  # update incubating mosquitoes and add newly infecteds
+  model$mosquito$Y <- model$mosquito$Y %*% model$mosquito$EIP_shift
+  model$mosquito$Y[l:(l+p), EIP+1L] <- Y0
+
+  # newly emerging adults
+  lambda <- compute_emergents(model)
+
+  model$mosquito$M[1:p] <- model$mosquito$M[1:p] + model$mosquito$Psi_qb %*% lambda
+
 }
 
 
