@@ -94,7 +94,7 @@ test_that("stochastic MOI model updates correctly, MOI matrix not completely fil
   MOI_sto <- mod$human$MOI
 
   diffs <- abs(MOI_det - MOI_sto) / MOI_det
-  expect_true(all(diffs < 0.10))
+  expect_true(all(diffs < 0.25))
 
   # pval <- ks.test(as.vector(MOI_det), as.vector(MOI_sto))$p.value
   # expect_true(pval > 0.8)
@@ -124,7 +124,7 @@ test_that("stochastic MOI model updates correctly, MOI matrix is filled", {
   MOI_sto <- mod$human$MOI
 
   diffs <- abs(MOI_det - MOI_sto) / MOI_det
-  expect_true(all(diffs < 0.10))
+  expect_true(all(diffs < 0.25))
 
   # pval <- ks.test(as.vector(MOI_det), as.vector(MOI_sto))$p.value
   # expect_true(pval > 0.8)

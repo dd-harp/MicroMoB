@@ -85,4 +85,11 @@ test_that("Test BQ deterministic dynamics (1-step)", {
   mod$mosquito$kappa <- kappa
   step_mosquitoes(model = mod)
 
+  M_diff <- abs(as.vector(newM) - mod$mosquito$M) / as.vector(newM)
+  expect_true(all(M_diff < 0.25))
+
+  Y_diff <- abs(newY - mod$mosquito$Y) / newY
+  Y_diff <- Y_diff[is.finite(Y_diff)]
+  expect_true(all(M_diff < 0.25))
+
 })
