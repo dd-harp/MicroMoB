@@ -1,0 +1,70 @@
+---
+title: "Simple behavioral state mosquito model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simple behavioral state mosquito model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MicroMoB)
+```
+
+The simple behavioral state mosquito model has two behavioral states which mosquitoes can exist in: blood feeding ($B$) and
+oviposition ($Q$). When mosquitoes are in $B$ they will attempt to blood feed until they are successful, at which point they
+transition to $Q$ and attempt to oviposit an egg batch. Upon emergence, mosquitoes are primed for blood feeding and are in $B$.
+They transition between these states until they die, which occurs according to the state dependent probabilities $p_{B}$ and $p_{Q}$
+(these may also vary by location and time). The model does not consider male mosquitoes.
+
+The model also considers infection. Uninfected (susceptible) mosquitoes $M$ may become infected if they are in $B$, successfully
+take a blood meal, and are infected (with probability $\kappa$). They then transition to the infected class $Y$, in behavioral state $Q$.
+The extrinsic incubation period (EIP) may vary with time, and they advance until they become infectious (if they survive), where they
+remain until death. Both dynamics operate simultaneously.
+
+## Deterministic model
+
+The deterministic behavioral state model has the following form:
+
+\begin{equation}
+\left[
+\begin{array}{cc}
+B_{t+1}  \\   
+Q_{t+1}  \\ 
+\end{array}
+\right]
+= 
+\left[
+\begin{array}{ccc}
+ (1 - \psi_b) \Psi_{b  b} &  \psi_q \Psi_{q  b} \\
+ \psi_b \Psi_{b  q} &  (1 - \psi_q) \Psi_{q  q}  \\ 
+\end{array}
+\right]  
+\left[
+\begin{array}{cc}
+p_b B_{t} \\   
+p_q Q_{t} \\   
+\end{array}
+\right]
++
+\left[
+\begin{array}{c}
+\Lambda_{t}  \\   
+0 \\
+\end{array}
+\right]
+\end{equation}
+
+The state is a column vector $\left[\begin{array}{cc} B \\  Q \\  \end{array}\right]$. We assume that there are $p$ locations where mosquitoes
+go to seek blood hosts, so that the first $p$ elements correspond to the number of mosquitoes in the $B$ state at those places. There are $l$ locations
+where mosquitoes go to oviposit (aquatic habitats), so the 
+
+The infection states are similar to the Ross-Macdonald model, see `vignette("RM_mosquito")` for more details.
+

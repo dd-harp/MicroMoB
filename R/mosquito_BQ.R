@@ -146,18 +146,18 @@ step_mosquitoes.BQ_deterministic <- function(model) {
 
   M <- matrix(data = 0, nrow = l+p, ncol = l+p)
   M[1:p, 1:p] <- Mbb
-  M[1:p, l:(l+p)] <- Mqb
-  M[l:(l+p), 1:p] <- Mbq
-  M[l:(l+p), l:(l+p)] <- Mqq
+  M[1:p, (p+1):(l+p)] <- Mqb
+  M[(p+1):(l+p), 1:p] <- Mbq
+  M[(p+1):(l+p), (p+1):(l+p)] <- Mqq
 
   M_noinf <- matrix(data = 0, nrow = l+p, ncol = l+p)
   M_noinf[1:p, 1:p] <- Mbb
-  M_noinf[1:p, l:(l+p)] <- Mqb
-  M_noinf[l:(l+p), 1:p] <- Mbq_noinf
-  M_noinf[l:(l+p), l:(l+p)] <- Mqq
+  M_noinf[1:p, (p+1):(l+p)] <- Mqb
+  M_noinf[(p+1):(l+p), 1:p] <- Mbq_noinf
+  M_noinf[(p+1):(l+p), (p+1):(l+p)] <- Mqq
 
   M_inf <- matrix(data = 0, nrow = l+p, ncol = l+p)
-  M_inf[l:(l+p), 1:p] <- Mbq_inf
+  M_inf[(p+1):(l+p), 1:p] <- Mbq_inf
 
   # update
   Y0 <- M_inf %*% model$mosquito$M
@@ -199,12 +199,12 @@ step_mosquitoes.BQ_stochastic <- function(model) {
 
   # create movement matrices for success and fail
   Psi_success <- matrix(data = 0, nrow = l+p, ncol = l+p)
-  Psi_success[1:p, l:(l+p)] <- model$mosquito$Psi_qb
-  Psi_success[l:(l+p), 1:p] <- model$mosquito$Psi_bq
+  Psi_success[1:p, (p+1):(l+p)] <- model$mosquito$Psi_qb
+  Psi_success[(p+1):(l+p), 1:p] <- model$mosquito$Psi_bq
 
   Psi_fail <- matrix(data = 0, nrow = l+p, ncol = l+p)
   Psi_fail[1:p, 1:p] <- model$mosquito$Psi_bb
-  Psi_fail[l:(l+p), l:(l+p)] <- model$mosquito$Psi_qq
+  Psi_fail[(p+1):(l+p), (p+1):(l+p)] <- model$mosquito$Psi_qq
 
   # sample survivors
   model$mosquito$M <- rbinom(n = l+p, size = model$mosquito$M, prob = c(pB, pQ))
@@ -234,7 +234,7 @@ step_mosquitoes.BQ_stochastic <- function(model) {
 
   # update incubating mosquitoes and add newly infecteds
   model$mosquito$Y <- model$mosquito$Y %*% model$mosquito$EIP_shift
-  model$mosquito$Y[l:(l+p), EIP+1L] <- Y0
+  model$mosquito$Y[(p+1):(l+p), EIP+1L] <- Y0
 
   # newly emerging adults
   lambda <- compute_emergents(model)
@@ -300,7 +300,7 @@ compute_oviposit.BQ_deterministic <- function(model) {
   l <- model$global$l
   p <- model$global$p
   psiQ <- model$mosquito$psiQ_mat[, tnow]
-  Q <- model$mosquito$M[l:(l+p), 1] + rowSums(model$mosquito$Y)[l:(l+p)]
+  Q <- model$mosquito$M[(p+1):(l+p), 1] + rowSums(model$mosquito$Y)[(p+1):(l+p)]
   return(model$mosquito$nu * psiQ * Q)
 }
 
@@ -314,6 +314,6 @@ compute_oviposit.BQ_stochastic <- function(model) {
   l <- model$global$l
   p <- model$global$p
   psiQ <- model$mosquito$psiQ_mat[, tnow]
-  Q <- model$mosquito$M[l:(l+p), 1] + rowSums(model$mosquito$Y)[l:(l+p)]
+  Q <- model$mosquito$M[(p+1):(l+p), 1] + rowSums(model$mosquito$Y)[(p+1):(l+p)]
   return(rpois(n = p, lambda = model$mosquito$nu * psiQ * Q))
 }
