@@ -64,7 +64,8 @@ p_q Q_{t} \\
 
 The state is a column vector $\left[\begin{array}{cc} B \\  Q \\  \end{array}\right]$. We assume that there are $p$ locations where mosquitoes
 go to seek blood hosts, so that the first $p$ elements correspond to the number of mosquitoes in the $B$ state at those places. There are $l$ locations
-where mosquitoes go to oviposit (aquatic habitats), so the 
+where mosquitoes go to oviposit (aquatic habitats), so the last $l$ elements in the vector are mosquitoes in the $Q$ state. There is no requirement
+that the set of points where mosquitoes blood feed and oviposit be distinct, although they may be.
 
 The infection states are similar to the Ross-Macdonald model, see `vignette("RM_mosquito")` for more details.
 
