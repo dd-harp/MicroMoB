@@ -29,7 +29,8 @@ draw_multinom <- function(n, prob) {
 sample_stochastic_vector <- function(x, prob) {
   stopifnot(length(x) == nrow(prob))
   if (ncol(prob) == 1L) {
-    return(x)
+    # if everything is going to one bin just return the total number of balls
+    return(sum(x))
   }
   samp <- vapply(X = 1:length(x), FUN = function(i) {
     draw_multinom(n = x[i], prob = prob[i, ])
