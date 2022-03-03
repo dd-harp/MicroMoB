@@ -168,7 +168,7 @@ step_mosquitoes.BQ_deterministic <- function(model) {
 
   # newly emerging adults
   lambda <- compute_emergents(model)
-  model$mosquito$M[1:p] <- model$mosquito$M[1:p] + model$mosquito$Psi_qb %*% lambda
+  model$mosquito$M[1:p] <- model$mosquito$M[1:p] + as.vector(model$mosquito$Psi_qb %*% lambda)
 
 }
 
@@ -232,11 +232,11 @@ step_mosquitoes.BQ_stochastic <- function(model) {
 
   # update incubating mosquitoes and add newly infecteds
   model$mosquito$Y <- model$mosquito$Y %*% model$mosquito$EIP_shift
-  model$mosquito$Y[(p+1):(l+p), EIP+1L] <- Y0
+  model$mosquito$Y[(p+1):(p+l), EIP+1L] <- Y0
 
   # newly emerging adults
   lambda <- compute_emergents(model)
-  model$mosquito$M[1:p] <- model$mosquito$M[1:p] + model$mosquito$Psi_qb %*% lambda
+  model$mosquito$M[1:p] <- model$mosquito$M[1:p] + sample_stochastic_vector(x = lambda, prob = t(model$mosquito$Psi_qb))
 
 }
 
