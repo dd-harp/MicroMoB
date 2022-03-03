@@ -29,9 +29,11 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/bloodmeal.html">Blood feeding</a>
     <a class="dropdown-item" href="../articles/RM_mosquito.html">Ross-Macdonald mosquito model</a>
+    <a class="dropdown-item" href="../articles/BQ_mosquito.html">Simple behavioral state mosquito model</a>
     <a class="dropdown-item" href="../articles/MOI_human.html">Queueing model for human superinfection</a>
     <a class="dropdown-item" href="../articles/BH_aqua.html">Beverton-Holt aquatic model</a>
     <a class="dropdown-item" href="../articles/RM_transmission.html">Ross-Macdonald transmission model</a>
+    <a class="dropdown-item" href="../articles/Advanced.html">Advanced topics</a>
     <a class="dropdown-item" href="../articles/Contributing.html">Contributing</a>
   </div>
 </li>
@@ -183,6 +185,67 @@
       </dl><dl><dt>
           
           <code><a href="compute_oviposit.RM_stochastic.html">compute_oviposit(<i>&lt;RM_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch for stochastic RM model</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="behavioral-state-mosquito-model">Behavioral state mosquito model<a class="anchor" aria-label="anchor" href="#behavioral-state-mosquito-model"></a></h3>
+      <p class="section-desc"></p><p>This is a behavioral state model of mosquitoes which transition between oviposition and blood feeding. It also implements infection and incubation.</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_mosquito_BQ.html">setup_mosquito_BQ()</a></code> 
+        </dt>
+        <dd>Setup blood feeding &amp; oviposition (BQ) behavioral state mosquito model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_mosquitoes.BQ.html">step_mosquitoes(<i>&lt;BQ&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update blood feeding &amp; oviposition (BQ) behavioral state mosquitoes</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_mosquitoes.BQ_deterministic.html">step_mosquitoes(<i>&lt;BQ_deterministic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update blood feeding &amp; oviposition (BQ) behavioral state mosquitoes (deterministic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_mosquitoes.BQ_stochastic.html">step_mosquitoes(<i>&lt;BQ_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update blood feeding &amp; oviposition (BQ) behavioral state mosquitoes (stochastic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_f.BQ.html">compute_f(<i>&lt;BQ&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute mosquito feeding rate for BQ model (\(f\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_q.BQ.html">compute_q(<i>&lt;BQ&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human blood feeding fraction for BQ model (\(q\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_Z.BQ.html">compute_Z(<i>&lt;BQ&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute density of infective mosquitoes for BQ model (\(Z\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.BQ.html">compute_oviposit(<i>&lt;BQ&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each aquatic habitat for BQ model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.BQ_deterministic.html">compute_oviposit(<i>&lt;BQ_deterministic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute number of eggs laid from oviposition for each patch for deterministic RM model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_oviposit.BQ_stochastic.html">compute_oviposit(<i>&lt;BQ_stochastic&gt;</i>)</a></code> 
         </dt>
         <dd>Compute number of eggs laid from oviposition for each patch for stochastic RM model</dd>
       </dl></div><div class="section level2">
