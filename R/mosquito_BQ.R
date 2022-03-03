@@ -17,8 +17,7 @@
 #' @param Psi_qq movement matrix from aquatic habitats to aquatic habitats (columns must sum to 1, `l` rows and columns)
 #' @param nu number of eggs laid per oviposition
 #' @param M number of susceptible mosquitoes (vector of length `p + l`)
-#' @param Y number of incubating mosquitoes (vector of length `p + l`)
-#' @param Z number of infectious mosquitoes (vector of length `p + l`)
+#' @param Y number of incubating mosquitoes (matrix with `p + l` rows and `maxEIP + 1` columns)
 #' @return no return value
 #' @export
 setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_bq, Psi_qb, Psi_qq, nu = 25, M, Y) {
@@ -74,6 +73,7 @@ setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_
   model$mosquito$q <- rep(0, p)
 
   stopifnot(length(M) == p+l)
+  stopifnot(inherits(Y, 'matrix'))
   stopifnot(nrow(Y) == p+l)
   stopifnot(ncol(Y) == maxEIP+1)
   stopifnot(is.finite(M))
@@ -81,12 +81,13 @@ setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_
   stopifnot(M >= 0)
   stopifnot(Y >= 0)
 
-  if (stochastic) {
-    model$mosquito$M <- matrix(data = M, ncol = 1)
-  } else {
-    model$mosquito$M <- M
-  }
+  model$mosquito$M <- M
   model$mosquito$Y <- Y
+
+  if (stochastic) {
+    storage.mode(model$mosquito$M) <- 'integer'
+    storage.mode(model$mosquito$Y) <- 'integer'
+  }
 
   # matrix which multiplies Y on the right to shift all by one day
   EIP_shift <- matrix(data = 0, nrow = maxEIP + 1, ncol = maxEIP + 1)
@@ -95,9 +96,6 @@ setup_mosquito_BQ <- function(model, stochastic, eip, pB, pQ, psiQ, Psi_bb, Psi_
   model$mosquito$EIP_shift <- EIP_shift
 
 }
-
-
-#
 
 
 # update mosquitoes over one time step
@@ -170,7 +168,7 @@ step_mosquitoes.BQ_deterministic <- function(model) {
 
   # newly emerging adults
   lambda <- compute_emergents(model)
-  model$mosquito$M[1:p, 1] <- model$mosquito$M[1:p, 1] + model$mosquito$Psi_qb %*% lambda
+  model$mosquito$M[1:p] <- model$mosquito$M[1:p] + model$mosquito$Psi_qb %*% lambda
 
 }
 
@@ -297,10 +295,11 @@ compute_oviposit.BQ <- function(model) {
 #' @return a vector of length `l` giving the total number of eggs laid by adult mosquitoes in each aquatic habitat
 #' @export
 compute_oviposit.BQ_deterministic <- function(model) {
+  tnow <- model$global$tnow
   l <- model$global$l
   p <- model$global$p
   psiQ <- model$mosquito$psiQ_mat[, tnow]
-  Q <- model$mosquito$M[(p+1):(l+p), 1] + rowSums(model$mosquito$Y)[(p+1):(l+p)]
+  Q <- model$mosquito$M[(p+1):(l+p)] + rowSums(model$mosquito$Y)[(p+1):(l+p)]
   return(model$mosquito$nu * psiQ * Q)
 }
 
@@ -311,9 +310,10 @@ compute_oviposit.BQ_deterministic <- function(model) {
 #' @importFrom stats rpois
 #' @export
 compute_oviposit.BQ_stochastic <- function(model) {
+  tnow <- model$global$tnow
   l <- model$global$l
   p <- model$global$p
   psiQ <- model$mosquito$psiQ_mat[, tnow]
-  Q <- model$mosquito$M[(p+1):(l+p), 1] + rowSums(model$mosquito$Y)[(p+1):(l+p)]
+  Q <- model$mosquito$M[(p+1):(l+p)] + rowSums(model$mosquito$Y)[(p+1):(l+p)]
   return(rpois(n = p, lambda = model$mosquito$nu * psiQ * Q))
 }

@@ -48,6 +48,8 @@ of MBPT models that are implemented in **Micro-MoB**:
   model for superinfection in humans.
   * `vignette("BH_aqua")`: read about a simple non-linear model of aquatic (immature)
   stage mosquito dynamics based on the well known [Beverton-Holt model](https://en.wikipedia.org/wiki/Beverton-Holt_model) from ecology.
+  * `vignette("BQ_mosquito")`: read about a behavioral state model of adult mosquito
+  dynamics.
   * `vignette("RM_transmission")`: read about how we put together models fulfilling
   each component to run a simple Ross-Macdonald style model of pathogen transmission
   between human hosts and mosquito vectors.

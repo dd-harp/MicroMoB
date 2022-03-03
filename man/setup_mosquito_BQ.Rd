@@ -45,9 +45,7 @@ setup_mosquito_BQ(
 
 \item{M}{number of susceptible mosquitoes (vector of length \code{p + l})}
 
-\item{Y}{number of incubating mosquitoes (vector of length \code{p + l})}
-
-\item{Z}{number of infectious mosquitoes (vector of length \code{p + l})}
+\item{Y}{number of incubating mosquitoes (matrix with \code{p + l} rows and \code{maxEIP + 1} columns)}
 }
 \value{
 no return value

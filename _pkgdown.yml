@@ -13,10 +13,11 @@ articles:
   - MicroMoB
   - bloodmeal
   - RM_mosquito
+  - BQ_mosquito
   - MOI_human
   - BH_aqua
   - RM_transmission
-  - Advanced topics
+  - Advanced
   - Contributing
 
 reference:
@@ -59,6 +60,22 @@ reference:
   - compute_oviposit.RM
   - compute_oviposit.RM_deterministic
   - compute_oviposit.RM_stochastic
+
+- subtitle: Behavioral state mosquito model
+  desc: >
+    This is a behavioral state model of mosquitoes which transition between
+    oviposition and blood feeding. It also implements infection and incubation.
+  contents:
+  - setup_mosquito_BQ
+  - step_mosquitoes.BQ
+  - step_mosquitoes.BQ_deterministic
+  - step_mosquitoes.BQ_stochastic
+  - compute_f.BQ
+  - compute_q.BQ
+  - compute_Z.BQ
+  - compute_oviposit.BQ
+  - compute_oviposit.BQ_deterministic
+  - compute_oviposit.BQ_stochastic
 
 - subtitle: Trace (forced) mosquito model
   desc: This is a null mosquito component used to test aquatic models.
