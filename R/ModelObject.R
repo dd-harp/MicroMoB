@@ -17,5 +17,3 @@ make_MicroMoB <- function(tmax, p, l = p) {
   object$global <- list(tmax = as.integer(tmax), tnow = 1L, p = as.integer(p), l = as.integer(l))
   return(object)
 }
-
-
