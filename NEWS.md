@@ -1,3 +1,7 @@
+# MicroMoB 0.0.11
+
+  * add behavioral state model of adult mosquito dynamics.
+
 # MicroMoB 0.0.10
 
   * add functions to each model allowing parameters to be read in from specially
