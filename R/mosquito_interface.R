@@ -43,7 +43,7 @@ compute_q <- function(model, W, Wd, B) {
 
 #' @title Compute density of infective mosquitoes (\eqn{Z})
 #' @description This method dispatches on the type of `model$mosquito`. \eqn{Z}
-#' is also known as the "sporozoite rate" in malariaology.
+#' is also known as the "sporozoite rate" in malariology.
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @return a vector of length `p` giving the density of infected and infectious mosquitoes in each patch
 #' @export

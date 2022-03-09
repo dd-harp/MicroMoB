@@ -14,5 +14,5 @@ a \link{data.frame}
 }
 \description{
 This function returns an empty \link{data.frame} as trace models do
-not have endogeneous dynamics.
+not have endogenous dynamics.
 }

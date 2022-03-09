@@ -42,7 +42,7 @@ divmod <- function(a,b){
 
 #' @title Distribute items into bins as evenly as possible
 #' @param n number of bins
-#' @param p number of itens
+#' @param p number of items
 #' @return a numeric vector of bin sizes
 #' @export
 distribute <- function(n,p){

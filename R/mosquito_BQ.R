@@ -3,7 +3,7 @@
 #' @title Setup blood feeding & oviposition (BQ) behavioral state mosquito model
 #' @description This is a behavioral state model which allows for time varying EIP and
 #' survival probability. Mosquitoes transition between blood feeding (B) and
-#' oviposition (Q) depending on teh success (or not) of those biological activities.
+#' oviposition (Q) depending on the success (or not) of those biological activities.
 #' It complies with the mosquito component interface, and may be simulated deterministically or stochastically.
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param stochastic should the model update deterministically or stochastically?

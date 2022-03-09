@@ -14,5 +14,5 @@ a vector of length \code{p} giving the density of infected and infectious mosqui
 }
 \description{
 This method dispatches on the type of \code{model$mosquito}. \eqn{Z}
-is also known as the "sporozoite rate" in malariaology.
+is also known as the "sporozoite rate" in malariology.
 }

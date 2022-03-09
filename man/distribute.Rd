@@ -9,7 +9,7 @@ distribute(n, p)
 \arguments{
 \item{n}{number of bins}
 
-\item{p}{number of itens}
+\item{p}{number of items}
 }
 \value{
 a numeric vector of bin sizes
