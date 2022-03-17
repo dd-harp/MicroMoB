@@ -1,8 +1,8 @@
 # Setup by starting APIs
 root_path <- "http://localhost"
 
-api_port <- 8000
-# api_port <- findPort()
+# api_port <- 8000
+api_port <- plumber:::findPort()
 
 api <- callr::r_bg(
   function(port) {
