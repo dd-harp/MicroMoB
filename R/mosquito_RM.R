@@ -223,7 +223,8 @@ step_mosquitoes.RM_deterministic <- function(model) {
   model$mosquito$M <- p * model$mosquito$M
   model$mosquito$Y <- p * (model$mosquito$Y + Y0)
   model$mosquito$Z <- p * model$mosquito$Z
-  model$mosquito$ZZ <- p * model$mosquito$ZZ
+  # model$mosquito$ZZ <- p * model$mosquito$ZZ
+  model$mosquito$ZZ <- (matrix(data = 1, nrow = nrow(model$mosquito$ZZ), ncol = 1) %*% p) * model$mosquito$ZZ
 
   # dispersal
   model$mosquito$M <- model$mosquito$M %*% psi
@@ -300,16 +301,15 @@ step_mosquitoes.RM_stochastic <- function(model) {
   # add newly infectious
   model$mosquito$Z <- model$mosquito$Z + model$mosquito$ZZ[1, ]
 
+  # ZZ[t, ] is the number of mosquitoes that become infectious in each patch t days from now.
+  model$mosquito$ZZ <- model$mosquito$ZZ_shift %*% model$mosquito$ZZ
+  model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + Y0
+
   # newly emerging adults
   lambda <- compute_emergents(model)
 
   # add newly emerging
   model$mosquito$M <- model$mosquito$Y + S + lambda
-
-  # ZZ[t, ] is the number of mosquitoes that become infectious in each patch t days from now.
-  model$mosquito$ZZ <- model$mosquito$ZZ_shift %*% model$mosquito$ZZ
-  model$mosquito$ZZ[EIP, ] <- model$mosquito$ZZ[EIP, ] + Y0
-
 
 }
 
