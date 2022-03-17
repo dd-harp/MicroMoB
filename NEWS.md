@@ -1,3 +1,9 @@
+# MicroMoB 0.0.12
+
+  * move `plumber` dependency to "Suggests" to avoid NOTE in checks.
+  * fix bug in `step_mosquitoes.RM_deterministic` where mortality applied to
+  incubating mosquitoes would not correctly be dependent on patch.
+
 # MicroMoB 0.0.11
 
   * add behavioral state model of adult mosquito dynamics.
