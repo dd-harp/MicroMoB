@@ -3,6 +3,7 @@
   * move `plumber` dependency to "Suggests" to avoid NOTE in checks.
   * fix bug in `step_mosquitoes.RM_deterministic` where mortality applied to
   incubating mosquitoes would not correctly be dependent on patch.
+  * use `plumber:::findPort()` in test of plumber API 
 
 # MicroMoB 0.0.11
 
