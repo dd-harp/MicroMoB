@@ -223,7 +223,6 @@ step_mosquitoes.RM_deterministic <- function(model) {
   model$mosquito$M <- p * model$mosquito$M
   model$mosquito$Y <- p * (model$mosquito$Y + Y0)
   model$mosquito$Z <- p * model$mosquito$Z
-  # model$mosquito$ZZ <- p * model$mosquito$ZZ
   model$mosquito$ZZ <- (matrix(data = 1, nrow = nrow(model$mosquito$ZZ), ncol = 1) %*% p) * model$mosquito$ZZ
 
   # dispersal
