@@ -1,7 +1,9 @@
 # functions for setting up APIs, includes global methods and those for aquatic/adult components (see inst/plumber/mosquito/plumber.R for API)
 
-#' @noRd
+#' @title Read global configuration options
+#' @param path file path to a JSON file
 #' @importFrom jsonlite read_json
+#' @export
 api_config_global <- function(path) {
   pars <- read_json(path = file.path(path), simplifyVector = TRUE)
 
