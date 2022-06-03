@@ -15,7 +15,7 @@ Description: Provides a framework based on S3 dispatch for constructing models
   over a discrete time step.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports:
     extraDistr,
     abind,
