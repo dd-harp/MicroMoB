@@ -4,7 +4,7 @@
 \alias{setup_aqua_trace}
 \title{Setup aquatic (immature) mosquito model with trace (forced) emergence}
 \usage{
-setup_aqua_trace(model, lambda, stochastic)
+setup_aqua_trace(model, lambda, stochastic, dispersal = NULL)
 }
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}

@@ -10,7 +10,7 @@ compute_oviposit(model)
 \item{model}{an object from \link{make_MicroMoB}}
 }
 \value{
-a vector of length \code{p} giving the total number of eggs laid by adult mosquitoes in each patch
+a vector of length \code{l} giving the total number of eggs laid by adult mosquitoes in each aquatic habitat
 }
 \description{
 This method dispatches on the type of \code{model$mosquito}

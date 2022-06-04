@@ -8,7 +8,7 @@
 #' @param stochastic should the model update deterministically or stochastically?
 #' @return no return value
 #' @export
-setup_aqua_trace <- function(model, lambda, stochastic) {
+setup_aqua_trace <- function(model, lambda, stochastic, dispersal = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
 
   tmax <- model$global$tmax
