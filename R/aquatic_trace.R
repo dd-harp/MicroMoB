@@ -2,13 +2,14 @@
 
 #' @title Setup aquatic (immature) mosquito model with trace (forced) emergence
 #' @description Emergence is passed as a (possibly time varying) parameter which is
-#' decoupled from the adult mosquito dynamics.
+#' decoupled from the adult mosquito dynamics. This module assumes `l` and `p`
+#' are equivalent, as emergence rates are given for `p`.
 #' @param model an object from [MicroMoB::make_MicroMoB]
 #' @param lambda daily emergence of mosquitoes, may be time and patch varying, see [MicroMoB::time_patch_varying_parameter]
 #' @param stochastic should the model update deterministically or stochastically?
 #' @return no return value
 #' @export
-setup_aqua_trace <- function(model, lambda, stochastic, dispersal = NULL) {
+setup_aqua_trace <- function(model, lambda, stochastic) {
   stopifnot(inherits(model, "MicroMoB"))
 
   tmax <- model$global$tmax
