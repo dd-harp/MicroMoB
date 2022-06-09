@@ -15,7 +15,8 @@ setup_mosquito_RM(
   nu = 25,
   M,
   Y,
-  Z
+  Z,
+  N = NULL
 )
 }
 \arguments{
@@ -40,6 +41,10 @@ setup_mosquito_RM(
 \item{Y}{density of incubating mosquitoes per patch (vector of length \code{p})}
 
 \item{Z}{density of infectious mosquitoes per patch (vector of length \code{p})}
+
+\item{N}{\code{l} by \code{p} matrix describing how eggs from mosquitoes in patches are
+distributed amongst aquatic habitats. If \code{NULL} it is the identity matrix of dimension
+\code{l}.}
 }
 \value{
 no return value

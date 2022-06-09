@@ -57,7 +57,7 @@ compute_Z <- function(model) {
 #' @title Compute number of eggs laid from oviposition for each patch
 #' @description This method dispatches on the type of `model$mosquito`
 #' @param model an object from [MicroMoB::make_MicroMoB]
-#' @return a vector of length `p` giving the total number of eggs laid by adult mosquitoes in each patch
+#' @return a vector of length `l` giving the total number of eggs laid by adult mosquitoes in each aquatic habitat
 #' @export
 compute_oviposit <- function(model) {
   UseMethod("compute_oviposit", model$mosquito)

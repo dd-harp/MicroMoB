@@ -15,13 +15,27 @@
 #' @param M total mosquito density per patch (vector of length `p`)
 #' @param Y density of incubating mosquitoes per patch (vector of length `p`)
 #' @param Z density of infectious mosquitoes per patch (vector of length `p`)
+#' @param N `l` by `p` matrix describing how eggs from mosquitoes in patches are
+#' distributed amongst aquatic habitats. If `NULL` it is the identity matrix of dimension
+#' `l`.
 #' @return no return value
 #' @export
-setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, nu = 25, M, Y, Z) {
+setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, nu = 25, M, Y, Z, N = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
   stopifnot(is.logical(stochastic))
 
   tmax <- model$global$tmax
+
+  if (is.null(N)) {
+    # because in general we don't know how to map eggs in patches to habitats,
+    # we do not allow l != p if N is not provided
+    stopifnot(model$global$l == model$global$p)
+    N <- diag(model$global$l)
+  } else {
+    stopifnot(nrow(N) == model$global$l)
+    stopifnot(ncol(N) == model$global$p)
+    stopifnot(approx_equal(colSums(N), 1))
+  }
 
   if (stochastic) {
     M <- as.integer(M)
@@ -73,6 +87,7 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
   model$mosquito$p <- p_vec
   model$mosquito$psi <- psi
   model$mosquito$nu <- nu
+  model$mosquito$N <- N # oviposition matrix
 
   model$mosquito$kappa <- rep(0, model$global$p)
 
@@ -365,15 +380,16 @@ compute_oviposit.RM <- function(model) {
 #' @return a vector of length `p` giving the total number of eggs laid by adult mosquitoes in each patch
 #' @export
 compute_oviposit.RM_deterministic <- function(model) {
-  model$mosquito$nu * model$mosquito$f * model$mosquito$M
+  return(as.vector(model$mosquito$N %*% (model$mosquito$nu * model$mosquito$f * model$mosquito$M)))
 }
 
 
 #' @title Compute number of eggs laid from oviposition for each patch for stochastic RM model
 #' @inheritParams compute_oviposit
-#' @return a vector of length `p` giving the total number of eggs laid by adult mosquitoes in each patch
+#' @return a vector of length `l` giving the total number of eggs laid by adult mosquitoes in each patch
 #' @importFrom stats rpois
 #' @export
 compute_oviposit.RM_stochastic <- function(model) {
-  rpois(n = model$global$p, lambda = model$mosquito$nu * model$mosquito$f * model$mosquito$M)
+  eggs <- rpois(n = model$global$p, lambda = model$mosquito$nu * model$mosquito$f * model$mosquito$M)
+  return(as.vector(model$mosquito$N %*% eggs))
 }

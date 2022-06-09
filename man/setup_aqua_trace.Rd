@@ -18,5 +18,6 @@ no return value
 }
 \description{
 Emergence is passed as a (possibly time varying) parameter which is
-decoupled from the adult mosquito dynamics.
+decoupled from the adult mosquito dynamics. This module assumes \code{l} and \code{p}
+are equivalent, as emergence rates are given for \code{p}.
 }
