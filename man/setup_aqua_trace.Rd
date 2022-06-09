@@ -4,7 +4,7 @@
 \alias{setup_aqua_trace}
 \title{Setup aquatic (immature) mosquito model with trace (forced) emergence}
 \usage{
-setup_aqua_trace(model, lambda, stochastic, dispersal = NULL)
+setup_aqua_trace(model, lambda, stochastic)
 }
 \arguments{
 \item{model}{an object from \link{make_MicroMoB}}
@@ -18,5 +18,6 @@ no return value
 }
 \description{
 Emergence is passed as a (possibly time varying) parameter which is
-decoupled from the adult mosquito dynamics.
+decoupled from the adult mosquito dynamics. This module assumes \code{l} and \code{p}
+are equivalent, as emergence rates are given for \code{p}.
 }
