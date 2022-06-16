@@ -142,6 +142,7 @@ reference:
   - compute_x
   - compute_H
   - compute_Psi
+  - observe_pfpr
 
 - subtitle: SIS human model
   desc: >
@@ -157,6 +158,24 @@ reference:
   - compute_x.SIS
   - compute_H.SIS
   - compute_Psi.SIS
+  - observe_pfpr.SIS
+
+- subtitle: SIP human model
+  desc: >
+    The SIP (Susceptible-Infected-Protected) model is a simple extension of the SIS model that adds a
+    class "Protected" for those who have recieved treatment and are temporarily protected from
+    infection until prophylaxis decays
+  contents:
+  - setup_humans_SIP
+  - get_config_humans_SIP
+  - step_humans.SIP
+  - step_humans.SIP_deterministic
+  - step_humans.SIP_stochastic
+  - compute_wf.SIP
+  - compute_x.SIP
+  - compute_H.SIP
+  - compute_Psi.SIP
+  - observe_pfpr.SIP
 
 - subtitle: MOI human model
   desc: >
