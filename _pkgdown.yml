@@ -167,7 +167,6 @@ reference:
     infection until prophylaxis decays
   contents:
   - setup_humans_SIP
-  - get_config_humans_SIP
   - step_humans.SIP
   - step_humans.SIP_deterministic
   - step_humans.SIP_stochastic
