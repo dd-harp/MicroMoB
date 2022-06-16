@@ -453,6 +453,11 @@
           <code><a href="compute_Psi.html">compute_Psi()</a></code> 
         </dt>
         <dd>Compute time at risk matrix (\(\Psi\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="observe_pfpr.html">observe_pfpr()</a></code> 
+        </dt>
+        <dd>Observe PfPR in human strata</dd>
       </dl></div><div class="section level2">
       
       <h3 id="sis-human-model">SIS human model<a class="anchor" aria-label="anchor" href="#sis-human-model"></a></h3>
@@ -509,6 +514,67 @@
           <code><a href="compute_Psi.SIS.html">compute_Psi(<i>&lt;SIS&gt;</i>)</a></code> 
         </dt>
         <dd>Compute time at risk matrix for SIS model (\(\Psi\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="observe_pfpr.SIS.html">observe_pfpr(<i>&lt;SIS&gt;</i>)</a></code> 
+        </dt>
+        <dd>Observe PfPR in human strata for SIS model</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="sip-human-model">SIP human model<a class="anchor" aria-label="anchor" href="#sip-human-model"></a></h3>
+      <p class="section-desc"></p><p>The SIP (Susceptible-Infected-Protected) model is a simple extension of the SIS model that adds a class “Protected” for those who have recieved treatment and are temporarily protected from infection until prophylaxis decays</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="setup_humans_SIP.html">setup_humans_SIP()</a></code> 
+        </dt>
+        <dd>Setup humans with SIP pathogen model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.SIP.html">step_humans(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update SIP human model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.SIP_deterministic.html">step_humans(<i>&lt;SIP_deterministic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update SIP human model (deterministic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="step_humans.SIP_stochastic.html">step_humans(<i>&lt;SIP_stochastic&gt;</i>)</a></code> 
+        </dt>
+        <dd>Update SIP human model (stochastic)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_wf.SIP.html">compute_wf(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human biting weights for SIP model (\(w_{f}\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_x.SIP.html">compute_x(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute net infectiousness for SIP model (\(x\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_H.SIP.html">compute_H(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute human population strata sizes for SIP model (\(H\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="compute_Psi.SIP.html">compute_Psi(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Compute time at risk matrix for SIP model (\(\Psi\))</dd>
+      </dl><dl><dt>
+          
+          <code><a href="observe_pfpr.SIP.html">observe_pfpr(<i>&lt;SIP&gt;</i>)</a></code> 
+        </dt>
+        <dd>Observe PfPR in human strata for SIP model</dd>
       </dl></div><div class="section level2">
       
       <h3 id="moi-human-model">MOI human model<a class="anchor" aria-label="anchor" href="#moi-human-model"></a></h3>
@@ -823,7 +889,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
