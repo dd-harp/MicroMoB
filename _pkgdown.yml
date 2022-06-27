@@ -250,6 +250,7 @@ reference:
   - MicroMoB
   - make_MicroMoB
   - get_tnow
+  - get_tmax
   - api_config_global
   - sample_stochastic_vector
   - sample_stochastic_matrix

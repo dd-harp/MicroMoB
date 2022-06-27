@@ -25,3 +25,11 @@ get_tnow <- function(model) {
   stopifnot(inherits(model, "MicroMoB"))
   return(model$global$tnow)
 }
+
+#' @title Get maximum time of simulation from model object
+#' @param model an object from [make_MicroMoB]
+#' @export
+get_tmax <- function(model) {
+  stopifnot(inherits(model, "MicroMoB"))
+  return(model$global$tmax)
+}
