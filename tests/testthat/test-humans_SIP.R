@@ -13,7 +13,7 @@ test_that("human object setup is working", {
   c <- 0.15
 
   setup_humans_SIP(model = mod, stochastic = FALSE, theta = theta, SIP = SIP)
-  expect_equal(compute_x(mod), (SIP[2L, ] / rowSums(SIP)) * c)
+  expect_equal(compute_x(mod), (SIP[, 2L] / rowSums(SIP)) * c)
   expect_equal(compute_wf(mod), wf)
   expect_equal(compute_Psi(mod), theta)
   expect_equal(compute_H(mod), rowSums(SIP))

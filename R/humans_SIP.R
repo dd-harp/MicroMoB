@@ -141,7 +141,8 @@ compute_wf.SIP <- function(model) {
 #' @return a vector of length `n` giving the net infectiousness of human hosts in each stratum
 #' @export
 compute_x.SIP <- function(model) {
-  x <- (model$human$SIP[2L, ] / rowSums(model$human$SIP)) * model$human$c
+  x <- (model$human$SIP[, 'I'] / rowSums(model$human$SIP)) * model$human$c
+  x[is.nan(x)] <- 0
   return(as.vector(x))
 }
 
