@@ -11,6 +11,6 @@ test_that("the model object constructs", {
   expect_error(make_MicroMoB(tmax = -5, p = 1))
   expect_error(make_MicroMoB(tmax = 0, p = 1))
 
-  expect_equal(get_tnow(obj), obj$gloabl$tnow)
-  expect_equal(get_tmax(obj), obj$gloabl$tmax)
+  expect_equal(get_tnow(obj), obj$global$tnow)
+  expect_equal(get_tmax(obj), obj$global$tmax)
 })

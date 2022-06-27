@@ -110,18 +110,19 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
       model$mosquito$ZZ[1:maxEIP, ] <- vapply(X = ZZ, FUN = function(z) {distribute(n = z, p = maxEIP)}, FUN.VALUE = numeric(maxEIP))
     } else {
       ZZ <- Y - Z
-      p <- model$mosquito$p[, 1L]
-      denom <- vapply(X = 0:(maxEIP-1), FUN = function(n) {p^n}, FUN.VALUE = numeric(length(p)))
-      if (is.matrix(denom)) {
+      p_surv <- model$mosquito$p[, 1L]
+      denom <- vapply(X = 0:(maxEIP-1), FUN = function(n) {p_surv^n}, FUN.VALUE = numeric(model$global$p))
+      num <- vapply(X = (maxEIP-1):0, FUN = function(n) {ZZ*(p_surv^n)}, FUN.VALUE = numeric(model$global$p))
+      if (model$global$p > 1) {
         denom <- rowSums(denom)
+        num <- t(num)
       } else {
         denom <- sum(denom)
+        num <- as.matrix(num)
       }
-      num <- t(vapply(X = (maxEIP-1):0, FUN = function(n) {ZZ*(p^n)}, FUN.VALUE = numeric(length(p))))
       for (i in 1:model$global$p) {
-        model$mosquito$ZZ[, i] <- num[i, ] / denom[i]
+        model$mosquito$ZZ[, i] <- num[, i] / denom[i]
       }
-      # model$mosquito$ZZ[1:maxEIP, ] <- as.matrix(replicate(n = maxEIP, expr = (Y - Z)/maxEIP))
     }
   }
 
