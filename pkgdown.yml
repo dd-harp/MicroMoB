@@ -1,5 +1,5 @@
 pandoc: 2.14.2
-pkgdown: 2.0.4
+pkgdown: 2.0.5
 pkgdown_sha: ~
 articles:
   Advanced: Advanced.html
@@ -11,7 +11,7 @@ articles:
   RM_mosquito: RM_mosquito.html
   RM_transmission: RM_transmission.html
   bloodmeal: bloodmeal.html
-last_built: 2022-06-16T23:41Z
+last_built: 2022-06-27T20:33Z
 urls:
   reference: https://dd-harp.github.io/MicroMoB/reference
   article: https://dd-harp.github.io/MicroMoB/articles

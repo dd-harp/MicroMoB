@@ -97,7 +97,7 @@ For interpretation of the entries, please read setup_humans_SIR."><!-- mathjax -
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_config_humans_SIR</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_config_humans_SIR</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -117,35 +117,35 @@ For interpretation of the entries, please read setup_humans_SIR."><!-- mathjax -
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># to see an example of proper JSON input, run the following</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805" class="external-link">jsonlite</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">6</span> <span class="co"># number of human population strata</span></span>
-<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of patches</span></span>
-<span class="r-in"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">p</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">theta</span> <span class="op">&lt;-</span> <span class="va">theta</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">n</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">SIR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">SIR</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">H</span></span>
-<span class="r-in"><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in"> <span class="st">"stochastic"</span> <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span class="r-in"> <span class="st">"theta"</span> <span class="op">=</span> <span class="va">theta</span>,</span>
-<span class="r-in"> <span class="st">"wf"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span>,</span>
-<span class="r-in"> <span class="st">"H"</span> <span class="op">=</span> <span class="va">H</span>,</span>
-<span class="r-in"> <span class="st">"SIR"</span> <span class="op">=</span> <span class="va">SIR</span>,</span>
-<span class="r-in"> <span class="st">"b"</span> <span class="op">=</span> <span class="fl">0.55</span>,</span>
-<span class="r-in"> <span class="st">"c"</span> <span class="op">=</span> <span class="fl">0.15</span>,</span>
-<span class="r-in"> <span class="st">"gamma"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">7</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">par</span>, pretty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># to see an example of proper JSON input, run the following</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://arxiv.org/abs/1403.2805" class="external-link">jsonlite</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">6</span> <span class="co"># number of human population strata</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># number of patches</span></span></span>
+<span class="r-in"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">rexp</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">p</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">theta</span> <span class="op">&lt;-</span> <span class="va">theta</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">theta</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">10</span>, <span class="va">n</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">SIR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">SIR</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">H</span></span></span>
+<span class="r-in"><span><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span> <span class="st">"stochastic"</span> <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
+<span class="r-in"><span> <span class="st">"theta"</span> <span class="op">=</span> <span class="va">theta</span>,</span></span>
+<span class="r-in"><span> <span class="st">"wf"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span> <span class="st">"H"</span> <span class="op">=</span> <span class="va">H</span>,</span></span>
+<span class="r-in"><span> <span class="st">"SIR"</span> <span class="op">=</span> <span class="va">SIR</span>,</span></span>
+<span class="r-in"><span> <span class="st">"b"</span> <span class="op">=</span> <span class="fl">0.55</span>,</span></span>
+<span class="r-in"><span> <span class="st">"c"</span> <span class="op">=</span> <span class="fl">0.15</span>,</span></span>
+<span class="r-in"><span> <span class="st">"gamma"</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">7</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="va">par</span>, pretty <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   "stochastic": [false],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   "theta": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.3222, 0.2186, 0.343, 0.069, 0.0472],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.2494, 0.0081, 0.2433, 0.415, 0.0842],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.5309, 0.1946, 0.0863, 0.1656, 0.0226],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0844, 0.219, 0.2085, 0.131, 0.3571],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0292, 0.0912, 0.3344, 0.4169, 0.1283],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.1393, 0.4186, 0.0053, 0.1726, 0.2642]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.4512, 0.1327, 0.2313, 0.0071, 0.1778],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.4618, 0.105, 0.1684, 0.0187, 0.246],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.2708, 0.3563, 0.062, 0.1142, 0.1966],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0591, 0.117, 0.0451, 0.3603, 0.4185],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0657, 0.2174, 0.5245, 0.0579, 0.1344],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     [0.0528, 0.4528, 0.1727, 0.0182, 0.3036]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   "wf": [1, 1, 1, 1, 1, 1],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   "H": [10, 10, 10, 10, 10, 10],</span>
@@ -172,7 +172,7 @@ For interpretation of the entries, please read setup_humans_SIR."><!-- mathjax -
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -76,7 +76,7 @@ population size for the overall stratification of both residency and strata.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">strata_to_residency_proportion</span><span class="op">(</span><span class="va">H_strata</span>, <span class="va">J_strata</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">strata_to_residency_proportion</span><span class="op">(</span><span class="va">H_strata</span>, <span class="va">J_strata</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -102,15 +102,15 @@ into the "unrolled" vector <code>H</code></p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># taken from package tests</span></span>
-<span class="r-in"><span class="va">J</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span class="r-in">   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.2</span>,</span>
-<span class="r-in">   <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># get the overall assignment of strata (cols) across patches (rows)</span></span>
-<span class="r-in"><span class="va">H_overall</span> <span class="op">&lt;-</span> <span class="va">J</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">H</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">residency</span> <span class="op">&lt;-</span> <span class="fu">strata_to_residency_proportion</span><span class="op">(</span>H_strata <span class="op">=</span> <span class="va">H</span>, J_strata <span class="op">=</span> <span class="va">J</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># taken from package tests</span></span></span>
+<span class="r-in"><span><span class="va">J</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.2</span>,</span></span>
+<span class="r-in"><span>   <span class="fl">0.1</span>, <span class="fl">0.6</span>, <span class="fl">0.3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">H</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># get the overall assignment of strata (cols) across patches (rows)</span></span></span>
+<span class="r-in"><span><span class="va">H_overall</span> <span class="op">&lt;-</span> <span class="va">J</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">H</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">residency</span> <span class="op">&lt;-</span> <span class="fu">strata_to_residency_proportion</span><span class="op">(</span>H_strata <span class="op">=</span> <span class="va">H</span>, J_strata <span class="op">=</span> <span class="va">J</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -122,7 +122,7 @@ into the "unrolled" vector <code>H</code></p></li>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
