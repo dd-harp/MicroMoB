@@ -265,6 +265,7 @@ compute_wf.MOI <- function(model) {
 #' @export
 compute_x.MOI <- function(model) {
   X <- (model$human$H - model$human$MOI[1, ]) / model$human$H
+  X[is.nan(X)] <- 0
   return(as.vector(X * model$human$c))
 }
 

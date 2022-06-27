@@ -183,6 +183,7 @@ compute_wf.SIS <- function(model) {
 #' @export
 compute_x.SIS <- function(model) {
   x <- (model$human$X / model$human$H) * model$human$c
+  x[is.nan(x)] <- 0
   return(as.vector(x))
 }
 

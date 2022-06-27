@@ -208,6 +208,7 @@ compute_wf.SIR <- function(model) {
 #' @export
 compute_x.SIR <- function(model) {
   X <- model$human$SIR[, "I"] / model$human$H
+  X[is.nan(X)] <- 0
   return(as.vector(X * model$human$c))
 }
 

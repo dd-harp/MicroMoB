@@ -17,3 +17,19 @@ make_MicroMoB <- function(tmax, p, l = p) {
   object$global <- list(tmax = as.integer(tmax), tnow = 1L, p = as.integer(p), l = as.integer(l))
   return(object)
 }
+
+#' @title Get current time of simulation from model object
+#' @param model an object from [make_MicroMoB]
+#' @export
+get_tnow <- function(model) {
+  stopifnot(inherits(model, "MicroMoB"))
+  return(model$global$tnow)
+}
+
+#' @title Get maximum time of simulation from model object
+#' @param model an object from [make_MicroMoB]
+#' @export
+get_tmax <- function(model) {
+  stopifnot(inherits(model, "MicroMoB"))
+  return(model$global$tmax)
+}
