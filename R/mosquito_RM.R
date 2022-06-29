@@ -104,22 +104,29 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
   model$mosquito$Y <- Y # infected (incubating)
   model$mosquito$Z <- Z # infectious
   model$mosquito$ZZ <- matrix(data = 0, nrow = maxEIP, ncol = model$global$p) # each row is the number that will be added to the infectious state on that day
+
   if (any(Y > 0)) {
-    if (stochastic) {
-      ZZ <- Y - Z
-      model$mosquito$ZZ[1:maxEIP, ] <- vapply(X = ZZ, FUN = function(z) {distribute(n = z, p = maxEIP)}, FUN.VALUE = numeric(maxEIP))
+
+    ZZ <- Y - Z
+    p_surv <- model$mosquito$p[, 1L]
+    denom <- vapply(X = 0:(maxEIP-1), FUN = function(n) {p_surv^n}, FUN.VALUE = numeric(model$global$p))
+    num <- vapply(X = (maxEIP-1):0, FUN = function(n) {ZZ*(p_surv^n)}, FUN.VALUE = numeric(model$global$p))
+    if (model$global$p > 1) {
+      denom <- rowSums(denom)
+      num <- t(num)
     } else {
-      ZZ <- Y - Z
-      p_surv <- model$mosquito$p[, 1L]
-      denom <- vapply(X = 0:(maxEIP-1), FUN = function(n) {p_surv^n}, FUN.VALUE = numeric(model$global$p))
-      num <- vapply(X = (maxEIP-1):0, FUN = function(n) {ZZ*(p_surv^n)}, FUN.VALUE = numeric(model$global$p))
-      if (model$global$p > 1) {
-        denom <- rowSums(denom)
-        num <- t(num)
-      } else {
-        denom <- sum(denom)
-        num <- as.matrix(num)
+      denom <- sum(denom)
+      num <- as.matrix(num)
+    }
+
+    if (stochastic) {
+      for (i in 1:model$global$p) {
+        if (ZZ[i] > 0) {
+          probs <- num[, i] / denom[i]
+          model$mosquito$ZZ[, i] <- rmultinom(n = 1L, size = ZZ[i], prob = probs)
+        }
       }
+    } else {
       for (i in 1:model$global$p) {
         model$mosquito$ZZ[, i] <- num[, i] / denom[i]
       }
