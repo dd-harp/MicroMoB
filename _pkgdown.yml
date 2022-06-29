@@ -28,6 +28,7 @@ reference:
     components can be updated independently.
   contents:
   - compute_bloodmeal
+  - compute_bloodmeal_simple
 
 - title: Adult mosquito component
 
