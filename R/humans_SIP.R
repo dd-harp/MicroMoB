@@ -131,7 +131,7 @@ step_humans.SIP_stochastic <- function(model) {
   h <- model$human$EIR * model$human$b
   n <- model$global$n
 
-  new_infections <- rbinom(n = n, prob = min(h, 1), size = model$human$SIP[, "S"])
+  new_infections <- rbinom(n = n, prob = pmin(h, 1), size = model$human$SIP[, "S"])
   new_treatment <- rbinom(n = n, size = new_infections, prob = model$human$rho)
   new_disease <- new_infections - new_treatment
 
