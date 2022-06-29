@@ -13,13 +13,13 @@ observe_prev <- function(model, parameters) {
   UseMethod("observe_prev", model$human)
 }
 
-#' @title Observe prevalence in human strata for SIS model
-#' @inheritParams observe_prev
+#' @title Observe PfPR in human strata for SIS model
+#' @inheritParams observe_pfpr
 #' @return an [array] of counts, with actual condition as first dimension and tested condition
 #' as the second dimension, and the third dimension is the human strata
 #' @importFrom stats rbinom rhyper
 #' @export
-observe_prev.SIS <- function(model, parameters) {
+observe_pfpr.SIS <- function(model, parameters) {
 
   n <- model$global$n
 
@@ -29,7 +29,9 @@ observe_prev.SIS <- function(model, parameters) {
 
   test <- rbinom(n = n, size = model$human$H, prob = parameters$testprop)
 
-  S_samp <- rhyper(nn = n, m = model$human$S, n = model$human$X, k = test)
+  # if sampling randomly, how many true S and I are sampled for testing?
+  S <- model$human$H - model$human$X
+  S_samp <- rhyper(nn = n, m = S, n = model$human$X, k = test)
   X_samp <- test - S_samp
 
   tp <- rbinom(n = n, size = X_samp, prob = parameters$sens)
@@ -48,31 +50,38 @@ observe_prev.SIS <- function(model, parameters) {
 }
 
 
-#' @title Observe prevalence in human strata for MOI model
-#' @inheritParams observe_prev
+#' @title Observe PfPR in human strata for SIP model
+#' @inheritParams observe_pfpr
 #' @return an [array] of counts, with actual condition as first dimension and tested condition
 #' as the second dimension, and the third dimension is the human strata
+#' @importFrom stats rbinom rhyper
 #' @export
-observe_prev.MOI  <- function(model, parameters) {
-  stop("not yet implemented for the MOI model")
-}
+observe_pfpr.SIP <- function(model, parameters) {
 
+  n <- model$global$n
 
-#' @title Observe prevalence in human strata for SIR model
-#' @inheritParams observe_prev
-#' @return an [array] of counts, with actual condition as first dimension and tested condition
-#' as the second dimension, and the third dimension is the human strata
-#' @export
-observe_prev.SIR  <- function(model, parameters) {
-  stop("not yet implemented for the SIR model")
-}
+  stopifnot(length(parameters$testprop) == n)
 
+  results <- array(data = 0, dim = c(2, 2, n), dimnames = list(c("pos", "neg"), c("pos", "neg"), NULL))
 
-#' @title Observe prevalence in human strata for SIR model
-#' @inheritParams observe_prev
-#' @return an [array] of counts, with actual condition as first dimension and tested condition
-#' as the second dimension, and the third dimension is the human strata
-#' @export
-observe_prev.SIP  <- function(model, parameters) {
-  stop("not yet implemented for the SIR model")
+  H <- rowSums(model$human$SIP)
+  test <- rbinom(n = n, size = H, prob = parameters$testprop)
+
+  # how many of these tests are randomly allocated to infected persons?
+  I_samp <- rhyper(nn = n, m = model$human$SIP[, "I"], n = rowSums(model$human$SIP[, c("S", "P")]), k = test)
+  SP_samp <- test - I_samp
+
+  tp <- rbinom(n = n, size = I_samp, prob = parameters$sens)
+  fn <- I_samp - tp
+
+  tn <- rbinom(n = n, size = SP_samp, prob = parameters$spec)
+  fp <- SP_samp - tn
+
+  results["pos", "pos", ] <- tp
+  results["neg", "neg", ] <- tn
+
+  results["pos", "neg", ] <- fn
+  results["neg", "pos", ] <- fp
+
+  return(results)
 }
