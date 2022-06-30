@@ -94,17 +94,17 @@ Finally plug this into the first equation to solve $\lambda$:
   \lambda = g \left( \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}} \right)
 \end{equation}
 
-We can set up some model parameters and calculate numeric solutions for those values.
+We can set up some model parameters and calculate numeric solutions for those values. Note that the actual equilbrium calculations we use in the code are different by a factor of $p$ in the terms of $M$ because of how events are ordered in the discrete time model, and that we use $p^{EIP}$ instead of $e^{-gEIP}$.
 
 ```{R}
 # mosquito parameters
 f <- 0.3
 q <- 1
 eip <- 14
-EIP <- eip + 1
 
 lifespan <- 20
 g <- 1/lifespan
+p <- 1- g
 
 # human parameters
 b <- 0.55
@@ -120,8 +120,8 @@ kappa <- (I/N)*c
 
 # equilibrium solutions
 Z <- (r*I*N) / (b*f*q*S)
-Y <- Z / exp(-g*EIP)
-M <- (Z*(g + (f*q*kappa))) / (f*q*kappa*exp(-g*EIP))
+Y <- Z / (p^eip)
+M <- (Z*(g + (f*q*p*kappa))) / (f*q*p*kappa*(p^eip))
 lambda <- g*M
 ```
 
@@ -133,46 +133,26 @@ Now let's set up a simulation with only a single patch and only a single human s
 patches <- 1
 nstrata <- 1
 tmax <- 365 * 2
-
-# human parameters
 theta <- diag(nstrata)
-H <- N
-X <- I
-
-# mosquito parameters
-p <- 1 - 1/lifespan
 psi <- diag(patches)
-
-# incubating mosquitoes
-pp <- p^(eip:1)
-pp <- pp / sum(pp)
-ZZ <- (Y-Z)*pp
-ZZ <- as.matrix(ZZ)
 ```
 
 We first run a deterministic simulation. The first thing we need to do is create
 the base model object using `make_MicroMoB()` and initialize all the components with specific models, which we do
-below. `setup_humans_SIS()` sets up the human component to use a SIS model of infection,
-and `setup_alternative_trace()` and `setup_visitor_trace()` set up the other blood hosts
-and visitor components with simple trace models (trivially set to zero).
+below. `setup_humans_SIS()` sets up the human component to use a SIS model of infection.
+
+We do not use `setup_alternative_trace()` or `setup_visitor_trace()` to set up the other blood hosts
+and visitor components in this simple model, so we use `compute_bloodmeal_simple()` to compute
+$\kappa$ and $EIR$ instead of the more complex `compute_bloodmeal()`.
 
 `setup_mosquito_RM()` sets up the adult mosquito component using the Ross-Macdonald model, and
 `setup_aqua_trace()` sets up the aquatic mosquito component using a trace.
 
-Note that because we explicitly calculated the rough equilibrium values
-of the number of incubating mosquitoes on each day, we set `ZZ` in the mosquito object,
-this is not required in general, as the function will scatter the appropriate total
-number across the days.
-
 ```{R}
 mod <- make_MicroMoB(tmax = tmax, p = patches)
-setup_humans_SIS(mod, stochastic = FALSE, theta = theta, H = H, X = X, b = b, c = c, r = r)
+setup_humans_SIS(mod, stochastic = FALSE, theta = theta, H = N, X = I, b = b, c = c, r = r)
 setup_aqua_trace(mod, stochastic = FALSE, lambda = lambda)
 setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = eip, p = p, psi = psi, M = M, Y = Y, Z = Z)
-setup_alternative_trace(mod)
-setup_visitor_trace(mod)
-
-mod$mosquito$ZZ <- ZZ
 ```
 
 Now we can make matrices to store output and run the model. Note that we call `compute_bloodmeal()`
@@ -188,7 +168,7 @@ human_out[, "Day"] <- 1:tmax
 
 # run it
 while (mod$global$tnow <= tmax) {
-  compute_bloodmeal(model = mod)
+  compute_bloodmeal_simple(model = mod)
   step_aqua(model = mod)
   step_mosquitoes(model = mod)
   step_humans(model = mod)
@@ -215,11 +195,9 @@ solid lines.
 sto_out <- mclapply(X = 1:10, FUN = function(runid) {
   
   mod <- make_MicroMoB(tmax = tmax, p = patches)
-  setup_humans_SIS(mod, stochastic = TRUE, theta = theta, H = H, X = X, b = b, c = c, r = r)
+  setup_humans_SIS(mod, stochastic = TRUE, theta = theta, H = N, X = I, b = b, c = c, r = r)
   setup_aqua_trace(mod, stochastic = TRUE, lambda = lambda)
   setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = eip, p = p, psi = psi, M = M, Y = Y, Z = Z)
-  setup_alternative_trace(mod)
-  setup_visitor_trace(mod)
   
   # matrices to hold output
   mosquito_out <- matrix(data = 0, nrow = tmax, ncol = 4, dimnames = list(NULL, c("Day", "M", "Y", "Z")))
@@ -229,7 +207,7 @@ sto_out <- mclapply(X = 1:10, FUN = function(runid) {
   
   # run it
   while (mod$global$tnow <= tmax) {
-    compute_bloodmeal(model = mod)
+    compute_bloodmeal_simple(model = mod)
     step_aqua(model = mod)
     step_mosquitoes(model = mod)
     step_humans(model = mod)
