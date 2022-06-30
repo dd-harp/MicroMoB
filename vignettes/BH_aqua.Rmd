@@ -108,13 +108,19 @@ mod <- make_MicroMoB(tmax = tmax, p = patches)
 setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = L)
 setup_mosquito_RM(model = mod, stochastic = FALSE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
 
-out_det <- matrix(data = NaN, nrow = tmax + 1, ncol = 3)
-out_det[1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+out_det <- data.table::CJ(day = 1:tmax, state = c('L', 'A', 'M'), value = NaN)
+out_det <- out_det[c('L', 'A', 'M'), on="state"]
+data.table::setkey(out_det, day)
 
-while (mod$global$tnow <= tmax) {
+while (get_tnow(mod) <= tmax) {
+  
   step_aqua(model = mod)
   step_mosquitoes(model = mod)
-  out_det[mod$global$tnow + 1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+  
+  out_det[day == get_tnow(mod) & state == 'L', value := mod$aqua$L]
+  out_det[day == get_tnow(mod) & state == 'A', value := mod$aqua$A]
+  out_det[day == get_tnow(mod) & state == 'M', value := mod$mosquito$M]
+
   mod$global$tnow <- mod$global$tnow + 1L
 }
 ```
@@ -130,39 +136,35 @@ out_sto <- mclapply(X = 1:10, FUN = function(runid) {
   setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = L)
   setup_mosquito_RM(model = mod, stochastic = TRUE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
   
-  out_run <- matrix(data = NaN, nrow = tmax + 1, ncol = 3)
-  out_run[1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+  out <- data.table::CJ(day = 1:tmax, state = c('L', 'A', 'M'), value = NaN)
+  out <- out[c('L', 'A', 'M'), on="state"]
+  data.table::setkey(out, day)
   
-  while (mod$global$tnow <= tmax) {
+  while (get_tnow(mod) <= tmax) {
+    
     step_aqua(model = mod)
     step_mosquitoes(model = mod)
-    out_run[mod$global$tnow + 1L, ] <- c(mod$aqua$L, mod$aqua$A, mod$mosquito$M)
+    
+    out[day == get_tnow(mod) & state == 'L', value := mod$aqua$L]
+    out[day == get_tnow(mod) & state == 'A', value := mod$aqua$A]
+    out[day == get_tnow(mod) & state == 'M', value := mod$mosquito$M]
+  
     mod$global$tnow <- mod$global$tnow + 1L
   }
   
-  out_run <- as.data.frame(out_run)
-  out_run$run <- as.integer(runid)
-  return(out_run)
+  out[, 'run' := as.integer(runid)] 
+  return(out)
 })
+
+out_sto <- data.table::rbindlist(out_sto)
 ```
 
 Now we process the output and plot the results. Deterministic solutions are solid lines
 and each stochastic trajectory is a faint line.
 
 ```{R}
-out_det <- as.data.table(out_det)
-out_det[, "Day" := 0:tmax]
-out_det <- melt(out_det, id.vars = "Day", variable.name = "Stage", value.name = "Count")
-levels(out_det$Stage) <- c("L", "A", "M")
-
-out_sto <- do.call(rbind, out_sto)
-out_sto <- as.data.table(out_sto)
-out_sto <- melt(out_sto, id.vars = "run", variable.name = "Stage", value.name = "Count")
-out_sto[, "Day" := 0:tmax, by = c("run", "Stage")]
-levels(out_sto$Stage) <- c("L", "A", "M")
-
-ggplot(data = out_sto) +
-    geom_line(aes(x = Day, y = Count, color = Stage, group = run), alpha = 0.35) +
-    geom_line(data = out_det, mapping = aes(x = Day, y = Count, color = Stage)) +
-    facet_wrap(. ~ Stage, scales = "free")
+ggplot(out_sto) +
+    geom_line(aes(x = day, y = value, color = state, group = run), alpha = 0.35) +
+    geom_line(data = out_det, aes(x = day, y = value, color = state)) +
+    facet_wrap(. ~ state, scales = "free")
 ```

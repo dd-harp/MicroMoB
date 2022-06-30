@@ -143,31 +143,27 @@ mod <- make_MicroMoB(tmax = tmax, p = 3)
 setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
 setup_aqua_trace(model = mod, lambda = lambda, stochastic = FALSE)
 
-M_det <- matrix(data = 0, nrow = tmax, ncol = 3)
-Y_det <- matrix(data = 0, nrow = tmax, ncol = 3)
-Z_det <- matrix(data = 0, nrow = tmax, ncol = 3)
+det_out <- data.table::CJ(day = 1:tmax, state = c('M', 'Y', 'Z'), patch = 1:3, value = NaN)
+det_out <- det_out[c('M', 'Y', 'Z'), on="state"]
+data.table::setkey(det_out, day)
 
 # run it
-while(mod$global$tnow <= tmax) {
+while(get_tnow(mod) <= tmax) {
+  
   mod$mosquito$kappa <- rep(0.05, 3)
   step_aqua(model = mod)
   step_mosquitoes(model = mod)
-  M_det[mod$global$tnow, ] <- mod$mosquito$M
-  Y_det[mod$global$tnow, ] <- mod$mosquito$Y
-  Z_det[mod$global$tnow, ] <- mod$mosquito$Z
+  
+  det_out[day == get_tnow(mod) & state == 'M', value := mod$mosquito$M]
+  det_out[day == get_tnow(mod) & state == 'Y', value := mod$mosquito$Y]
+  det_out[day == get_tnow(mod) & state == 'Z', value := mod$mosquito$Z]
+  
   mod$global$tnow <- mod$global$tnow + 1L
 }
 
-det_out <- as.data.table(rbind(M_det, Y_det, Z_det))
-
-det_out[, "Day" := as.integer(rep(1:tmax, 3))]
-det_out[, "Compartment" := rep(c("M", "Y", "Z"), times = rep(tmax, 3))]
-det_out <- melt(det_out, id.vars = c("Day", "Compartment"), variable.name = "Patch", value.name = "Count")
-det_out[, "Patch" := as.integer(Patch)]
-
 ggplot(det_out) +
-    geom_line(aes(x = Day, y = Count, color = Compartment)) +
-    facet_grid(Patch ~ .)
+    geom_line(aes(x = day, y = value, color = state)) +
+    facet_grid(patch ~ .)
 ```
 
 ### Stochastic simulation
@@ -181,34 +177,30 @@ sto_out <- mclapply(X = 1:10, FUN = function(runid) {
   setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = TRUE)
   
-  M_out <- as.data.frame(matrix(data = 0, nrow = tmax, ncol = 3))
-  Y_out <- as.data.frame(matrix(data = 0, nrow = tmax, ncol = 3))
-  Z_out <- as.data.frame(matrix(data = 0, nrow = tmax, ncol = 3))
+  out <- data.table::CJ(day = 1:tmax, state = c('M', 'Y', 'Z'), patch = 1:3, value = NaN)
+  out <- out[c('M', 'Y', 'Z'), on="state"]
+  data.table::setkey(out, day)
   
-  # run it
-  while(mod$global$tnow <= tmax) {
+  while(get_tnow(mod) <= tmax) {
+    
     mod$mosquito$kappa <- rep(0.05, 3)
     step_aqua(model = mod)
     step_mosquitoes(model = mod)
-    M_out[mod$global$tnow, ] <- mod$mosquito$M
-    Y_out[mod$global$tnow, ] <- mod$mosquito$Y
-    Z_out[mod$global$tnow, ] <- mod$mosquito$Z
+    
+    out[day == get_tnow(mod) & state == 'M', value := mod$mosquito$M]
+    out[day == get_tnow(mod) & state == 'Y', value := mod$mosquito$Y]
+    out[day == get_tnow(mod) & state == 'Z', value := mod$mosquito$Z]
+    
     mod$global$tnow <- mod$global$tnow + 1L
   }
   
-  out <- as.data.table(rbind(M_out, Y_out, Z_out))
-  out[, "Day" := as.integer(rep(1:tmax, 3))]
-  out[, "Compartment" := rep(c("M", "Y", "Z"), times = rep(tmax, 3))]
-  out <- melt(out, id.vars = c("Day", "Compartment"), variable.name = "Patch", value.name = "Count")
-  out[, "Patch" := as.integer(Patch)]
-  out[, "Run" := as.integer(runid)]
-  
+  out[, 'run' := as.integer(runid)]
   return(out)
 })
 
-sto_out <- do.call(rbind, sto_out)
+sto_out <- data.table::rbindlist(sto_out)
 
 ggplot(sto_out) +
-    geom_line(aes(x = Day, y = Count, color = Compartment, group = interaction(Run, Compartment)), alpha = 0.35) +
-    facet_grid(Patch ~ .)
+    geom_line(aes(x = day, y = value, color = state, group = interaction(run, state)), alpha = 0.35) +
+    facet_grid(patch ~ .)
 ```
