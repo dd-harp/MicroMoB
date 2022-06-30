@@ -19,6 +19,7 @@
 #' distributed amongst aquatic habitats. If `NULL` it is the identity matrix of dimension
 #' `l`.
 #' @return no return value
+#' @importFrom stats rmultinom
 #' @export
 setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, nu = 25, M, Y, Z, N = NULL) {
   stopifnot(inherits(model, "MicroMoB"))
