@@ -234,5 +234,5 @@ sto_out <- do.call(rbind, sto_out)
 ggplot(sto_out) +
     geom_line(aes(x = Day, y = Count, color = Compartment, group = interaction(Run, Compartment)), alpha = 0.3) +
     geom_line(data = det_out, aes(x = Day, y = Count, color = Compartment)) +
-    facet_wrap(. ~ Species, scales = "free")
+    facet_wrap(species ~ state, scales = "free") +
 ```
