@@ -1,3 +1,13 @@
+# MicroMoB 0.1.0
+
+  * adds ability to model larval breeding pools seperately from patches
+  * adds human SIP (Susceptible-Infected-Protected) model
+  * adds prevalence sampling with test sens/spec `observe_pfpr()`
+  * adds simple bloodmeal computation `compute_bloodmeal_simple()`
+  * significantly simplifies `step_mosquitoes.RM_stochastic()`
+  * update vignettes with better use of `data.table` and discrete time
+  equilibrium calculations
+
 # MicroMoB 0.0.12
 
   * move `plumber` dependency to "Suggests" to avoid NOTE in checks.

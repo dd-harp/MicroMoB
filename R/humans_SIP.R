@@ -101,26 +101,6 @@ step_humans.SIP_deterministic <- function(model) {
 }
 
 
-# step_humans.SIP_deterministic <- function(model) {
-#
-#   h <- model$human$EIR * model$human$b
-#
-#   new_infections <- pexp(q = h) * model$human$SIP[, "S"]
-#   new_treatment <- new_infections * model$human$rho
-#   new_disease <- new_infections - new_treatment
-#
-#   new_recoveries <- pexp(q = model$human$r) * model$human$SIP[, "I"]
-#
-#   new_wane <- pexp(q = model$human$eta) * model$human$SIP[, "P"]
-#
-#   model$human$SIP[, "S"] <- model$human$SIP[, "S"] - new_disease - new_treatment + new_recoveries + new_wane
-#   model$human$SIP[, "I"] <- model$human$SIP[, "I"] + new_disease - new_recoveries
-#   model$human$SIP[, "P"] <- model$human$SIP[, "P"] + new_treatment - new_wane
-#
-#   model$human$incidence <- new_infections
-#
-# }
-
 #' @title Update SIP human model (stochastic)
 #' @inheritParams step_humans
 #' @return no return value
@@ -146,27 +126,6 @@ step_humans.SIP_stochastic <- function(model) {
   model$human$incidence <- new_infections
 
 }
-
-# step_humans.SIP_stochastic <- function(model) {
-#
-#   h <- model$human$EIR * model$human$b
-#   n <- model$global$n
-#
-#   new_infections <- rbinom(n = n, prob = pexp(q = h), size = model$human$SIP[, "S"])
-#   new_treatment <- rbinom(n = n, size = new_infections, prob = pexp(q = model$human$rho))
-#   new_disease <- new_infections - new_treatment
-#
-#   new_recoveries <- rbinom(n = n, size = model$human$SIP[, "I"], prob = pexp(q = model$human$r))
-#
-#   new_wane <- rbinom(n = n, size = model$human$SIP[, "P"], prob = pexp(q = model$human$eta))
-#
-#   model$human$SIP[, "S"] <- model$human$SIP[, "S"] - new_disease - new_treatment + new_recoveries + new_wane
-#   model$human$SIP[, "I"] <- model$human$SIP[, "I"] + new_disease - new_recoveries
-#   model$human$SIP[, "P"] <- model$human$SIP[, "P"] + new_treatment - new_wane
-#
-#   model$human$incidence <- new_infections
-#
-# }
 
 
 #' @title Compute human biting weights for SIP model (\eqn{w_{f}})
