@@ -1,6 +1,6 @@
 # MicroMoB 0.1.0
 
-  * adds ability to model larval breeding pools seperately from patches
+  * adds ability to model larval breeding pools separately from patches
   * adds human SIP (Susceptible-Infected-Protected) model
   * adds prevalence sampling with test sens/spec `observe_pfpr()`
   * adds simple bloodmeal computation `compute_bloodmeal_simple()`

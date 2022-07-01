@@ -14,7 +14,7 @@ no return value
 }
 \description{
 The difference between this and \link{compute_bloodmeal} is that
-this function does not include any computations of alterative blood hosts
+this function does not include any computations of alternative blood hosts
 or visitors and is suitable for models which only include mosquitoes and resident
 human populations.
 }
