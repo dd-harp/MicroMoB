@@ -94,7 +94,7 @@ Finally plug this into the first equation to solve $\lambda$:
   \lambda = g \left( \frac{Z(g + fq\kappa)}{fq\kappa e^{-gEIP}} \right)
 \end{equation}
 
-We can set up some model parameters and calculate numeric solutions for those values. Note that the actual equilbrium calculations we use in the code are different by a factor of $p$ in the terms of $M$ because of how events are ordered in the discrete time model, and that we use $p^{EIP}$ instead of $e^{-gEIP}$.
+We can set up some model parameters and calculate numeric solutions for those values. Note that the actual equilibrium calculations we use in the code are different by a factor of $p$ in the terms of $M$ because of how events are ordered in the discrete time model, and that we use $p^{EIP}$ instead of $e^{-gEIP}$.
 
 ```{R}
 # mosquito parameters

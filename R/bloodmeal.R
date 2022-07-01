@@ -68,7 +68,7 @@ compute_bloodmeal <- function(model) {
 
 #' @title Compute bloodmeals taken by mosquitoes on hosts in simple models
 #' @description The difference between this and [compute_bloodmeal] is that
-#' this function does not include any computations of alterative blood hosts
+#' this function does not include any computations of alternative blood hosts
 #' or visitors and is suitable for models which only include mosquitoes and resident
 #' human populations.
 #' @param model an object from [MicroMoB::make_MicroMoB]
