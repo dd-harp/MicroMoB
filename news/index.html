@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MicroMoB</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.12</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,18 @@
       <small>Source: <a href="https://github.com/dd-harp/MicroMoB/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.0" id="micromob-010">MicroMoB 0.1.0<a class="anchor" aria-label="anchor" href="#micromob-010"></a></h2>
+<ul><li>adds ability to model larval breeding pools seperately from patches</li>
+<li>adds human SIP (Susceptible-Infected-Protected) model</li>
+<li>adds prevalence sampling with test sens/spec <code><a href="../reference/observe_pfpr.html">observe_pfpr()</a></code>
+</li>
+<li>adds simple bloodmeal computation <code><a href="../reference/compute_bloodmeal_simple.html">compute_bloodmeal_simple()</a></code>
+</li>
+<li>significantly simplifies <code><a href="../reference/step_mosquitoes.RM_stochastic.html">step_mosquitoes.RM_stochastic()</a></code>
+</li>
+<li>update vignettes with better use of <code>data.table</code> and discrete time equilibrium calculations</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.12" id="micromob-0012">MicroMoB 0.0.12<a class="anchor" aria-label="anchor" href="#micromob-0012"></a></h2><p class="text-muted">CRAN release: 2022-03-17</p>
 <ul><li>move <code>plumber</code> dependency to “Suggests” to avoid NOTE in checks.</li>
