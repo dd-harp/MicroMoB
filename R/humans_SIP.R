@@ -45,6 +45,7 @@ setup_humans_SIP <- function(model, stochastic, theta, wf = NULL, SIP, b = 0.55,
   human_class <- c("SIP")
   if (stochastic) {
     human_class <- c(human_class, "SIP_stochastic")
+    storage.mode(SIP) <- 'integer'
   } else {
     human_class <- c(human_class, "SIP_deterministic")
   }
