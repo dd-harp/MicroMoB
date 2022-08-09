@@ -229,6 +229,9 @@
     <loc>https://dd-harp.github.io/MicroMoB/reference/draw_multinom.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_K_aqua_BH.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_alternative_trace.html</loc>
   </url>
   <url>
@@ -254,6 +257,36 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_visitor_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_eip_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_f_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_kappa_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_lambda_aqua_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_molt_aqua_BH.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_nu_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_p_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_psi_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_q_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/get_surv_aqua_BH.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/get_tmax.html</loc>
@@ -302,6 +335,39 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/sample_stochastic_vector.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_K_aqua_BH.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_eip_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_f_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_kappa_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_lambda_aqua_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_molt_aqua_BH.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_nu_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_p_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_psi_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_q_mosquito_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/MicroMoB/reference/set_surv_aqua_BH.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/MicroMoB/reference/setup_alternative_trace.html</loc>
