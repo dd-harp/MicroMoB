@@ -278,7 +278,6 @@ reference:
     to modify parameters after a model has been set up (e.g; during a simulation).
 
 - subtitle: Ross-Macdonald (RM) mosquito model
-  desc: Parameter getters and setters for the RM mosquito model
   contents:
   - set_f_mosquito_RM
   - get_f_mosquito_RM
@@ -294,3 +293,12 @@ reference:
   - get_nu_mosquito_RM
   - set_kappa_mosquito_RM
   - get_kappa_mosquito_RM
+
+- subtitle: Beverton-Holt aquatic model
+  contents:
+  - set_molt_aqua_BH
+  - get_molt_aqua_BH
+  - set_surv_aqua_BH
+  - get_surv_aqua_BH
+  - set_K_aqua_BH
+  - get_K_aqua_BH
