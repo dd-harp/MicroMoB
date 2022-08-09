@@ -270,3 +270,40 @@ reference:
   - approx_equal
   - divmod
   - distribute
+
+- title: Parameter getters and setters
+
+  desc: >
+    For interfacing with other APIs it is useful for models to have setter functions
+    to modify parameters after a model has been set up (e.g; during a simulation).
+
+- subtitle: Ross-Macdonald (RM) mosquito model
+  contents:
+  - set_f_mosquito_RM
+  - get_f_mosquito_RM
+  - set_q_mosquito_RM
+  - get_q_mosquito_RM
+  - set_eip_mosquito_RM
+  - get_eip_mosquito_RM
+  - set_p_mosquito_RM
+  - get_p_mosquito_RM
+  - set_psi_mosquito_RM
+  - get_psi_mosquito_RM
+  - set_nu_mosquito_RM
+  - get_nu_mosquito_RM
+  - set_kappa_mosquito_RM
+  - get_kappa_mosquito_RM
+
+- subtitle: Beverton-Holt aquatic model
+  contents:
+  - set_molt_aqua_BH
+  - get_molt_aqua_BH
+  - set_surv_aqua_BH
+  - get_surv_aqua_BH
+  - set_K_aqua_BH
+  - get_K_aqua_BH
+
+- subtitle: Trace (forced) aquatic model
+  contents:
+  - set_lambda_aqua_trace
+  - get_lambda_aqua_trace

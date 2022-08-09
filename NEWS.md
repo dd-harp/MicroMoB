@@ -1,3 +1,9 @@
+# MicroMoB 0.1.1
+
+  * coerce initial state to `integer` type in `setup_humans_SIP()`
+  * add getters and setters for parameters for mosquito RM, aquatic BH, and
+  aquatic trace models.
+
 # MicroMoB 0.1.0
 
   * adds ability to model larval breeding pools separately from patches

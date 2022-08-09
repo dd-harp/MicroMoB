@@ -48,11 +48,11 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
 
   maxEIP <- max(eip_vec)
 
-  p_vec <- time_patch_varying_parameter(param = p, p = model$global$p, tmax = tmax)
+  p_mat <- time_patch_varying_parameter(param = p, p = model$global$p, tmax = tmax)
 
-  stopifnot(p_vec <= 1)
-  stopifnot(p_vec >= 0)
-  stopifnot(!is.null(p_vec))
+  stopifnot(p_mat <= 1)
+  stopifnot(p_mat >= 0)
+  stopifnot(!is.null(p_mat))
 
   stopifnot(dim(psi) == model$global$p)
   stopifnot(approx_equal(rowSums(psi), 1))
@@ -85,7 +85,7 @@ setup_mosquito_RM <- function(model, stochastic, f = 0.3, q = 0.9, eip, p, psi, 
   model$mosquito$q <- q
   model$mosquito$eip <- eip_vec
   model$mosquito$maxEIP <- maxEIP
-  model$mosquito$p <- p_vec
+  model$mosquito$p <- p_mat
   model$mosquito$psi <- psi
   model$mosquito$nu <- nu
   model$mosquito$N <- N # oviposition matrix
