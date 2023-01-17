@@ -168,7 +168,7 @@ that the simulation converges to this equilibrium distribution after
 some time.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/weighted.mean.html" class="external-link">weighted.mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">100</span>, w <span class="op">=</span> <span class="va">human_out</span><span class="op">[</span><span class="va">day</span> <span class="op">==</span> <span class="va">tmax</span>, <span class="va">value</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 5.03939</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 5.03883</span></span></code></pre></div>
 <p>Now we can plot the compartment sizes.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">human_out</span><span class="op">)</span> <span class="op">+</span></span>
