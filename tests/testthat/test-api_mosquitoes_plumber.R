@@ -16,10 +16,13 @@ Sys.sleep(3)
 withr::defer(api$kill())
 
 test_that("API is alive", {
+  skip_on_cran()
   expect_true(api$is_alive())
 })
 
 test_that("endpoints error properly", {
+
+  skip_on_cran()
 
   r <- httr::GET(root_path, port = api_port, path = "config_global_parameters")
   expect_equal(httr::status_code(r), 500)
@@ -74,11 +77,12 @@ test_that("endpoints error properly", {
   r <- httr::GET(root_path, port = api_port, path = "clock_tick")
   expect_equal(r$status_code, 400)
   expect_equal(httr::content(r), list(error = "model object not found"))
-
 })
 
 
 test_that("run simulation via API", {
+
+  skip_on_cran()
 
   patches <- 1
   tmax <- 20
