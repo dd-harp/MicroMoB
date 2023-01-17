@@ -1,3 +1,8 @@
+# MicroMoB 0.1.2
+
+  * skip plumber API tests on CRAN due to occasional failures out of developer
+  control.
+
 # MicroMoB 0.1.1
 
   * coerce initial state to `integer` type in `setup_humans_SIP()`
