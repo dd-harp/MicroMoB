@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(MicroMoB)
+library(ramp.dts)
 library(ggplot2)
 library(data.table)
 library(parallel)
@@ -27,7 +27,7 @@ mathematical models, in continuous or discrete time, which consider mosquitoes t
 on hosts at some constant rate, experience a latent period between infection and infectiousness
 (the extrinsic incubation period, EIP), and experience a constant rate of mortality.
 
-In MicroMoB we include a generalized RM model which can fill the interface for the mosquito component.
+In ramp.dts we include a generalized RM model which can fill the interface for the mosquito component.
 The generalized RM model has both a stochastic and deterministic option for updating
 state over a time step, which is a daily step.
 
@@ -130,7 +130,7 @@ par(mar = pardefault)
 ### Deterministic simulation
 
 Now we can set up the models. Let's first do a deterministic simulation. 
-We use `make_MicroMoB()` to set up the base model object and `setup_mosquito_RM()`
+We use `make_ramp_dts()` to set up the base model object and `setup_mosquito_RM()`
 to setup the RM mosquito model for the mosquito component. `setup_aqua_trace()` sets up
 the aquatic (immature) component as a simple trace (forced) model.
 
@@ -139,7 +139,7 @@ M <- c(100, 100, 100)
 Y <- c(0, 0, 0)
 Z <- c(0, 0, 0)
 
-mod <- make_MicroMoB(tmax = tmax, p = 3)
+mod <- make_ramp_dts(tmax = tmax, p = 3)
 setup_mosquito_RM(mod, stochastic = FALSE, f = f, q = q, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
 setup_aqua_trace(model = mod, lambda = lambda, stochastic = FALSE)
 
@@ -173,7 +173,7 @@ Now we run 10 stochastic simulations, using the same parameters.
 ```{r, fig.width=10, fig.height=8}
 sto_out <- mclapply(X = 1:10, FUN = function(runid) {
   
-  mod <- make_MicroMoB(tmax = tmax, p = 3)
+  mod <- make_ramp_dts(tmax = tmax, p = 3)
   setup_mosquito_RM(mod, stochastic = TRUE, f = f, q = q, eip = EIP, p = psurv, psi = psi, M = M, Y = Y, Z = Z)
   setup_aqua_trace(model = mod, lambda = lambda, stochastic = TRUE)
   

@@ -4,13 +4,13 @@ template:
     border-radius: 0.5rem
     btn-border-radius: 0.25rem
 
-url: https://dd-harp.github.io/MicroMoB/
+url: https://dd-harp.github.io/ramp.dts/
 
 articles:
 - title: Vignettes
   navbar: ~
   contents:
-  - MicroMoB
+  - ramp.dts
   - bloodmeal
   - RM_mosquito
   - BQ_mosquito
@@ -35,7 +35,7 @@ reference:
   desc: >
     The adult mosquito component is responsible for updating mosquito populations
     of the adult (flying) life stage, and handling pathogen dynamics in adult
-    populations. Any model of adult mosquitoes in MicroMoB is required to
+    populations. Any model of adult mosquitoes in ramp.dts is required to
     implement the following interface methods. It is stored and dispatches on
     the object in `model$mosquito`.
   contents:
@@ -96,7 +96,7 @@ reference:
     The aquatic mosquito component is responsible for updating aquatic mosquito
     populations which live in aquatic habitats. It must calculate how many eggs
     are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate
-    the number of emerging adults. Any model of immature mosquitoes in MicroMoB is required to
+    the number of emerging adults. Any model of immature mosquitoes in ramp.dts is required to
     implement the following interface methods. It is stored and dispatches on
     the object in `model$aqua`.
   contents:
@@ -134,7 +134,7 @@ reference:
 
   desc: >
     The human component is responsible for updating human populations
-    and their pathogen dynamics. Any model of humans in MicroMoB is required to
+    and their pathogen dynamics. Any model of humans in ramp.dts is required to
     implement the following interface methods. It is stored and dispatches on
     the object in `model$human`.
   contents:
@@ -248,8 +248,8 @@ reference:
   desc: >
     These are utilities which are intended for typical users to access.
   contents:
-  - MicroMoB
-  - make_MicroMoB
+  - ramp.dts
+  - make_ramp_dts
   - get_tnow
   - get_tmax
   - api_config_global

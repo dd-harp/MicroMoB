@@ -9,7 +9,7 @@ static const
     {NULL, NULL, 0}
   };
 
-void R_init_MicroMoB(DllInfo *dll)
+void R_init_ramp_dts(DllInfo *dll)
 {
   R_registerRoutines(dll, NULL, callMethods, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);

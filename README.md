@@ -1,39 +1,39 @@
-# Micro-MoB (Microsimulation for mosquito-borne pathogens)
+# ramp.dts (Robust Analytics for Malaria Policy: Discrete Time Systems for Mosquito-)
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/dd-harp/MicroMoB/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/MicroMoB/actions)
-[![CRAN](https://www.r-pkg.org/badges/version/MicroMoB)](https://cran.r-project.org/package=MicroMoB)
-[![codecov](https://codecov.io/gh/dd-harp/MicroMoB/branch/main/graph/badge.svg?token=VAZXH6PVNG)](https://app.codecov.io/gh/dd-harp/MicroMoB)
+[![R-CMD-check](https://github.com/dd-harp/ramp.dts/workflows/R-CMD-check/badge.svg)](https://github.com/dd-harp/ramp.dts/actions)
+[![CRAN](https://www.r-pkg.org/badges/version/ramp.dts)](https://cran.r-project.org/package=ramp.dts)
+[![codecov](https://codecov.io/gh/dd-harp/ramp.dts/branch/main/graph/badge.svg?token=VAZXH6PVNG)](https://app.codecov.io/gh/dd-harp/ramp.dts)
 <!-- badges: end -->
 
-## What is Micro-MoB?
+## What is `ramp.dts`?
 
-**Micro-MoB** was made to simplify the task of model building for mosquito-borne pathogen transmission (MBPT) systems. 
-It stands for "microsimulation for mosquito-borne pathogens". It is a modular
+**ramp.dts** was made to simplify the task of building discrete time systems to model the transmission dynamics and control of malaria and other mosquito-borne pathogen transmission (MBPT) systems. 
+`ramp.dts` supports patch-based models and micro-simulation: the `dts` stands for `discrete-time systems` and it is a companion to `ramp.xde`. It is a modular
 framework to build discrete time MBPT models. It uses R's [S3 object system](http://adv-r.had.co.nz/S3.html)
 to define a set of _components_ and _interfaces_ which can be filled by any specific _model_ that
 implements the interface. These parts, along with certain _invariants_ can be put
 together to define a full simulation model. Definitions for all these terms can be found
 in the documentation.
 
-We hope it proves useful. Please visit the [website](https://dd-harp.github.io/MicroMoB/) to learn more.
+We hope it proves useful. Please visit the [website](https://dd-harp.github.io/ramp.dts/) to learn more.
 
 ## Installation
 
 ```
-remotes::install_github('dd-harp/MicroMoB')
+remotes::install_github('dd-harp/ramp.dts')
 ```
 
 Alternatively you can install **Micro-MoB** directly from CRAN, but be aware that the CRAN version may not be the most recent version of the package:
 
 ```
-install.packages('MicroMoB')
+install.packages('ramp.dts')
 ```
 
 ## Documentation
 
 To start learning more about the software design, the problems it was designed to solve,
-and how to build new models in **Micro-MoB**, please read `vignette("MicroMoB")`. 
+and how to build new models in **Micro-MoB**, please read `vignette("ramp.dts")`. 
 
 Next, `vignette("bloodmeal")` describes how the bloodmeal algorithm computes
 the distribution of bites using each component's interface, allowing different models
@@ -62,7 +62,7 @@ the rest of the system. It also contains information on how to use the
 ## Contributing
 
 Thank you for your interest in **Micro-MoB**! If you have a bug to report, please
-open an [issue on GitHub](https://github.com/dd-harp/MicroMoB/issues). If you would like
+open an [issue on GitHub](https://github.com/dd-harp/ramp.dts/issues). If you would like
 to open a pull request or have further questions, please see our guide to
 contributing to the project at `vignette("Contributing")`.
 

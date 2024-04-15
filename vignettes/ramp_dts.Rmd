@@ -77,29 +77,29 @@ to implement them.
 
 The mosquito component is responsible for all dynamics which update adult mosquito
 populations. The interface is defined in `R/mosquito_interface.R`, and the interface
-methods which are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#adult-mosquito-component).
+methods which are required to be implemented can be found [here](https://dd-harp.github.io/ramp.dts/reference/index.html#adult-mosquito-component).
 
 ### Aquatic
 
 The aquatic component is responsible for all dynamics which update immature (aquatic
 stage) mosquito populations. The interface is defined in `R/aquatic_interface.R`,
-and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#aquatic-immature-mosquito-component).
+and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/ramp.dts/reference/index.html#aquatic-immature-mosquito-component).
 
 ### Humans
 
 The human component updates human populations. The interface is defined in `R/humans_interface.R`,
-and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#human-component).
+and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/ramp.dts/reference/index.html#human-component).
 
 ### Visitor
 
 The human component updates human populations outside of the resident population of the geographic area being simulated. 
-The interface is defined in `R/visitor_interface.R`, and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#visitor-component).
+The interface is defined in `R/visitor_interface.R`, and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/ramp.dts/reference/index.html#visitor-component).
 
 ### Other blood hosts
 
 The other (alternative) blood host component is responsible for other blood hosts for 
 mosquitoes (livestock, dogs, etc). The interface is defined in `R/other_interface.R`,
-and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/MicroMoB/reference/index.html#alternative-blood-hosts-component).
+and the interface methods with are required to be implemented can be found [here](https://dd-harp.github.io/ramp.dts/reference/index.html#alternative-blood-hosts-component).
 
 ## Dynamics between components
 

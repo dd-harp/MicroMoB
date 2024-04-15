@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(MicroMoB)
+library(ramp.dts)
 library(ggplot2)
 library(data.table)
 library(parallel)
@@ -96,7 +96,7 @@ L <- lambda * ((1/molt) - 1) + eggs
 K <- - (lambda * L) / (lambda - L*molt*surv)
 ```
 
-Let's set up the model. We use `make_MicroMoB()` to set up the base model object, and
+Let's set up the model. We use `make_ramp_dts()` to set up the base model object, and
 `setup_aqua_BH()` for the Beverton-Holt aquatic model with our chosen parameters.
 `setup_mosquito_RM()` will set up a Ross-Macdonald model of adult mosquito dynamics.
 
@@ -104,7 +104,7 @@ We run a deterministic simulation and store output in a matrix.
 
 ```{R}
 # deterministic run
-mod <- make_MicroMoB(tmax = tmax, p = patches)
+mod <- make_ramp_dts(tmax = tmax, p = patches)
 setup_aqua_BH(model = mod, stochastic = FALSE, molt = molt, surv = surv, K = K, L = L)
 setup_mosquito_RM(model = mod, stochastic = FALSE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
 
@@ -132,7 +132,7 @@ and draw 10 trajectories.
 # stochastic runs
 out_sto <- mclapply(X = 1:10, FUN = function(runid) {
   
-  mod <- make_MicroMoB(tmax = tmax, p = patches)
+  mod <- make_ramp_dts(tmax = tmax, p = patches)
   setup_aqua_BH(model = mod, stochastic = TRUE, molt = molt, surv = surv, K = K, L = L)
   setup_mosquito_RM(model = mod, stochastic = TRUE, f = f, q = 0.9, eip = 10, p = p, psi = diag(1), nu = nu, M = M, Y = 0, Z = 0)
   

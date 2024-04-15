@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(MicroMoB)
+library(ramp.dts)
 library(ggplot2)
 library(data.table)
 library(parallel)
@@ -53,13 +53,13 @@ rates become faster and competition is simulated; $\sigma < 1$ means slower clea
 due to facilitation between parasites. When broods clear independently the
 distribution of MOI in the population is Poisson with mean $h/r$.
 
-In **Micro-MoB** the `MOI` vector is allowed to grow as needed to accommodate arbitrarily
+In **ramp.dts** the `MOI` vector is allowed to grow as needed to accommodate arbitrarily
 large values of MOI, but may become computationally expensive in such cases.
 
 ## Simulation
 
 Let's check that we recover approximately the correct distribution over MOI.
-First we set up and run a simulation for 1000 days. We use `make_MicroMoB()`
+First we set up and run a simulation for 1000 days. We use `make_ramp.dts()`
 to set up the base model object and `setup_humans_MOI()` with our chosen parameters
 to set up the multiplicity of infection human model.
 
@@ -74,7 +74,7 @@ n <- 1
 tmax <- 1e3
 MOI_init <- matrix(data = c(1e5, rep(0, 1e2)), nrow = 101, ncol = n)
 
-mod <- make_MicroMoB(tmax = tmax, p = 1)
+mod <- make_ramp_dts(tmax = tmax, p = 1)
 setup_humans_MOI(model = mod, stochastic = TRUE, theta = matrix(1, nrow = n, ncol = 1), H = colSums(MOI_init), MOI = MOI_init, r = r, b = b)
 
 human_out <- data.table::CJ(day = 1:tmax, MOI = 0:(nrow(MOI_init)-1), value = NaN)

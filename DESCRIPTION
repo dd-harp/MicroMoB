@@ -1,6 +1,6 @@
-Package: MicroMoB
+Package: ramp.dts 
 Type: Package
-Title: Discrete Time Simulation of Mosquito-Borne Pathogen Transmission
+Title: Discrete Time Systems for Robust Analytics for Malaria Policy (RAMP), and Transmission Dynamics and Control of Mosquito-Borne Pathogens Transmission
 Version: 0.1.2
 Authors@R: c(
       person("Sean L.", "Wu", email = "slwood89@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0000-0002-5781-9493")),
@@ -15,7 +15,7 @@ Description: Provides a framework based on S3 dispatch for constructing models
   over a discrete time step.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.3.1
 Imports:
     abind,
     jsonlite
@@ -31,7 +31,7 @@ Suggests:
     withr,
     plumber
 VignetteBuilder: knitr
-URL: https://dd-harp.github.io/MicroMoB/, https://github.com/dd-harp/MicroMoB
-BugReports: https://github.com/dd-harp/MicroMoB/issues
+URL: https://dd-harp.github.io/ramp.dts/, https://github.com/dd-harp/ramp.dts
+BugReports: https://github.com/dd-harp/ramp.dts/issues
 NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)

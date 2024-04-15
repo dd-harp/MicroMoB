@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(MicroMoB)
+library(ramp.dts)
 library(ggplot2)
 library(data.table)
 library(parallel)
