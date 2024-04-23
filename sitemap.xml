@@ -1,495 +1,1476 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/404.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/404.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/CODE_OF_CONDUCT.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/LICENSE-text.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/LICENSE.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/Advanced.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/articles/Contributing.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/BH_aqua.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/articles/Understanding_ramp_dts.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/BQ_mosquito.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/Contributing.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/authors.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/MOI_human.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/index.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/MicroMoB.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/news/index.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/RM_mosquito.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Abiotic.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/RM_transmission.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Abiotic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/bloodmeal.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Abiotic.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/articles/index.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AreaSpray.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/authors.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AreaSpray.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/index.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AreaSprayEffectSizes.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/news/index.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AreaSprayEffectSizes.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/MicroMoB.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AreaSprayEffects.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/api_config_global.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AreaSprayEffects.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/approx_equal.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableBlood.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableBlood.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableBlood.setup.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableBlood.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableHabitat.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_H.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableHabitat.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_O.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableHabitat.simple.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_O.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableHabitat.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableSugar.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableSugar.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/AvailableSugar.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/BedNetEffectSizes.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Psi.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/BedNetEffectSizes.lemenach.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Wd.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/BedNetEffectSizes.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Wd.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/BedNetEffects.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.BQ.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/BedNetEffects.lemenach.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/BedNetEffects.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Behavior.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_Z.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Behavior.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_bloodmeal.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Behavior.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_bloodmeal_simple.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Bionomics.Ldynamic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Bionomics.Mdynamic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Bionomics.dynamic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Bionomics.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.trace_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Bionomics.setup.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_emergents.trace_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Bionomics.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.BQ.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Births.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Births.zero.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/CareSeeking.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_f.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/CareSeeking.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.BQ.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Civil.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.BQ_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Civil.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.BQ_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Civil.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Clinic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.RM_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Clinic.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.RM_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Control.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Control.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_oviposit.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Control.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.BQ.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Control.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DTS_step.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DTS_step_aquatic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_q.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DTS_step_cohort.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DTS_step_human.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DTS_step_mosy.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Development.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Development.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_wf.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DistributeBedNets.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/DistributeBedNets.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EIP.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EggLaying.dynamic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_x.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EggLaying.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_xd.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EggLaying.setup.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/compute_xd.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EggLaying.simple.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/distribute.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EggLaying.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/divmod.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Emergence.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/draw_multinom.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Exposure.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_K_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_EIR.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_alternative_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_H.SIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_H.SIS.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_aqua_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_H.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_humans_MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_H.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_humans_SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_X.SIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_humans_SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_X.SIS.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_X.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_mosquito_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_X.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_config_visitor_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_alpha.basic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_eip_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_alpha.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_f_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_alpha.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_kappa_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_b.SIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_lambda_aqua_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_b.SIS.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_molt_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_b.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_nu_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_b.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_p_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_beta.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_psi_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.Gtrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_q_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.RM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_surv_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.Ztrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_tmax.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.basicM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/get_tnow.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/index.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_f.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/is_binary.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_f.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/make_MicroMoB.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_f.type2.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/observe_pfpr.SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_foi.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/observe_pfpr.SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_foi.nb.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/observe_pfpr.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_foi.pois.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/output_aqua.BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.Gtrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/output_aqua.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.RM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/output_aqua.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.Ztrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/output_mosquitoes.RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.basicM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/output_mosquitoes.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/output_mosquitoes.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.Gtrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/sample_stochastic_matrix.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.RM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/sample_stochastic_vector.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.Ztrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_K_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.basicM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_eip_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_f_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_g.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_kappa_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_g.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_lambda_aqua_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_kappa.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_molt_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_nu.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_nu_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_nu.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_p_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_nu.type2.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_psi_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_pr.SIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_q_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_pr.SIS.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/set_surv_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_pr.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_alternative_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_pr.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_aqua_BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_q.dynamic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_aqua_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_q.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_q.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_sigma.BQS.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_sigma.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_humans_SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_sigma.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_mosquito_BQ.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_tau.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_mosquito_RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/HTC.SIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_mosquito_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/HTC.SIS.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/setup_visitor_trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/HTC.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.BH.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/HabitatDynamics.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.BH_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/HabitatDynamics.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.BH_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Hydrology.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Hydrology.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_aqua.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/IRS_EffectSizes.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/IRS_EffectSizes.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/IRS_Effects.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.MOI_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/IRS_Effects.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIP.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LBionomics.basic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIP_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LBionomics.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIP_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LBionomics.trace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIR.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LSM_EffectSizes.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIR_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LSM_EffectSizes.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIR_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LSM_Effects.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LSM_Effects.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LocalFrac.dynamic.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.SIS_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LocalFrac.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_humans.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/LocalFrac.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.BQ.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.Gtrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.BQ_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.RM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.BQ_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.Ztrace.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.RM.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.basicM.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.RM_deterministic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.RM_stochastic.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MassMedical.forced.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MassMedical.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/step_mosquitoes.trace.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MassMedical.null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/strata_to_residency_counts.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/OtherBloodHosts.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/strata_to_residency_proportion.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/OtherBloodHosts.static.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/time_patch_varying_parameter.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/OviTraps.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/MicroMoB/reference/time_varying_parameter.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/OviTraps.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/OwnBedNet.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/OwnBedNet.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Rainfall.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Rainfall.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Relative_Humidity.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Relative_Humidity.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Resources.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Resources.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Resources.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Resources.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Shock.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Shock.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SprayHouses.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SprayHouses.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarBaitEffectSizes.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarBaitEffectSizes.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarBaitEffects.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarBaitEffects.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarBaits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarBaits.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarDynamics.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/SugarDynamics.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Temperature.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Temperature.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Transmission.dynamic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Transmission.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Transmission.setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Transmission.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/TreatHabitats.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/TreatHabitats.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/UseBedNet.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/UseBedNet.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControl.control.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControl.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControl.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControlEffectSizes.control.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControlEffectSizes.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControlEffectSizes.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControlEffects.control.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControlEffects.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/VectorControlEffects.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Visitors.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Visitors.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Visitors.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Weather.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Weather.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/Weather.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/approx_equal.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/checkIt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/check_abiotic.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/check_abiotic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/check_abiotic.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/check_civil.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/check_civil.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/check_civil.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_AvailableHabitat.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_AvailableHosts.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_EIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_EIR_full.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_EggsLaid.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_NI.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_NI_ix.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_beta.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_calU.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_kappa.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_local_frac.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_terms.cohort.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_terms.dts.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_terms.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_terms.human.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_terms.na.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_terms_steady.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_vars_aqua.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_vars_cohort.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_vars_full.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_vars_human.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/compute_vars_mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dEIPdt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dEIPdt.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dHdt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dHdt.zero.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dLdt.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dLdt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dLdt.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dXdt.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dXdt.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dXdt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dXdt.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/diag_inverse.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_EIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_M.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_PR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_X_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_X_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_YZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_YZ_fracs.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_Z_fracs.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_lines_aEIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_EIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_M.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_PR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_YZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_YZ_fracs.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_Z_fracs.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_plot_aEIR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_setup.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_setup_aquatic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_setup_cohort.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_setup_human.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_setup_mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_solve.aqua.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_solve.cohort.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_solve.dts.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_solve.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_solve.human.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_solve.mosy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_stable_orbit.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dts_steady.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_L.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_L.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_L.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_X.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/last_to_inits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_Xvars.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_Xvars.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_Xvars.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Linits_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Lpar_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Lpar_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZinits_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZinits_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Omega.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TaR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TimeSpent.as_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TimeSpent.athome.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TimeSpent.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TimeSpent.xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TimeSpent_athome.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_TimeSpent_xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Xinits_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Xinits_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Xpar_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Xpar_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_Xpar_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calK.as_matrix.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calK.herethere.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calK.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calK.xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calK_xy.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calN.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calU.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_calU_s.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_L.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_L.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_L.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_X.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_L_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_L_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_MYZ_Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_MYZ_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_MYZ_Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_MYZ_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_X_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_X_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_X_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_L_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_L_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_MYZ_Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_MYZ_RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_MYZ_Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_MYZ_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_X_SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_X_SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_X_trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_demography_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_dts.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/metric_calD.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/metric_calR.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/metric_calV.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/metric_calZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_L.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_L.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_L.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_X.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_vec.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_BFpar_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_BloodFeeding.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EGGpar_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EIP.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EggLaying_simple.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EggLaying_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Hpar_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Linits.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Linits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Linits.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Lpar.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Lpar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Lpar.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xinits.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xinits.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xinits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xinits.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xpar.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xpar.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xpar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xpar.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_abiotic_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_abiotic_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_area_spray_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_behavior.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_behavior.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_behavior.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_behavior_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_behavior_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_bionomics_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_care_seeking_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_civil_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_civil_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_clinic_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_clinic_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_control.forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_control.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_control.null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_control_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_control_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_development_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_eip_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_exposure_nb.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_exposure_pois.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_habitat_dynamics_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_hydrology_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_irs_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_itn_lemenach.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_itn_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_local_fraction_simple.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_lsm_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_mass_medical_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_mass_medical_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_other_blood_hosts_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_ovitraps_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_rainfall_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_relative_humidity_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_resources_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_resources_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_resources_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_shock_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_sugar_baits_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_sugar_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_temperature_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_travel_eir.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_travel_foi.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_travel_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_vc_control.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_vc_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_visitors_basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_visitors_static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_weather_forced.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_weather_null.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/shapeIt.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/travel_malaria.eir.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/travel_malaria.foi.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/travel_malaria.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/travel_malaria.static.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_L.basic.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_L.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_L.trace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.Gtrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.Ztrace.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_X.SIP.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_X.SIS.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_X.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_X.trace.html</loc>
   </url>
 </urlset>
