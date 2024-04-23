@@ -1,309 +1,785 @@
-template:
-  bootstrap: 5
-  bslib:
-    border-radius: 0.5rem
-    btn-border-radius: 0.25rem
-
-url: https://dd-harp.github.io/ramp.dts/
-
-articles:
-- title: Vignettes
-  navbar: ~
-  contents:
-  - ramp.dts
-  - bloodmeal
-  - RM_mosquito
-  - BQ_mosquito
-  - MOI_human
-  - BH_aqua
-  - RM_transmission
-  - Advanced
-  - Contributing
-
+url: https://dd-harp.github.io/ramp.dts
+navbar:
+  left:
+  - text: Functions
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Understanding ramp.dts
+      href: articles/Understanding_ramp.dts.html
+    - text: Modular Forms for Disease Dynamics
+      href: articles/modularity.html
+    - text: 5-3-4 Spatial Example
+      href: articles/ex_534.html
+    - text: Spatial Metrics
+      href: articles/spat_metric.html
+    - text: Vector Control Example
+      href: articles/vc_lemenach.html
+    - text: Contributing
+      href: articles/Contributing.html
+  - text: Concepts
+    menu:
+    - text: Heterogeneous Transmission
+      href: articles/heterogeneous_transmission.html
+    - text: Heterogeneous Biting
+      href: articles/heterogeneous_biting.html
+    - text: Heterogeneous Mixing
+      href: articles/heterogeneous_mixing.html
+    - text: Environmental Heterogeneity
+      href: articles/environmental_heterogeneity.html
+  - text: Adult Mosquito Dynamics
+    menu:
+    - text: Ross-Macdonald model
+      href: articles/adult_RM.html
+    - text: Generalized Ross-Macdonald model
+      href: articles/adult_GeRM.html
+  - text: Aquatic Mosquito Dynamics
+    menu:
+    - text: Trace (forced) model
+      href: articles/aqua_trace.html
+    - text: Basic competition model
+      href: articles/aqua_basic.html
+  - text: Human Infection Dynamics
+    menu:
+    - text: SIS model
+      href: articles/human_sis.html
+    - text: SIP model
+      href: articles/human_sip.html
+    - text: MoI hybrid model
+      href: articles/human_hmoi.html
+  right:
+  - icon: fa-github
+    href: https://github.com/dd-harp/ramp.dts/
+home:
+  sidebar:
+    structure:
+    - links
+    - license
+    - community
+    - citation
+    - authors
+    - dev
 reference:
-- title: Bloodmeal
-  desc: >
-    The bloodmeal function computes bites taken by mosquitoes on hosts relevant
-    for pathogen transmission between species over a time step. After it is computed, the various
-    components can be updated independently.
+- title: Blood Feeding and Transmission
+  desc: |
+    Methods to compute the transmission terms
   contents:
-  - compute_bloodmeal
-  - compute_bloodmeal_simple
-
-- title: Adult mosquito component
-
-  desc: >
-    The adult mosquito component is responsible for updating mosquito populations
-    of the adult (flying) life stage, and handling pathogen dynamics in adult
-    populations. Any model of adult mosquitoes in ramp.dts is required to
-    implement the following interface methods. It is stored and dispatches on
-    the object in `model$mosquito`.
+  - Transmission
+  - LocalFrac
+  - AvailableBlood
+- subtitle: Transmision
+  desc: |
+    Specialized methods to compute the transmission terms
   contents:
-  - output_mosquitoes
-  - step_mosquitoes
-  - compute_f
-  - compute_q
-  - compute_Z
-  - compute_oviposit
-
-- subtitle: Ross-Macdonald (RM) mosquito model
-  desc: This model implements the generalized RM mosquito model.
+  - Transmission.static
+  - Transmission.dynamic
+  - Transmission.setup
+  - F_beta
+  - compute_beta
+  - F_EIR
+  - compute_EIR
+  - compute_EIR_full
+  - F_kappa
+  - compute_kappa
+- subtitle: Blood Feeding
+  desc: |
+    Method to set up the blood feeding model
   contents:
-  - setup_mosquito_RM
-  - get_config_mosquito_RM
-  - output_mosquitoes.RM
-  - step_mosquitoes.RM
-  - step_mosquitoes.RM_deterministic
-  - step_mosquitoes.RM_stochastic
-  - compute_f.RM
-  - compute_q.RM
-  - compute_Z.RM
-  - compute_oviposit.RM
-  - compute_oviposit.RM_deterministic
-  - compute_oviposit.RM_stochastic
-
-- subtitle: Behavioral state mosquito model
-  desc: >
-    This is a behavioral state model of mosquitoes which transition between
-    oviposition and blood feeding. It also implements infection and incubation.
+  - setup_BFpar_static
+  - setup_BloodFeeding
+  - make_TaR
+- subtitle: Time Spent and Time at Risk
+  desc: |
+    Method to set up time spent and time at risk (TaR) matrices
   contents:
-  - setup_mosquito_BQ
-  - step_mosquitoes.BQ
-  - step_mosquitoes.BQ_deterministic
-  - step_mosquitoes.BQ_stochastic
-  - compute_f.BQ
-  - compute_q.BQ
-  - compute_Z.BQ
-  - compute_oviposit.BQ
-  - compute_oviposit.BQ_deterministic
-  - compute_oviposit.BQ_stochastic
-
-- subtitle: Trace (forced) mosquito model
-  desc: This is a null mosquito component used to test aquatic models.
+  - make_TimeSpent
+  - make_TimeSpent.athome
+  - make_TimeSpent_athome
+  - make_TimeSpent.as_matrix
+  - make_TimeSpent.xy
+  - make_TimeSpent_xy
+- subtitle: Availability of humans / hosts
+  desc: |
+    Specialized methods to compute available humans / hosts
   contents:
-  - setup_mosquito_trace
-  - get_config_mosquito_trace
-  - output_mosquitoes.trace
-  - step_mosquitoes.trace
-  - compute_f.trace
-  - compute_q.trace
-  - compute_Z.trace
-  - compute_oviposit.trace
-
-- title: Aquatic (immature) mosquito component
-
-  desc: >
-    The aquatic mosquito component is responsible for updating aquatic mosquito
-    populations which live in aquatic habitats. It must calculate how many eggs
-    are oviposited by adults per day, add them to aquatic habitats, update the aquatic life stages, and calculate
-    the number of emerging adults. Any model of immature mosquitoes in ramp.dts is required to
-    implement the following interface methods. It is stored and dispatches on
-    the object in `model$aqua`.
+  - AvailableBlood.static
+  - AvailableBlood.setup
+  - AvailableBlood.forced
+  - compute_AvailableHosts
+- title: Exposure
+  desc: |
+    Methods to model the force of infection
   contents:
-    - output_aqua
-    - step_aqua
-    - compute_emergents
-
-- subtitle: Trace (forced) aquatic model
-  desc: >
-    This is a model of aquatic mosquitoes where emergence is passed as a trace (forcing)
-    term and it is not affected by endogenous dynamics.
+  - Exposure
+  - F_foi
+- subtitle: Poisson Exposure
+  desc: |
+    Specialized methods the Poisson exposure model
   contents:
-  - setup_aqua_trace
-  - get_config_aqua_trace
-  - output_aqua.trace
-  - step_aqua.trace
-  - compute_emergents.trace
-  - compute_emergents.trace_deterministic
-  - compute_emergents.trace_stochastic
-
-- subtitle: Beverton-Holt aquatic model
-  desc: >
-    This is a simple non-linear model of aquatic (immature) dynamics with a single
-    compartment.
+  - F_foi.pois
+  - setup_exposure_pois
+- subtitle: Negative Binomial Exposure
+  desc: |
+    Specialized methods the Negative Binomial exposure model
   contents:
-  - setup_aqua_BH
-  - get_config_aqua_BH
-  - output_aqua.BH
-  - step_aqua.BH
-  - step_aqua.BH_deterministic
-  - step_aqua.BH_stochastic
-  - compute_emergents.BH
-
-- title: Human component
-
-  desc: >
-    The human component is responsible for updating human populations
-    and their pathogen dynamics. Any model of humans in ramp.dts is required to
-    implement the following interface methods. It is stored and dispatches on
-    the object in `model$human`.
+  - F_foi.nb
+  - setup_exposure_nb
+- subtitle: Local Fraction
+  desc: |
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
-  - step_humans
-  - compute_wf
-  - compute_x
-  - compute_H
-  - compute_Psi
-  - observe_pfpr
-
-- subtitle: SIS human model
-  desc: >
-    This model implements a simple SIS (Susceptible-Infected-Susceptible) model of humans with risk distributed
-    according to time at risk matrices.
+  - LocalFrac.static
+  - LocalFrac.dynamic
+  - compute_local_frac
+  - setup_local_fraction_simple
+- title: Egg Laying & Emergence
+  desc: |
+    Generic methods for the aquatic (immature) mosquito component.
   contents:
-  - setup_humans_SIS
-  - get_config_humans_SIS
-  - step_humans.SIS
-  - step_humans.SIS_deterministic
-  - step_humans.SIS_stochastic
-  - compute_wf.SIS
-  - compute_x.SIS
-  - compute_H.SIS
-  - compute_Psi.SIS
-  - observe_pfpr.SIS
-
-- subtitle: SIP human model
-  desc: >
-    The SIP (Susceptible-Infected-Protected) model is a simple extension of the SIS model that adds a
-    class "Protected" for those who have recieved treatment and are temporarily protected from
-    infection until prophylaxis decays
+  - Emergence
+  - make_calN
+  - EggLaying
+  - EggLaying.static
+  - EggLaying.dynamic
+  - EggLaying.simple
+  - EggLaying.setup
+  - compute_calU
+  - compute_EggsLaid
+  - make_calU
+  - make_calU_s
+  - setup_EggLaying_static
+  - setup_EggLaying_simple
+  - setup_EGGpar_static
+- title: Adult Mosquito Dynamics
+  desc: |
+    Generic methods for the adult mosquito dynamics component.
   contents:
-  - setup_humans_SIP
-  - step_humans.SIP
-  - step_humans.SIP_deterministic
-  - step_humans.SIP_stochastic
-  - compute_wf.SIP
-  - compute_x.SIP
-  - compute_H.SIP
-  - compute_Psi.SIP
-  - observe_pfpr.SIP
-
-- subtitle: MOI human model
-  desc: >
-    The MOI (multiplicity of infection) human model is a queueing model for superinfection,
-    where persons can be infected by multiple distinct parasite broods.
+  - MBionomics
+  - F_fqZ
+  - F_fqM
+  - F_tau
+  - F_eggs
+  - dMYZdt
+  - setup_MYZpar
+  - setup_MYZinits
+  - make_indices_MYZ
+  - parse_dts_out_MYZ
+  - get_inits_MYZ
+  - update_inits_MYZ
+  - make_Omega
+  - dts_plot_M
+  - dts_lines_M
+  - dts_plot_YZ
+  - dts_lines_YZ
+  - dts_plot_YZ_fracs
+  - dts_lines_YZ_fracs
+  - dts_plot_Z_fracs
+  - dts_lines_Z_fracs
+- subtitle: EIP
+  desc: |
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
-  - setup_humans_MOI
-  - get_config_humans_MOI
-  - step_humans.MOI
-  - step_humans.MOI_deterministic
-  - step_humans.MOI_stochastic
-  - compute_wf.MOI
-  - compute_x.MOI
-  - compute_H.MOI
-  - compute_Psi.MOI
-
-- subtitle: SIR human model
-  desc: >
-    The SIR (Susceptible-Infected-Recovered) model is a simple model for many strongly
-    immunizing arboviruses.
+  - EIP
+  - EIP.static
+  - dEIPdt
+  - dEIPdt.static
+  - setup_EIP
+  - setup_EIP.static
+  - setup_eip_static
+- subtitle: Ztrace
+  desc: |
+    Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
-  - setup_humans_SIR
-  - get_config_humans_SIR
-  - step_humans.SIR
-  - step_humans.SIR_deterministic
-  - step_humans.SIR_stochastic
-  - compute_wf.SIR
-  - compute_x.SIR
-  - compute_H.SIR
-  - compute_Psi.SIR
-
-- title: Visitor component
-
-  desc: >
-    The visitor component is responsible for modeling human populations that are
-    not part of the resident population of the geographic area being simulated.
-    It is stored and dispatches on the object in `model$visitor`.
+  - MBionomics.Ztrace
+  - F_fqZ.Ztrace
+  - F_fqM.Ztrace
+  - F_eggs.Ztrace
+  - dMYZdt.Ztrace
+  - setup_MYZpar.Ztrace
+  - setup_MYZinits.Ztrace
+  - make_MYZpar_Ztrace
+  - make_indices_MYZ.Ztrace
+  - parse_dts_out_MYZ.Ztrace
+  - make_inits_MYZ_Ztrace
+  - get_inits_MYZ.Ztrace
+  - update_inits_MYZ.Ztrace
+  - make_parameters_MYZ_Ztrace
+- subtitle: Gtrace
+  desc: |
+    Specialized methods for NULL dynamics: a funtion generates values for eggs laid to aquatic ecology
   contents:
-  - compute_Wd
-  - compute_xd
-
-- subtitle: Trace visitor model
-  desc: >
-    This is a simple trace driven visitor model.
+  - MBionomics.Gtrace
+  - F_fqZ.Gtrace
+  - F_fqM.Gtrace
+  - F_eggs.Gtrace
+  - dMYZdt.Gtrace
+  - setup_MYZpar.Gtrace
+  - setup_MYZinits.Gtrace
+  - setup_MYZpar.Gtrace
+  - setup_MYZinits.Gtrace
+  - make_MYZpar_Gtrace
+  - make_indices_MYZ.Gtrace
+  - parse_dts_out_MYZ.Gtrace
+  - make_inits_MYZ_Gtrace
+  - get_inits_MYZ.Gtrace
+  - update_inits_MYZ.Gtrace
+  - make_parameters_MYZ_Gtrace
+- subtitle: basicM
+  desc: |
+    Specialized methods for basicM, a model of adult mosquito dynamics with no parasite infection dynamics.
   contents:
-  - setup_visitor_trace
-  - get_config_visitor_trace
-  - compute_Wd.trace
-  - compute_xd.trace
-
-- title: Alternative blood hosts component
-
-  desc: >
-    The alternative blood hosts component is responsible for modeling other blood
-    host populations (livestock, dogs, etc.). It is stored and dispatches on the object in `model$alternative`.
+  - MBionomics.basicM
+  - F_fqZ.basicM
+  - F_fqM.basicM
+  - F_eggs.basicM
+  - dMYZdt.basicM
+  - setup_MYZpar.basicM
+  - setup_MYZinits.basicM
+  - make_MYZpar_basicM
+  - make_MYZinits_basicM
+  - make_indices_MYZ.basicM
+  - parse_dts_out_MYZ.basicM
+  - make_inits_MYZ_basicM
+  - get_inits_MYZ.basicM
+  - update_inits_MYZ.basicM
+  - make_parameters_MYZ_basicM
+- subtitle: RM
+  desc: |
+    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron & Robert May (1982).
   contents:
-  - compute_O
-
-- subtitle: Trace alternative blood hosts model
-  desc: >
-    This is a simple trace driven alternative blood hosts model.
+  - MBionomics.RM
+  - F_fqZ.RM
+  - F_fqM.RM
+  - F_eggs.RM
+  - dMYZdt.RM
+  - setup_MYZpar.RM
+  - setup_MYZinits.RM
+  - make_MYZpar_RM
+  - make_MYZinits_RM
+  - make_indices_MYZ.RM
+  - parse_dts_out_MYZ.RM
+  - make_inits_MYZ_RM
+  - get_inits_MYZ.RM
+  - update_inits_MYZ.RM
+  - make_parameters_MYZ_RM
+- title: Aquatic Mosquito Dynamics
+  desc: |
+    Generic methods for the aquatic (immature) mosquito component.
   contents:
-  - setup_alternative_trace
-  - get_config_alternative_trace
-  - compute_O.trace
-
-- title: Utility and global methods
-
-- subtitle: Utilities for users
-  desc: >
-    These are utilities which are intended for typical users to access.
+  - LBionomics
+  - F_alpha
+  - dLdt
+  - setup_Lpar
+  - setup_Linits
+  - make_indices_L
+  - parse_dts_out_L
+  - get_inits_L
+  - update_inits_L
+- subtitle: trace
+  desc: |
+    Specialized methods for the exogeneously forced trace model of aquatic mosquito dynamics.
   contents:
-  - ramp.dts
-  - make_ramp_dts
-  - get_tnow
-  - get_tmax
-  - api_config_global
-  - sample_stochastic_vector
-  - sample_stochastic_matrix
-  - draw_multinom
-  - strata_to_residency_proportion
-  - strata_to_residency_counts
-  - time_patch_varying_parameter
-  - time_varying_parameter
-
-- subtitle: Internal utilities
-  desc: >
-    These are lower-level utilities. They are exported and documented because other
-    packages which extend Micro-MoB may want to use them.
+  - LBionomics.trace
+  - F_alpha.trace
+  - dLdt.trace
+  - setup_Lpar.trace
+  - setup_Linits.trace
+  - make_Lpar_trace
+  - make_indices_L.trace
+  - parse_dts_out_L.trace
+  - make_inits_L_trace
+  - get_inits_L.trace
+  - update_inits_L.trace
+  - make_parameters_L_trace
+- subtitle: basic
+  desc: |
+    Specialized methods for a basic competition model of aquatic mosquito dynamics.
   contents:
-  - is_binary
+  - LBionomics.basic
+  - F_alpha.basic
+  - dLdt.basic
+  - setup_Lpar.basic
+  - setup_Linits.basic
+  - make_Lpar_basic
+  - make_Linits_basic
+  - make_indices_L.basic
+  - parse_dts_out_L.basic
+  - make_inits_L_basic
+  - get_inits_L.basic
+  - update_inits_L.basic
+  - make_parameters_L_basic
+- title: Mosquito Bionomics
+  desc: |
+    Methods to compute or update mosquito bionomic parameters
+  contents:
+  - Bionomics
+  - Bionomics.static
+  - Bionomics.dynamic
+  - Bionomics.Ldynamic
+  - Bionomics.Mdynamic
+  - Bionomics.setup
+  - setup_bionomics_static
+- subtitle:  Functional Responses
+  desc: |
+    Compute bionomic parameters as functional responses to resource availability
+  contents:
+  - F_sigma
+  - F_sigma.static
+  - F_sigma.BQS
+  - F_nu
+  - F_nu.static
+  - F_nu.type2
+  - F_f
+  - F_f.static
+  - F_f.type2
+  - F_q
+  - F_q.static
+  - F_q.dynamic
+  - F_g
+  - F_g.static
+- subtitle: Mosquito Dispersal
+  desc: |
+    Specialized methods to set up mosquito dispersal matrices
+  contents:
+  - make_calK
+  - make_calK.herethere
+  - make_calK.as_matrix
+  - make_calK.xy
+  - make_calK_xy
+- title: Human Infection Dynamics
+  desc: |
+    Generic methods for the dynamical component that handles human infection dynamics, immunity, disease and transmission
+  contents:
+  - dXdt
+  - setup_Xinits
+  - make_indices_X
+  - list_Xvars
+  - setup_Xpar
+  - F_X
+  - F_H
+  - F_b
+  - F_pr
+  - parse_dts_out_X
+  - get_inits_X
+  - update_inits_X
+  - HTC
+  - dts_plot_X
+- subtitle: trace
+  desc: |
+    Specialized methods for a human trace model to pass kappa as a parameter
+  contents:
+  - F_X.trace
+  - F_H.trace
+  - F_pr.trace
+  - F_b.trace
+  - dXdt.trace
+  - setup_Xpar.trace
+  - setup_Xinits.trace
+  - make_Xpar_trace
+  - make_indices_X.trace
+  - parse_dts_out_X.trace
+  - make_inits_X_trace
+  - get_inits_X.trace
+  - update_inits_X.trace
+  - make_parameters_X_trace
+- subtitle: SIS
+  desc: |
+    Specialized methods for the SIS (Susceptible-Infected-Susceptible) model of human dynamics.
+  contents:
+  - dXdt.SIS
+  - make_Xinits_SIS
+  - setup_Xinits.SIS
+  - make_indices_X.SIS
+  - list_Xvars.SIS
+  - make_Xpar_SIS
+  - setup_Xpar.SIS
+  - F_X.SIS
+  - F_H.SIS
+  - F_pr.SIS
+  - F_b.SIS
+  - parse_dts_out_X.SIS
+  - make_inits_X_SIS
+  - get_inits_X.SIS
+  - update_inits_X.SIS
+  - make_parameters_X_SIS
+  - HTC.SIS
+  - dts_plot_X.SIS
+  - dts_lines_X_SIS
+- subtitle: SIP
+  desc: |
+    Specialized methods for the SIP (Susceptible-Infected-Prophylaxis) model of human dynamics.
+  contents:
+  - dXdt.SIP
+  - make_Xinits_SIP
+  - setup_Xinits.SIP
+  - make_indices_X.SIP
+  - list_Xvars.SIP
+  - make_Xpar_SIP
+  - setup_Xpar.SIP
+  - F_X.SIP
+  - F_H.SIP
+  - F_pr.SIP
+  - F_b.SIP
+  - parse_dts_out_X.SIP
+  - make_inits_X_SIP
+  - get_inits_X.SIP
+  - update_inits_X.SIP
+  - make_parameters_X_SIP
+  - HTC.SIP
+  - dts_plot_X.SIP
+  - dts_lines_X_SIP
+- title: Human Population Dynamics
+  desc: |
+    Generic methods for the human demography and aging
+  contents:
+  - dHdt
+  - setup_Hpar_static
+  - Births
+  - make_parameters_demography_null
+- subtitle: static
+  desc: |
+    Specialized methods for the static (constant) demographic model
+  contents:
+  - Births.zero
+  - dHdt.zero
+- title: Human and Mosquito Behaviors
+  desc: |
+    Methods to implement human and Mosquito Behaviorsbehaviors
+  contents:
+  - Behavior
+  - Behavior.null
+  - Behavior.forced
+  - setup_behavior_null
+  - setup_behavior_forced
+  - setup_behavior
+  - setup_behavior.null
+  - setup_behavior.forced
+- subtitle: Care Seeking
+  desc: |
+    Methods to implement care seeking
+  contents:
+  - CareSeeking
+  - CareSeeking.null
+  - setup_care_seeking_null
+- title: Imported Malaria
+  desc: |
+    Methods to implement imported malaria
+  contents:
+  - travel_malaria
+  - Visitors
+- subtitle: Travel Malaria
+  desc: |
+    Specialized methods for travel malaria
+  contents:
+  - travel_malaria.static
+  - setup_travel_static
+  - travel_malaria.foi
+  - setup_travel_foi
+  - travel_malaria.eir
+  - setup_travel_eir
+- subtitle: Visitors
+  desc: |
+    Methods for the availability and infectiousness of a visitor population
+  contents:
+  - Visitors.static
+  - setup_visitors_static
+  - Visitors.basic
+  - setup_visitors_basic
+- title: Exogeneous Forcing
+  desc: |
+    Methods to implement exogeneous forcing.
+  contents:
+  - Abiotic
+  - Civil
+  - Shock
+  - Control
+  - Clinic
+  - Development
+  - MassMedical
+- subtitle: Models
+  desc: |
+    Specialized methods the null model (no exogenous forcing)
+  contents:
+  - Abiotic.null
+  - setup_abiotic_null
+  - Civil.null
+  - setup_civil_null
+  - Shock.null
+  - setup_shock_null
+  - Control.null
+  - Control.static
+  - setup_control
+  - setup_control_null
+  - setup_control.null
+  - setup_control.forced
+  - Clinic.null
+  - setup_clinic_null
+  - setup_clinic_forced
+  - Development.null
+  - setup_development_null
+  - MassMedical.null
+  - setup_mass_medical_null
+- subtitle: forced
+  desc: |
+    Specialized methods to call forcing
+  contents:
+  - Abiotic.forced
+  - setup_abiotic_forced
+  - check_abiotic
+  - check_abiotic.null
+  - check_abiotic.forced
+  - Civil.forced
+  - setup_civil_forced
+  - check_civil
+  - check_civil.null
+  - check_civil.forced
+  - Control.forced
+  - setup_control_forced
+  - MassMedical.forced
+  - setup_mass_medical_forced
+- subtitle: Weather
+  desc: |
+    Specialized methods for weather
+  contents:
+  - Weather
+  - Weather.null
+  - Weather.forced
+  - setup_weather_null
+  - setup_weather_forced
+  - setup_rainfall_null
+  - Rainfall
+  - Rainfall.null
+  - setup_temperature_null
+  - Temperature
+  - Temperature.null
+  - setup_relative_humidity_null
+  - Relative_Humidity
+  - Relative_Humidity.null
+- subtitle: Hydrology
+  desc: |
+    Specialized methods for hydrology
+  contents:
+  - Hydrology
+  - Hydrology.null
+  - setup_hydrology_null
+- title: Resource Dynamics
+  desc: |
+    Methods to implement resource availability
+  contents:
+  - Resources
+  - Resources.static
+  - Resources.setup
+  - Resources.forced
+  - setup_resources_null
+  - setup_resources_static
+  - setup_resources_forced
+- subtitle: Other Blood Hosts
+  desc: |
+    Methods to simulate availability of other blood hosts
+  contents:
+  - OtherBloodHosts
+  - OtherBloodHosts.static
+  - setup_other_blood_hosts_static
+- subtitle: Habitat Dynamics and Availability
+  desc: |
+    Specialized methods for weather
+  contents:
+  - AvailableHabitat
+  - AvailableHabitat.static
+  - AvailableHabitat.simple
+  - AvailableHabitat.forced
+  - compute_AvailableHabitat
+  - HabitatDynamics
+  - HabitatDynamics.static
+  - setup_habitat_dynamics_static
+- subtitle: Sugar
+  desc: |
+    Methods to simulate availability of sugar
+  contents:
+  - SugarDynamics
+  - SugarDynamics.static
+  - setup_sugar_static
+  - AvailableSugar
+  - AvailableSugar.static
+  - AvailableSugar.forced
+- title: Vector Control
+  desc: |
+    Methods to implement vector control.
+  contents:
+  - VectorControl
+  - VectorControlEffects
+  - VectorControlEffectSizes
+- subtitle: null model
+  desc: |
+    Specialized methods for the null model (no vector control)
+  contents:
+  - VectorControl.null
+  - VectorControlEffects.null
+  - VectorControlEffectSizes.null
+  - setup_vc_null
+- subtitle: Implement Control
+  desc: |
+    Specialized methods to implement vector control
+  contents:
+  - VectorControl.control
+  - VectorControlEffects.control
+  - VectorControlEffectSizes.control
+  - setup_vc_control
+- subtitle: Bed Nets
+  desc: |
+    Methods to implement bed nets
+  contents:
+  - DistributeBedNets
+  - OwnBedNet
+  - UseBedNet
+  - BedNetEffects
+  - BedNetEffectSizes
+  - DistributeBedNets.null
+  - OwnBedNet.null
+  - UseBedNet.null
+  - BedNetEffects.null
+  - BedNetEffectSizes.null
+  - setup_itn_null
+  - BedNetEffects.lemenach
+  - BedNetEffectSizes.lemenach
+  - setup_itn_lemenach
+- subtitle: Indoor Residual Spraying
+  desc: |
+    Methods to implement IRS
+  contents:
+  - SprayHouses
+  - IRS_Effects
+  - IRS_EffectSizes
+  - SprayHouses.null
+  - IRS_Effects.null
+  - IRS_EffectSizes.null
+  - setup_irs_null
+- subtitle: Area Spraying
+  desc: |
+    Methods to implement area spraying
+  contents:
+  - AreaSpray
+  - AreaSprayEffects
+  - AreaSprayEffectSizes
+  - AreaSpray.null
+  - AreaSprayEffects.null
+  - AreaSprayEffectSizes.null
+  - setup_area_spray_null
+- subtitle: Sugar Baits
+  desc: |
+    Methods to implement sugar baits
+  contents:
+  - SugarBaits
+  - SugarBaitEffects
+  - SugarBaitEffectSizes
+  - SugarBaits.null
+  - SugarBaitEffects.null
+  - SugarBaitEffectSizes.null
+  - setup_sugar_baits_null
+- subtitle: Larval Source Management
+  desc: |
+    Methods to implement LSM
+  contents:
+  - TreatHabitats
+  - LSM_Effects
+  - LSM_EffectSizes
+  - TreatHabitats.null
+  - LSM_Effects.null
+  - LSM_EffectSizes.null
+  - setup_lsm_null
+- subtitle: Ovitraps
+  desc: |
+    Specialized methods for ovitraps
+  contents:
+  - OviTraps
+  - OviTraps.null
+  - setup_ovitraps_null
+
+- title: Setup
+  desc: |
+    Basic setup for models
+  contents:
+  - make_parameters_dts
+  - make_indices
+- subtitle: Setting Up
+  desc: |
+    Methods to set up basic models
+  contents:
+  - dts_setup
+  - dts_setup_aquatic
+  - dts_setup_mosy
+  - dts_setup_human
+  - dts_setup_cohort
+- subtitle: Initial Values
+  desc: |
+    Methods to set up basic models
+  contents:
+  - get_inits
+  - update_inits
+  - last_to_inits
+- title: Solving
+  desc: |
+    Methods to compute the derivatives and solve the equat
+- subtitle: Derivatives
+  contents:
+  - DTS_step
+  - DTS_step_aquatic
+  - DTS_step_mosy
+  - DTS_step_human
+  - DTS_step_cohort
+- subtitle: Solving
+  desc: |
+    Wrappers around the derivatives functions that handle time and parse outputs
+  contents:
+  - dts_solve
+  - dts_solve.dts
+  - dts_solve.aqua
+  - dts_solve.mosy
+  - dts_solve.human
+  - dts_solve.cohort
+  - dts_stable_orbit
+  - dts_steady
+- title: Analysis and Visualization
+  desc: |
+    Methods to compute and output terms
+- subtitle: Spatial metrics
+  contents:
+  - metric_calV
+  - metric_calD
+  - metric_calR
+  - metric_calZ
+- subtitle: Compute terms
+  desc: |
+    Methods to compute and transmission terms
+  contents:
+  - parse_dts_out
+  - parse_dts_out_vec
+  - compute_terms
+  - compute_terms.dts
+  - compute_terms.cohort
+  - compute_terms.human
+  - compute_terms.na
+  - compute_terms_steady
+  - compute_NI
+  - compute_NI_ix
+  - compute_vars_full
+  - compute_vars_human
+  - compute_vars_aqua
+  - compute_vars_mosy
+  - compute_vars_cohort
+- subtitle: Plot terms
+  desc: |
+    Basic visualization of the transmission terms
+  contents:
+  - dts_plot_EIR
+  - dts_lines_EIR
+  - dts_plot_aEIR
+  - dts_lines_aEIR
+  - dts_plot_PR
+  - dts_lines_PR
+- title: Utilities
+  contents:
+  - diag_inverse
   - approx_equal
-  - divmod
-  - distribute
-
-- title: Parameter getters and setters
-
-  desc: >
-    For interfacing with other APIs it is useful for models to have setter functions
-    to modify parameters after a model has been set up (e.g; during a simulation).
-
-- subtitle: Ross-Macdonald (RM) mosquito model
-  contents:
-  - set_f_mosquito_RM
-  - get_f_mosquito_RM
-  - set_q_mosquito_RM
-  - get_q_mosquito_RM
-  - set_eip_mosquito_RM
-  - get_eip_mosquito_RM
-  - set_p_mosquito_RM
-  - get_p_mosquito_RM
-  - set_psi_mosquito_RM
-  - get_psi_mosquito_RM
-  - set_nu_mosquito_RM
-  - get_nu_mosquito_RM
-  - set_kappa_mosquito_RM
-  - get_kappa_mosquito_RM
-
-- subtitle: Beverton-Holt aquatic model
-  contents:
-  - set_molt_aqua_BH
-  - get_molt_aqua_BH
-  - set_surv_aqua_BH
-  - get_surv_aqua_BH
-  - set_K_aqua_BH
-  - get_K_aqua_BH
-
-- subtitle: Trace (forced) aquatic model
-  contents:
-  - set_lambda_aqua_trace
-  - get_lambda_aqua_trace
+  - checkIt
+  - shapeIt

@@ -1,4 +1,4 @@
 library(testthat)
-library(MicroMoB)
+library(ramp.dts)
 
-test_check("MicroMoB")
+test_check("ramp.dts")

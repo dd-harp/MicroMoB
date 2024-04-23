@@ -17,21 +17,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.1
 Imports:
-    abind,
-    jsonlite
+    expm, 
+    MASS
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 3.0.0),
-    ggplot2,
-    data.table,
-    callr,
-    httr,
-    readr,
-    withr,
-    plumber
 VignetteBuilder: knitr
 URL: https://dd-harp.github.io/ramp.dts/, https://github.com/dd-harp/ramp.dts
 BugReports: https://github.com/dd-harp/ramp.dts/issues
-NeedsCompilation: yes
 Roxygen: list(markdown = TRUE)
