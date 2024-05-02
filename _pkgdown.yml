@@ -6,15 +6,7 @@ navbar:
   - text: Articles
     menu:
     - text: Understanding ramp.dts
-      href: articles/Understanding_ramp.dts.html
-    - text: Modular Forms for Disease Dynamics
-      href: articles/modularity.html
-    - text: 5-3-4 Spatial Example
-      href: articles/ex_534.html
-    - text: Spatial Metrics
-      href: articles/spat_metric.html
-    - text: Vector Control Example
-      href: articles/vc_lemenach.html
+      href: articles/Understanding_ramp_dts.html
     - text: Contributing
       href: articles/Contributing.html
   - text: Concepts
