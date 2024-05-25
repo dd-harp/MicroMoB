@@ -124,18 +124,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_parameters_MYZ_RM</span><span class="op">(</span></span>
-<span>  <span class="va">pars</span>,</span>
-<span>  <span class="va">g</span>,</span>
-<span>  <span class="va">sigma</span>,</span>
-<span>  <span class="va">f</span>,</span>
-<span>  <span class="va">q</span>,</span>
-<span>  <span class="va">nu</span>,</span>
-<span>  <span class="va">eggsPerBatch</span>,</span>
-<span>  <span class="va">eip</span>,</span>
-<span>  <span class="va">calK</span>,</span>
-<span>  solve_as <span class="op">=</span> <span class="st">"dde"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_parameters_MYZ_RM</span><span class="op">(</span><span class="va">pars</span>, <span class="va">p</span>, <span class="va">sigma</span>, <span class="va">f</span>, <span class="va">q</span>, <span class="va">nu</span>, <span class="va">eggsPerBatch</span>, <span class="va">eip</span>, <span class="va">calK</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -144,8 +133,8 @@
 <dd><p>a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></p></dd>
 
 
-<dt>g</dt>
-<dd><p>mosquito mortality rate</p></dd>
+<dt>p</dt>
+<dd><p>daily mosquito survival</p></dd>
 
 
 <dt>sigma</dt>
@@ -169,15 +158,11 @@
 
 
 <dt>eip</dt>
-<dd><p>length of extrinsic incubation period</p></dd>
+<dd><p>maximum length for extrinsic incubation period</p></dd>
 
 
 <dt>calK</dt>
 <dd><p>mosquito dispersal matrix of dimensions <code>nPatches</code> by <code>nPatches</code></p></dd>
-
-
-<dt>solve_as</dt>
-<dd><p>is either <code>ode</code> to solve as an ode or <code>dde</code> to solve as a dde</p></dd>
 
 </dl></div>
     <div id="value">

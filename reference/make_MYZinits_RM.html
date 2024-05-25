@@ -126,10 +126,11 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_MYZinits_RM</span><span class="op">(</span></span>
 <span>  <span class="va">nPatches</span>,</span>
-<span>  <span class="va">eip</span>,</span>
+<span>  <span class="va">max_eip</span>,</span>
 <span>  MYZopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  M0 <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  P0 <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  U0 <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  Y0 <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  Z0 <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -141,8 +142,8 @@
 <dd><p>the number of patches in the model</p></dd>
 
 
-<dt>eip</dt>
-<dd><p>the length of the extrinsic incubation period (in days), an <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></p></dd>
+<dt>max_eip</dt>
+<dd><p>the maximum number of EIP cohorts, an <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></p></dd>
 
 
 <dt>MYZopts</dt>
@@ -155,6 +156,10 @@
 
 <dt>P0</dt>
 <dd><p>total parous mosquito density at each patch</p></dd>
+
+
+<dt>U0</dt>
+<dd><p>total uninfected mosquito density at each patch</p></dd>
 
 
 <dt>Y0</dt>

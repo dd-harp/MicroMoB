@@ -2,9 +2,11 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
+  bloodmeal: bloodmeal.html
   Contributing: Contributing.html
+  RM-Mosquito: RM-Mosquito.html
   Understanding_ramp_dts: Understanding_ramp_dts.html
-last_built: 2024-05-02T14:00Z
+last_built: 2024-05-25T23:53Z
 urls:
   reference: https://dd-harp.github.io/ramp.dts/reference
   article: https://dd-harp.github.io/ramp.dts/articles

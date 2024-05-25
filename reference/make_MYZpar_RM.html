@@ -129,10 +129,11 @@
 <span>  MYZopts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">EIPmod</span>,</span>
 <span>  <span class="va">calK</span>,</span>
-<span>  g <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">12</span>,</span>
+<span>  p <span class="op">=</span> <span class="fl">11</span><span class="op">/</span><span class="fl">12</span>,</span>
 <span>  sigma <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">8</span>,</span>
 <span>  f <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>  q <span class="op">=</span> <span class="fl">0.95</span>,</span>
+<span>  eip <span class="op">=</span> <span class="fl">12</span>,</span>
 <span>  nu <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  eggsPerBatch <span class="op">=</span> <span class="fl">60</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -156,8 +157,8 @@
 <dd><p>a mosquito dispersal matrix of dimensions <code>nPatches</code> by <code>nPatches</code></p></dd>
 
 
-<dt>g</dt>
-<dd><p>mosquito mortality rate</p></dd>
+<dt>p</dt>
+<dd><p>daily mosquito survival</p></dd>
 
 
 <dt>sigma</dt>
@@ -170,6 +171,10 @@
 
 <dt>q</dt>
 <dd><p>human blood fraction</p></dd>
+
+
+<dt>eip</dt>
+<dd><p>the maximum number of cohorts in the EIP</p></dd>
 
 
 <dt>nu</dt>

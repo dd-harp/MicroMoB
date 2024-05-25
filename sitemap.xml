@@ -16,7 +16,13 @@
     <loc>https://dd-harp.github.io/ramp.dts/articles/Contributing.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/articles/RM-Mosquito.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/articles/Understanding_ramp_dts.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/articles/bloodmeal.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/articles/index.html</loc>
@@ -724,12 +730,6 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/compute_vars_mosy.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/dEIPdt.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/dEIPdt.static.html</loc>
-  </url>
-  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/dHdt.html</loc>
   </url>
   <url>
@@ -914,6 +914,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/last_to_inits.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_MYZvars.RM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_MYZvars.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/list_Xvars.SIP.html</loc>
