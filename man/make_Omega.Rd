@@ -4,12 +4,12 @@
 \alias{make_Omega}
 \title{Make the mosquito demography matrix}
 \usage{
-make_Omega(g, sigma, K, nPatches)
+make_Omega(p, sigma, K, nPatches)
 }
 \arguments{
-\item{g}{mortality rate}
+\item{p}{proportion surviving}
 
-\item{sigma}{emigration  rate}
+\item{sigma}{fraction emigrating}
 
 \item{K}{mosquito dispersal matrix}
 

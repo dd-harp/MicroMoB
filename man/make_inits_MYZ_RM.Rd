@@ -4,7 +4,7 @@
 \alias{make_inits_MYZ_RM}
 \title{Make inits for RM adult mosquito model}
 \usage{
-make_inits_MYZ_RM(pars, M0, P0, Y0, Z0)
+make_inits_MYZ_RM(pars, M0, P0, U0, Y0, Z0)
 }
 \arguments{
 \item{pars}{a \link{list}}
@@ -12,6 +12,8 @@ make_inits_MYZ_RM(pars, M0, P0, Y0, Z0)
 \item{M0}{total mosquito density at each patch}
 
 \item{P0}{total parous mosquito density at each patch}
+
+\item{U0}{total uninfected mosquito density at each patch}
 
 \item{Y0}{infected mosquito density at each patch}
 

@@ -4,6 +4,7 @@
 #' @export
 make_parameters_dts = function(){
   pars = list()
+  class(pars) <- "dts"
 
   pars$MYZpar = list()
   pars$Lpar = list()

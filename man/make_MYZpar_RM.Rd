@@ -9,10 +9,11 @@ make_MYZpar_RM(
   MYZopts = list(),
   EIPmod,
   calK,
-  g = 1/12,
+  p = 11/12,
   sigma = 1/8,
   f = 0.3,
   q = 0.95,
+  eip = 12,
   nu = 1,
   eggsPerBatch = 60
 )
@@ -26,13 +27,15 @@ make_MYZpar_RM(
 
 \item{calK}{a mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 
-\item{g}{mosquito mortality rate}
+\item{p}{daily mosquito survival}
 
 \item{sigma}{emigration rate}
 
 \item{f}{feeding rate}
 
 \item{q}{human blood fraction}
+
+\item{eip}{the maximum number of cohorts in the EIP}
 
 \item{nu}{oviposition rate, per mosquito}
 

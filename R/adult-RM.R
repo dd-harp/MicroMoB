@@ -9,10 +9,10 @@ MBionomics.RM <- function(t, y, pars, s) {
   with(pars$MYZpar[[s]],{
     pars$MYZpar[[s]]$f <- f0
     pars$MYZpar[[s]]$q <- q0
-    pars$MYZpar[[s]]$g <- g0
+    pars$MYZpar[[s]]$p <- p0
     pars$MYZpar[[s]]$sigma <- sigma0
     pars$MYZpar[[s]]$nu <- nu0
-    pars$MYZpar[[s]]$eip <- EIP(t, EIPmod)
+    #pars$MYZpar[[s]]$eip <- EIP(t, EIPmod)
 
     return(pars)
 })}
@@ -56,29 +56,27 @@ dMYZdt.RM <- function(t, y, pars, s) {
   Lambda = pars$Lambda[[s]]
   kappa = pars$kappa[[s]]
 
-  with(pars$ix$MYZ[[s]],{
-    M <- y[M_ix]
-    P <- y[P_ix]
-    Y <- y[Y_ix]
-    Z <- y[Z_ix]
-
+  with(list_MYZvars(y, pars, s),{
     with(pars$MYZpar[[s]],{
-      Omega <- make_Omega(g, sigma, calK, nPatches)
-      Upsilon <- expm::expm(-Omega*eip)
-      eip_day_ix = (t %% eip)*(1:nPatches)
+        Omega <- make_Omega(p, sigma, calK, nPatches)
+        #G <- EIP(t, EIPmod)
 
-      Mt <- Lambda + (Omega %*% M)
-      Pt <- f*(M - P) + (Omega %*% P)
-      Yt <- (Omega %*% Y)
-      Zt <- Yt[eip_day_ix] + (Omega %*% Z)
-      Yt[eip_day_ix] <- (1-exp(-f*q*kappa))*(M - Y)
+        Mt <- Lambda + Omega %*% M
+        Pt <- f*(M-P) + Omega %*% P
+        Ut <- Lambda + Omega %*% (exp(-f*q*kappa)*U)
+        Yt <- Omega %*% (Y %*% diag(1-G))
+        Zt <- Omega %*% (Y%*%G)  + (Omega %*% Z)
 
-      return(c(Mt, Pt, Yt, Zt))
-    })
+        eip_day_ix = (t %% max_eip) + 1
+        eip_yday_ix = ((t-1) %% max_eip) + 1
+
+        Yt[,eip_yday_ix]  <- Yt[,eip_yday_ix] + Yt[,eip_day_ix]
+        Yt[,eip_day_ix] <- Omega %*% ((1-exp(-f*q*kappa))*U)
+
+        return(c(Mt, Pt, Ut, Yt, Zt))
+      })
   })
 }
-
-
 
 #' @title Setup MYZpar for the RM model
 #' @description Implements [setup_MYZpar] for the RM model
@@ -95,16 +93,17 @@ setup_MYZpar.RM = function(MYZname, pars, s, MYZopts=list(), EIPmod, calK){
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param EIPmod a [list] that defines the EIP model
 #' @param calK a mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
-#' @param g mosquito mortality rate
+#' @param p daily mosquito survival
 #' @param sigma emigration rate
 #' @param f feeding rate
 #' @param q human blood fraction
+#' @param eip the maximum number of cohorts in the EIP
 #' @param nu oviposition rate, per mosquito
 #' @param eggsPerBatch eggs laid per oviposition
 #' @return a [list]
 #' @export
 make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
-                          g=1/12, sigma=1/8, f=0.3, q=0.95,
+                          p=11/12, sigma=1/8, f=0.3, q=0.95, eip=12,
                           nu=1, eggsPerBatch=60){
 
   stopifnot(is.matrix(calK))
@@ -112,31 +111,37 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
 
   with(MYZopts,{
     MYZpar <- list()
+    class(MYZpar) <- "RM"
 
     MYZpar$nPatches <- nPatches
 
-    MYZpar$g      <- checkIt(g, nPatches)
-    MYZpar$sigma  <- checkIt(sigma, nPatches)
-    MYZpar$f      <- checkIt(f, nPatches)
-    MYZpar$q      <- checkIt(q, nPatches)
-    MYZpar$nu     <- checkIt(nu, nPatches)
+    MYZpar$p       <- checkIt(p, nPatches)
+    MYZpar$sigma   <- checkIt(sigma, nPatches)
+    MYZpar$f       <- checkIt(f, nPatches)
+    MYZpar$q       <- checkIt(q, nPatches)
+    MYZpar$nu      <- checkIt(nu, nPatches)
     MYZpar$eggsPerBatch <- eggsPerBatch
 
+
     # Store as baseline values
-    MYZpar$g0      <- MYZpar$g
+    MYZpar$p0      <- MYZpar$p
     MYZpar$sigma0  <- MYZpar$sigma
     MYZpar$f0      <- MYZpar$f
     MYZpar$q0      <- MYZpar$q
     MYZpar$nu0     <- MYZpar$nu
 
     # The EIP model and the eip
-    MYZpar$EIPmod <- EIPmod
-    MYZpar$eip <- EIP(0, EIPmod)
+    MYZpar$eip <- eip
+    MYZpar$max_eip <- eip
+    MYZpar$G = rep(0, eip)
+    MYZpar$G[eip] = 1
+
+    #MYZpar$EIPmod <- EIPmod
+    #MYZpar$eip <- EIP(0, EIPmod)
 
     MYZpar$calK <- calK
 
-    MYZpar$Omega <- make_Omega(g, sigma, calK, nPatches)
-    MYZpar$Upsilon <- with(MYZpar, expm::expm(-Omega*eip))
+    MYZpar$Omega <- make_Omega(p, sigma, calK, nPatches)
 
     return(MYZpar)
 })}
@@ -147,28 +152,30 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
 #' @return a [list]
 #' @export
 setup_MYZinits.RM = function(pars, s, MYZopts=list()){
-  pars$MYZinits[[s]] = with(pars$MYZpar[[s]], make_MYZinits_RM(nPatches, eip, MYZopts))
+  pars$MYZinits[[s]] = with(pars$MYZpar[[s]], make_MYZinits_RM(nPatches, max_eip, MYZopts))
   return(pars)
 }
 
 #' @title Make inits for RM adult mosquito model
 #' @param nPatches the number of patches in the model
-#' @param eip the length of the extrinsic incubation period (in days), an [integer]
+#' @param max_eip the maximum number of EIP cohorts, an [integer]
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
+#' @param U0 total uninfected mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
 #' @return a [list]
 #' @export
-make_MYZinits_RM = function(nPatches, eip, MYZopts = list(),
-                                M0=5, P0=1, Y0=1, Z0=1){
+make_MYZinits_RM = function(nPatches, max_eip, MYZopts = list(),
+                                M0=5, P0=1, U0=0, Y0=1, Z0=1){
   with(MYZopts,{
     M = checkIt(M0, nPatches)
     P = checkIt(P0, nPatches)
-    Y = checkIt(Y0, nPatches*eip)
+    U = checkIt(U0, nPatches)
+    Y = checkIt(Y0, nPatches*max_eip)
     Z = checkIt(Z0, nPatches)
-    return(list(M=M, P=P, Y=Y, Z=Z))
+    return(list(M=M, P=P, U=U, Y=Y, Z=Z))
   })
 }
 
@@ -187,37 +194,57 @@ make_indices_MYZ.RM <- function(pars, s) {with(pars,{
   P_ix <- seq(from = max_ix+1, length.out=nPatches)
   max_ix <- tail(P_ix, 1)
 
-  Y_ix <- seq(from = max_ix+1, length.out=nPatches*MYZpar[[s]]$eip)
+  U_ix <- seq(from = max_ix+1, length.out=nPatches)
+  max_ix <- tail(U_ix, 1)
+
+  Y_ix <- seq(from = max_ix+1, length.out=nPatches*MYZpar[[s]]$max_eip)
   max_ix <- tail(Y_ix, 1)
 
   Z_ix <- seq(from = max_ix+1, length.out=nPatches)
   max_ix <- tail(Z_ix, 1)
 
   pars$max_ix = max_ix
-  pars$ix$MYZ[[s]] = list(M_ix=M_ix, P_ix=P_ix, Y_ix=Y_ix, Z_ix=Z_ix)
+  pars$ix$MYZ[[s]] = list(M_ix=M_ix, P_ix=P_ix, U_ix=U_ix, Y_ix=Y_ix, Z_ix=Z_ix)
   return(pars)
 })}
 
+
+#' @title Return the variables as a list
+#' @description This method dispatches on the type of `pars$MYZpar[[s]]`
+#' @inheritParams list_MYZvars
+#' @return a [list]
+#' @export
+list_MYZvars.RM <- function(y, pars, s){
+  with(pars$ix$MYZ[[s]],
+       return(list(
+         M = y[M_ix],
+         P = y[P_ix],
+         U = y[U_ix],
+         Y = y[Y_ix],
+         Z = y[Z_ix]
+  )))
+}
+
 #' @title Make parameters for RM ODE adult mosquito model
 #' @param pars a [list]
-#' @param g mosquito mortality rate
+#' @param p daily mosquito survival
 #' @param sigma emigration rate
-#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @param f feeding rate
 #' @param q human blood fraction
 #' @param nu oviposition rate, per mosquito
 #' @param eggsPerBatch eggs laid per oviposition
-#' @param eip length of extrinsic incubation period
-#' @param solve_as is either `ode` to solve as an ode or `dde` to solve as a dde
+#' @param eip maximum length for extrinsic incubation period
+#' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @return a [list]
 #' @export
-make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, calK, solve_as = "dde") {
-  stopifnot(is.numeric(g), is.numeric(sigma), is.numeric(f),
+make_parameters_MYZ_RM <- function(pars, p, sigma, f, q, nu, eggsPerBatch, eip, calK) {
+  stopifnot(is.numeric(p), is.numeric(sigma), is.numeric(f),
             is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch))
 
   MYZpar <- list()
+  class(MYZpar) <- "RM"
 
-  MYZpar$g      <- checkIt(g, pars$nPatches)
+  MYZpar$p      <- checkIt(p, pars$nPatches)
   MYZpar$sigma  <- checkIt(sigma, pars$nPatches)
   MYZpar$f      <- checkIt(f, pars$nPatches)
   MYZpar$q      <- checkIt(q, pars$nPatches)
@@ -225,15 +252,19 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
   MYZpar$eggsPerBatch <- eggsPerBatch
 
   # Store as baseline values
-  MYZpar$g0      <- MYZpar$g
+  MYZpar$p0      <- MYZpar$p
   MYZpar$sigma0  <- MYZpar$sigma
   MYZpar$f0      <- MYZpar$f
   MYZpar$q0      <- MYZpar$q
   MYZpar$nu0     <- MYZpar$nu
 
-  Omega   <- expm::expm(-make_Omega(g, sigma, calK, pars$nPatches))
-  MYZpar$EIPmod <- setup_eip_static(eip=eip)
+  Omega   <- expm::expm(-make_Omega(p, sigma, calK, pars$nPatches))
   MYZpar$eip <- eip
+  MYZpar$max_eip <- eip
+  MYZpar$G <- rep(0, eip)
+  MYZpar$G[eip] <- 1
+  #MYZpar$EIPmod <- setup_eip_static(eip=eip)
+  #MYZpar$eip <- eip
   MYZpar$calK <- calK
   MYZpar$nPatches <- pars$nPatches
 
@@ -247,13 +278,14 @@ make_parameters_MYZ_RM <- function(pars, g, sigma, f, q, nu, eggsPerBatch, eip, 
 #' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
+#' @param U0 total uninfected mosquito density at each patch
 #' @param Y0 infected mosquito density at each patch
 #' @param Z0 infectious mosquito density at each patch
 #' @return a [list]
 #' @export
-make_inits_MYZ_RM <- function(pars, M0, P0, Y0, Z0) {
+make_inits_MYZ_RM <- function(pars, M0, P0, U0, Y0, Z0) {
   pars$MYZinits = list()
-  pars$MYZinits[[1]] = list(M=M0, P=P0, Y=Y0, Z=Z0)
+  pars$MYZinits[[1]] = list(M=M0, P=P0, U=U0, Y=Y0, Z=Z0)
   return(pars)
 }
 
@@ -266,12 +298,13 @@ parse_dts_out_MYZ.RM <- function(dts_out, pars, s) {with(pars$ix$MYZ[[s]],{
   time = dts_out[,1]
   M = dts_out[,M_ix+1]
   P = dts_out[,P_ix+1]
-  Y = rowSums(matrix(dts_out[,Y_ix+1], nPatches, eip))
+  U = dts_out[,U_ix+1]
+  Y = rowSums(dts_out[,Y_ix+1])
   Z = dts_out[,Z_ix+1]
   y = Y/M
   z = Z/M
   parous = P/M
-  return(list(time=time, M=M, P=P, Y=Y, Z=Z, y=y, z=z, parous))
+  return(list(time=time, M=M, P=P, U=U, Y=Y, Z=Z, y=y, z=z, parous=parous))
 })}
 
 #' @title Return initial values as a vector
@@ -280,7 +313,7 @@ parse_dts_out_MYZ.RM <- function(dts_out, pars, s) {with(pars$ix$MYZ[[s]],{
 #' @return [numeric]
 #' @export
 get_inits_MYZ.RM <- function(pars, s) {with(pars$MYZinits[[s]],{
-  c(M, P, Y, Z)
+  c(M, P, U, Y, Z)
 })}
 
 #' @title Make inits for RM adult mosquito model
@@ -290,9 +323,10 @@ get_inits_MYZ.RM <- function(pars, s) {with(pars$MYZinits[[s]],{
 update_inits_MYZ.RM <- function(pars, y0, s) {with(pars$ix$MYZ[[s]],{
   M = y0[M_ix]
   P = y0[P_ix]
+  U = y0[U_ix]
   Y = y0[Y_ix]
   Z = y0[Z_ix]
-  pars$MYZinits[[s]] = make_MYZinits_RM(pars$nPatches, list(), M0=M, P0=P, Y0=Y, Z0=Z)
+  pars$MYZinits[[s]] = make_MYZinits_RM(pars$nPatches, max_eip, list(), M0=M, P=P0, U=U0, Y0=Y, Z0=Z)
   return(pars)
 })}
 

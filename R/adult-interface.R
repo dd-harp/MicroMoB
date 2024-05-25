@@ -98,6 +98,16 @@ setup_MYZinits = function(pars, s, MYZopts=list()){
   UseMethod("setup_MYZinits", pars$MYZpar[[s]])
 }
 
+#' @title Return the variables as a list
+#' @description This method dispatches on the type of `pars$MYZpar[[s]]`.
+#' @param y the variables
+#' @param pars a [list]
+#' @param s the vector species index
+#' @return a [list]
+#' @export
+list_MYZvars <- function(y, pars, s) {
+  UseMethod("list_MYZvars", pars$MYZpar[[s]])
+}
 
 #' @title Add indices for adult mosquitoes to parameter list
 #' @description This method dispatches on the type of `pars$MYZpar`.
@@ -143,13 +153,13 @@ update_inits_MYZ <- function(pars, y0, s) {
 }
 
 #' @title Make the mosquito demography matrix
-#' @param g mortality rate
-#' @param sigma emigration  rate
+#' @param p proportion surviving
+#' @param sigma fraction emigrating
 #' @param K mosquito dispersal matrix
 #' @param nPatches number of patches
 #' @return a [matrix] of dimensions `nPatches` by `nPatches`
 #' @export
-make_Omega <- function(g, sigma, K, nPatches) {
-  diag(g, nPatches) + ((diag(nPatches) - K) %*% diag(sigma, nPatches))
+make_Omega <- function(p, sigma, K, nPatches) {
+  diag(p*(1-sigma), nPatches) + diag(p*sigma, nPatches) %*% K
 }
 

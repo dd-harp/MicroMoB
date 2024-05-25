@@ -6,10 +6,11 @@
 \usage{
 make_MYZinits_RM(
   nPatches,
-  eip,
+  max_eip,
   MYZopts = list(),
   M0 = 5,
   P0 = 1,
+  U0 = 0,
   Y0 = 1,
   Z0 = 1
 )
@@ -17,13 +18,15 @@ make_MYZinits_RM(
 \arguments{
 \item{nPatches}{the number of patches in the model}
 
-\item{eip}{the length of the extrinsic incubation period (in days), an \link{integer}}
+\item{max_eip}{the maximum number of EIP cohorts, an \link{integer}}
 
 \item{MYZopts}{a \link{list} of values that overwrites the defaults}
 
 \item{M0}{total mosquito density at each patch}
 
 \item{P0}{total parous mosquito density at each patch}
+
+\item{U0}{total uninfected mosquito density at each patch}
 
 \item{Y0}{infected mosquito density at each patch}
 

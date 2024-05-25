@@ -5,7 +5,7 @@
 #' @return a [list]
 #' @export
 dts_solve = function(pars, Tmax=365){
-  UseMethod("dts_solve", pars$dts)
+  UseMethod("dts_solve", pars)
 }
 
 #' @title Solve for the steady state or stable orbit of a system of equations
@@ -53,6 +53,8 @@ dts_solve.dts = function(pars, Tmax=365){
   yt = get_inits(pars)
   dts_out = c(0, yt)
   for(t in 1:Tmax){
+    #print(c(t=t))
+    #browser()
     yt =  DTS_step(t, yt, pars)
     dts_out = rbind(dts_out, c(t,yt))
   }

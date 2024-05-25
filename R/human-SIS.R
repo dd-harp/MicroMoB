@@ -16,9 +16,10 @@ dXdt.SIS <- function(t, y, pars, i) {
       St <- (1-ar)*S + r*I
       It <- (1-r)*I + ar*S
 
-      St <- dHdt(t, St, i) + Births(t, H, pars, i)
-      It <- dHdt(t, It, i)
+#      St <- dHdt(t, St, i) + Births(t, H, pars, i)
+#      It <- dHdt(t, It, i)
 
+#      browser()
       return(c(St, It))
     })
   })

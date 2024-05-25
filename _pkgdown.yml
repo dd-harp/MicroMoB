@@ -154,6 +154,7 @@ reference:
   - dMYZdt
   - setup_MYZpar
   - setup_MYZinits
+  - list_MYZvars
   - make_indices_MYZ
   - parse_dts_out_MYZ
   - get_inits_MYZ
@@ -173,8 +174,6 @@ reference:
   contents:
   - EIP
   - EIP.static
-  - dEIPdt
-  - dEIPdt.static
   - setup_EIP
   - setup_EIP.static
   - setup_eip_static
@@ -246,6 +245,7 @@ reference:
   - dMYZdt.RM
   - setup_MYZpar.RM
   - setup_MYZinits.RM
+  - list_MYZvars.RM
   - make_MYZpar_RM
   - make_MYZinits_RM
   - make_indices_MYZ.RM

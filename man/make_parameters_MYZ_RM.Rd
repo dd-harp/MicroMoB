@@ -4,23 +4,12 @@
 \alias{make_parameters_MYZ_RM}
 \title{Make parameters for RM ODE adult mosquito model}
 \usage{
-make_parameters_MYZ_RM(
-  pars,
-  g,
-  sigma,
-  f,
-  q,
-  nu,
-  eggsPerBatch,
-  eip,
-  calK,
-  solve_as = "dde"
-)
+make_parameters_MYZ_RM(pars, p, sigma, f, q, nu, eggsPerBatch, eip, calK)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{g}{mosquito mortality rate}
+\item{p}{daily mosquito survival}
 
 \item{sigma}{emigration rate}
 
@@ -32,11 +21,9 @@ make_parameters_MYZ_RM(
 
 \item{eggsPerBatch}{eggs laid per oviposition}
 
-\item{eip}{length of extrinsic incubation period}
+\item{eip}{maximum length for extrinsic incubation period}
 
 \item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
-
-\item{solve_as}{is either \code{ode} to solve as an ode or \code{dde} to solve as a dde}
 }
 \value{
 a \link{list}

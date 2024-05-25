@@ -4,12 +4,12 @@
 \alias{setup_eip_static}
 \title{Set up a static model for the EIP}
 \usage{
-setup_eip_static(EIPopts = list(), eip = 11)
+setup_eip_static(EIPopts = list(), max_eip = 11)
 }
 \arguments{
 \item{EIPopts}{a \link{list}}
 
-\item{eip}{the extrinsic incubation period (in days)}
+\item{max_eip}{the extrinsic incubation period (in days)}
 }
 \value{
 \link{list}
