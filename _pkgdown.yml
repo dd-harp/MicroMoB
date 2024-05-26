@@ -9,22 +9,10 @@ navbar:
       href: articles/Understanding_ramp_dts.html
     - text: Contributing
       href: articles/Contributing.html
-  - text: Concepts
-    menu:
-    - text: Heterogeneous Transmission
-      href: articles/heterogeneous_transmission.html
-    - text: Heterogeneous Biting
-      href: articles/heterogeneous_biting.html
-    - text: Heterogeneous Mixing
-      href: articles/heterogeneous_mixing.html
-    - text: Environmental Heterogeneity
-      href: articles/environmental_heterogeneity.html
   - text: Adult Mosquito Dynamics
     menu:
-    - text: Ross-Macdonald model
-      href: articles/adult_RM.html
-    - text: Generalized Ross-Macdonald model
-      href: articles/adult_GeRM.html
+    - text: The Ross-Macdonald model
+      href: articles/RM-Mosquito.html
   - text: Aquatic Mosquito Dynamics
     menu:
     - text: Trace (forced) model
@@ -37,8 +25,6 @@ navbar:
       href: articles/human_sis.html
     - text: SIP model
       href: articles/human_sip.html
-    - text: MoI hybrid model
-      href: articles/human_hmoi.html
   right:
   - icon: fa-github
     href: https://github.com/dd-harp/ramp.dts/
