@@ -52,7 +52,7 @@ dMYZdt.Gtrace <- function(t, y, pars, s){
 #' @inheritParams setup_MYZpar
 #' @return a [list] vector
 #' @export
-setup_MYZpar.Gtrace = function(MYZname, pars, s, MYZopts=NULL, EIPmod=NULL, calK=NULL){
+setup_MYZpar.Gtrace = function(MYZname, pars, s, MYZopts=NULL, EIPname=NULL, calK=NULL){
   pars$MYZpar[[s]] = make_MYZpar_Gtrace(pars$nPatches, MYZopts)
   return(pars)
 }
@@ -69,6 +69,8 @@ make_MYZpar_Gtrace = function(nPatches, MYZopts, Gm = 1, Gf=NULL){
   with(MYZopts,{
     MYZpar <- list()
     class(MYZpar) <- "Gtrace"
+
+    MYZpar <- setup_eip_null(MYZopts, MYZpar)
 
     MYZpar$scale <- checkIt(Gm, nPatches)
     if(is.null(Gf)) Gf = function(t){return(1)}

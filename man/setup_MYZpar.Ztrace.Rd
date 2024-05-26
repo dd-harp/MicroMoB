@@ -4,7 +4,7 @@
 \alias{setup_MYZpar.Ztrace}
 \title{Setup the Ztrace model}
 \usage{
-\method{setup_MYZpar}{Ztrace}(MYZname, pars, s, MYZopts = NULL, EIPmod = NULL, calK = NULL)
+\method{setup_MYZpar}{Ztrace}(MYZname, pars, s, MYZopts = NULL, EIPname = NULL, calK = NULL)
 }
 \arguments{
 \item{MYZname}{the name of the model}
@@ -15,7 +15,7 @@
 
 \item{MYZopts}{a \link{list}}
 
-\item{EIPmod}{is a \link{list}}
+\item{EIPname}{is the name of the EIPmod}
 
 \item{calK}{is a \link{matrix}}
 }

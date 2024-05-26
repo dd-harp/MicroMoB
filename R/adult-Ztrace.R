@@ -54,7 +54,7 @@ dMYZdt.Ztrace <- function(t, y, pars, s){
 #' @inheritParams setup_MYZpar
 #' @return a [list] vector
 #' @export
-setup_MYZpar.Ztrace = function(MYZname, pars, s, MYZopts=NULL, EIPmod=NULL, calK=NULL){
+setup_MYZpar.Ztrace = function(MYZname, pars, s, MYZopts=NULL, EIPname=NULL, calK=NULL){
   pars$MYZpar[[s]] = make_MYZpar_Ztrace(pars, MYZopts)
   return(pars)
 }
@@ -63,13 +63,14 @@ setup_MYZpar.Ztrace = function(MYZname, pars, s, MYZopts=NULL, EIPmod=NULL, calK
 #' @title Make parameters for Ztrace aquatic mosquito model
 #' @param nPatches an integer
 #' @param MYZopts a [list] of values that overwrites the defaults
+#' @param EIPname the name of the EIPmodel
 #' @param f the blood feeding rate
 #' @param q the human fraction
 #' @param Zm a vector of mean mosquito densities
 #' @param Zf a [function] of the form Zf(t, pars) that computes temporal fluctuations
 #' @return none
 #' @export
-make_MYZpar_Ztrace = function(nPatches, MYZopts,
+make_MYZpar_Ztrace = function(nPatches, MYZopts, EIPname = "null",
                               f = 0.3, q = 0.95,
                               Zm = 1, Zf = NULL){
 
@@ -81,6 +82,7 @@ make_MYZpar_Ztrace = function(nPatches, MYZopts,
     MYZpar$q <- checkIt(q, pars$nPatches)
     MYZpar$f0 <- MYZpar$f
     MYZpar$q0 <- MYZpar$q
+    MYZpar <- setup_eip_null(MYZopts, MYZpar)
 
     MYZpar$scale <- checkIt(Zm, pars$nPatches)
     if(is.null(Zf)) Zf = function(t){return(1)}

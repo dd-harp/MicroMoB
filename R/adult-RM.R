@@ -12,7 +12,7 @@ MBionomics.RM <- function(t, y, pars, s) {
     pars$MYZpar[[s]]$p <- p0
     pars$MYZpar[[s]]$sigma <- sigma0
     pars$MYZpar[[s]]$nu <- nu0
-    #pars$MYZpar[[s]]$eip <- EIP(t, EIPmod)
+    #pars$MYZpar[[s]]$eip <- EIP(t, EIPname)
 
     return(pars)
 })}
@@ -58,20 +58,24 @@ dMYZdt.RM <- function(t, y, pars, s) {
 
   with(list_MYZvars(y, pars, s),{
     with(pars$MYZpar[[s]],{
+        calK = 1
         Omega <- make_Omega(p, sigma, calK, nPatches)
-        #G <- EIP(t, EIPmod)
+        eip_day_ix = (t %% max_eip) + 1
+        eip_yday_ix = ((t-1) %% max_eip) + 1
+        Gix = c(t-1:max_eip) %% max_eip + 1
+        Gt <- G[Gix]
 
         Mt <- Lambda + Omega %*% M
         Pt <- f*(M-P) + Omega %*% P
         Ut <- Lambda + Omega %*% (exp(-f*q*kappa)*U)
-        Yt <- Omega %*% (Y %*% diag(1-G))
-        Zt <- Omega %*% (Y%*%G)  + (Omega %*% Z)
+        Yt <- Omega %*% (Y %*% diag(1-Gt))
+        Zt <- Omega %*% (Y%*%Gt)  + (Omega %*% Z)
 
-        eip_day_ix = (t %% max_eip) + 1
-        eip_yday_ix = ((t-1) %% max_eip) + 1
 
         Yt[,eip_yday_ix]  <- Yt[,eip_yday_ix] + Yt[,eip_day_ix]
         Yt[,eip_day_ix] <- Omega %*% ((1-exp(-f*q*kappa))*U)
+
+#        browser()
 
         return(c(Mt, Pt, Ut, Yt, Zt))
       })
@@ -83,15 +87,16 @@ dMYZdt.RM <- function(t, y, pars, s) {
 #' @inheritParams setup_MYZpar
 #' @return a [list] vector
 #' @export
-setup_MYZpar.RM = function(MYZname, pars, s, MYZopts=list(), EIPmod, calK){
-  pars$MYZpar[[s]] = make_MYZpar_RM(pars$nPatches, MYZopts, EIPmod, calK)
+setup_MYZpar.RM = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
+  pars$MYZpar[[s]] = make_MYZpar_RM(pars$nPatches, MYZopts, EIPname, calK)
   return(pars)
 }
+
 
 #' @title Make parameters for RM ODE adult mosquito model
 #' @param nPatches is the number of patches, an integer
 #' @param MYZopts a [list] of values that overwrites the defaults
-#' @param EIPmod a [list] that defines the EIP model
+#' @param EIPname a string: the class name for the EIP model
 #' @param calK a mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @param p daily mosquito survival
 #' @param sigma emigration rate
@@ -102,7 +107,7 @@ setup_MYZpar.RM = function(MYZname, pars, s, MYZopts=list(), EIPmod, calK){
 #' @param eggsPerBatch eggs laid per oviposition
 #' @return a [list]
 #' @export
-make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
+make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPname, calK,
                           p=11/12, sigma=1/8, f=0.3, q=0.95, eip=12,
                           nu=1, eggsPerBatch=60){
 
@@ -122,7 +127,6 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
     MYZpar$nu      <- checkIt(nu, nPatches)
     MYZpar$eggsPerBatch <- eggsPerBatch
 
-
     # Store as baseline values
     MYZpar$p0      <- MYZpar$p
     MYZpar$sigma0  <- MYZpar$sigma
@@ -132,15 +136,9 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPmod, calK,
 
     # The EIP model and the eip
     MYZpar$eip <- eip
-    MYZpar$max_eip <- eip
-    MYZpar$G = rep(0, eip)
-    MYZpar$G[eip] = 1
-
-    #MYZpar$EIPmod <- EIPmod
-    #MYZpar$eip <- EIP(0, EIPmod)
+    MYZpar <- setup_EIP(EIPname, MYZpar, MYZopts)
 
     MYZpar$calK <- calK
-
     MYZpar$Omega <- make_Omega(p, sigma, calK, nPatches)
 
     return(MYZpar)
@@ -227,6 +225,7 @@ list_MYZvars.RM <- function(y, pars, s){
 
 #' @title Make parameters for RM ODE adult mosquito model
 #' @param pars a [list]
+#' @param EIPname a string: the class name for the EIP model
 #' @param p daily mosquito survival
 #' @param sigma emigration rate
 #' @param f feeding rate
@@ -237,7 +236,7 @@ list_MYZvars.RM <- function(y, pars, s){
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @return a [list]
 #' @export
-make_parameters_MYZ_RM <- function(pars, p, sigma, f, q, nu, eggsPerBatch, eip, calK) {
+make_parameters_MYZ_RM <- function(pars, EIPname, p, sigma, f, q, nu, eggsPerBatch, eip, calK) {
   stopifnot(is.numeric(p), is.numeric(sigma), is.numeric(f),
             is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch))
 
@@ -258,15 +257,14 @@ make_parameters_MYZ_RM <- function(pars, p, sigma, f, q, nu, eggsPerBatch, eip, 
   MYZpar$q0      <- MYZpar$q
   MYZpar$nu0     <- MYZpar$nu
 
-  Omega   <- expm::expm(-make_Omega(p, sigma, calK, pars$nPatches))
-  MYZpar$eip <- eip
-  MYZpar$max_eip <- eip
-  MYZpar$G <- rep(0, eip)
-  MYZpar$G[eip] <- 1
-  #MYZpar$EIPmod <- setup_eip_static(eip=eip)
-  #MYZpar$eip <- eip
-  MYZpar$calK <- calK
+
   MYZpar$nPatches <- pars$nPatches
+
+  MYZpar$eip <- eip
+  MYZpar <- setup_EIP(EIPname, MYZpar, list())
+
+  MYZpar$calK <- calK
+  Omega   <- make_Omega(p, sigma, calK, pars$nPatches)
 
   pars$MYZpar = list()
   pars$MYZpar[[1]] = MYZpar

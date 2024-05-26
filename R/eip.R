@@ -10,40 +10,14 @@ EIP <- function(t, EIPmod) {
   UseMethod("EIP", EIPmod)
 }
 
-#' @title Set up the static model for control forcing (do nothing)
+#' @title Set up the fixed model for control forcing (do nothing)
 #' @param EIPname the class name of the function
-#' @param EIPopts is a [list] that overwrites default options
-#' @return [list]
+#' @param MYZpar the MYZ parameters
+#' @param MYZopts is a [list] that overwrites default options
+#' @return [list] MYZpar with the EIPmod attached
 #' @export
-setup_EIP <- function(EIPname = 'static', EIPopts = list()) {
+setup_EIP <- function(EIPname, MYZpar, MYZopts = list()) {
   class(EIPname) <- EIPname
   UseMethod("setup_EIP", EIPname)
 }
 
-#' @title Modify parameters due to exogenous forcing by all kinds of control
-#' @description Implements [EIP] for the static model (the EIP is constant)
-#' @inheritParams EIP
-#' @return [numeric]
-#' @export
-EIP.static <- function(t, EIPmod){EIPmod$eip}
-
-#' @title Set up a static model for the EIP
-#' @inheritParams setup_EIP
-#' @return [list]
-#' @export
-setup_EIP.static<- function(EIPname, EIPopts=list()){
-  setup_eip_static(EIPopts)
-}
-
-#' @title Set up a static model for the EIP
-#' @param EIPopts a [list]
-#' @param max_eip the extrinsic incubation period (in days)
-#' @return [list]
-#' @export
-setup_eip_static = function(EIPopts=list(), max_eip=11){with(EIPopts,{
-  EIPmod <- list()
-  class(EIPmod) <- 'static'
-  EIPmod$eip = eip
-  EIPmod$G = eip
-  return(EIPmod)
-})}

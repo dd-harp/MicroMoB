@@ -4,10 +4,23 @@
 \alias{make_parameters_MYZ_RM}
 \title{Make parameters for RM ODE adult mosquito model}
 \usage{
-make_parameters_MYZ_RM(pars, p, sigma, f, q, nu, eggsPerBatch, eip, calK)
+make_parameters_MYZ_RM(
+  pars,
+  EIPname,
+  p,
+  sigma,
+  f,
+  q,
+  nu,
+  eggsPerBatch,
+  eip,
+  calK
+)
 }
 \arguments{
 \item{pars}{a \link{list}}
+
+\item{EIPname}{a string: the class name for the EIP model}
 
 \item{p}{daily mosquito survival}
 

@@ -159,10 +159,13 @@ reference:
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics
   contents:
   - EIP
-  - EIP.static
   - setup_EIP
-  - setup_EIP.static
-  - setup_eip_static
+  - EIP.fixed
+  - setup_EIP.fixed
+  - setup_eip_fixed
+  - EIP.null
+  - setup_EIP.null
+  - setup_eip_null
 - subtitle: Ztrace
   desc: |
     Specialized methods for  NULL dynamics: a funtion generates values of Z to force human infection dynamics

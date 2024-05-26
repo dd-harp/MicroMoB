@@ -7,7 +7,7 @@
 make_MYZpar_RM(
   nPatches,
   MYZopts = list(),
-  EIPmod,
+  EIPname,
   calK,
   p = 11/12,
   sigma = 1/8,
@@ -23,7 +23,7 @@ make_MYZpar_RM(
 
 \item{MYZopts}{a \link{list} of values that overwrites the defaults}
 
-\item{EIPmod}{a \link{list} that defines the EIP model}
+\item{EIPname}{a string: the class name for the EIP model}
 
 \item{calK}{a mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 

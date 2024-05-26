@@ -15,10 +15,9 @@ dts_setup(
   HPop = 1000,
   membership = 1,
   MYZopts = list(),
+  EIPname = "fixed",
   calK = "herethere",
   calKopts = list(),
-  EIPname = "static",
-  EIPopts = list(),
   Xopts = list(),
   BFopts = list(),
   residence = 1,
@@ -51,13 +50,11 @@ dts_setup(
 
 \item{MYZopts}{a list to configure the MYZ model}
 
+\item{EIPname}{is the name of the EIP model}
+
 \item{calK}{is either a calK matrix or a string that defines how to set it up}
 
 \item{calKopts}{are the options to setup calK}
-
-\item{EIPname}{are the options to setup EIPmod}
-
-\item{EIPopts}{are the options to setup EIPmod}
 
 \item{Xopts}{a list to configure the X model}
 

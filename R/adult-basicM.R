@@ -75,7 +75,7 @@ dMYZdt.basicM <- function(t, y, pars, s){
 #' @inheritParams setup_MYZpar
 #' @return a [list] vector
 #' @export
-setup_MYZpar.basicM = function(MYZname, pars, s, MYZopts=list(), EIPmod=NULL, calK){
+setup_MYZpar.basicM = function(MYZname, pars, s, MYZopts=list(), EIPname="null", calK){
   pars$MYZpar[[s]] = make_MYZpar_basicM(pars$nPatches, MYZopts, calK)
   return(pars)
 }

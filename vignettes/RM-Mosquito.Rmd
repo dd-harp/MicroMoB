@@ -62,6 +62,7 @@ $$Z_{t+1} = \sum_i p G_i Y_i  + p Z_t$$
 As we have defined our variables, one of them is not necessary, since
 
 $$U = M- \sum_i Y_i - Z$$ 
+
 ## The Multi-Patch Model 
 
 In a model with $n$ patches, the model is defined as before, but now we let $M_t,$ $P_t,$ $U_t$, and $Z_t$ be vectors of length $p,$ and we let $G$ be a vector of length $\tau,$ (where $G_1 = 0$). We let $Y_t$ denote a $p \times \tau$ matrix, where each row is a cohort of mosquitoes, and where column represents the mosquitoes in a location. We let $Y_{i,t}$ denote the $i^{th}$ cohort: 
@@ -85,7 +86,9 @@ Y_{\tau, t+1} &= \Omega \cdot \left( Y_{\tau-1, t}\;\left(1-G_{\tau-1} \right)  
 Z_{t+1} &=  \Omega \cdot \left(Y_t \cdot \mbox{diag}(G) \right)+ \Omega \cdot Z_t \\
 \end{array}
 $$
-**Implementation Notes:** 
+
+
+## Implementation Notes:
 
 In the implementation, we could choose models where the EIP is distributed over some period but where the fraction maturing after time $\tau$ is continuous. 
 We have chosen a rotating index to track age of infection cohorts in the matrix $Y;$  using modulo arithmetic, each columns tracks a single cohort for $\tau$ days. On the $\tau +1$ day, the column is added to the one before, and then we compute $Y_{1,t}.$
@@ -132,15 +135,69 @@ $$\bar Z = \Omega \cdot G \cdot Y \left( 1- \Omega\right)^{-1}$$
 ## Demo
 
 ```{r, eval=F}
-#devtools::load_all()
+devtools::load_all()
 ```
 
 
-```{r, eval=F}
+```{r}
 rm1 <- dts_setup(Xname = "trace")
 ```
 
-```{r, eval=F}
-dts_solve(rm1) -> rm1
+```{r}
+dts_solve(rm1, Tmax=200) -> rm1
 ```
 
+```{r}
+dts_steady(rm1) -> rm1
+```
+
+
+```{r}
+with(rm1$outputs$orbits$MYZ[[1]], {
+  plot(time, M, type = "l") 
+  lines(time, U, col = "darkblue") 
+  lines(time, Y, col = "purple") 
+  lines(time, Z, col = "darkred") 
+})
+```
+
+```{r}
+dts_plot_YZ(rm1)
+```
+
+```{r}
+compute_MYZ_equil = function(pars, Lambda, kappa, i=1){
+  with(pars$MYZpar[[i]],{
+    Mbar <-  Lambda/(1-p) 
+    Pbar <- f*Mbar/(1 - p + f)
+    Ubar <- Lambda/(1-p*exp(-f*q*kappa))
+    
+    calK = 1
+    Omega = make_Omega(p, sigma, calK, pars$nPatches)
+    Y1 <- Omega*(1-exp(-f*q*kappa))*Ubar 
+    Yi = Y1
+    Y = Yi
+    for(i in 2:(max_eip-1)){
+      Yi <- Omega*Yi*(1-G[i])
+      Y = Y+Yi
+    }
+    Yn <- Omega*Yi
+    Y = Y + Yn
+    Zbar <- Omega*Yn/(1-p) 
+    return(c(M = Mbar, P=Pbar, U=Ubar, Y=Y, Z= Zbar)) 
+})}
+```
+
+```{r}
+compute_MYZ_equil(rm1, 1000, .1) 
+```
+
+```{r}
+c(
+M = tail(rm1$outputs$orbits$MYZ[[1]]$M, 1), 
+P = tail(rm1$outputs$orbits$MYZ[[1]]$P, 1), 
+U = tail(rm1$outputs$orbits$MYZ[[1]]$U, 1),
+Y = tail(rm1$outputs$orbits$MYZ[[1]]$Y, 1),
+Z = tail(rm1$outputs$orbits$MYZ[[1]]$Z, 1)
+)
+```

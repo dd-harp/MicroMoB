@@ -78,11 +78,11 @@ dMYZdt <- function(t, y, pars, s) {
 #' @param pars a [list]
 #' @param s the species index
 #' @param MYZopts a [list]
-#' @param EIPmod is a [list]
+#' @param EIPname is the name of the EIPmod
 #' @param calK is a [matrix]
 #' @return [list]
 #' @export
-setup_MYZpar = function(MYZname, pars, s, MYZopts=list(), EIPmod=setup_eip_static(), calK=diag(1)){
+setup_MYZpar = function(MYZname, pars, s, MYZopts=list(), EIPname="fixed", calK=diag(1)){
   class(MYZname) <- MYZname
   UseMethod("setup_MYZpar", MYZname)
 }

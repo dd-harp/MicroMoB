@@ -40,7 +40,7 @@ dts_steady = function(pars, Teq=1000){
   for(t in 1:Teq){
     yt =  DTS_step(t, yt, pars)
   }
-  pars$outputs$steady = parse_dts_out(yt)
+  pars$outputs$steady = parse_dts_out_vec(yt, pars)
   return(pars)
 }
 

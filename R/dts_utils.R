@@ -143,7 +143,7 @@ parse_dts_out_vec <- function(vec, pars){
   for(i in 1:length(varslist$L))
     varslist$L[[i]] = tail(varslist$L[[i]],1)
 
-  varslist$terms = compute_terms_steady(varslist, vec, pars)
+  #varslist$terms = compute_terms_steady(varslist, vec, pars)
   return(varslist)
 }
 

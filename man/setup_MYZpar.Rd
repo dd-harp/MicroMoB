@@ -9,7 +9,7 @@ setup_MYZpar(
   pars,
   s,
   MYZopts = list(),
-  EIPmod = setup_eip_static(),
+  EIPname = "fixed",
   calK = diag(1)
 )
 }
@@ -22,7 +22,7 @@ setup_MYZpar(
 
 \item{MYZopts}{a \link{list}}
 
-\item{EIPmod}{is a \link{list}}
+\item{EIPname}{is the name of the EIPmod}
 
 \item{calK}{is a \link{matrix}}
 }

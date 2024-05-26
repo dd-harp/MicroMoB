@@ -11,10 +11,9 @@
 #' @param HPop is the number of humans in each patch
 #' @param membership is a vector that describes the patch where each aquatic habitat is found
 #' @param MYZopts a list to configure the MYZ model
+#' @param EIPname is the name of the EIP model
 #' @param calK is either a calK matrix or a string that defines how to set it up
 #' @param calKopts are the options to setup calK
-#' @param EIPname are the options to setup EIPmod
-#' @param EIPopts are the options to setup EIPmod
 #' @param Xopts a list to configure the X model
 #' @param BFopts a list to configure the blood feeding model
 #' @param residence is a vector that describes the patch where each human stratum lives
@@ -42,10 +41,9 @@ dts_setup = function(modelName = "unnamed",
 
                      # Adult Mosquito Options
                      MYZopts = list(),
+                     EIPname = "fixed",
                      calK ="herethere",
                      calKopts = list(),
-                     EIPname = "static",
-                     EIPopts = list(),
 
                      # Human Strata / Options
                      Xopts = list(),
@@ -81,9 +79,8 @@ dts_setup = function(modelName = "unnamed",
   pars$calN = make_calN(pars$nPatches, pars$membership)
 
   # Adult Mosquito Dynamics
-  EIPmod = setup_EIP(EIPname, EIPopts)
   calK = make_calK(nPatches, calK, calKopts)
-  pars = setup_MYZpar(MYZname, pars, 1, MYZopts, EIPmod, calK)
+  pars = setup_MYZpar(MYZname, pars, 1, MYZopts, EIPname, calK)
   pars = setup_MYZinits(pars, 1, MYZopts)
 
   # Human Demography
@@ -169,7 +166,7 @@ dts_setup_mosy = function(modelName = "unnamed",
 
   # Dynamics
   calK = make_calK(nPatches, calK, calKopts)
-  pars = setup_MYZpar(MYZname, pars, 1, MYZopts, NULL, calK)
+  pars = setup_MYZpar(MYZname, pars, 1, MYZopts, "null", calK)
   pars = setup_MYZinits(pars, 1, MYZopts)
 
   # Aquatic Mosquito Dynamics
@@ -213,7 +210,7 @@ dts_setup_aquatic = function(modelName = "unnamed",
   pars$Lname = Lname
 
   pars$nVectors = nVectors
-  pars = setup_MYZpar("Gtrace", pars, 1, MYZopts, EIPmod=NULL, calK=NULL)
+  pars = setup_MYZpar("Gtrace", pars, 1, MYZopts, "null", calK=NULL)
 
   pars$nHabitats = nHabitats
   membership = 1:nHabitats
@@ -288,7 +285,7 @@ dts_setup_human = function(modelName = "unnamed",
   pars = make_TimeSpent(pars, 1, TimeSpent, TimeSpentOpts)
 
   # Dynamics
-  pars = setup_MYZpar("Ztrace", pars, 1, MYZopts, EIPmod=NULL, calK=NULL)
+  pars = setup_MYZpar("Ztrace", pars, 1, MYZopts, "null", calK=NULL)
 
   pars = setup_Xpar(Xname, pars, 1, Xopts)
   pars = setup_Xinits(pars, 1, Xopts)

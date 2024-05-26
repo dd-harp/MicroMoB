@@ -4,7 +4,7 @@
 \alias{setup_MYZpar.RM}
 \title{Setup MYZpar for the RM model}
 \usage{
-\method{setup_MYZpar}{RM}(MYZname, pars, s, MYZopts = list(), EIPmod, calK)
+\method{setup_MYZpar}{RM}(MYZname, pars, s, MYZopts = list(), EIPname, calK)
 }
 \arguments{
 \item{MYZname}{the name of the model}
@@ -15,7 +15,7 @@
 
 \item{MYZopts}{a \link{list}}
 
-\item{EIPmod}{is a \link{list}}
+\item{EIPname}{is the name of the EIPmod}
 
 \item{calK}{is a \link{matrix}}
 }
