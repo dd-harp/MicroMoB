@@ -208,10 +208,13 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/DistributeBedNets.null.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EIP.fixed.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/EIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/EIP.static.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/EIP.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/EggLaying.dynamic.html</loc>
@@ -1183,10 +1186,13 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EGGpar_static.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EIP.fixed.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EIP.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EIP.static.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EIP.null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_EggLaying_simple.html</loc>
@@ -1330,7 +1336,10 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_development_null.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_eip_static.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_eip_fixed.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_eip_null.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_exposure_nb.html</loc>
