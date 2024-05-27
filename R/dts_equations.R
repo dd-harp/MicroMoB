@@ -39,6 +39,7 @@ DTS_step <- function(t, y, pars) {
   # compute derivatives
   Lt <- dLdt(t, y, pars, 1)
   MYZt <- dMYZdt(t, y, pars, 1)
+
   if(pars$nVectors > 1)
     for(s in 2:pars$nVectors){
       Lt <- c(Lt, dLdt(t, y, pars, s))

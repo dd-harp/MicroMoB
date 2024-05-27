@@ -9,9 +9,9 @@ navbar:
       href: articles/Understanding_ramp_dts.html
     - text: Contributing
       href: articles/Contributing.html
-  - text: Adult Mosquito Dynamics
+  - text: Malaria Dynamics
     menu:
-    - text: The Ross-Macdonald model
+    - text: The Ross-Macdonald Mosquito Model
       href: articles/RM-Mosquito.html
   - text: Aquatic Mosquito Dynamics
     menu:
@@ -25,6 +25,10 @@ navbar:
       href: articles/human_sis.html
     - text: SIP model
       href: articles/human_sip.html
+  - text: Malaria
+    menu:
+    - text: The Ross-Macdonald model
+      href: articles/Ross-Macdonald.html
   right:
   - icon: fa-github
     href: https://github.com/dd-harp/ramp.dts/

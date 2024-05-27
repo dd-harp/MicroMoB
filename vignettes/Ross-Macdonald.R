@@ -1,0 +1,50 @@
+## ----include = FALSE----------------------------------------------------------
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+## -----------------------------------------------------------------------------
+library(ramp.dts)
+#devtools::load_all()
+
+## -----------------------------------------------------------------------------
+rm1 <- dts_setup()
+rm1$Lpar[[1]]$scale = 200
+
+## -----------------------------------------------------------------------------
+dts_solve(rm1, Tmax=730) -> rm1
+
+## -----------------------------------------------------------------------------
+dts_steady(rm1) -> rm1
+
+## -----------------------------------------------------------------------------
+with(rm1$outputs$orbits$MYZ[[1]], {
+  plot(time, M, type = "l") 
+  lines(time, U, col = "darkblue") 
+  lines(time, Y, col = "purple") 
+  lines(time, Z, col = "darkred") 
+})
+
+## -----------------------------------------------------------------------------
+with(rm1$outputs$orbits$XH[[1]], {
+  plot(time, I, type = "l", ylim = c(0, 1000)) 
+  lines(time, S, col = "darkblue") 
+})
+
+## -----------------------------------------------------------------------------
+#devtools::load_all()
+rm10 <- dts_setup(nPatches = 10, membership = 1:10, HPop = rep(100, 10), residence = c(1:10), MYZopts = list(sigma = 0.01))
+rm10$Lpar[[1]]$scale = 1.5^c(-1:8) 
+dts_solve(rm10, Tmax=730) -> rm10
+
+## -----------------------------------------------------------------------------
+with(rm10$outputs$orbits$XH[[1]], {
+  plot(time, I[,10], type = "l", ylim = c(0, 100), col = "darkred") 
+  lines(time, S[,10], col = "darkblue") 
+  for(i in 2:10){
+    lines(time, I[,i], col = "darkred") 
+    lines(time, S[,i], col = "darkblue") 
+  }
+})
+

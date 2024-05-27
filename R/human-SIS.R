@@ -13,13 +13,10 @@ dXdt.SIS <- function(t, y, pars, i) {
     H <- F_H(t, y, pars, i)
     with(pars$Xpar[[i]], {
 
-      St <- (1-ar)*S + r*I
-      It <- (1-r)*I + ar*S
+      St <- (1-ar)*S + r*I + dHdt(t, S, pars, i) + Births(t, H, pars, i)
+      It <- (1-r)*I + ar*S + dHdt(t, I, pars, i)
 
-#      St <- dHdt(t, St, i) + Births(t, H, pars, i)
-#      It <- dHdt(t, It, i)
 
-#      browser()
       return(c(St, It))
     })
   })

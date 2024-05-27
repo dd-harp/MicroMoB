@@ -75,7 +75,6 @@ compute_beta <- function(t, y, pars){
       pars$beta[[i]][[s]] <- F_beta(H, W, wts, TaR)
     }
   }
-
   return(pars)
 }
 
@@ -99,6 +98,7 @@ F_beta = function(H, W, wts_f, TaR){
 #' @return [list]
 #' @export
 compute_EIR <- function(t, y, pars){
+
 
   for(i in 1:pars$nHosts){
     pars$EIR[[i]] <- F_EIR(t, y, pars, i, 1)

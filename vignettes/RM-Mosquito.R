@@ -9,7 +9,7 @@ library(ramp.dts)
 #devtools::load_all()
 
 ## ----eval=F-------------------------------------------------------------------
-#  devtools::load_all()
+#  #devtools::load_all()
 
 ## -----------------------------------------------------------------------------
 rm1 <- dts_setup(Xname = "trace")
@@ -38,7 +38,6 @@ compute_MYZ_equil = function(pars, Lambda, kappa, i=1){
     Pbar <- f*Mbar/(1 - p + f)
     Ubar <- Lambda/(1-p*exp(-f*q*kappa))
     
-    calK = 1
     Omega = make_Omega(p, sigma, calK, pars$nPatches)
     Y1 <- Omega*(1-exp(-f*q*kappa))*Ubar 
     Yi = Y1
@@ -64,4 +63,22 @@ U = tail(rm1$outputs$orbits$MYZ[[1]]$U, 1),
 Y = tail(rm1$outputs$orbits$MYZ[[1]]$Y, 1),
 Z = tail(rm1$outputs$orbits$MYZ[[1]]$Z, 1)
 )
+
+## -----------------------------------------------------------------------------
+#devtools::load_all()
+rm10 <- dts_setup(Xname = "trace", nPatches = 10, membership = 1:10)
+rm10$Lpar[[1]]$scale = 1.5^c(1:10) 
+
+## -----------------------------------------------------------------------------
+dts_solve(rm10, Tmax=200) -> rm10
+
+## -----------------------------------------------------------------------------
+with(rm10$outputs$orbits$MYZ[[1]], {
+  plot(time, M[,10], type = "l")
+  for(i in 2:10)
+    lines(time, M[,i]) 
+#  lines(time, U, col = "darkblue") 
+#  lines(time, Y, col = "purple") 
+#  lines(time, Z, col = "darkred") 
+})
 

@@ -58,7 +58,7 @@ dMYZdt.RM <- function(t, y, pars, s) {
 
   with(list_MYZvars(y, pars, s),{
     with(pars$MYZpar[[s]],{
-        calK = 1
+
         Omega <- make_Omega(p, sigma, calK, nPatches)
         eip_day_ix = (t %% max_eip) + 1
         eip_yday_ix = ((t-1) %% max_eip) + 1
@@ -74,8 +74,6 @@ dMYZdt.RM <- function(t, y, pars, s) {
 
         Yt[,eip_yday_ix]  <- Yt[,eip_yday_ix] + Yt[,eip_day_ix]
         Yt[,eip_day_ix] <- Omega %*% ((1-exp(-f*q*kappa))*U)
-
-#        browser()
 
         return(c(Mt, Pt, Ut, Yt, Zt))
       })
@@ -119,6 +117,10 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPname, calK,
     class(MYZpar) <- "RM"
 
     MYZpar$nPatches <- nPatches
+    if(nPatches == 1){
+      sigma = 0
+      calK = 1
+    }
 
     MYZpar$p       <- checkIt(p, nPatches)
     MYZpar$sigma   <- checkIt(sigma, nPatches)
@@ -218,7 +220,7 @@ list_MYZvars.RM <- function(y, pars, s){
          M = y[M_ix],
          P = y[P_ix],
          U = y[U_ix],
-         Y = y[Y_ix],
+         Y = matrix(y[Y_ix], pars$nPatches, pars$MYZpar[[s]]$max_eip),
          Z = y[Z_ix]
   )))
 }
@@ -242,6 +244,13 @@ make_parameters_MYZ_RM <- function(pars, EIPname, p, sigma, f, q, nu, eggsPerBat
 
   MYZpar <- list()
   class(MYZpar) <- "RM"
+
+  nPatches <- pars$nPatches
+  MYZpar$nPatches <- nPatches
+  if(nPatches == 1){
+    sigma = 0
+    calK = 1
+  }
 
   MYZpar$p      <- checkIt(p, pars$nPatches)
   MYZpar$sigma  <- checkIt(sigma, pars$nPatches)
