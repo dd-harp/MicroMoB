@@ -59,13 +59,13 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Adult Mosquito Dynamics
+    Malaria Dynamics
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/RM-Mosquito.html">The Ross-Macdonald model</a>
+      <a href="../articles/RM-Mosquito.html">The Ross-Macdonald Mosquito Model</a>
     </li>
   </ul>
 </li>
@@ -96,6 +96,18 @@
     </li>
     <li>
       <a href="../articles/human_sip.html">SIP model</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Malaria
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/Ross-Macdonald.html">The Ross-Macdonald model</a>
     </li>
   </ul>
 </li>
@@ -283,7 +295,7 @@ we get:</p>
 <h2 id="demo">Demo<a class="anchor" aria-label="anchor" href="#demo"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#devtools::load_all()</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dts_setup.html">dts_setup</a></span><span class="op">(</span>Xname <span class="op">=</span> <span class="st">"trace"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -308,7 +320,6 @@ we get:</p>
 <span>    <span class="va">Pbar</span> <span class="op">&lt;-</span> <span class="va">f</span><span class="op">*</span><span class="va">Mbar</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span> <span class="op">+</span> <span class="va">f</span><span class="op">)</span></span>
 <span>    <span class="va">Ubar</span> <span class="op">&lt;-</span> <span class="va">Lambda</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">p</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">f</span><span class="op">*</span><span class="va">q</span><span class="op">*</span><span class="va">kappa</span><span class="op">)</span><span class="op">)</span></span>
 <span>    </span>
-<span>    <span class="va">calK</span> <span class="op">=</span> <span class="fl">1</span></span>
 <span>    <span class="va">Omega</span> <span class="op">=</span> <span class="fu"><a href="../reference/make_Omega.html">make_Omega</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">sigma</span>, <span class="va">calK</span>, <span class="va">pars</span><span class="op">$</span><span class="va">nPatches</span><span class="op">)</span></span>
 <span>    <span class="va">Y1</span> <span class="op">&lt;-</span> <span class="va">Omega</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="op">-</span><span class="va">f</span><span class="op">*</span><span class="va">q</span><span class="op">*</span><span class="va">kappa</span><span class="op">)</span><span class="op">)</span><span class="op">*</span><span class="va">Ubar</span> </span>
 <span>    <span class="va">Yi</span> <span class="op">=</span> <span class="va">Y1</span></span>
@@ -336,6 +347,22 @@ we get:</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;          M          P          U          Y          Z </span></span>
 <span><span class="co">#&gt; 11999.9997  9391.3040  9166.7797  1835.9391   997.2808</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#devtools::load_all()</span></span>
+<span><span class="va">rm10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dts_setup.html">dts_setup</a></span><span class="op">(</span>Xname <span class="op">=</span> <span class="st">"trace"</span>, nPatches <span class="op">=</span> <span class="fl">10</span>, membership <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">rm10</span><span class="op">$</span><span class="va">Lpar</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">scale</span> <span class="op">=</span> <span class="fl">1.5</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> </span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/dts_solve.html">dts_solve</a></span><span class="op">(</span><span class="va">rm10</span>, Tmax<span class="op">=</span><span class="fl">200</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">rm10</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">rm10</span><span class="op">$</span><span class="va">outputs</span><span class="op">$</span><span class="va">orbits</span><span class="op">$</span><span class="va">MYZ</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">M</span><span class="op">[</span>,<span class="fl">10</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span>
+<span>  <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">M</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span> </span>
+<span><span class="co">#  lines(time, U, col = "darkblue") </span></span>
+<span><span class="co">#  lines(time, Y, col = "purple") </span></span>
+<span><span class="co">#  lines(time, Z, col = "darkred") </span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p><img src="RM-Mosquito_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 </div>
   </div>
 

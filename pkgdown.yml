@@ -5,8 +5,9 @@ articles:
   bloodmeal: bloodmeal.html
   Contributing: Contributing.html
   RM-Mosquito: RM-Mosquito.html
+  Ross-Macdonald: Ross-Macdonald.html
   Understanding_ramp_dts: Understanding_ramp_dts.html
-last_built: 2024-05-27T16:14Z
+last_built: 2024-05-27T19:52Z
 urls:
   reference: https://dd-harp.github.io/ramp.dts/reference
   article: https://dd-harp.github.io/ramp.dts/articles
