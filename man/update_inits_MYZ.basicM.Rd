@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-basicM.R
 \name{update_inits_MYZ.basicM}
 \alias{update_inits_MYZ.basicM}
-\title{Make inits for RM adult mosquito model}
+\title{Make inits for basicM adult mosquito model}
 \usage{
 \method{update_inits_MYZ}{basicM}(pars, y0, s)
 }
@@ -14,8 +14,8 @@
 \item{s}{the species index}
 }
 \value{
-none
+a \link{list}
 }
 \description{
-Make inits for RM adult mosquito model
+Make inits for basicM adult mosquito model
 }

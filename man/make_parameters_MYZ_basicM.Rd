@@ -2,14 +2,14 @@
 % Please edit documentation in R/adult-basicM.R
 \name{make_parameters_MYZ_basicM}
 \alias{make_parameters_MYZ_basicM}
-\title{Make parameters for a basic adult mosquito model}
+\title{Make parameters for basicM ODE adult mosquito model}
 \usage{
-make_parameters_MYZ_basicM(pars, g, sigma, f, q, nu, eggsPerBatch, calK)
+make_parameters_MYZ_basicM(pars, p, sigma, f, q, nu, eggsPerBatch, calK)
 }
 \arguments{
 \item{pars}{a \link{list}}
 
-\item{g}{mosquito mortality rate}
+\item{p}{daily mosquito survival}
 
 \item{sigma}{emigration rate}
 
@@ -24,8 +24,8 @@ make_parameters_MYZ_basicM(pars, g, sigma, f, q, nu, eggsPerBatch, calK)
 \item{calK}{mosquito dispersal matrix of dimensions \code{nPatches} by \code{nPatches}}
 }
 \value{
-none
+a \link{list}
 }
 \description{
-Make parameters for a basic adult mosquito model
+Make parameters for basicM ODE adult mosquito model
 }

@@ -4,15 +4,15 @@
 \alias{EIP.fixed}
 \title{Modify parameters due to exogenous forcing by all kinds of control}
 \usage{
-\method{EIP}{fixed}(t, EIPmod)
+\method{EIP}{fixed}(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{EIPmod}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
-\link{numeric}
+the EIP maturation vector G \link{numeric}
 }
 \description{
 Implements \link{EIP} for the fixed model (the EIP is constant)

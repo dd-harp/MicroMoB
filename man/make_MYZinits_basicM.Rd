@@ -16,7 +16,7 @@ make_MYZinits_basicM(nPatches, MYZopts = list(), M0 = 5, P0 = 1)
 \item{P0}{total parous mosquito density at each patch}
 }
 \value{
-none
+a \link{list}
 }
 \description{
 Make inits for basicM adult mosquito model

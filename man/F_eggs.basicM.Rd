@@ -19,5 +19,5 @@
 a \link{numeric} vector of length \code{nPatches}
 }
 \description{
-Implements \link{F_eggs} for the basic ecology model
+Implements \link{F_eggs} for the basicM model.
 }

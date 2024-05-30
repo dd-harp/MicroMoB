@@ -6,16 +6,15 @@
 #' @return the model as a [list]
 #' @export
 MBionomics.RM <- function(t, y, pars, s) {
-  with(pars$MYZpar[[s]],{
-    pars$MYZpar[[s]]$f <- f0
-    pars$MYZpar[[s]]$q <- q0
-    pars$MYZpar[[s]]$p <- p0
-    pars$MYZpar[[s]]$sigma <- sigma0
-    pars$MYZpar[[s]]$nu <- nu0
-    #pars$MYZpar[[s]]$eip <- EIP(t, EIPname)
-
-    return(pars)
-})}
+  pars$MYZpar[[s]]$f     <- F_f(t, pars$MYZpar[[s]])
+  pars$MYZpar[[s]]$q     <- F_q(t, pars$MYZpar[[s]])
+  pars$MYZpar[[s]]$p     <- F_p(t, pars$MYZpar[[s]])
+  pars$MYZpar[[s]]$sigma <- F_sigma(t, pars$MYZpar[[s]])
+  pars$MYZpar[[s]]$nu    <- F_nu(t, pars$MYZpar[[s]])
+  pars$MYZpar[[s]]$G     <- EIP(t, pars$MYZpar[[s]])
+  pars$MYZpar[[s]]$Omega <- make_Omega(t, pars$MYZpar[[s]])
+  return(pars)
+}
 
 #' @title The net blood feeding rate of the infective mosquito population in a patch
 #' @description Implements [F_fqZ] for the RM model.
@@ -32,7 +31,7 @@ F_fqZ.RM <- function(t, y, pars, s) {
 #' @return a [numeric] vector of length `nPatches`
 #' @export
 F_fqM.RM <- function(t, y, pars, s) {
-  with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$Z_ix]
+  with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$M_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes
@@ -59,7 +58,6 @@ dMYZdt.RM <- function(t, y, pars, s) {
   with(list_MYZvars(y, pars, s),{
     with(pars$MYZpar[[s]],{
 
-        Omega <- make_Omega(p, sigma, calK, nPatches)
         eip_day_ix = (t %% max_eip) + 1
         eip_yday_ix = ((t-1) %% max_eip) + 1
         Gix = c(t-1:max_eip) %% max_eip + 1
@@ -103,11 +101,27 @@ setup_MYZpar.RM = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
 #' @param eip the maximum number of cohorts in the EIP
 #' @param nu oviposition rate, per mosquito
 #' @param eggsPerBatch eggs laid per oviposition
+#' @param p_mod a name to dispatch F_p
+#' @param sigma_mod a name to dispatch F_sigma
+#' @param f_mod a name to dispatch F_f
+#' @param q_mod a name to dispatch F_q
+#' @param nu_mod a name to dispatch F_nu
 #' @return a [list]
 #' @export
 make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPname, calK,
-                          p=11/12, sigma=1/8, f=0.3, q=0.95, eip=12,
-                          nu=1, eggsPerBatch=60){
+                          p=11/12,
+                          sigma=1/8,
+                          f=0.3,
+                          q=0.95,
+                          eip=12,
+                          nu=1,
+                          eggsPerBatch=60,
+                          p_mod = "static",
+                          sigma_mod = "static",
+                          f_mod = "static",
+                          q_mod = "static",
+                          nu_mod = "static"
+                          ){
 
   stopifnot(is.matrix(calK))
   stopifnot(dim(calK) == c(nPatches, nPatches))
@@ -136,12 +150,23 @@ make_MYZpar_RM = function(nPatches, MYZopts=list(), EIPname, calK,
     MYZpar$q0      <- MYZpar$q
     MYZpar$nu0     <- MYZpar$nu
 
+    MYZpar$p_par   <- list()
+    class(MYZpar$p_par) <- "static"
+    MYZpar$f_par   <- list()
+    class(MYZpar$f_par) <- "static"
+    MYZpar$q_par   <- list()
+    class(MYZpar$q_par) <-  "static"
+    MYZpar$sigma_par   <- list()
+    class(MYZpar$sigma_par) <- "static"
+    MYZpar$nu_par   <- list()
+    class(MYZpar$nu_par) <- "static"
+
     # The EIP model and the eip
     MYZpar$eip <- eip
     MYZpar <- setup_EIP(EIPname, MYZpar, MYZopts)
 
     MYZpar$calK <- calK
-    MYZpar$Omega <- make_Omega(p, sigma, calK, nPatches)
+    MYZpar$Omega <- make_Omega(0, MYZpar)
 
     return(MYZpar)
 })}
@@ -266,14 +291,25 @@ make_parameters_MYZ_RM <- function(pars, EIPname, p, sigma, f, q, nu, eggsPerBat
   MYZpar$q0      <- MYZpar$q
   MYZpar$nu0     <- MYZpar$nu
 
+  MYZpar$p_par   <- list()
+  class(MYZpar$p_par) <- "static"
+  MYZpar$f_par   <- list()
+  class(MYZpar$f_par) <- "static"
+  MYZpar$q_par   <- list()
+  class(MYZpar$q_par) <- "static"
+  MYZpar$sigma_par   <- list()
+  class(MYZpar$sigma_par) <- "static"
+  MYZpar$nu_par   <- list()
+  class(MYZpar$nu_par) <- "static"
 
   MYZpar$nPatches <- pars$nPatches
 
   MYZpar$eip <- eip
   MYZpar <- setup_EIP(EIPname, MYZpar, list())
+  MYZparG <- EIP(0, MYZpar)
 
   MYZpar$calK <- calK
-  Omega   <- make_Omega(p, sigma, calK, pars$nPatches)
+  Omega   <- make_Omega(0, MYZpar)
 
   pars$MYZpar = list()
   pars$MYZpar[[1]] = MYZpar

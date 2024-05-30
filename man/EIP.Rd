@@ -4,12 +4,12 @@
 \alias{EIP}
 \title{Compute the EIP}
 \usage{
-EIP(t, EIPmod)
+EIP(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{EIPmod}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 \link{numeric}

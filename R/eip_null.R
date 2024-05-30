@@ -1,10 +1,10 @@
 
 #' @title Modify parameters due to exogenous forcing by all kinds of control
-#' @description Implements [EIP] for the null model (the EIP is constant)
+#' @description Implements [EIP] for the null model
 #' @inheritParams EIP
 #' @return [numeric]
 #' @export
-EIP.null <- function(t, EIPmod){EIPmod$eip}
+EIP.null <- function(t, MYZpar){numeric(0)}
 
 #' @title Set up a null model for the EIP
 #' @inheritParams setup_EIP

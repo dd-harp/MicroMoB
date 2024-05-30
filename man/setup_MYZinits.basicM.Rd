@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-basicM.R
 \name{setup_MYZinits.basicM}
 \alias{setup_MYZinits.basicM}
-\title{Setup the basicM model}
+\title{Setup initial values for the basicM model}
 \usage{
 \method{setup_MYZinits}{basicM}(pars, s, MYZopts = list())
 }
@@ -14,7 +14,7 @@
 \item{MYZopts}{a \link{list}}
 }
 \value{
-a \link{list} vector
+a \link{list}
 }
 \description{
 Implements \link{setup_MYZinits} for the basicM model

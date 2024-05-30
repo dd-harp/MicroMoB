@@ -4,16 +4,12 @@
 \alias{make_Omega}
 \title{Make the mosquito demography matrix}
 \usage{
-make_Omega(p, sigma, K, nPatches)
+make_Omega(t, MYZpar)
 }
 \arguments{
-\item{p}{proportion surviving}
+\item{t}{the current time}
 
-\item{sigma}{fraction emigrating}
-
-\item{K}{mosquito dispersal matrix}
-
-\item{nPatches}{number of patches}
+\item{MYZpar}{a list defining a mosquito model}
 }
 \value{
 a \link{matrix} of dimensions \code{nPatches} by \code{nPatches}

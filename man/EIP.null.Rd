@@ -4,16 +4,16 @@
 \alias{EIP.null}
 \title{Modify parameters due to exogenous forcing by all kinds of control}
 \usage{
-\method{EIP}{null}(t, EIPmod)
+\method{EIP}{null}(t, MYZpar)
 }
 \arguments{
 \item{t}{current simulation time}
 
-\item{EIPmod}{a \link{list}}
+\item{MYZpar}{a \link{list}}
 }
 \value{
 \link{numeric}
 }
 \description{
-Implements \link{EIP} for the null model (the EIP is constant)
+Implements \link{EIP} for the null model
 }

@@ -88,6 +88,7 @@ Z_{t+1} &=  \Omega \cdot \left(Y_t \cdot \mbox{diag}(G) \right)+ \Omega \cdot Z_
 $$
 
 
+
 ## Implementation Notes:
 
 In the implementation, we could choose models where the EIP is distributed over some period but where the fraction maturing after time $\tau$ is continuous. 
@@ -135,7 +136,7 @@ $$\bar Z = \Omega \cdot G \cdot Y \left( 1- \Omega\right)^{-1}$$
 ## Demo
 
 ```{r, eval=F}
-#devtools::load_all()
+devtools::load_all()
 ```
 
 
@@ -167,12 +168,13 @@ dts_plot_YZ(rm1)
 
 ```{r}
 compute_MYZ_equil = function(pars, Lambda, kappa, i=1){
+  Omega = make_Omega(0, pars$MYZpar[[i]])
   with(pars$MYZpar[[i]],{
+
     Mbar <-  Lambda/(1-p) 
     Pbar <- f*Mbar/(1 - p + f)
     Ubar <- Lambda/(1-p*exp(-f*q*kappa))
     
-    Omega = make_Omega(p, sigma, calK, pars$nPatches)
     Y1 <- Omega*(1-exp(-f*q*kappa))*Ubar 
     Yi = Y1
     Y = Yi
@@ -202,7 +204,6 @@ Z = tail(rm1$outputs$orbits$MYZ[[1]]$Z, 1)
 ```
 
 ```{r}
-#devtools::load_all()
 rm10 <- dts_setup(Xname = "trace", nPatches = 10, membership = 1:10)
 rm10$Lpar[[1]]$scale = 1.5^c(1:10) 
 ```

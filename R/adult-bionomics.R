@@ -63,23 +63,23 @@ F_q.dynamic <- function(t, MYZpar){
 }
 
 #' @title Compute mosguito survival
-#' @description This method dispatches on the type of `MYZpar$g_par`. It should
+#' @description This method dispatches on the type of `MYZpar$p_par`. It should
 #' set the values of g to (possibly changing) baseline values.
 #' @param t current simulation time
 #' @param MYZpar a [list]
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_g <- function(t, MYZpar) {
-  UseMethod("F_g", MYZpar$g_par)
+F_p <- function(t, MYZpar) {
+  UseMethod("F_p", MYZpar$p_par)
 }
 
 #' @title Static model for mosquito survival
-#' @description Implements [F_g] for a static model
-#' @inheritParams F_g
+#' @description Implements [F_p] for a static model
+#' @inheritParams F_p
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_g.static <- function(t, MYZpar){
-  MYZpar$g0
+F_p.static <- function(t, MYZpar){
+  MYZpar$p0
 }
 
 #' @title Compute mosquito emigration rates

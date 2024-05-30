@@ -14,8 +14,8 @@
 \item{s}{the species index}
 }
 \value{
-\link{list}
+a \link{list}
 }
 \description{
-Implements \link{parse_dts_out_MYZ} for the basicM model.
+Implements \link{parse_dts_out_MYZ} for the basicM model
 }

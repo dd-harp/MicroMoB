@@ -153,13 +153,11 @@ update_inits_MYZ <- function(pars, y0, s) {
 }
 
 #' @title Make the mosquito demography matrix
-#' @param p proportion surviving
-#' @param sigma fraction emigrating
-#' @param K mosquito dispersal matrix
-#' @param nPatches number of patches
+#' @param t the current time
+#' @param MYZpar a list defining a mosquito model
 #' @return a [matrix] of dimensions `nPatches` by `nPatches`
 #' @export
-make_Omega <- function(p, sigma, K, nPatches) {
-  diag(p*(1-sigma), nPatches) + diag(p*sigma, nPatches) %*% K
-}
+make_Omega <- function(t, MYZpar) {with(MYZpar,
+  diag(p*(1-sigma), nPatches) + diag(p*sigma, nPatches) %*% calK
+)}
 

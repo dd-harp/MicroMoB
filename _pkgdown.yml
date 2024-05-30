@@ -221,6 +221,7 @@ reference:
   - setup_MYZinits.basicM
   - make_MYZpar_basicM
   - make_MYZinits_basicM
+  - list_MYZvars.basicM
   - make_indices_MYZ.basicM
   - parse_dts_out_MYZ.basicM
   - make_inits_MYZ_basicM
@@ -247,6 +248,26 @@ reference:
   - get_inits_MYZ.RM
   - update_inits_MYZ.RM
   - make_parameters_MYZ_RM
+- subtitle: lumpy
+  desc: |
+    Specialized methods for a lumped-days Ross-Macdonald-style model of adult mosquito dynamics
+  contents:
+  - MBionomics.lumpy
+  - F_fqZ.lumpy
+  - F_fqM.lumpy
+  - F_eggs.lumpy
+  - dMYZdt.lumpy
+  - setup_MYZpar.lumpy
+  - setup_MYZinits.lumpy
+  - list_MYZvars.lumpy
+  - make_MYZpar_lumpy
+  - make_MYZinits_lumpy
+  - make_indices_MYZ.lumpy
+  - parse_dts_out_MYZ.lumpy
+  - make_inits_MYZ_lumpy
+  - get_inits_MYZ.lumpy
+  - update_inits_MYZ.lumpy
+  - make_parameters_MYZ_lumpy
 - title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
@@ -320,8 +341,8 @@ reference:
   - F_q
   - F_q.static
   - F_q.dynamic
-  - F_g
-  - F_g.static
+  - F_p
+  - F_p.static
 - subtitle: Mosquito Dispersal
   desc: |
     Specialized methods to set up mosquito dispersal matrices

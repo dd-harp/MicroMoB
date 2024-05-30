@@ -9,7 +9,7 @@ library(ramp.dts)
 #devtools::load_all()
 
 ## ----eval=F-------------------------------------------------------------------
-#  #devtools::load_all()
+#  devtools::load_all()
 
 ## -----------------------------------------------------------------------------
 rm1 <- dts_setup(Xname = "trace")
@@ -33,12 +33,13 @@ dts_plot_YZ(rm1)
 
 ## -----------------------------------------------------------------------------
 compute_MYZ_equil = function(pars, Lambda, kappa, i=1){
+  Omega = make_Omega(0, pars$MYZpar[[i]])
   with(pars$MYZpar[[i]],{
+
     Mbar <-  Lambda/(1-p) 
     Pbar <- f*Mbar/(1 - p + f)
     Ubar <- Lambda/(1-p*exp(-f*q*kappa))
     
-    Omega = make_Omega(p, sigma, calK, pars$nPatches)
     Y1 <- Omega*(1-exp(-f*q*kappa))*Ubar 
     Yi = Y1
     Y = Yi
@@ -65,7 +66,6 @@ Z = tail(rm1$outputs$orbits$MYZ[[1]]$Z, 1)
 )
 
 ## -----------------------------------------------------------------------------
-#devtools::load_all()
 rm10 <- dts_setup(Xname = "trace", nPatches = 10, membership = 1:10)
 rm10$Lpar[[1]]$scale = 1.5^c(1:10) 
 

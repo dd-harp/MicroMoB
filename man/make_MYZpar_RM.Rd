@@ -15,7 +15,12 @@ make_MYZpar_RM(
   q = 0.95,
   eip = 12,
   nu = 1,
-  eggsPerBatch = 60
+  eggsPerBatch = 60,
+  p_mod = "static",
+  sigma_mod = "static",
+  f_mod = "static",
+  q_mod = "static",
+  nu_mod = "static"
 )
 }
 \arguments{
@@ -40,6 +45,16 @@ make_MYZpar_RM(
 \item{nu}{oviposition rate, per mosquito}
 
 \item{eggsPerBatch}{eggs laid per oviposition}
+
+\item{p_mod}{a name to dispatch F_p}
+
+\item{sigma_mod}{a name to dispatch F_sigma}
+
+\item{f_mod}{a name to dispatch F_f}
+
+\item{q_mod}{a name to dispatch F_q}
+
+\item{nu_mod}{a name to dispatch F_nu}
 }
 \value{
 a \link{list}

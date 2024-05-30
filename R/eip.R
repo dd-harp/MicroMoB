@@ -3,11 +3,11 @@
 #' @title Compute the EIP
 #' @description This method dispatches on the type of `EIPmod`.
 #' @param t current simulation time
-#' @param EIPmod a [list]
+#' @param MYZpar a [list]
 #' @return [numeric]
 #' @export
-EIP <- function(t, EIPmod) {
-  UseMethod("EIP", EIPmod)
+EIP <- function(t, MYZpar) {
+  UseMethod("EIP", MYZpar$EIPmod)
 }
 
 #' @title Set up the fixed model for control forcing (do nothing)
