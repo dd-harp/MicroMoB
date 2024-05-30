@@ -597,7 +597,7 @@
       </tr></tbody><tbody><tr><td>
           <p><code><a href="MBionomics.basicM.html">MBionomics(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Set bionomic parameters to baseline</p></td>
+        <td><p>Reset bloodfeeding and mortality rates to baseline</p></td>
       </tr><tr><td>
           <p><code><a href="F_fqZ.basicM.html">F_fqZ(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
@@ -605,7 +605,7 @@
       </tr><tr><td>
           <p><code><a href="F_fqM.basicM.html">F_fqM(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
-        <td><p>The net blood feeding rate of the mosquito population in a patch</p></td>
+        <td><p>The net blood feeding rate of the infective mosquito population in a patch</p></td>
       </tr><tr><td>
           <p><code><a href="F_eggs.basicM.html">F_eggs(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
@@ -621,15 +621,19 @@
       </tr><tr><td>
           <p><code><a href="setup_MYZinits.basicM.html">setup_MYZinits(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Setup the basicM model</p></td>
+        <td><p>Setup initial values for the basicM model</p></td>
       </tr><tr><td>
           <p><code><a href="make_MYZpar_basicM.html">make_MYZpar_basicM()</a></code> </p>
         </td>
-        <td><p>Make parameters for basicM adult mosquito model</p></td>
+        <td><p>Make parameters for basicM ODE adult mosquito model</p></td>
       </tr><tr><td>
           <p><code><a href="make_MYZinits_basicM.html">make_MYZinits_basicM()</a></code> </p>
         </td>
         <td><p>Make inits for basicM adult mosquito model</p></td>
+      </tr><tr><td>
+          <p><code><a href="list_MYZvars.basicM.html">list_MYZvars(<i>&lt;basicM&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Return the variables as a list</p></td>
       </tr><tr><td>
           <p><code><a href="make_indices_MYZ.basicM.html">make_indices_MYZ(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
@@ -649,11 +653,11 @@
       </tr><tr><td>
           <p><code><a href="update_inits_MYZ.basicM.html">update_inits_MYZ(<i>&lt;basicM&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Make inits for RM adult mosquito model</p></td>
+        <td><p>Make inits for basicM adult mosquito model</p></td>
       </tr><tr><td>
           <p><code><a href="make_parameters_MYZ_basicM.html">make_parameters_MYZ_basicM()</a></code> </p>
         </td>
-        <td><p>Make parameters for a basic adult mosquito model</p></td>
+        <td><p>Make parameters for basicM ODE adult mosquito model</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h3 id="rm">RM <a href="#rm" class="anchor" aria-hidden="true"></a></h3>
           <p class="section-desc"></p><p>Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron &amp; Robert May (1982).</p>
@@ -722,6 +726,74 @@
           <p><code><a href="make_parameters_MYZ_RM.html">make_parameters_MYZ_RM()</a></code> </p>
         </td>
         <td><p>Make parameters for RM ODE adult mosquito model</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="lumpy">lumpy <a href="#lumpy" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Specialized methods for a lumped-days Ross-Macdonald-style model of adult mosquito dynamics</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="MBionomics.lumpy.html">MBionomics(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Reset bloodfeeding and mortality rates to baseline</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_fqZ.lumpy.html">F_fqZ(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>The net blood feeding rate of the infective mosquito population in a patch</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_fqM.lumpy.html">F_fqM(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>The net blood feeding rate of the infective mosquito population in a patch</p></td>
+      </tr><tr><td>
+          <p><code><a href="F_eggs.lumpy.html">F_eggs(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Number of eggs laid by adult mosquitoes</p></td>
+      </tr><tr><td>
+          <p><code><a href="dMYZdt.lumpy.html">dMYZdt(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Derivatives for adult mosquitoes</p></td>
+      </tr><tr><td>
+          <p><code><a href="setup_MYZpar.lumpy.html">setup_MYZpar(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Setup MYZpar for the lumpy model</p></td>
+      </tr><tr><td>
+          <p><code><a href="setup_MYZinits.lumpy.html">setup_MYZinits(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Setup initial values for the lumpy model</p></td>
+      </tr><tr><td>
+          <p><code><a href="list_MYZvars.lumpy.html">list_MYZvars(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Return the variables as a list</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_MYZpar_lumpy.html">make_MYZpar_lumpy()</a></code> </p>
+        </td>
+        <td><p>Make parameters for lumpy ODE adult mosquito model</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_MYZinits_lumpy.html">make_MYZinits_lumpy()</a></code> </p>
+        </td>
+        <td><p>Make inits for lumpy adult mosquito model</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_indices_MYZ.lumpy.html">make_indices_MYZ(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add indices for adult mosquitoes to parameter list</p></td>
+      </tr><tr><td>
+          <p><code><a href="parse_dts_out_MYZ.lumpy.html">parse_dts_out_MYZ(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Parse the output of deSolve and return variables for the lumpy model</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_inits_MYZ_lumpy.html">make_inits_MYZ_lumpy()</a></code> </p>
+        </td>
+        <td><p>Make inits for lumpy adult mosquito model</p></td>
+      </tr><tr><td>
+          <p><code><a href="get_inits_MYZ.lumpy.html">get_inits_MYZ(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Return initial values as a vector</p></td>
+      </tr><tr><td>
+          <p><code><a href="update_inits_MYZ.lumpy.html">update_inits_MYZ(<i>&lt;lumpy&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Make inits for lumpy adult mosquito model</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_parameters_MYZ_lumpy.html">make_parameters_MYZ_lumpy()</a></code> </p>
+        </td>
+        <td><p>Make parameters for lumpy ODE adult mosquito model</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="aquatic-mosquito-dynamics">Aquatic Mosquito Dynamics <a href="#aquatic-mosquito-dynamics" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Generic methods for the aquatic (immature) mosquito component.</p>
@@ -955,11 +1027,11 @@
         </td>
         <td><p>Static model for human blood fraction</p></td>
       </tr><tr><td>
-          <p><code><a href="F_g.html">F_g()</a></code> </p>
+          <p><code><a href="F_p.html">F_p()</a></code> </p>
         </td>
         <td><p>Compute mosguito survival</p></td>
       </tr><tr><td>
-          <p><code><a href="F_g.static.html">F_g(<i>&lt;static&gt;</i>)</a></code> </p>
+          <p><code><a href="F_p.static.html">F_p(<i>&lt;static&gt;</i>)</a></code> </p>
         </td>
         <td><p>Static model for mosquito survival</p></td>
       </tr></tbody><tbody><tr><th colspan="2">

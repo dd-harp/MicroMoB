@@ -307,6 +307,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_eggs.lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_f.html</loc>
   </url>
   <url>
@@ -340,6 +343,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqM.lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.Gtrace.html</loc>
   </url>
   <url>
@@ -355,10 +361,7 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.html</loc>
   </url>
   <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/F_g.html</loc>
-  </url>
-  <url>
-    <loc>https://dd-harp.github.io/ramp.dts/reference/F_g.static.html</loc>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_fqZ.lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_kappa.html</loc>
@@ -371,6 +374,12 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_nu.type2.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_p.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/F_p.static.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/F_pr.SIP.html</loc>
@@ -482,6 +491,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/MBionomics.lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/MassMedical.forced.html</loc>
@@ -766,6 +778,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/dMYZdt.lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/dXdt.SIP.html</loc>
   </url>
   <url>
@@ -904,6 +919,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_MYZ.lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/get_inits_X.SIP.html</loc>
   </url>
   <url>
@@ -925,7 +943,13 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/list_MYZvars.RM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_MYZvars.basicM.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/list_MYZvars.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/list_MYZvars.lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/list_Xvars.SIP.html</loc>
@@ -952,6 +976,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZinits_basicM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZinits_lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_Gtrace.html</loc>
   </url>
   <url>
@@ -962,6 +989,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_MYZpar_lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_Omega.html</loc>
@@ -1054,6 +1084,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_MYZ.lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_indices_X.SIP.html</loc>
   </url>
   <url>
@@ -1084,6 +1117,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_MYZ_basicM.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_MYZ_lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_inits_X_SIP.html</loc>
   </url>
   <url>
@@ -1109,6 +1145,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_MYZ_basicM.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_MYZ_lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/make_parameters_X_SIP.html</loc>
@@ -1163,6 +1202,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_MYZ.lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/parse_dts_out_X.SIP.html</loc>
@@ -1240,6 +1282,9 @@
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.html</loc>
   </url>
   <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZinits.lumpy.html</loc>
+  </url>
+  <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.Gtrace.html</loc>
   </url>
   <url>
@@ -1253,6 +1298,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/setup_MYZpar.lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/setup_Xinits.SIP.html</loc>
@@ -1478,6 +1526,9 @@
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.html</loc>
+  </url>
+  <url>
+    <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_MYZ.lumpy.html</loc>
   </url>
   <url>
     <loc>https://dd-harp.github.io/ramp.dts/reference/update_inits_X.SIP.html</loc>
