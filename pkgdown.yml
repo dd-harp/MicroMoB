@@ -2,13 +2,17 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
+  Advanced: Advanced.html
+  BH_aqua: BH_aqua.html
   bloodmeal: bloodmeal.html
+  BQ_mosquito: BQ_mosquito.html
   Contributing: Contributing.html
-  RM-Mosquito: RM-Mosquito.html
-  Ross-Macdonald: Ross-Macdonald.html
-  Understanding_ramp_dts: Understanding_ramp_dts.html
-last_built: 2024-05-31T22:24Z
+  MicroMoB: MicroMoB.html
+  MOI_human: MOI_human.html
+  RM_mosquito: RM_mosquito.html
+  RM_transmission: RM_transmission.html
+last_built: 2024-05-31T23:21Z
 urls:
-  reference: https://dd-harp.github.io/ramp.dts/reference
-  article: https://dd-harp.github.io/ramp.dts/articles
+  reference: https://dd-harp.github.io/MicroMoB/reference
+  article: https://dd-harp.github.io/MicroMoB/articles
 
