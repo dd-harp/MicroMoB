@@ -19,6 +19,15 @@ F_f.static <- function(t, MYZpar){
   MYZpar$f0
 }
 
+#' @title Dawn, day, dusk, night model for the blood feeding rate
+#' @description Implements [F_f] for a dddn model
+#' @inheritParams F_f
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_f.dddn <- function(t, MYZpar){
+  with(MYZpar, t(matrix(f0, 4, nPatches)))
+}
+
 #' @title Type 2 functional response for the blood feeding rate
 #' @description Implements [F_f] for a static model
 #' @inheritParams F_f
@@ -49,6 +58,15 @@ F_q <- function(t, MYZpar) {
 #' @export
 F_q.static <- function(t, MYZpar){
   MYZpar$q0
+}
+
+#' @title Dawn, day, dusk, night model for the human fraction
+#' @description Implements [F_q] for a dddn model
+#' @inheritParams F_q
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_q.dddn <- function(t, MYZpar){
+  with(MYZpar, t(matrix(q0, 4, nPatches)))
 }
 
 #' @title Static model for human blood fraction
@@ -82,6 +100,15 @@ F_p.static <- function(t, MYZpar){
   MYZpar$p0
 }
 
+#' @title Dawn, day, dusk, night model for the human fraction
+#' @description Implements [F_p] for a dddn model
+#' @inheritParams F_p
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_p.dddn <- function(t, MYZpar){
+  with(MYZpar, t(matrix(p0, 4, nPatches)))
+}
+
 #' @title Compute mosquito emigration rates
 #' @description This method dispatches on the type of `MYZpar$sigma_par`. It should
 #' set the values of sigma to (possibly changing) baseline value(s).
@@ -102,17 +129,14 @@ F_sigma.static <- function(t, MYZpar){
   MYZpar$sigma0
 }
 
-#' @title Model for mosquito emigration based on resource availability
-#' @description Implements [F_sigma] for a static model
+#' @title Dawn, day, dusk, night model for the human fraction
+#' @description Implements [F_sigma] for a dddn model
 #' @inheritParams F_sigma
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_sigma.BQS <- function(t, MYZpar){
-  with(MYZpar, with(MYZpar$sigma_par,{
-    return(sigma_x*(sigma_B/(1+sB*B) + sigma_Q/(1+sQ*Q) + sigma_S/(1+sS*S)))
-  }))
+F_sigma.dddn <- function(t, MYZpar){
+  with(MYZpar, t(matrix(sigma0, 4, nPatches)))
 }
-
 
 #' @title Compute the egg laying rate
 #' @description This method dispatches on the type of `MYZpar$nu_par`. It should
@@ -132,6 +156,15 @@ F_nu <- function(t, MYZpar) {
 #' @export
 F_nu.static <- function(t, MYZpar){
   MYZpar$nu0
+}
+
+#' @title Dawn, day, dusk, night model for the human fraction
+#' @description Implements [F_nu] for a dddn model
+#' @inheritParams F_nu
+#' @return a [numeric] vector of length `nPatches`
+#' @export
+F_nu.dddn <- function(t, MYZpar){
+  with(MYZpar, t(matrix(nu0, 4, nPatches)))
 }
 
 #' @title Type 2 functional response for the blood feeding rate

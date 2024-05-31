@@ -1,11 +1,11 @@
-# specialized methods for the adult mosquito lumpy model
+# specialized methods for the adult mosquito RMlumpy model
 
 #' @title Reset bloodfeeding and mortality rates to baseline
-#' @description Implements [MBionomics] for the lumpy model
+#' @description Implements [MBionomics] for the RMlumpy model
 #' @inheritParams MBionomics
 #' @return the model as a [list]
 #' @export
-MBionomics.lumpy <- function(t, y, pars, s) {
+MBionomics.RMlumpy <- function(t, y, pars, s) {
   pars$MYZpar[[s]]$f     <- F_f(t, pars$MYZpar[[s]])
   pars$MYZpar[[s]]$q     <- F_q(t, pars$MYZpar[[s]])
   pars$MYZpar[[s]]$p     <- F_p(t, pars$MYZpar[[s]])
@@ -17,29 +17,29 @@ MBionomics.lumpy <- function(t, y, pars, s) {
 }
 
 #' @title The net blood feeding rate of the infective mosquito population in a patch
-#' @description Implements [F_fqZ] for the lumpy model.
+#' @description Implements [F_fqZ] for the RMlumpy model.
 #' @inheritParams F_fqZ
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_fqZ.lumpy <- function(t, y, pars, s) {
+F_fqZ.RMlumpy <- function(t, y, pars, s) {
   with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$Z_ix]
 }
 
 #' @title The net blood feeding rate of the infective mosquito population in a patch
-#' @description Implements [F_fqM] for the lumpy model.
+#' @description Implements [F_fqM] for the RMlumpy model.
 #' @inheritParams F_fqM
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_fqM.lumpy <- function(t, y, pars, s) {
+F_fqM.RMlumpy <- function(t, y, pars, s) {
   with(pars$MYZpar[[s]], f*q)*y[pars$ix$MYZ[[s]]$M_ix]
 }
 
 #' @title Number of eggs laid by adult mosquitoes
-#' @description Implements [F_eggs] for the lumpy model.
+#' @description Implements [F_eggs] for the RMlumpy model.
 #' @inheritParams F_eggs
 #' @return a [numeric] vector of length `nPatches`
 #' @export
-F_eggs.lumpy <- function(t, y, pars, s) {
+F_eggs.RMlumpy <- function(t, y, pars, s) {
   M <- y[pars$ix$MYZ[[s]]$M_ix]
   with(pars$MYZpar[[s]],{
     return(M*nu*eggsPerBatch)
@@ -47,11 +47,11 @@ F_eggs.lumpy <- function(t, y, pars, s) {
 }
 
 #' @title Derivatives for adult mosquitoes
-#' @description Implements [dMYZdt] for the lumpy ODE model.
+#' @description Implements [dMYZdt] for the RMlumpy ODE model.
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
-dMYZdt.lumpy <- function(t, y, pars, s) {
+dMYZdt.RMlumpy <- function(t, y, pars, s) {
   Lambda = pars$Lambda[[s]]
   kappa = pars$kappa[[s]]
 
@@ -78,18 +78,18 @@ dMYZdt.lumpy <- function(t, y, pars, s) {
   })
 }
 
-#' @title Setup MYZpar for the lumpy model
-#' @description Implements [setup_MYZpar] for the lumpy model
+#' @title Setup MYZpar for the RMlumpy model
+#' @description Implements [setup_MYZpar] for the RMlumpy model
 #' @inheritParams setup_MYZpar
 #' @return a [list] vector
 #' @export
-setup_MYZpar.lumpy = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
-  pars$MYZpar[[s]] = make_MYZpar_lumpy(pars$nPatches, MYZopts, EIPname, calK)
+setup_MYZpar.RMlumpy = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
+  pars$MYZpar[[s]] = make_MYZpar_RMlumpy(pars$nPatches, MYZopts, EIPname, calK)
   return(pars)
 }
 
 
-#' @title Make parameters for lumpy ODE adult mosquito model
+#' @title Make parameters for RMlumpy ODE adult mosquito model
 #' @param nPatches is the number of patches, an integer
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param EIPname a string: the class name for the EIP model
@@ -108,7 +108,7 @@ setup_MYZpar.lumpy = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
 #' @param nu_mod a name to dispatch F_nu
 #' @return a [list]
 #' @export
-make_MYZpar_lumpy = function(nPatches, MYZopts=list(), EIPname, calK,
+make_MYZpar_RMlumpy = function(nPatches, MYZopts=list(), EIPname, calK,
                           p=11/12,
                           sigma=1/8,
                           f=0.3,
@@ -128,7 +128,7 @@ make_MYZpar_lumpy = function(nPatches, MYZopts=list(), EIPname, calK,
 
   with(MYZopts,{
     MYZpar <- list()
-    class(MYZpar) <- "lumpy"
+    class(MYZpar) <- "RMlumpy"
 
     MYZpar$nPatches <- nPatches
     if(nPatches == 1){
@@ -171,17 +171,17 @@ make_MYZpar_lumpy = function(nPatches, MYZopts=list(), EIPname, calK,
     return(MYZpar)
   })}
 
-#' @title Setup initial values for the lumpy model
-#' @description Implements [setup_MYZinits] for the lumpy model
+#' @title Setup initial values for the RMlumpy model
+#' @description Implements [setup_MYZinits] for the RMlumpy model
 #' @inheritParams setup_MYZinits
 #' @return a [list]
 #' @export
-setup_MYZinits.lumpy = function(pars, s, MYZopts=list()){
-  pars$MYZinits[[s]] = with(pars$MYZpar[[s]], make_MYZinits_lumpy(nPatches, max_eip, MYZopts))
+setup_MYZinits.RMlumpy = function(pars, s, MYZopts=list()){
+  pars$MYZinits[[s]] = with(pars$MYZpar[[s]], make_MYZinits_RMlumpy(nPatches, max_eip, MYZopts))
   return(pars)
 }
 
-#' @title Make inits for lumpy adult mosquito model
+#' @title Make inits for RMlumpy adult mosquito model
 #' @param nPatches the number of patches in the model
 #' @param max_eip the maximum number of EIP cohorts, an [integer]
 #' @param MYZopts a [list] of values that overwrites the defaults
@@ -192,7 +192,7 @@ setup_MYZinits.lumpy = function(pars, s, MYZopts=list()){
 #' @param Z0 infectious mosquito density at each patch
 #' @return a [list]
 #' @export
-make_MYZinits_lumpy = function(nPatches, max_eip, MYZopts = list(),
+make_MYZinits_RMlumpy = function(nPatches, max_eip, MYZopts = list(),
                             M0=5, P0=1, U0=0, Y0=1, Z0=1){
   with(MYZopts,{
     M = checkIt(M0, nPatches)
@@ -206,12 +206,12 @@ make_MYZinits_lumpy = function(nPatches, max_eip, MYZopts = list(),
 
 
 #' @title Add indices for adult mosquitoes to parameter list
-#' @description Implements [make_indices_MYZ] for the lumpy model.
+#' @description Implements [make_indices_MYZ] for the RMlumpy model.
 #' @inheritParams make_indices_MYZ
 #' @return a [list]
 #' @importFrom utils tail
 #' @export
-make_indices_MYZ.lumpy <- function(pars, s) {with(pars,{
+make_indices_MYZ.RMlumpy <- function(pars, s) {with(pars,{
 
   M_ix <- seq(from = max_ix+1, length.out=nPatches)
   max_ix <- tail(M_ix, 1)
@@ -239,7 +239,7 @@ make_indices_MYZ.lumpy <- function(pars, s) {with(pars,{
 #' @inheritParams list_MYZvars
 #' @return a [list]
 #' @export
-list_MYZvars.lumpy <- function(y, pars, s){
+list_MYZvars.RMlumpy <- function(y, pars, s){
   with(pars$ix$MYZ[[s]],
        return(list(
          M = y[M_ix],
@@ -250,7 +250,7 @@ list_MYZvars.lumpy <- function(y, pars, s){
        )))
 }
 
-#' @title Make parameters for lumpy ODE adult mosquito model
+#' @title Make parameters for RMlumpy ODE adult mosquito model
 #' @param pars a [list]
 #' @param EIPname a string: the class name for the EIP model
 #' @param p daily mosquito survival
@@ -263,12 +263,12 @@ list_MYZvars.lumpy <- function(y, pars, s){
 #' @param calK mosquito dispersal matrix of dimensions `nPatches` by `nPatches`
 #' @return a [list]
 #' @export
-make_parameters_MYZ_lumpy <- function(pars, EIPname, p, sigma, f, q, nu, eggsPerBatch, eip, calK) {
+make_parameters_MYZ_RMlumpy <- function(pars, EIPname, p, sigma, f, q, nu, eggsPerBatch, eip, calK) {
   stopifnot(is.numeric(p), is.numeric(sigma), is.numeric(f),
             is.numeric(q), is.numeric(nu), is.numeric(eggsPerBatch))
 
   MYZpar <- list()
-  class(MYZpar) <- "lumpy"
+  class(MYZpar) <- "RMlumpy"
 
   nPatches <- pars$nPatches
   MYZpar$nPatches <- nPatches
@@ -306,7 +306,7 @@ make_parameters_MYZ_lumpy <- function(pars, EIPname, p, sigma, f, q, nu, eggsPer
   return(pars)
 }
 
-#' @title Make inits for lumpy adult mosquito model
+#' @title Make inits for RMlumpy adult mosquito model
 #' @param pars a [list]
 #' @param M0 total mosquito density at each patch
 #' @param P0 total parous mosquito density at each patch
@@ -315,18 +315,18 @@ make_parameters_MYZ_lumpy <- function(pars, EIPname, p, sigma, f, q, nu, eggsPer
 #' @param Z0 infectious mosquito density at each patch
 #' @return a [list]
 #' @export
-make_inits_MYZ_lumpy <- function(pars, M0, P0, U0, Y0, Z0) {
+make_inits_MYZ_RMlumpy <- function(pars, M0, P0, U0, Y0, Z0) {
   pars$MYZinits = list()
   pars$MYZinits[[1]] = list(M=M0, P=P0, U=U0, Y=Y0, Z=Z0)
   return(pars)
 }
 
-#' @title Parse the output of deSolve and return variables for the lumpy model
-#' @description Implements [parse_dts_out_MYZ] for the lumpy model
+#' @title Parse the output of deSolve and return variables for the RMlumpy model
+#' @description Implements [parse_dts_out_MYZ] for the RMlumpy model
 #' @inheritParams parse_dts_out_MYZ
 #' @return a [list]
 #' @export
-parse_dts_out_MYZ.lumpy <- function(dts_out, pars, s) {with(pars$ix$MYZ[[s]],{
+parse_dts_out_MYZ.RMlumpy <- function(dts_out, pars, s) {with(pars$ix$MYZ[[s]],{
   time = dts_out[,1]
   M = dts_out[,M_ix+1]
   P = dts_out[,P_ix+1]
@@ -340,25 +340,25 @@ parse_dts_out_MYZ.lumpy <- function(dts_out, pars, s) {with(pars$ix$MYZ[[s]],{
 })}
 
 #' @title Return initial values as a vector
-#' @description Implements [get_inits_MYZ] for the lumpy model.
+#' @description Implements [get_inits_MYZ] for the RMlumpy model.
 #' @inheritParams get_inits_MYZ
 #' @return [numeric]
 #' @export
-get_inits_MYZ.lumpy <- function(pars, s) {with(pars$MYZinits[[s]],{
+get_inits_MYZ.RMlumpy <- function(pars, s) {with(pars$MYZinits[[s]],{
   c(M, P, U, Y, Z)
 })}
 
-#' @title Make inits for lumpy adult mosquito model
+#' @title Make inits for RMlumpy adult mosquito model
 #' @inheritParams update_inits_MYZ
 #' @return a [list]
 #' @export
-update_inits_MYZ.lumpy <- function(pars, y0, s) {with(pars$ix$MYZ[[s]],{
+update_inits_MYZ.RMlumpy <- function(pars, y0, s) {with(pars$ix$MYZ[[s]],{
   M = y0[M_ix]
   P = y0[P_ix]
   U = y0[U_ix]
   Y = y0[Y_ix]
   Z = y0[Z_ix]
-  pars$MYZinits[[s]] = make_MYZinits_lumpy(pars$nPatches, max_eip, list(), M0=M, P=P0, U=U0, Y0=Y, Z0=Z)
+  pars$MYZinits[[s]] = make_MYZinits_RMlumpy(pars$nPatches, max_eip, list(), M0=M, P=P0, U=U0, Y0=Y, Z0=Z)
   return(pars)
 })}
 
