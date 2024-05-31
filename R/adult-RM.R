@@ -47,7 +47,7 @@ F_eggs.RM <- function(t, y, pars, s) {
 }
 
 #' @title Derivatives for adult mosquitoes
-#' @description Implements [dMYZdt] for the RM ODE model.
+#' @description Implements [dMYZdt] for the RM model.
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
@@ -89,7 +89,7 @@ setup_MYZpar.RM = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
 }
 
 
-#' @title Make parameters for RM ODE adult mosquito model
+#' @title Make parameters for RM adult mosquito model
 #' @param nPatches is the number of patches, an integer
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param EIPname a string: the class name for the EIP model
@@ -250,7 +250,7 @@ list_MYZvars.RM <- function(y, pars, s){
   )))
 }
 
-#' @title Make parameters for RM ODE adult mosquito model
+#' @title Make parameters for RM adult mosquito model
 #' @param pars a [list]
 #' @param EIPname a string: the class name for the EIP model
 #' @param p daily mosquito survival

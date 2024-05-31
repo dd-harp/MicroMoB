@@ -1,0 +1,30 @@
+---
+title: "Behavioral States and Ecology"
+subtitle: "Discrete-Time Dynamics with ENBRQ"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Behavioral States and Ecology}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+#library(ramp.dts)
+devtools::load_all()
+```
+
++ $D$ is the number of time steps that the model runs each day
+
++ Outputs to other components are summed internally 
+
+```{r}
+enbrq <- dts_setup(MYZname = "ENBRQ", Xname = "trace")
+```
+

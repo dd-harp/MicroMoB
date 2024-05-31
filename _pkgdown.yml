@@ -248,26 +248,46 @@ reference:
   - get_inits_MYZ.RM
   - update_inits_MYZ.RM
   - make_parameters_MYZ_RM
-- subtitle: lumpy
+- subtitle: ENBRQ
+  desc: |
+    Specialized methods for a Ross-Macdonald-style model of adult mosquito dynamics, modified slightly from a model published by Joan Aron & Robert May (1982).
+  contents:
+  - MBionomics.ENBRQ
+  - F_fqZ.ENBRQ
+  - F_fqM.ENBRQ
+  - F_eggs.ENBRQ
+  - dMYZdt.ENBRQ
+  - setup_MYZpar.ENBRQ
+  - setup_MYZinits.ENBRQ
+  - list_MYZvars.ENBRQ
+  - make_MYZpar_ENBRQ
+  - make_MYZinits_ENBRQ
+  - make_indices_MYZ.ENBRQ
+  - parse_dts_out_MYZ.ENBRQ
+  - make_inits_MYZ_ENBRQ
+  - get_inits_MYZ.ENBRQ
+  - update_inits_MYZ.ENBRQ
+  - make_parameters_MYZ_ENBRQ
+- subtitle: RMlumpy
   desc: |
     Specialized methods for a lumped-days Ross-Macdonald-style model of adult mosquito dynamics
   contents:
-  - MBionomics.lumpy
-  - F_fqZ.lumpy
-  - F_fqM.lumpy
-  - F_eggs.lumpy
-  - dMYZdt.lumpy
-  - setup_MYZpar.lumpy
-  - setup_MYZinits.lumpy
-  - list_MYZvars.lumpy
-  - make_MYZpar_lumpy
-  - make_MYZinits_lumpy
-  - make_indices_MYZ.lumpy
-  - parse_dts_out_MYZ.lumpy
-  - make_inits_MYZ_lumpy
-  - get_inits_MYZ.lumpy
-  - update_inits_MYZ.lumpy
-  - make_parameters_MYZ_lumpy
+  - MBionomics.RMlumpy
+  - F_fqZ.RMlumpy
+  - F_fqM.RMlumpy
+  - F_eggs.RMlumpy
+  - dMYZdt.RMlumpy
+  - setup_MYZpar.RMlumpy
+  - setup_MYZinits.RMlumpy
+  - list_MYZvars.RMlumpy
+  - make_MYZpar_RMlumpy
+  - make_MYZinits_RMlumpy
+  - make_indices_MYZ.RMlumpy
+  - parse_dts_out_MYZ.RMlumpy
+  - make_inits_MYZ_RMlumpy
+  - get_inits_MYZ.RMlumpy
+  - update_inits_MYZ.RMlumpy
+  - make_parameters_MYZ_RMlumpy
 - title: Aquatic Mosquito Dynamics
   desc: |
     Generic methods for the aquatic (immature) mosquito component.
@@ -331,18 +351,22 @@ reference:
   contents:
   - F_sigma
   - F_sigma.static
-  - F_sigma.BQS
+  - F_sigma.dddn
   - F_nu
   - F_nu.static
+  - F_nu.dddn
   - F_nu.type2
   - F_f
   - F_f.static
+  - F_f.dddn
   - F_f.type2
   - F_q
   - F_q.static
+  - F_q.dddn
   - F_q.dynamic
   - F_p
   - F_p.static
+  - F_p.dddn
 - subtitle: Mosquito Dispersal
   desc: |
     Specialized methods to set up mosquito dispersal matrices
