@@ -47,7 +47,7 @@ F_eggs.basicM <- function(t, y, pars, s) {
 }
 
 #' @title Derivatives for adult mosquitoes
-#' @description Implements [dMYZdt] for the basicM model.
+#' @description Implements [dMYZdt] for the basicM ODE model.
 #' @inheritParams dMYZdt
 #' @return a [numeric] vector
 #' @export
@@ -76,7 +76,7 @@ setup_MYZpar.basicM = function(MYZname, pars, s, MYZopts=list(), EIPname, calK){
 }
 
 
-#' @title Make parameters for basicM adult mosquito model
+#' @title Make parameters for basicM ODE adult mosquito model
 #' @param nPatches is the number of patches, an integer
 #' @param MYZopts a [list] of values that overwrites the defaults
 #' @param EIPname a string: the class name for the EIP model
@@ -208,7 +208,7 @@ list_MYZvars.basicM <- function(y, pars, s){
        )))
 }
 
-#' @title Make parameters for basicM adult mosquito model
+#' @title Make parameters for basicM ODE adult mosquito model
 #' @param pars a [list]
 #' @param p daily mosquito survival
 #' @param sigma emigration rate

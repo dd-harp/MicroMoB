@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-RM.R
 \name{make_MYZpar_RM}
 \alias{make_MYZpar_RM}
-\title{Make parameters for RM adult mosquito model}
+\title{Make parameters for RM ODE adult mosquito model}
 \usage{
 make_MYZpar_RM(
   nPatches,
@@ -60,5 +60,5 @@ make_MYZpar_RM(
 a \link{list}
 }
 \description{
-Make parameters for RM adult mosquito model
+Make parameters for RM ODE adult mosquito model
 }

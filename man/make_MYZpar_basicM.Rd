@@ -2,7 +2,7 @@
 % Please edit documentation in R/adult-basicM.R
 \name{make_MYZpar_basicM}
 \alias{make_MYZpar_basicM}
-\title{Make parameters for basicM adult mosquito model}
+\title{Make parameters for basicM ODE adult mosquito model}
 \usage{
 make_MYZpar_basicM(
   nPatches,
@@ -60,5 +60,5 @@ make_MYZpar_basicM(
 a \link{list}
 }
 \description{
-Make parameters for basicM adult mosquito model
+Make parameters for basicM ODE adult mosquito model
 }

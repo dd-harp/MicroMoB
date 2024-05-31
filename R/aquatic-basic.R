@@ -8,7 +8,6 @@
 LBionomics.basic <- function(t, y, pars, s) {with(pars$Lpar[[s]],{
   pars$Lpar[[s]]$psi <- psi0
   pars$Lpar[[s]]$phi <- phi0
-  pars$Lpar[[s]]$xi   <- xi0
   pars$Lpar[[s]]$theta <- theta0
 
   return(pars)
@@ -23,7 +22,7 @@ LBionomics.basic <- function(t, y, pars, s) {with(pars$Lpar[[s]],{
 F_alpha.basic <- function(t, y, pars, s) {
   L <- y[pars$ix$L[[s]]$L_ix]
   with(pars$Lpar[[s]],{
-    exp(-(phi+theta*L))*(1-exp(-(psi*exp(-xi*L))))*L
+    return(psi*L)
   })
 }
 
@@ -37,7 +36,7 @@ dLdt.basic <- function(t, y, pars, s) {
   with(pars$ix$L[[s]],{
     L <- y[L_ix]
     with(pars$Lpar[[s]], {
-      Lt = eta + exp(-(psi*exp(-xi*L)+phi+theta*L))*L
+      dL = eta - (psi + phi + (theta*L))*L
       return(dL)
     })
   })
@@ -67,23 +66,15 @@ setup_Linits.basic = function(pars, s, Lopts=list()){
 #' @param nHabitats the number of habitats in the model
 #' @param Lopts a [list] that overwrites default values
 #' @param psi maturation rates for each aquatic habitat
-#' @param xi delayed maturation due to mean crowding
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
 #' @return a [list] with Lpar added
 #' @export
-make_Lpar_basic = function(nHabitats, Lopts=list(), psi=1/8, xi=0, phi=1/8, theta=1/100){with(Lopts,{
+make_Lpar_basic = function(nHabitats, Lopts=list(), psi=1/8, phi=1/8, theta=1/100){with(Lopts,{
   Lpar = list()
   class(Lpar) <- "basic"
-
-  Lpar$psi = checkIt(psi, nHabitats)
-  Lpar$xi = checkIt(xi, nHabitats)
-  Lpar$psi = checkIt(psi, nHabitats)
-  Lpar$theta = checkIt(theta, nHabitats)
-
   Lpar$psi0 = checkIt(psi, nHabitats)
-  Lpar$xi0 = checkIt(xi, nHabitats)
-  Lpar$psi0 = checkIt(psi, nHabitats)
+  Lpar$phi0 = checkIt(phi, nHabitats)
   Lpar$theta0 = checkIt(theta, nHabitats)
 
   return(Lpar)
@@ -131,22 +122,19 @@ parse_dts_out_L.basic <- function(dts_out, pars, s) {
 #' @title Make parameters for basic competition aquatic mosquito model
 #' @param pars a [list]
 #' @param psi maturation rates for each aquatic habitat
-#' @param xi delayed maturation due to mean crowding
 #' @param phi density-independent mortality rates for each aquatic habitat
 #' @param theta density-dependent mortality terms for each aquatic habitat
 #' @return a [list] with Lpar added
 #' @export
-make_parameters_L_basic <- function(pars, psi, xi, phi, theta) {
+make_parameters_L_basic <- function(pars, psi, phi, theta) {
   stopifnot(is.numeric(psi), is.numeric(phi), is.numeric(theta))
   Lpar <- list()
   class(Lpar) <- 'basic'
   Lpar$psi <- psi
-  Lpar$xi <- xi
   Lpar$phi <- phi
   Lpar$theta <- theta
 
   Lpar$psi0 <- psi
-  Lpar$xi0 <- xi
   Lpar$phi0 <- phi
   Lpar$theta0 <- theta
 
